@@ -1,2 +1,2 @@
 # LBAW
-LABORATÓRIO DE BASES DE DADOS E APLICAÇÕES WEB Event Management
+Para o ano há mais :p
