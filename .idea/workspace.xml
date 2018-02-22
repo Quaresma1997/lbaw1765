@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cba8331-070b-4cde-aa93-bb38456a7960" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/A3/initial.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/A3/initial.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/A3/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/A3/initial.html" afterPath="$PROJECT_DIR$/A3/initial.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,9 +17,13 @@
       <file leaf-file-name="initial.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A3/initial.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="19" column="78" lean-forward="true" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="78" />
-              <folding />
+            <state relative-caret-position="384">
+              <caret line="156" column="22" lean-forward="true" selection-start-line="156" selection-start-column="22" selection-end-line="156" selection-end-column="22" />
+              <folding>
+                <element signature="e#2125#2132#1" expanded="true" />
+                <element signature="e#6372#6379#1" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -230,12 +232,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519255313996</updated>
       <workItem from="1519255315718" duration="4415000" />
-      <workItem from="1519288976984" duration="1734000" />
+      <workItem from="1519288976984" duration="5652000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6149000" />
+    <option name="totallyTimeSpent" value="10067000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1370" height="745" extended-state="0" />
@@ -275,7 +277,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2125#2132#1" expanded="true" />
+            <element signature="e#6372#6379#1" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -313,9 +319,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/A3/initial.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="19" column="78" lean-forward="true" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="78" />
-          <folding />
+        <state relative-caret-position="384">
+          <caret line="156" column="22" lean-forward="true" selection-start-line="156" selection-start-column="22" selection-end-line="156" selection-end-column="22" />
+          <folding>
+            <element signature="e#2125#2132#1" expanded="true" />
+            <element signature="e#6372#6379#1" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
