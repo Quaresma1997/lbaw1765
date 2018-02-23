@@ -11,21 +11,33 @@
     <link rel="stylesheet" href="initial.css"/>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" >
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand active" href="#">WebSiteName</a>
             </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" data-toggle="modal" data-target="#sign_up"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-            <form class="navbar-form navbar-left" action="/action_page.php">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" data-target="#sign_up"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -43,7 +55,7 @@
                         <form class="form-group" method="post" action="#">
 
                             <div class="form-group">
-                                <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                                <label for="name" class="cols-sm-2 control-label">Your Username</label>
                                 <div class="cols-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -63,11 +75,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="username" class="cols-sm-2 control-label">Username</label>
+                                <label for="city" class="cols-sm-2 control-label">City</label>
                                 <div class="cols-sm-10">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                        <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+                                        <span class="input-group-addon"><i class="fa fa-home fa-lg" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="username" id="city"  placeholder="Enter your City"/>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +105,16 @@
                             </div>
 
                             <div class="form-group ">
-                                <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                                <button type="button" class="btn btn-lg btn-block btn-default login-button">Register</button>
+                            </div>
+
+                            <div class="social-login">
+                                <label class="cols-sm-2 control-label">Sign In With</label>
+                                <div class="btn-group btn-group-lg">
+                                    <button type="button" class="btn btn-primary fa fa-facebook-square fa-lg"></button>
+                                    <button type="button" class="btn btn-danger fa fa-google fa-lg"></button>
+                                </div>
+
                             </div>
                         </form>
                     </div>
@@ -102,6 +123,7 @@
 
         </div>
     </div>
+
     <div class="modal fade" id="login" role="dialog">
         <div class="modal-dialog modal-sm">
 
@@ -133,12 +155,93 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-primary btn-block login-button">Login</button>
+                            <button type="button" class="btn btn-default btn-block login-button">Login</button>
                         </form>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="container-inner" style="margin-top:100px">
+        <div class="row">
+            <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+                <ul class="list-group event-list">
+                    <li class="list-group-item">
+                        <time datetime="2014-07-20">
+                            <span class="day">4</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2014</span>
+                            <span class="time">00:00</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">Titulo Evento</h2>
+                            <p class="desc">Descrição</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <time datetime="2014-07-20">
+                            <span class="day">4</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2014</span>
+                            <span class="time">00:00</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">Titulo Evento</h2>
+                            <p class="desc">Descrição</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <time datetime="2014-07-20">
+                            <span class="day">4</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2014</span>
+                            <span class="time">00:00</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">Titulo Evento</h2>
+                            <p class="desc">Descrição</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <time datetime="2014-07-20">
+                            <span class="day">4</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2014</span>
+                            <span class="time">00:00</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">Titulo Evento</h2>
+                            <p class="desc">Descrição</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <time datetime="2014-07-20">
+                            <span class="day">4</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2014</span>
+                            <span class="time">00:00</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">Titulo Evento</h2>
+                            <p class="desc">Descrição</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <time datetime="2014-07-20">
+                            <span class="day">4</span>
+                            <span class="month">Jul</span>
+                            <span class="year">2014</span>
+                            <span class="time">00:00</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">Titulo Evento</h2>
+                            <p class="desc">Descrição</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
