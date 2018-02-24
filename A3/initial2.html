@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Visitor area</title>
+    <title>User area</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -12,24 +12,374 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" >
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="#">Manage Events</a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" data-toggle="modal" data-target="#sign_up"><span class="glyphicon glyphicon-user" ></span> Username</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-        </ul>
-        <form class="navbar-form navbar-left" action="/action_page.php">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-        <button class="btn btn-success navbar-btn">Add Event</button>
+            <button class="btn btn-success navbar-btn" data-toggle="modal" data-target="#addEvent">Add Event</button>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user" ></span> Username</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
+
+<div class="modal fade" id="addEvent" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Event</h4>
+            </div>
+            <div class="modal-body">
+                <div class="main-login main-center">
+                    <form class="form-group " method="post" action="#">
+                        <div class="form-group">
+                            <label for="nameEvent" class="cols-sm-2 control-label">Event Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="nameEvent" id="nameEvent" placeholder="Enter event name"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date" class="cols-sm-2 control-label">Date</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                    <input type="datetime-local" class="form-control" name="date" id="date"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="localization" class="cols-sm-2 control-label">Localization</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="localization" id="localization" placeholder="Enter localization"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="cols-sm-2 control-label">Description</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-align-justify " aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="description" id="description" placeholder="Enter description"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-success btn-block add-button">Create Event</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+        <div class="container" style="margin-top:100px">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 tab-menu">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active text-center">
+                        All
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        My
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        Going
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        Gone
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 tab">
+                <!-- All section -->
+                <div class="tab-content active">
+                    <div class="container-inner" >
+                        <nav class="navbar">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#filter">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="filter">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">Page 1</a></li>
+                                            <li><a href="#">Page 2</a></li>
+                                            <li><a href="#">Page 3</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="row">
+                            <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- My section -->
+                <div class="tab-content">
+
+                </div>
+
+                <!-- Going search -->
+                <div class="tab-content">
+                    <div class="container-inner" >
+                        <div class="row">
+                            <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gone search -->
+                <div class="tab-content">
+                    <div class="container-inner" >
+                        <div class="row">
+                            <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2 class="title">Titulo Evento</h2>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">00:00</span>
+                                            </time>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p class="desc">Descrição</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<footer>
+    <div class="container-inner" style="margin-top:50px">
+        <div id="footer-bottom" class="row">
+            <div class="col-md-6 footer-bottom-left">
+                <p>Copyright © 2018 by Tiago&Companhia.</p>
+            </div>
+            <div class="col-md-6 footer-bottom-right">
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
 
