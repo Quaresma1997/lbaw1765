@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>4. My Profile - Bootsnipp.com</title>
+    <title> My Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
@@ -393,19 +392,98 @@ i {font-size:12px; color:#dd0000;}
     text-decoration: none;
     width: 100%;
 }
+
+.list-content{
+ min-height:300px;
+}
+.list-content .list-group .title{
+  background:#141414;
+  border:2px solid #DDDDDD;
+  font-weight:bold;
+  color:#FFFFFF;
+}
+.list-group-item img {
+    height:80px; 
+    width:80px;
+}
+
+.jumbotron .btn {
+    padding: 5px 5px !important;
+    font-size: 12px !important;
+}
+.prj-name {
+    color:#141414;    
+}
+.break{
+    width:100%;
+    margin:20px;
+}
+.name {
+    color:#141414;    
+}
     </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+   
 </head>
 <body>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">  
 
 
+ <nav class="navbar navbar-inverse navbar-fixed-top" >
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand active" href="#">Manage Events</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" data-target="#sign_up"><span class="glyphicon glyphicon-user" ></span> Sign Up </a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                </ul>
+            </div>
+        </div>
+		
+    </nav>
 
-
-<div class="main-content">
+			
     <div class="container">
         <h3 class="site-title">Profile Page</h3>
+							 
+							  <header class="vertical-space">
+                <nav class="navbar">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#filter">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="filter">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">Events</a></li>
+                                            <li><a href="#">Page 2</a></li>
+                                            <li><a href="#">Page 3</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+            </header>
+
         <div class="row">
             <div class="col-md-9">
                 <div class="row">
@@ -424,6 +502,8 @@ i {font-size:12px; color:#dd0000;}
 		            <i class="fa fa-star"></i>
 		        </div>
                  <button type="button" class="btn btn-success btn-md pull-center">Edit</button>
+				 
+
 		       <hr>
 		       
 		        
@@ -487,8 +567,71 @@ i {font-size:12px; color:#dd0000;}
            
         </div>
     </div>
-<script type="text/javascript">
+	
+	<link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<div class="container bootstrap snippet">
 
-</script>
+  <div class="header">
+    <h3 class="text-muted prj-name">
+        <span class="fa fa-users fa-2x principal-title"></span>
+        Friend zone
+    </h3>
+  </div>
+
+
+  <div class="jumbotron list-content">
+    <ul class="list-group">
+      <li href="#" class="list-group-item title">
+        Your friend zone
+      </li>
+      <li href="#" class="list-group-item text-left">
+        <img class="img-thumbnail" src="https://bootdey.com/img/Content/User_for_snippets.png">
+        <label class="name">
+            Alex Telles<br>
+        </label>
+        <label class="pull-right">
+            <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete"></a>
+        </label>
+        <div class="break"></div>
+      </li>
+      <li href="#" class="list-group-item text-left">
+          <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_1.jpg">
+        <label class="name">
+          James Rodriguez 
+        </label>
+        <label class="pull-right">
+            <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete"></a>
+        </label>
+        <div class="break"></div>
+      </li>
+      <li href="#" class="list-group-item text-left">
+          <img class="img-thumbnail"  src="https://bootdey.com/img/Content/user_2.jpg">
+          <label class="name">
+            Eva Carneiro
+          </label>
+        <label class="pull-right">
+            <a  class="btn btn-danger  btn-xs glyphicon glyphicon-trash" href="#" title="Delete"></a>
+        </label>
+        <div class="break"></div>
+      </li>
+     
+    </ul>
+  </div>
+  </div>
+</div>                                           
+	
+	    <footer>
+        <div class="container-inner" style="margin-top:50px">
+            <div id="footer-bottom" class="row">
+                <div class="col-md-6 footer-bottom-left">
+                    <p>Copyright © 2018 by Tiago&Companhia.</p>
+                </div>
+                <div class="col-md-6 footer-bottom-right">
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
