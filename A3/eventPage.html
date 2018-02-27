@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Event page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        /************ Crousel CSS **************/
+
+.item img {width:100%; max-height:200px;display: block;}
+.caraous-title {
+    position: absolute;
+    top: 35%;
+    left: 25px;
+    right: auto;
+    width: 96.66666666666666%;
+    color: #000;
+}
+.caraous-title h1 {color:#FFF;font-size:20px; font-weight:600;margin:0;}
+.caraous-title h3 {margin-bottom:20px;color:#fff;font-size:15px; letter-spacing:1px;}
+.caraous-title span {color:#aa1f43;}
+.caraous-img-box img {width:50%;}
+/* Button */
+.site-btn{padding:12px 25px 12px 25px;border-radius:2px;background:#DF314D;border-color:transparent;font-size:14px;}
+.site-btn:hover{background:#C9223D ;border:transparent;}
+.site-btn2{padding:12px 25px 12px 25px;border-radius:2px;background:#05681e;border-color:transparent;font-size:14px;}
+.site-btn2:hover{background:rgb(128, 197, 71); ;border:transparent;}
+
+
+/*************** Generic CSS ***************/
+.margin-b-70 {margin-top:120px;}
+/************ SIDEBAR **************/
+.list-links li {
+    border-top: 1px dotted #d4d4d4;
+    padding: 10px 10px 10px;
+    border-bottom: 1px dotted #d4d4d4;
+    list-style:none;
+    margin: 0px;
+}
+.sidebar-box {background:#fff; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95);}
+.sidebar-box ul {margin:0px; padding:0px;}  
+.sidebar-box ul a {font-size:16px; letter-spacing:1px; color:#000;}
+.sidebar-box li:hover {background:#e2e2e2; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95); }
+.sidebar-box ul a:hover {list-style:none;text-decoration: none;}
+
+.bg-box {padding:15px ;background:#fff; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95);}
+.content-box {padding:15px ;background:#fff; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95);}
+.sec-title h2 {font-weight:600;color:#e93402;}
+.sec-title p{line-height:26px; font-weight:500;}
+
+/************** NAVIGATION ***************/
+.caret-up {
+  width: 0; 
+  height: 0; 
+  border-left: 4px solid rgba(0, 0, 0, 0);
+  border-right: 4px solid rgba(0, 0, 0, 0);
+  border-bottom: 4px solid;
+
+  display: inline-block;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+.dropdown-menu {padding:0px;}
+.dropdown-menu > li > a {
+color: #514f4f;
+text-decoration: none;
+background-color: #fff   ;
+}
+.dropdown-menu > li > a:hover {
+color: #fff;
+text-decoration: none;
+background-color: #e93402     ;
+}
+.dropdown-menu > li > a {padding:8px; border-bottom:1px solid #e2e2e2;}
+
+.navbar-default {
+  background-color: #e93402;
+  padding:25px 0px 15px 0px;
+  font-weight:400;
+  letter-spacing:2px;
+  font-size:16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.navbar-default .navbar-brand {
+  color: #dfdfdf;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-text {
+  color: #dfdfdf;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #dfdfdf;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #e93402;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #e93402;
+}
+.navbar-default .navbar-toggle {
+  border-color: #e93402;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #e93402;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #dfdfdf;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #dfdfdf;
+}
+.navbar-default .navbar-link {
+  color: #dfdfdf;
+}
+.navbar-default .navbar-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #dfdfdf;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #e93402;
+  }
+}
+
+.panel-shadow {
+    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+.panel-white {
+  border: 1px solid #dddddd;
+}
+.panel-white  .panel-heading {
+  color: #333;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.panel-white  .panel-footer {
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.post .post-heading {
+  height: 95px;
+  padding: 20px 15px;
+}
+.post .post-heading .avatar {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-right: 15px;
+}
+.post .post-heading .meta .title {
+  margin-bottom: 0;
+}
+.post .post-heading .meta .title a {
+  color: black;
+}
+.post .post-heading .meta .title a:hover {
+  color: #aaaaaa;
+}
+.post .post-heading .meta .time {
+  margin-top: 8px;
+  color: #999;
+}
+.post .post-image .image {
+  width: 100%;
+  height: auto;
+}
+.post .post-description {
+  padding: 15px;
+}
+.post .post-description p {
+  font-size: 14px;
+}
+.post .post-description .stats {
+  margin-top: 20px;
+}
+.post .post-description .stats .stat-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+.post .post-description .stats .stat-item .icon {
+  margin-right: 8px;
+}
+.post .post-footer {
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+.post .post-footer .input-group-addon a {
+  color: #454545;
+}
+.post .post-footer .comments-list {
+  padding: 0;
+  margin-top: 20px;
+  list-style-type: none;
+}
+.post .post-footer .comments-list .comment {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+}
+.post .post-footer .comments-list .comment .avatar {
+  width: 35px;
+  height: 35px;
+}
+.post .post-footer .comments-list .comment .comment-heading {
+  display: block;
+  width: 100%;
+}
+.post .post-footer .comments-list .comment .comment-heading .user {
+  font-size: 14px;
+  font-weight: bold;
+  display: inline;
+  margin-top: 0;
+  margin-right: 10px;
+}
+.post .post-footer .comments-list .comment .comment-heading .time {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 0;
+  display: inline;
+}
+.post .post-footer .comments-list .comment .comment-body {
+  margin-left: 50px;
+}
+.post .post-footer .comments-list .comment > .comments-list {
+  margin-left: 50px;
+}
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+   <nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="#">Manage Events</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="btn btn-success navbar-btn" data-toggle="modal" data-target="#addEvent">Add Event</button>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user" ></span> Username</a></li>
+                <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  
+  
+	       					
+	   </div>
+	   <div class="col-md-9">
+	        <h3> </h3>
+	       <div class="bg-box">
+	          <div id="myCarousel" class="carousel slide" data-interval="false">
+  
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="https://www.asiaworld-expo.com/assets/img/1DX_1172-resized-2be7b47d4f.jpg" style="width:100%" class="img-responsive">
+      <div class="container">
+      </div>
+    </div>
+   
+  </div>
+  
+</div>
+						   <p> <p/>
+
+                 <button type="button" class="btn btn-success btn-md pull-center">Edit</button>
+
+	       </div>
+	       <div class="content-box">
+	          <div class="row">
+	                     <div class="col-md-12">
+	                         <div class="sec-title">
+	                       <h2>EVENT NAME</h2>
+	                       <p> Description<p/>
+						   <p> Data<p/>
+						   <p> Localização<p/>
+						   </div>
+	                   </div>
+	               </div>
+	       </div>
+		   
+		  
+	       
+	   </div>
+	   
+	 </div>
+  </div>
+  <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-circle-arrow-right"></span>Date of the Event?</h3>
+                </div>
+                <div class="panel-body two-col">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="well well-sm">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        12/12/2010
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well well-sm">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        16/8/1918
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="well well-sm margin-bottom-none">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        6/12/1999
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well well-sm margin-bottom-none">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        7/9/2019
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-ok"></span>Vote</button>
+                    <button type="button" class="btn btn-primary btn-sm">
+                        View Result</button>
+                </div>
+            </div>
+        </div>
+  
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#"><b>Ryan Haywood</b></a>
+                            commented.
+                        </div>
+                    </div>
+                </div> 
+                <div class="post-description"> 
+                    <p>Lets pick a date</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#"><b>Ryan Haywood</b></a>
+                            commented.
+                        </div>
+                    </div>
+                </div> 
+                <div class="post-description"> 
+                    <p>I voted</p>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
