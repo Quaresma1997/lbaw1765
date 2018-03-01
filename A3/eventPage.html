@@ -1,263 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>Event page</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-        /************ Crousel CSS **************/
+    <meta charset="UTF-8"/>
+    <title>User area</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./initial.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-.item img {width:100%; max-height:200px;display: block;}
-.caraous-title {
-    position: absolute;
-    top: 35%;
-    left: 25px;
-    right: auto;
-    width: 96.66666666666666%;
-    color: #000;
-}
-.caraous-title h1 {color:#FFF;font-size:20px; font-weight:600;margin:0;}
-.caraous-title h3 {margin-bottom:20px;color:#fff;font-size:15px; letter-spacing:1px;}
-.caraous-title span {color:#aa1f43;}
-.caraous-img-box img {width:50%;}
-/* Button */
-.site-btn{padding:12px 25px 12px 25px;border-radius:2px;background:#DF314D;border-color:transparent;font-size:14px;}
-.site-btn:hover{background:#C9223D ;border:transparent;}
-.site-btn2{padding:12px 25px 12px 25px;border-radius:2px;background:#05681e;border-color:transparent;font-size:14px;}
-.site-btn2:hover{background:rgb(128, 197, 71); ;border:transparent;}
-
-
-/*************** Generic CSS ***************/
-.margin-b-70 {margin-top:120px;}
-/************ SIDEBAR **************/
-.list-links li {
-    border-top: 1px dotted #d4d4d4;
-    padding: 10px 10px 10px;
-    border-bottom: 1px dotted #d4d4d4;
-    list-style:none;
-    margin: 0px;
-}
-.sidebar-box {background:#fff; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95);}
-.sidebar-box ul {margin:0px; padding:0px;}  
-.sidebar-box ul a {font-size:16px; letter-spacing:1px; color:#000;}
-.sidebar-box li:hover {background:#e2e2e2; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95); }
-.sidebar-box ul a:hover {list-style:none;text-decoration: none;}
-
-.bg-box {padding:15px ;background:#fff; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95);}
-.content-box {padding:15px ;background:#fff; box-shadow: 0px 0px .5px 0px rgba(50, 50, 50, 0.95);}
-.sec-title h2 {font-weight:600;color:#e93402;}
-.sec-title p{line-height:26px; font-weight:500;}
-
-/************** NAVIGATION ***************/
-.caret-up {
-  width: 0; 
-  height: 0; 
-  border-left: 4px solid rgba(0, 0, 0, 0);
-  border-right: 4px solid rgba(0, 0, 0, 0);
-  border-bottom: 4px solid;
-
-  display: inline-block;
-  margin-left: 2px;
-  vertical-align: middle;
-}
-.dropdown-menu {padding:0px;}
-.dropdown-menu > li > a {
-color: #514f4f;
-text-decoration: none;
-background-color: #fff   ;
-}
-.dropdown-menu > li > a:hover {
-color: #fff;
-text-decoration: none;
-background-color: #e93402     ;
-}
-.dropdown-menu > li > a {padding:8px; border-bottom:1px solid #e2e2e2;}
-
-.navbar-default {
-  background-color: #e93402;
-  padding:25px 0px 15px 0px;
-  font-weight:400;
-  letter-spacing:2px;
-  font-size:16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-.navbar-default .navbar-brand {
-  color: #dfdfdf;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-text {
-  color: #dfdfdf;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #dfdfdf;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #e93402;
-}
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-  color: #ffffff;
-  background-color: #e93402;
-}
-.navbar-default .navbar-toggle {
-  border-color: #e93402;
-}
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-  background-color: #e93402;
-}
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #dfdfdf;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-  border-color: #dfdfdf;
-}
-.navbar-default .navbar-link {
-  color: #dfdfdf;
-}
-.navbar-default .navbar-link:hover {
-  color: #ffffff;
-}
-
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #dfdfdf;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ffffff;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #ffffff;
-    background-color: #e93402;
-  }
-}
-
-.panel-shadow {
-    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
-}
-.panel-white {
-  border: 1px solid #dddddd;
-}
-.panel-white  .panel-heading {
-  color: #333;
-  background-color: #fff;
-  border-color: #ddd;
-}
-.panel-white  .panel-footer {
-  background-color: #fff;
-  border-color: #ddd;
-}
-
-.post .post-heading {
-  height: 95px;
-  padding: 20px 15px;
-}
-.post .post-heading .avatar {
-  width: 60px;
-  height: 60px;
-  display: block;
-  margin-right: 15px;
-}
-.post .post-heading .meta .title {
-  margin-bottom: 0;
-}
-.post .post-heading .meta .title a {
-  color: black;
-}
-.post .post-heading .meta .title a:hover {
-  color: #aaaaaa;
-}
-.post .post-heading .meta .time {
-  margin-top: 8px;
-  color: #999;
-}
-.post .post-image .image {
-  width: 100%;
-  height: auto;
-}
-.post .post-description {
-  padding: 15px;
-}
-.post .post-description p {
-  font-size: 14px;
-}
-.post .post-description .stats {
-  margin-top: 20px;
-}
-.post .post-description .stats .stat-item {
-  display: inline-block;
-  margin-right: 15px;
-}
-.post .post-description .stats .stat-item .icon {
-  margin-right: 8px;
-}
-.post .post-footer {
-  border-top: 1px solid #ddd;
-  padding: 15px;
-}
-.post .post-footer .input-group-addon a {
-  color: #454545;
-}
-.post .post-footer .comments-list {
-  padding: 0;
-  margin-top: 20px;
-  list-style-type: none;
-}
-.post .post-footer .comments-list .comment {
-  display: block;
-  width: 100%;
-  margin: 20px 0;
-}
-.post .post-footer .comments-list .comment .avatar {
-  width: 35px;
-  height: 35px;
-}
-.post .post-footer .comments-list .comment .comment-heading {
-  display: block;
-  width: 100%;
-}
-.post .post-footer .comments-list .comment .comment-heading .user {
-  font-size: 14px;
-  font-weight: bold;
-  display: inline;
-  margin-top: 0;
-  margin-right: 10px;
-}
-.post .post-footer .comments-list .comment .comment-heading .time {
-  font-size: 12px;
-  color: #aaa;
-  margin-top: 0;
-  display: inline;
-}
-.post .post-footer .comments-list .comment .comment-body {
-  margin-left: 50px;
-}
-.post .post-footer .comments-list .comment > .comments-list {
-  margin-left: 50px;
-}
-    </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-  
-   <nav class="navbar navbar-inverse navbar-fixed-top" >
+
+<nav class="navbar navbar-inverse navbar-fixed-top" >
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -286,154 +50,264 @@ background-color: #e93402     ;
         </div>
     </div>
 </nav>
-  
-  
-	       					
-	   </div>
-	   <div class="col-md-9">
-	        <h3> </h3>
-	       <div class="bg-box">
-	          <div id="myCarousel" class="carousel slide" data-interval="false">
-  
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="https://www.asiaworld-expo.com/assets/img/1DX_1172-resized-2be7b47d4f.jpg" style="width:100%" class="img-responsive">
-      <div class="container">
+
+
+
+
+
+<div class="modal fade" id="addEvent" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Event</h4>
+            </div>
+            <div class="modal-body">
+                <div class="main-login main-center">
+                    <form class="form-group " method="post" action="#">
+                        <div class="form-group">
+                            <label for="nameEvent" class="cols-sm-2 control-label">Event Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="nameEvent" id="nameEvent" placeholder="Enter event name"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date" class="cols-sm-2 control-label">Date</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                    <input type="datetime-local" class="form-control" name="date" id="date"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="localization" class="cols-sm-2 control-label">Localization</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="localization" id="localization" placeholder="Enter localization"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="cols-sm-2 control-label">Description</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-align-justify " aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="description" id="description" placeholder="Enter description"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-success btn-block add-button">Create Event</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRApn4d7KQQ5w9i1DMdgLze-pKlK-fagTN6GZDhmKIEw-PvAJj9" alt="Los Angeles" style="width:100%;">
+      </div>
+
+      <div class="item">
+        <img src="http://wikimotive.com/wikiblog/wp-content/uploads/sites/2/2013/10/events-heavenly-header1.jpg" alt="Chicago" style="width:100%;">
+      </div>
+    
+      <div class="item">
+        <img src="https://www.newstatesman.com/sites/all/themes/creative-responsive-theme/images/new_statesman_events.jpg" alt="New york" style="width:100%;">
       </div>
     </div>
-   
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-  
 </div>
-						   <p> <p/>
 
-                 <button type="button" class="btn btn-success btn-md pull-center">Edit</button>
+  
+  <div class="container">
+    <h1>Event Name</h1>
+          <table class="table table-hover">  
+            <tbody>
+              <tr>
+                <td> <span class="glyphicon glyphicon-map-marker"></span>    </td>
+                <td>PLACE</td>
+              </tr>
+              <tr>
+                <td><span class="glyphicon glyphicon-calendar"></span></td>
+                <td>Date</td>
+              </tr>
+              <tr>
+                <td><span class="glyphicon glyphicon-align-justify"></span></td>
+                <td>Description</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+	
 
-	       </div>
-	       <div class="content-box">
-	          <div class="row">
-	                     <div class="col-md-12">
-	                         <div class="sec-title">
-	                       <h2>EVENT NAME</h2>
-	                       <p> Description<p/>
-						   <p> Data<p/>
-						   <p> Localização<p/>
-						   </div>
-	                   </div>
-	               </div>
-	       </div>
-		   
-		  
-	       
-	   </div>
-	   
-	 </div>
+
+  <div class="container" style="margin-top:100px">
+
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#events">Users attending</a></li>
+      <li><a data-toggle="tab" href="#users">Discussion</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="events" class="tab-pane fade in active">
+        <h3>Attending</h3>
+       
+        <div class="container">
+		<div class="media">
+    <div class="media-left">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx" class="media-object" style="width:60px">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">Name</h4>
+    </div>
   </div>
-  <div class="col-md-6">
+         
+        </div>
+      </div>
+      <div id="users" class="tab-pane fade">
+        <h3>Discussion</h3>
+		<div class="container">
+  <h4>Leave a comment:</h4>
+  <form role="form">
+        <div class="form-group">
+          <textarea class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+  
+  <!-- Left-aligned media object -->
+  <div class="media">
+    <div class="media-left">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx" class="media-object" style="width:60px">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">Name</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </div>
+  <div class="media">
+    <div class="media-left">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx" class="media-object" style="width:60px">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">Name</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </div>
+  <hr> 
+</div>
+ <div class="row">
+        <div class="col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-circle-arrow-right"></span>Date of the Event?</h3>
+                        <span class="glyphicon glyphicon-map-marker"></span> Place of the concert ? </a>
+                    </h3>
                 </div>
-                <div class="panel-body two-col">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="well well-sm">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        12/12/2010
-                                    </label>
-                                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios">
+                                    London
+                                </label>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="well well-sm">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        16/8/1918
-                                    </label>
-                                </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios">
+                                    Botwana
+                                </label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="well well-sm margin-bottom-none">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        6/12/1999
-                                    </label>
-                                </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios">
+                                    Lisbon
+                                </label>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="well well-sm margin-bottom-none">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        7/9/2019
-                                    </label>
-                                </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios">
+                                    Manchester
+                                </label>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+               
+                    </ul>
                 </div>
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-success btn-sm">
-                        <span class="glyphicon glyphicon-ok"></span>Vote</button>
                     <button type="button" class="btn btn-primary btn-sm">
-                        View Result</button>
-                </div>
+                        Vote</button>
+                    <a href="#">View Result</a></div>
             </div>
         </div>
-  
-</div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#"><b>Ryan Haywood</b></a>
-                            commented.
-                        </div>
-                    </div>
-                </div> 
-                <div class="post-description"> 
-                    <p>Lets pick a date</p>
-                    
-                </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+	
+<footer>
+    <div class="container-inner" style="margin-top:50px">
+        <div id="footer-bottom" class="row">
+            <div class="col-md-6 footer-bottom-left">
+                <p>Copyright © 2018 by Tiago&Companhia.</p>
             </div>
-        </div>
-        <div class="col-sm-8">
-            <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
-                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                    </div>
-                    <div class="pull-left meta">
-                        <div class="title h5">
-                            <a href="#"><b>Ryan Haywood</b></a>
-                            commented.
-                        </div>
-                    </div>
-                </div> 
-                <div class="post-description"> 
-                    <p>I voted</p>
-                   
-                </div>
+            <div class="col-md-6 footer-bottom-right">
             </div>
         </div>
     </div>
-</div>
+</footer>
 
 </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script src="./script.js" type="text/javascript" charset="utf-8"></script>
+ 
