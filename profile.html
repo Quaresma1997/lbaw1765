@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand active" href="#">Manage Events</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="col-sm-3 col-md-3">
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="q">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Username</a></li>
+          <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid" style="margin-top:100px">
+
+    <div class="row">
+      <div class="col-lg-3 col-lg-offset-1">
+        <img src="./lights.jpg" class="img-responsive img-rounded" alt="Cinque Terre">
+        <h3>Username</h3>
+        <h5><span class="fa fa-user fa-lg"></span> Mari Gui</h5>
+        <h5><span class="fa fa-envelope"></span> marigui@gmail.com</h5>
+        <h5><span class="fa fa-home fa-lg"></span> Porto, Portugal</h5>
+        <!-- <div class="btn-group btn-group-justified">
+          <a type="button" class="btn btn-primary fa fa-edit fa-lg"> Edit</a>
+          <a type="button" class="btn btn-primary fa fa-trash fa-lg"> Delete</a>
+        </div> -->
+
+      </div>
+
+      <div class="col-lg-7">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#events">Events</a></li>
+          <li><a data-toggle="tab" href="#friends">Friends</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="events" class="tab-pane fade in active">
+            <div class="container-fluid">
+              <table class="table table-responsive table-striped" style="margin-top:1em">
+                <thead>
+                  <tr>
+                    <th class="col-lg-1">#</th>
+                    <th class="col-lg-3">Name</th>
+                    <th class="col-lg-3">Owner</th>
+                    <th class="col-lg-1">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Queima</td>
+                    <td>MariGui</td>
+                    <td><button type="button" class="btn btn-danger fa fa-ban fa-lg"></button></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Makukula Birthday Party</td>
+                    <td>Makukula1904</td>
+                    <td><button type="button" class="btn btn-danger fa fa-ban fa-lg"></button></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>PLOG Grades</td>
+                    <td>Camacho</td>
+                    <td><button type="button" class="btn btn-danger fa fa-ban fa-lg"></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="friends" class="tab-pane fade">
+            <div class="container-fluid">
+              <table class="table table-responsive table-striped" style="margin-top:1em">
+                <thead>
+                  <tr>
+                    <th class="col-lg-1">#</th>
+                    <th class="col-lg-3">Username</th>
+                    <th class="col-lg-3">Email</th>
+                    <th class="col-lg-1">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>MariGui</td>
+                    <td>marigui@gmail.com</td>
+                    <td><button type="button" class="btn btn-danger fa fa-ban fa-lg"></button></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Makukula1904</td>
+                    <td>benficacampeao@hotmail.com</td>
+                    <td><button type="button" class="btn btn-danger fa fa-ban fa-lg"></button></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>TiagoC</td>
+                    <td>mr_base@gmail.com</td>
+                    <td><button type="button" class="btn btn-danger fa fa-ban fa-lg"></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <footer>
+  <div class="container-fluid" style="margin-top:50px">
+  <div id="footer-bottom" class="row">
+  <div class="col-md-6 footer-bottom-left">
+  <p>Copyright © 2018 by Tiago&Companhia.</p>
+</div>
+<div class="col-md-6 footer-bottom-right">
+</div>
+</div>
+</div>
+</footer> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script src="./script.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
