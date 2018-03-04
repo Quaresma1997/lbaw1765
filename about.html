@@ -42,9 +42,11 @@
                             </button>
                         </span>
                     </div>
+                </li>
+            </ul>
         </div>
-        </li>
-        </ul>
+
+
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#sign_up">
@@ -139,254 +141,59 @@
         <h1>About Us</h1>
         <hr>
         <div class="row">
-            <div class="col-md-4">
-
-
-                <div class="container">
-                    <h3>Filter</h3>
-                    <hr>
-                    <fieldset class="form-group" id="filter_types">
-                        <legend>Type</legend>
-                        <div class="container">
-                            <div class="form-check mb-2">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadiosType" id="optionsRadiosType0" value="option1" checked> Events
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadiosType" id="optionsRadiosType1" value="option2"> Users
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="tab-content" name="filter_sort">
-                        <div class="tab-pane active" id="tab_events">
-
-                            <fieldset class="form-group" id="filter_categories">
-                                <legend>Category</legend>
-                                <div class="container">
-                                    <div class="form-check mb-2">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="optionsCheckCategory" id="optionsCheck1" value="option1"> Futebol
-                                        </label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="optionsCheckCategory" id="optionsCheck2" value="option2"> Concertos
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <h3>Sort</h3>
-                            <div class="form-group">
-                                <label for="itemCategory">Sort options</label>
-                                <select class="custom-select" id="itemCategory">
-                                    <option value="-">-</option>
-                                    <option value="A-Z" selected="">A-Z</option>
-                                    <option value="Z-A"> Z-A</option>
-                                    <option value="Most recent"> Most recent</option>
-                                    <option value="Older"> Older</option>
-                                </select>
-                            </div>
-                            <!-- <div class="btn-group">
-                <button type="button" class="btn text-left" name="sort_options" style="width:120px;">Sort options</button>
-                <button class="btn dropdown-toggle dropdown-toggle-split" name="recordinput" data-toggle="dropdown">
-                  <span class="caret"></span>
-                </button>
-                <div id="mySel2" class="dropdown-menu" multiple="multiple" style="width:200px;">
-                  <a class="dropdown-item" href="#">A-Z</a>
-                  <a class="dropdown-item" href="#">Z-A</a>
-                  <a class="dropdown-item" href="#">Most events</a>
-                  <a class="dropdown-item" href="#">Least events</a>
-                </div>
-              </div> -->
-
-                            <!-- <fieldset class="form-group" id="sort">
-                <legend>Alphabetical/Date</legend>
-                <div class="container">
-                  <div class="form-check mb-2">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="optionsRadiosSort" id="optionsRadios1" value="option1" checked> A-Z
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="optionsRadiosSort" id="optionsRadios2" value="option2"> Z-A
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="optionsRadiosSort" id="optionsRadios3" value="option3"> Most recent
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="optionsRadiosSort" id="optionsRadios4" value="option4"> Older
-                    </label>
-                  </div>
-                </div>
-              </fieldset> -->
-                        </div>
-
-                        <div class="tab-pane" id="tab_users">
-
-                            <h3>Sort</h3>
-                            <div class="form-group">
-                                <label for="itemCategory">Sort options</label>
-                                <select class="custom-select" id="itemCategory">
-                                    <option value="-">-</option>
-                                    <option value="A-Z" selected="">A-Z</option>
-                                    <option value="Z-A"> Z-A</option>
-                                    <option value="Most events"> Most events</option>
-                                    <option value="Least events"> Least events</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
             <div class="col-md-7">
-                <div class="container" data-spy="scroll" data-offset="50" style="position:relative; overflow-y: scroll; height:500px">
-                    <div class="tab-content" name="content">
-                        <div class="tab-pane active">
-                            <div class="jumbotron p-1 mb-1 mt-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/square.jpg" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>Concerto Mega Fixe</h3>
-                                        <h6>Porto, Portugal</h6>
-                                        <h6>17/02/2018</h6>
-                                    </div>
+                <div class="container">
+                    <img src="./imgs/events_management.jpg" class="img-fluid rounded" alt="Cinque Terre">
+                    <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nulla neque, semper eget dolor fermentum,
+                        pellentesque mollis quam. Fusce at purus ac urna tempor imperdiet sollicitudin eget turpis. Interdum
+                        et malesuada fames ac ante ipsum primis in faucibus.</p>
+                    <p>Curabitur pharetra, eros quis dapibus hendrerit, nisl dolor vulputate ligula, quis sollicitudin erat
+                        massa quis tortor. Nam sodales enim sed dolor vestibulum efficitur. Vestibulum tincidunt commodo
+                        elit, nec fringilla magna laoreet id.</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="container">
+                    <h3>The development team</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <img class="card-img-top img-fluid rounded" src="./imgs/img_avatar1.png" alt="Card image">
+                                <div class="card-body">
+                                    <h4 class="card-title">John Doe</h4>
+                                    <p class="card-text">Professional Designer</p>
                                 </div>
                             </div>
-                            <div class="jumbotron p-1 mb-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/maku.jpg" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>Aniversário Makukula</h3>
-                                        <h6>Kishasa, Congo</h6>
-                                        <h6>04/03/2018</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jumbotron p-1 mb-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/plog.jpg" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>Notas de Plog</h3>
-                                        <h6>Porto, Portugal</h6>
-                                        <h6>29/02/2020</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jumbotron p-1 mb-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/benfica_maritimo.jpg" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>Benfica-Marítimo</h3>
-                                        <h6>Lisboa, Portugal</h6>
-                                        <h6>03/03/2018</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jumbotron p-1 mb-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/benfica_aves.jpg" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>Benfica-Aves</h3>
-                                        <h6>Lisboa, Portugal</h6>
-                                        <h6>10/03/2018</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jumbotron p-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/feirense_benfica.jpg" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>Feirense-Benfica</h3>
-                                        <h6>Santa Maria da Feira, Portugal</h6>
-                                        <h6>17/03/2018</h6>
-                                    </div>
+                            <hr>
+                            <div class="card">
+                                <img class="card-img-top img-fluid rounded" src="./imgs/img_avatar2.png" alt="Card image">
+                                <div class="card-body">
+                                    <h4 class="card-title">John Doe</h4>
+                                    <p class="card-text">Professional Designer</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="tab-pane">
-                            <div class="jumbotron p-1 mb-1 mt-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/jonas.png" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>JonasGoncalves</h3>
-                                    </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <img class="card-img-top img-fluid rounded" src="./imgs/img_avatar3.png" alt="Card image">
+                                <div class="card-body">
+                                    <h4 class="card-title">John Doe</h4>
+                                    <p class="card-text">Professional Designer</p>
                                 </div>
                             </div>
-                            <div class="jumbotron p-1 mb-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/cervi.png" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>FrancoCervi</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jumbotron p-1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="./imgs/aalmeida.png" class="img-fluid rounded" alt="Cinque Terre">
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3>AndreAlmeida</h3>
-                                    </div>
+                            <hr>
+                            <div class="card">
+                                <img class="card-img-top img-fluid rounded" src="./imgs/img_avatar4.png" alt="Card image">
+                                <div class="card-body">
+                                    <h4 class="card-title">John Doe</h4>
+                                    <p class="card-text">Professional Designer</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <ul class="pagination justify-content-center mt-3">
-                    <li class="page-item">
-                        <a href="#">
-                            <button type="button" class="btn btn-secondary ">
-                                <i class="fas fa-angle-double-left"></i>
-                            </button>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link text-muted" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link text-muted" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link text-muted" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a href="#">
-                            <button type="button" class="btn btn-secondary ">
-                                <i class="fas fa-angle-double-right"></i>
-                            </button>
-                        </a>
-                    </li>
-                </ul>
             </div>
+
         </div>
 
     </div>
