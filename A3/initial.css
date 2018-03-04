@@ -2,7 +2,7 @@
     margin-top:100px;
 }
 
-
+/*navbar stuff*/
 @media screen and (max-width: 400px) {
 
     .nav-link {
@@ -41,6 +41,25 @@
     text-align: justify;
 }
 
-div.tab div.tab-content:not(.active){
-    display: none;
+/* carousel stuff*/
+.carouselimg,
+.carousel-item {
+    height: 300px;
+}
+
+.carousel-item img {
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+/*img stuff*/
+.mainImg{
+    max-height: 150px;
+    max-width: 150px;
 }
