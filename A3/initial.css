@@ -40,3 +40,7 @@
 .collapse-stuff{
     text-align: justify;
 }
+
+div.tab div.tab-content:not(.active){
+    display: none;
+}

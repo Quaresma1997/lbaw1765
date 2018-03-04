@@ -11,12 +11,14 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script defer src="./script.js" type="text/javascript" charset="utf-8"></script>
 
   <title>Admin</title>
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="./index.html">Event Manager</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -124,16 +126,129 @@
     </li>
   </ul>
 
-  <div class="tab-content">
-    <div id="events" class="container tab-pane active"><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div id="users" class="container tab-pane fade"><br>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  <div class="container" data-spy="scroll" data-offset="50" style="position:relative; overflow-y: scroll; height:25em">
+    <div class="tab-content">
+      <div id="events" class="container tab-pane fade show active"><br>
+        <table class="table table-hover">
+          <thead>
+            <tr class="d-flex">
+              <th class="col-1">#</th>
+              <th class="col-4">Name</th>
+              <th class="col-6">Owner</th>
+              <th class="col-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="d-flex">
+              <td class="col-1">1</td>
+              <td class="col-4">Queima</td>
+              <td class="col-6">MariGui</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">2</td>
+              <td class="col-4">Makukula Birthday Party</td>
+              <td class="col-6">Makukula1904</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">3</td>
+              <td class="col-4">PLOG Grades</td>
+              <td class="col-6">Camacho</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">1</td>
+              <td class="col-4">Queima</td>
+              <td class="col-6">MariGui</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">2</td>
+              <td class="col-4">Makukula Birthday Party</td>
+              <td class="col-6">Makukula1904</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">3</td>
+              <td class="col-4">PLOG Grades</td>
+              <td class="col-6">Camacho</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">1</td>
+              <td class="col-4">Queima</td>
+              <td class="col-6">MariGui</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">2</td>
+              <td class="col-4">Makukula Birthday Party</td>
+              <td class="col-6">Makukula1904</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">3</td>
+              <td class="col-4">PLOG Grades</td>
+              <td class="col-6">Camacho</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">1</td>
+              <td class="col-4">Queima</td>
+              <td class="col-6">MariGui</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">2</td>
+              <td class="col-4">Makukula Birthday Party</td>
+              <td class="col-6">Makukula1904</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">3</td>
+              <td class="col-4">PLOG Grades</td>
+              <td class="col-6">Camacho</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="users" class="container tab-pane fade"><br>
+        <table class="table table-hover">
+          <thead>
+            <tr class="d-flex">
+              <th class="col-1">#</th>
+              <th class="col-4">Username</th>
+              <th class="col-6">Email</th>
+              <th class="col-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="d-flex">
+              <td class="col-1">1</td>
+              <td class="col-4">MariGui</td>
+              <td class="col-6">marigui@gmail.com</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Ban User"><i class="fas fa-ban"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">2</td>
+              <td class="col-4">Makukula1904</td>
+              <td class="col-6">benficacampeao@hotmail.com</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Ban User"><i class="fas fa-ban"></i></button></td>
+            </tr>
+            <tr class="d-flex">
+              <td class="col-1">3</td>
+              <td class="col-4">TiagoC</td>
+              <td class="col-6">mr_base@gmail.com</td>
+              <td class="col-1 text-center"><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Ban User"><i class="fas fa-ban"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-
 
 </body>
 </html>
