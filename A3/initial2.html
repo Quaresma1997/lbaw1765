@@ -112,7 +112,7 @@
 <div class="container main-container" >
   <h1>Events</h1>
   <hr>
-  <div class="row" >
+  <div class="row d-flex justify-content-center" >
     <div class="col-lg-3 col-12">
       <ul class="nav nav-tabs flex-lg-column flex-sm-row vertical-tabs" id="v-tab" role="tablist" aria-orientation="vertical" >
         <li class="nav-item">
@@ -132,12 +132,33 @@
           Filter
         </button>
         <div class="collapse col-12 collapse-stuff" id="collapseExample">
+          <br>
           <h4>Sort</h4>
           <hr>
-          <a class="dropdown-item" href="#">A-Z</a>
-          <a class="dropdown-item" href="#">Z-A</a>
-          <a class="dropdown-item" href="#">Most events</a>
-          <a class="dropdown-item" href="#">Least events</a>
+          <fieldset class="form-group" id="filter_types">
+            <div class="container">
+              <div class="form-check mb-2">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadiosType" id="A-Z" value="option1" checked> A-Z
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadiosType" id="Z-A" value="option2"> Z-A
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadiosType" id="MostParticipants" value="option3"> Most Participants
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadiosType" id="LeastParticipants" value="option4"> Least Participants
+                </label>
+              </div>
+            </div>
+          </fieldset>
           <h4>Category</h4>
           <hr>
           <div class="form-check mb-2">
@@ -155,19 +176,16 @@
       </ul>
     </div>
 
-    <div class="col-md-9 col-12">
-      <div class="container">
-        <div class="tab-content " id="v-tab-tabContent">
+    <div class="col-md-9 col-12" id="eventscontainer">
+      <div class="container ">
+        <div class="tab-content" id="v-tab-tabContent">
           <div class="tab-pane fade show active" id="v-tab-all" role="tabpanel" aria-labelledby="v-tab-all-tab">
-            <div>
-
-            </div>
             <div class="jumbotron p-1 mb-5 mt-1">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent" >
                   <img src="./imgs/square.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Concerto Mega Fixe</h3>
                   <h6>Porto, Portugal</h6>
                   <h6>17/02/2018</h6>
@@ -176,10 +194,10 @@
             </div>
             <div class="jumbotron p-1 mb-5">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent">
                   <img src="./imgs/maku.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Aniversário Makukula</h3>
                   <h6>Kishasa, Congo</h6>
                   <h6>04/03/2018</h6>
@@ -188,10 +206,10 @@
             </div>
             <div class="jumbotron p-1">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent">
                   <img src="./imgs/plog.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Notas de Plog</h3>
                   <h6>Porto, Portugal</h6>
                   <h6>29/02/2020</h6>
@@ -203,10 +221,10 @@
 
             <div class="jumbotron p-1">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent">
                   <img src="./imgs/plog.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Notas de Plog</h3>
                   <h6>Porto, Portugal</h6>
                   <h6>29/02/2020</h6>
@@ -218,10 +236,10 @@
 
             <div class="jumbotron p-1 mb-5">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent">
                   <img src="./imgs/maku.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Aniversário Makukula</h3>
                   <h6>Kishasa, Congo</h6>
                   <h6>04/03/2018</h6>
@@ -230,10 +248,10 @@
             </div>
             <div class="jumbotron p-1">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent">
                   <img src="./imgs/plog.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Notas de Plog</h3>
                   <h6>Porto, Portugal</h6>
                   <h6>29/02/2020</h6>
@@ -245,10 +263,10 @@
 
             <div class="jumbotron p-1 mb-5 mt-1">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-3 col-5 d-flex align-items-center imgEvent">
                   <img src="./imgs/square.jpg" class="img-fluid rounded" alt="Cinque Terre">
                 </div>
-                <div class="col-md-9">
+                <div class="col-sm-9 col-7 infoEvent">
                   <h3>Concerto Mega Fixe</h3>
                   <h6>Porto, Portugal</h6>
                   <h6>17/02/2018</h6>
