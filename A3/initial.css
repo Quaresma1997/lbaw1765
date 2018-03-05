@@ -96,7 +96,7 @@ body {
 .linkImg{
     background:url(./imgs/lights.jpg) no-repeat center center fixed;
     background-size: cover ;
-    height:400px;
+    height: 500px;
     width:100%;
     padding: 0rem 0rem;
     padding-bottom: 1rem ;
