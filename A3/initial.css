@@ -1,10 +1,33 @@
 .main-container{
     margin-top:100px;
 }
+/*
+.containerImgEvent{
+    margin-top:55px;
+    padding: 0rem 0rem;
+}
+
+@media screen and (min-width: 800px) {
+    .containerImgEvent {
+        padding-top: 2rem;
+        padding-bottom: 2rem ;
+    }
+
+}*/
+body {
+    position: relative;
+}
+
+
+@media (min-width: 768px) {
+    .infoEvent {
+        top: 65px;
+    }
+}
+
 
 /*navbar stuff*/
 @media screen and (max-width: 400px) {
-
     .nav-link {
         padding: .3rem 0.6rem;
     }
@@ -44,7 +67,7 @@
 /* carousel stuff*/
 .carouselimg,
 .carousel-item {
-    height: 300px;
+    height: 400px;
 }
 
 .carousel-item img {
@@ -57,9 +80,29 @@
     right: 0;
     margin: auto;
 }
+.modal-contentImgEvent{
+    background-color: transparent;
+    border: none;
+}
+
+@media screen and (max-width: 425px) {
+    .modal-dialogImgEvent {
+        margin:0;
+    }
+}
 
 /*img stuff*/
+
+.linkImg{
+    background:url(./imgs/lights.jpg) no-repeat center center fixed;
+    background-size: cover ;
+    height:400px;
+    width:100%;
+    padding: 0rem 0rem;
+    padding-bottom: 1rem ;
+}
 .mainImg{
-    max-height: 150px;
-    max-width: 150px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
 }
