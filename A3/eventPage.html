@@ -150,40 +150,7 @@
                 <p>
                     Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 </p>
-                <a class="" data-toggle="collapse" href="#Participants" role="button" aria-expanded="false" aria-controls="Participants"><i class="ion-reply"></i>Participants</a>
-                <div class="collapse col-12" id="Participants">
-                    <br>
-                    <div class="jumbotron p-1 mb-1 mt-1">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="./imgs/jonas.png" class="img-fluid rounded" alt="Cinque Terre">
-                            </div>
-                            <div class="col-md-9">
-                                <h3>JonasGoncalves</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="jumbotron p-1 mb-1">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="./imgs/cervi.png" class="img-fluid rounded" alt="Cinque Terre">
-                            </div>
-                            <div class="col-md-9">
-                                <h3>FrancoCervi</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="jumbotron p-1">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="./imgs/aalmeida.png" class="img-fluid rounded" alt="Cinque Terre">
-                            </div>
-                            <div class="col-md-9">
-                                <h3>AndreAlmeida</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#participants">Participants</button>
                 <hr>
                 <h6>Porto, Portugal</h6>
                 <div class="map-responsive">
@@ -195,18 +162,22 @@
             <hr>
             <h3>Discussion</h3>
             <hr>
-            <button class="btn btn-default col-3" data-toggle="collapse" data-target="#poll">Poll</button>
-            <button class="btn btn-default col-3" data-toggle="collapse" data-target="#image">Image</button>
+            <button class="btn btn-basic col-md-3 col-4" data-toggle="collapse" data-target="#poll"><span class="fas fa-clipboard-list fa-lg"></span> Poll</button>
+            <button class="btn btn-basic col-md-3 col-4" data-toggle="collapse" data-target="#image"><span class="far fa-image fa-lg"></span> Image</button>
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <textarea placeholder="Write your post here!" class="pb-cmnt-textarea col-12 "></textarea>
+                    <textarea placeholder="Write your post here!" rows="5" class="form-control"></textarea>
                     <div id="image" class="collapse">
                         <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
                     </div>
                     <div id="poll" class="collapse">
-                        <textarea placeholder="Option 1 " class="pb-cmnt-textarea"></textarea>
-                        <textarea placeholder="Option 2 " class="pb-cmnt-textarea"></textarea>
-                        <button type="button" class="btn btn-default list-group-item">More Options</button>
+                        <div class="container card col-md-7 col-sm-10">
+                            <div class="row d-flex justify-content-center card-body" style="padding-top:10px;">
+                                <textarea class="form-control col-9" id="option1"></textarea>
+                                <textarea class="form-control col-9" id="option2"></textarea>
+                                <button type="button" class="btn btn-info col-9">More Options</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -231,6 +202,96 @@
                 </div>
                 <div class="collapse col-12" id="collapseExample">
                     <div class="comment-reply col-11 offset-1 ">
+                        <div class="row">
+                            <div class="comment-avatar col-md-2 col-3 text-center pr-1">
+                                <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="avatar"></a>
+                            </div>
+                            <div class="comment-content  col-md-10 col-9">
+                                <h6 class="small comment-meta"><a href="#">phildownney</a> Today, 12:31</h6>
+                                <div class="comment-body">
+                                    <p>Really?? Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea placeholder="Write your post here!" class="pb-cmnt-textarea col-12 "></textarea>
+                        <button class="btn btn-primary" type="button">Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="comment mb-2 row">
+                <div class="comment-avatar col-md-2 col-3 text-center pr-1">
+                    <img class="mx-auto rounded-circle img-fluid" src="./imgs/maku.jpg" alt="avatar">
+                </div>
+                <div class="comment-content  col-md-8 col-8">
+                    <h6 class="small comment-meta"><a href="#">admin</a> Today, 2:38</h6>
+                    <div class="comment-body justify-content-center">
+                        <div class="card justify-content-center">
+                            <div class="card-heading pollquestion">
+                                <h3 class="panel-title justify-content-center">Poll</h3>
+                            </div>
+                            <div class="panel-body pollawnsers">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios">
+                                                Good
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios">
+                                                Excellent
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios">
+                                                Bed
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios">
+                                                Can Be Improved
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios">
+                                                No Comment
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="ion-reply"></i>More</a>
+                    </div>
+                </div>
+                <div class="collapse col-12" id="collapseExample3">
+                    <div class="comment-reply col-11 offset-1 ">
+                        <div class="row">
+                            <div class="comment-avatar col-md-2 col-3 text-center pr-1">
+                                <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="avatar"></a>
+                            </div>
+                            <div class="comment-content  col-md-10 col-9">
+                                <h6 class="small comment-meta"><a href="#">phildownney</a> Today, 12:31</h6>
+                                <div class="comment-body">
+                                    <p>Really?? Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="comment-avatar col-md-2 col-3 text-center pr-1">
                                 <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="avatar"></a>
@@ -293,8 +354,55 @@
                     </div>
                 </div>
             </div>
-
         </main>
+    </div>
+
+    <div class="modal fade" id="participants" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Participants</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="jumbotron p-1 mb-1 mt-1">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="./imgs/jonas.png" class="img-fluid rounded" alt="Cinque Terre">
+                            </div>
+                            <div class="col-md-9">
+                                <h3>JonasGoncalves</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jumbotron p-1 mb-1">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="./imgs/cervi.png" class="img-fluid rounded" alt="Cinque Terre">
+                            </div>
+                            <div class="col-md-9">
+                                <h3>FrancoCervi</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jumbotron p-1">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="./imgs/aalmeida.png" class="img-fluid rounded" alt="Cinque Terre">
+                            </div>
+                            <div class="col-md-9">
+                                <h3>AndreAlmeida</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
