@@ -109,8 +109,8 @@
     </div>
 </div>
 
-<a class="nav-link linkImg " href=# data-toggle="modal" data-target="#images">
-</a>
+<a class="nav-link linkImg " href=# data-toggle="modal" data-target="#images"></a>
+
 <div class="modal fade" id="images">
     <div class="modal-dialog modal-lg modal-dialogImgEvent">
         <div class="modal-content modal-contentImgEvent">
@@ -139,10 +139,8 @@
     </div>
 </div>
 
-
 <div class="container main-containerEventPage">
     <div class="row" >
-
         <aside class="col-lg-7 col-12 ">
             <hr>
             <div class="infoEvent sticky-top">
@@ -197,7 +195,22 @@
             <hr>
             <h3>Discussion</h3>
             <hr>
-            <textarea placeholder="Write your post here!" class="pb-cmnt-textarea col-12 "></textarea>
+            <button class="btn btn-default col-3" data-toggle="collapse" data-target="#poll">Poll</button>
+            <button class="btn btn-default col-3" data-toggle="collapse" data-target="#image">Image</button>
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <textarea placeholder="Write your post here!" class="pb-cmnt-textarea col-12 "></textarea>
+                    <div id="image" class="collapse">
+                        <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                    </div>
+                    <div id="poll" class="collapse">
+                        <textarea placeholder="Option 1 " class="pb-cmnt-textarea"></textarea>
+                        <textarea placeholder="Option 2 " class="pb-cmnt-textarea"></textarea>
+                        <button type="button" class="btn btn-default list-group-item">More Options</button>
+                    </div>
+                </div>
+            </div>
+            <br>
             <button class="btn btn-primary" type="button">Share</button>
             <hr>
             <!-- Comment section -->
