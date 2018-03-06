@@ -29,27 +29,69 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
                     <span class="input-group-append">
-              <button type="button" class="btn btn-outline-light"><i class="fas fa-search"></i></button>
-            </span>
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href='./searchLogged.html'">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </span>
                 </div>
+
             </li>
         </ul>
+
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href=# data-toggle="modal" data-target="#add_event"><i class="fas fa-plus"></i> Add Event </a>
+                <a class="nav-link" href=# data-toggle="modal" data-target="#add_event">
+                    <i class="fas fa-plus"></i> Add Event </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href=#><i class="fas fa-bell"></i> Notifications </a>
+                <div class="dropdown show">
+                    <a class="nav-link dropdown-toggle" href=# id="notifications" data-toggle="dropdown">
+                        <i class="fas fa-bell"></i> Notifications </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notifications">
+                        <a class="dropdown-item p-2" href="./eventPage.html">Makukula joined an event</a>
+                        <a class="dropdown-item p-2" href="#" data-toggle="modal" data-target="#add_friend">
+                            MariGui wants to be your friend
+                        </a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./profile.html"><i class="fas fa-user"></i> Username </a>
+                <a class="nav-link" href="./profile.html">
+                    <i class="fas fa-user"></i> Username </a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="./index.html"><i class="fas fa-sign-out-alt"></i> Logout </a>
+                <a class="nav-link" href="./index.html">
+                    <i class="fas fa-sign-out-alt"></i> Logout </a>
             </li>
         </ul>
     </div>
+    </div>
 </nav>
+
+<div class="modal fade" id="add_friend">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Friend</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <img src="./imgs/maku.jpg" class="img-fluid rounded" alt="Cinque Terre">
+                <br>
+                <br>
+                <h5 class="text-center">MariGui wants to be your friend, do you accept?</h5>
+                <br>
+                <div class="btn-group d-flex" role="group">
+                    <button type="button" class="btn btn-success w-100">YES</button>
+                    <button type="button" class="btn btn-danger w-100">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="add_event">
     <div class="modal-dialog modal-sm">
@@ -66,7 +108,9 @@
                 <label for="name">Name</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="name"><i class="fas fa-pencil-alt fa-fw"></i></span>
+                        <span class="input-group-text" id="name">
+                            <i class="fas fa-pencil-alt fa-fw"></i>
+                        </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Enter Name">
                 </div>
@@ -74,7 +118,9 @@
                 <label for="date">Date</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="date"><i class="fas fa-calendar-alt fa-fw"></i></span>
+                        <span class="input-group-text" id="date">
+                            <i class="fas fa-calendar-alt fa-fw"></i>
+                        </span>
                     </div>
                     <input type="datetime-local" class="form-control" placeholder="Enter Date">
                 </div>
@@ -82,7 +128,9 @@
                 <label for="localization">Localization</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="localization"><i class="fas fa-map-marker-alt fa-fw"></i></span>
+                        <span class="input-group-text" id="localization">
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                        </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Enter Localization">
                 </div>
@@ -90,7 +138,9 @@
                 <label for="description">Description</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="description"><i class="fas fa-align-justify fa-fw"></i></span>
+                        <span class="input-group-text" id="description">
+                            <i class="fas fa-align-justify fa-fw"></i>
+                        </span>
                     </div>
                     <input type="text" class="form-control" placeholder="Enter Description">
                 </div>
@@ -98,11 +148,12 @@
                 <label for="upload_image">Upload Image</label>
                 <div class="input-group mb-2">
                     <label class="btn btn-outline-dark">
-                        Browse <input type="file" hidden id="upload_image">
+                        Browse…
+                        <input type="file" hidden id="upload_image">
                     </label>
                 </div>
 
-                <button type="button" class="btn btn-block btn-outline-dark mb-2">Add Event</button>
+                <button type="button" class="btn btn-block btn-outline-dark mb-2" onclick="window.location.href='./eventPage.html'">Add Event</button>
 
             </div>
         </div>
@@ -409,6 +460,14 @@
 </div>
 
 <script src="script.js"></script>
+
+<footer>
+    <br>
+    <br>
+    <a href="./about.html">
+        <p class="text-center">About Us</p>
+    </a>
+</footer>
 
 </body>
 </html>
