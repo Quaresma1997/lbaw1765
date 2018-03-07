@@ -23,7 +23,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="./index.html">Event Manager</a>
+    <a class="navbar-brand" href="./loggedMainPage.html">Event Manager</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -88,9 +88,9 @@
           <h5 class="text-center">Pedro Henriques wants to be your friend, do you accept?</h5>
           <br>
           <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-success w-100">YES</button>
-            <button type="button" class="btn btn-danger w-100">NO</button>
-          </div>
+            <button type="button" class="btn btn-success w-100" onclick="window.location.href='./profileFriend.html'">YES</button>
+            <button type="button" class="btn btn-danger w-100" onclick="window.location.href='./profileAddFriend.html'">NO</button>
+          </div>  
         </div>
       </div>
     </div>
@@ -157,7 +157,7 @@
             </label>
           </div>
 
-          <button type="button" class="btn btn-block btn-outline-dark mb-2" onclick="window.location.href='./eventPage.html'">Add Event</button>
+          <button type="button" class="btn btn-block btn-outline-dark mb-2" onclick="window.location.href='./eventPageOwner.html'">Add Event</button>
 
         </div>
       </div>

@@ -17,7 +17,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="./index.html">Event Manager</a>
+    <a class="navbar-brand" href="./loggedMainPage.html">Event Manager</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -75,8 +75,8 @@
         <h5 class="text-center">MariGui wants to be your friend, do you accept?</h5>
         <br>
         <div class="btn-group d-flex" role="group">
-          <button type="button" class="btn btn-success w-100">YES</button>
-          <button type="button" class="btn btn-danger w-100">NO</button>
+          <button type="button" class="btn btn-success w-100" onclick="window.location.href='./profileFriend.html'">YES</button>
+          <button type="button" class="btn btn-danger w-100" onclick="window.location.href='./profileAddFriend.html'">NO</button>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
           </label>
         </div>
 
-        <button type="button" class="btn btn-block btn-outline-dark mb-2" onclick="window.location.href='./eventPage.html'">Add Event</button>
+        <button type="button" class="btn btn-block btn-outline-dark mb-2" onclick="window.location.href='./eventPageOwner.html'">Add Event</button>
 
       </div>
     </div>
@@ -153,7 +153,7 @@
       <h6><i class="fas fa-map-marker-alt fa-fw"></i>Porto, Portugal</h6>
       <hr>
       <button type="button" class="btn btn-success btn-lg btn-block" disabled><i class="fas fa-check"></i> Friend</button>
-      <button type="button" class="btn btn-outline-danger btn-lg btn-block">Remove Friend</button>
+      <button type="button" class="btn btn-outline-danger btn-lg btn-block" onclick="window.location.href='./profileAddFriend.html'">Remove Friend</button>
       <br>
     </div>
     <div class="col-12 col-md-8 offset-md-1">
