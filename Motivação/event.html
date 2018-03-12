@@ -74,16 +74,16 @@
 
   <div class="modal fade" id="add_event">
     <div class="modal-dialog modal-dialog-centered modal-md">
-  
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">New Event</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-  
+
         <div class="modal-body ">
-  
+
           <label for="name">Name</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -93,7 +93,7 @@
             </div>
             <input type="text" class="form-control" placeholder="Enter Name">
           </div>
-  
+
           <div class="row">
             <div class="col-12 col-sm-6">
               <div class="form-group mb-2 p-0 m-0">
@@ -104,7 +104,7 @@
                 </select>
               </div>
             </div>
-  
+
             <div class="col-12 col-sm-6">
               <div class="form-group mb-2 p-0 m-0">
                 <label for="category">Category</label>
@@ -118,7 +118,7 @@
               </div>
             </div>
           </div>
-  
+
           <label for="date">Date</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -128,7 +128,7 @@
             </div>
             <input type="datetime-local" class="form-control" placeholder="Enter Date">
           </div>
-  
+
           <div class="row">
             <div class="col-12 col-sm-6">
               <label for="country">Country</label>
@@ -141,7 +141,7 @@
                 <input type="text" class="form-control" placeholder="Enter Country">
               </div>
             </div>
-  
+
             <div class="col-12 col-sm-6">
               <label for="city">City</label>
               <div class="input-group mb-2">
@@ -154,7 +154,7 @@
               </div>
             </div>
           </div>
-  
+
           <label for="spot">Place</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -164,12 +164,12 @@
             </div>
             <input type="text" class="form-control" placeholder="Enter Place">
           </div>
-  
+
           <label for="description">Description</label>
           <div class="input-group mb-2">
             <textarea class="form-control" rows="1" cols="1" placeholder="Enter Description"></textarea>
           </div>
-  
+
           <label for="upload_image">Upload Image</label>
           <div class="input-group mb-0">
             <label class="btn btn-secondary">
@@ -177,11 +177,11 @@
               <input type="file" hidden id="upload_image" class="form-control-file">
             </label>
           </div>
-  
+
           <hr>
-  
+
           <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./event.html'">Add Event</button>
-  
+
         </div>
       </div>
     </div>
@@ -215,7 +215,41 @@
       </a>
     </div>
 
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <h4>08/03/2018 at 08:30</h4>
+          <h4>Feup, Porto, Portugal</h4>
+          <br>
+          <div class="map-responsive">
+            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Porto+Portugal" frameborder="0"
+              style="border:0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <h3>Description</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <br>
+            Nec ultrices dui sapien eget mi proin sed libero.
+            <br> 
+            Egestas sed tempus urna et pharetra.
+            <br> 
+            Amet nisl purus in mollis nunc sed id.
+            <br> 
+            Iaculis eu non diam phasellus vestibulum lorem sed risus.
+            <br> 
+            A arcu cursus vitae congue mauris rhoncus aenean.
+            <br> 
+            Rutrum quisque non tellus orci ac auctor.
+            <br> 
+            Sit amet est placerat in egestas erat imperdiet.
+            <br> 
+            Nunc pulvinar sapien et ligula ullamcorper malesuada proin libero.
 
+          </p>
+      </div>
+    </div>
   </div>
 
 </body>
