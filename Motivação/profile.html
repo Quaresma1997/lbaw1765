@@ -16,6 +16,7 @@
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  <script defer language="JavaScript" src="./script.js" type="text/javascript" charset="utf-8"></script>
 
   <title>TiagoC</title>
 </head>
@@ -191,17 +192,15 @@
     <div class="row">
       <div class="col-12 col-lg-3">
         <div class="container mx-auto sticky-top" style="padding-top:10em">
-          <div>
-            <h1>TiagoC</h1>
-            <hr>
-            <img src="./imgs/profile.jpg" class="img img-fluid rounded mb-3">
-            <h6>
-              <i class="fas fa-user fa-fw"></i> Tiago Carvalho </h6>
-            <h6>
-              <i class="fas fa-envelope fa-fw"></i> tiago79c@gmail.com </h6>
-            <h6>
-              <i class="fas fa-map-marker-alt fa-fw"></i> Porto, Portugal </h6>
-            <button type="button" class="btn btn-primary btn-lg btn-block mt-3">
+          <h1>TiagoC</h1>
+          <hr>
+          <div id="user_info_container">
+            <img src="./imgs/profile.jpg" id="user_info_img" class="img img-fluid rounded mb-3">
+            <label id="user_info_l1"><i class="fas fa-user fa-fw"></i>Tiago Carvalho</label>
+            <label id="user_info_l2"><i class="fas fa-envelope fa-fw"></i>tiago79c@gmail.com</label>
+            <label id="user_info_l3"><i class="fas fa-map-marker-alt fa-fw"></i>Porto, Portugal</label>
+
+            <button type="button" class="btn btn-primary btn-lg btn-block mt-3" id="btn_editprofile">
               <i class="far fa-edit fa-fw"></i> Edit Profile </button>
             <button type="button" class="btn btn-outline-danger btn-lg btn-block">
               <i class="far fa-trash-alt fa-fw"></i> Delete Profile </button>
