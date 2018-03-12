@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+  <link rel="stylesheet" href="./lit.css">
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+  <title>About Us</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-primary navbar-light fixed-top">
+    <a class="navbar-brand" href="./homepage.html">EventSS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <br>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" onclick="window.location.href='./searchLogged.html'">
+                <i class="fas fa-search fa-fw"></i>
+              </button>
+            </span>
+          </div>
+
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href=# data-toggle="modal" data-target="#add_event">
+            <i class="fas fa-plus fa-fw"></i> Add Event </a>
+        </li>
+        <li class="nav-item">
+          <div class="dropdown">
+            <a class="nav-link" href="#" data-toggle="dropdown">
+              <i class="fas fa-bell fa-fw"></i> Notifications </a>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./profile.html">
+            <i class="fas fa-user fa-fw"></i> TiagoC </a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav-link" href="./index.html">
+            <i class="fas fa-sign-out-alt fa-fw"></i> Logout </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="modal fade" id="add_event">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">New Event</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <div class="modal-body ">
+  
+          <label for="name">Name</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="name">
+                <i class="fas fa-pencil-alt fa-fw"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter Name">
+          </div>
+  
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="form-group mb-2 p-0 m-0">
+                <label for="type">Type</label>
+                <select class="custom-select" id="type">
+                  <option value="Public" selected>Public</option>
+                  <option value="Private">Private</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-12 col-sm-6">
+              <div class="form-group mb-2 p-0 m-0">
+                <label for="category">Category</label>
+                <select class="custom-select" id="category">
+                  <option value="Music">Music</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Educational">Educational</option>
+                  <option value="Other" selected>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+  
+          <label for="date">Date</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="date">
+                <i class="fas fa-calendar-alt fa-fw"></i>
+              </span>
+            </div>
+            <input type="datetime-local" class="form-control" placeholder="Enter Date">
+          </div>
+  
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <label for="country">Country</label>
+              <div class="input-group mb-2 p-0 m-0">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="country">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Enter Country">
+              </div>
+            </div>
+  
+            <div class="col-12 col-sm-6">
+              <label for="city">City</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="city">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Enter City">
+              </div>
+            </div>
+          </div>
+  
+          <label for="spot">Place</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="place">
+                <i class="fas fa-map-marker-alt fa-fw"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter Place">
+          </div>
+  
+          <label for="description">Description</label>
+          <div class="input-group mb-2">
+            <textarea class="form-control" rows="1" cols="1" placeholder="Enter Description"></textarea>
+          </div>
+  
+          <label for="upload_image">Upload Image</label>
+          <div class="input-group mb-0">
+            <label class="btn btn-secondary">
+              Browse
+              <input type="file" hidden id="upload_image" class="form-control-file">
+            </label>
+          </div>
+  
+          <hr>
+  
+          <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./event.html'">Add Event</button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top:10em">
+    <h1 class="display-4">About Us</h1>
+    <hr>
+    <div class="container">
+      <h3>LBAW1765</h3>
+      <hr>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card">
+            <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">Mariana Guimarães</h4>
+              <p class="card-text">up201307777</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">Rui Quaresma</h4>
+              <p class="card-text">up201503005</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">Rui Araújo</h4>
+              <p class="card-text">up201403263</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">Tiago Carvalho</h4>
+              <p class="card-text">up201504461</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</body>
+
+</html>
