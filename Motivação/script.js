@@ -31,15 +31,23 @@ $(document).on('click', "#btn_editprofile", function (e) {
     let city = location.substr(0, location.indexOf(','));
     let country = location.substr(location.indexOf(',') + 2, location.size);
 
-    let div1 =
+    let btn_img = 
+      "<form action='myform.cgi'>"+
+    "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>"+
+      "<span class='custom-file-control form-control-file'></span>"
+      "</form>"      
+            
+            ;
+        
+            let div1 =
       "<div class='row mb-1'>"+
         "<div class='col-2 col-lg-2 my-auto'>" +
            "<i class='fas fa-user fa-fw '></i>" +
         "</div>" +
-        "<div class='col-4 col-lg-4 pr-1 pl-0'>" +
+        "<div class='col-4 col-lg-5 pl-0'>" +
            "<input type='text' id='input_first_name' class='form-control' placeholder='First name' value='" + first_name + "'>" +
         "</div>"+
-        "<div class='col-6 col-lg-6 pr-3 pl-0'>" +
+        "<div class='col-6 col-lg-5 pl-0'>" +
             "<input type='text' id='input_last_name' class='form-control' placeholder='Last name' value='" + last_name + "'>" +
         "</div>"+
       "</div>"
@@ -64,22 +72,19 @@ $(document).on('click', "#btn_editprofile", function (e) {
       "<i class='fas fa-map-marker-alt fa-fw '></i>" +
       "</div>" +
       "<div class='col-4 col-lg-4 pr-1 pl-0'>" +
-      "<input type='text' id='input_city' class='form-control' placeholder='First name' value='" + city + "'>" +
+      "<input type='text' id='input_city' class='form-control' placeholder='City' value='" + city + "'>" +
       "</div>" +
       "<div class='col-6 col-lg-6 pr-3 pl-0'>" +
-      "<input type='text' id='input_country' class='form-control' placeholder='Last name' value='" + country + "'>" +
+      "<input type='text' id='input_country' class='form-control' placeholder='Country' value='" + country + "'>" +
       "</div>" +
       "</div>"
       ;
 
     let btns =
-      "<div class='row mt-3 mb-3'>" +
-        "<div class='col-6 col-lg-6'>" +
-          "<button type='button' class='btn btn-success btn-lg btn-block' id='btn_confirm_edit_profile'><span>Confirm</span> </button>" +
-        "</div>" +
-        "<div class='col-6 col-lg-6'>" +
-          "<button type='button' class='btn btn-danger btn-lg btn-block' id='btn_cancel_edit_profile'><span>Cancel</span> </button>" +
-        "</div>" + 
+      "<div class='mt-3'>"+
+          "<button type='button' class='btn btn-success btn-lg btn-block' id='btn_confirm_edit_profile'><span><i class='fas fa-check fa-fw'></i>Confirm</span> </button>" +
+       
+          "<button type='button' class='btn btn-outline-danger btn-lg btn-block' id='btn_cancel_edit_profile'><span><i class='fas fa-times fa-fw'></i>Cancel</span> </button>"+
       "</div>"
       ;
 
@@ -87,6 +92,7 @@ $(document).on('click', "#btn_editprofile", function (e) {
     main_div.html(
       
       "<img src='./imgs/profile.jpg' id='user_info_img' class='img img-fluid rounded mb-3'>"+
+      btn_img+
       div1 + div2 + div3 + btns      
     );
 });
@@ -100,16 +106,34 @@ $(document).on('click', "#btn_confirm_edit_profile", function (e) {
   let first_name = $("#input_first_name").val();
   let last_name = $("#input_last_name").val();
 
+
+
   let email = $("#input_email").val();
 
   let city = $("#input_city").val();
   let country = $("#input_country").val();
 
+  if (first_name == "") {
+    first_name = "First name";
+  }
+  if (last_name == "") {
+    last_name = "Last name";
+  }
+  if (city == "") {
+    city = "City";
+  }
+  if (country == "") {
+    country = "Country";
+  }
+  if (email == "") {
+    email = "Email";
+  }
+
   main_div.html(
 
     "<img src='./imgs/profile.jpg' id='user_info_img' class='img img-fluid rounded mb-3'>" +
-    "<label id='user_info_l1'><i class='fas fa-user fa-fw'></i>" + first_name + " " + last_name + "</label>" +
-    "<label id='user_info_l2'><i class='fas fa-envelope fa-fw'></i>" + email + "</label>" +
+    "<label id='user_info_l1'><i class='fas fa-user fa-fw'></i>" + first_name + " " + last_name + "</label><br>" +
+    "<label id='user_info_l2'><i class='fas fa-envelope fa-fw'></i>" + email + "</label><br>" +
     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw'></i>" + city + ", " + country + "</label>" +
 
       "<button type='button' class='btn btn-primary btn-lg btn-block mt-3' id='btn_editprofile'>"+
@@ -149,3 +173,9 @@ $(document).on('click', "#btn_cancel_edit_profile", function (e) {
   );
 
 });
+
+// $(document).on('change', "#fileupload", function (e) {
+//   let img_path = $("#fileupload");
+//   console.log(img_path);
+//   $("#img_text").text(img_path);
+// });
