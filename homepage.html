@@ -54,14 +54,13 @@
               <i class="fas fa-bell fa-fw"></i> Notifications </a>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend">Mariana wants to be your friend</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent">Quaresma invited you to an event</a>
             </div>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./profile.html">
+          <a class="nav-link" href="./tiagoc.html">
             <i class="fas fa-user fa-fw"></i> TiagoC </a>
         </li>
         <li class="navbar-item">
@@ -72,18 +71,64 @@
     </div>
   </nav>
 
+  <div class="modal fade" id="addFriend">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Friend</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img src="./imgs/profile.jpg" class="img-fluid rounded mx-auto d-block">
+          <br>
+          <br>
+          <h3 class="text-center">Mariana wants to be your friend.</h3>
+          <br>
+          <button type="button" class="btn btn-success btn-lg btn-block">
+            <i class="fas fa-check fa-fw"></i> Accept </button>
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
+            <i class="fas fa-times fa-fw"></i> Decline </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="joinEvent">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Join Event</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <a href="./event.html" class="text-white">
+          <img src="./imgs/hp2.jpg" class="img-fluid rounded mx-auto d-block">
+          </a>
+          <br>
+          <br>
+          <h3 class="text-center"><a href="./quaresma.html" class="text-white">Quaresma</a> invited you to <a href="./event.html" class="text-white">Mini Teste PPIN</a>.</h3>
+          <br>
+          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./event.html'">
+            <i class="fas fa-check fa-fw"></i> Accept </button>
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
+            <i class="fas fa-times fa-fw"></i> Decline </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="add_event">
     <div class="modal-dialog modal-dialog-centered modal-md">
-  
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">New Event</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-  
+
         <div class="modal-body ">
-  
+
           <label for="name">Name</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -93,7 +138,7 @@
             </div>
             <input type="text" class="form-control" placeholder="Enter Name">
           </div>
-  
+
           <div class="row">
             <div class="col-12 col-sm-6">
               <div class="form-group mb-2 p-0 m-0">
@@ -104,7 +149,7 @@
                 </select>
               </div>
             </div>
-  
+
             <div class="col-12 col-sm-6">
               <div class="form-group mb-2 p-0 m-0">
                 <label for="category">Category</label>
@@ -118,7 +163,7 @@
               </div>
             </div>
           </div>
-  
+
           <label for="date">Date</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -128,7 +173,7 @@
             </div>
             <input type="datetime-local" class="form-control" placeholder="Enter Date">
           </div>
-  
+
           <div class="row">
             <div class="col-12 col-sm-6">
               <label for="country">Country</label>
@@ -141,7 +186,7 @@
                 <input type="text" class="form-control" placeholder="Enter Country">
               </div>
             </div>
-  
+
             <div class="col-12 col-sm-6">
               <label for="city">City</label>
               <div class="input-group mb-2">
@@ -154,7 +199,7 @@
               </div>
             </div>
           </div>
-  
+
           <label for="spot">Place</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -164,24 +209,14 @@
             </div>
             <input type="text" class="form-control" placeholder="Enter Place">
           </div>
-  
+
           <label for="description">Description</label>
           <div class="input-group mb-2">
-            <textarea class="form-control" rows="1" cols="1" placeholder="Enter Description"></textarea>
+            <textarea class="form-control" rows="4" cols="1" placeholder="Enter Description"></textarea>
           </div>
-  
-          <label for="upload_image">Upload Image</label>
-          <div class="input-group mb-0">
-            <label class="btn btn-secondary">
-              Browse
-              <input type="file" hidden id="upload_image" class="form-control-file">
-            </label>
-          </div>
-  
           <hr>
-  
-          <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./event.html'">Add Event</button>
-  
+          <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./eventOwner.html'">Add Event</button>
+
         </div>
       </div>
     </div>
@@ -189,7 +224,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-12 col-lg-3">
+      <div class="col-12 col-xl-3">
         <div class="container mx-auto sticky-top" style="padding-top:10em">
           <div>
             <h2>Filter</h2>
@@ -228,35 +263,294 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-9">
-        <div class="container" style="margin-top:10em">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua.
-          </p>
-          <p>Metus aliquam eleifend mi in.</p>
-          <p>Id consectetur purus ut faucibus.</p>
-          <p>Sed turpis tincidunt id aliquet risus feugiat in ante.
-          </p>
-          <p>Sem integer vitae justo eget magna fermentum.</p>
-          <p>Lectus quam id leo in vitae turpis.</p>
-          <p>Urna neque viverra justo nec.
-          </p>
-          <p>Turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet.</p>
-          <p>Lectus quam id leo in vitae.</p>
-          <p>Ac tortor dignissim convallis aenean et tortor at.</p>
-          <p>Egestas purus viverra accumsan in nisl nisi.</p>
-          <p>Eget felis eget nunc lobortis mattis aliquam faucibus purus.</p>
-          <p>Scelerisque fermentum dui faucibus in ornare.</p>
-          <p>Sed tempus urna et pharetra pharetra massa massa ultricies.</p>
-          <p>Id volutpat lacus laoreet non curabitur gravida arcu.</p>
-          <p>Euismod nisi porta lorem mollis aliquam ut.</p>
-          <p> Nullam vehicula ipsum a arcu.</p>
-          <p>Gravida in fermentum et sollicitudin ac orci phasellus egestas.</p>
-          <p>Viverra mauris in aliquam sem fringilla ut morbi tincidunt augue.</p>
-          <p>Dui id ornare arcu odio ut sem nulla pharetra diam.</p>
-          <p>Mi sit amet mauris commodo.</p>
-          <p> Habitant morbi tristique senectus et netus et malesuada fames ac.</p>
-          <p>Tristique risus nec feugiat in.</p>
+      <div class="col-12 col-xl-9">
+        <div class="container" style="padding-top:10em">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp1.jpg">
+                  <div class="content-details">
+                    <h3>Apresentação LBAW</h3>
+                    <p>28/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp2.jpg">
+                  <div class="content-details">
+                    <h3>Mini Teste PPIN</h3>
+                    <p>14/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa1.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa2.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp1.jpg">
+                  <div class="content-details">
+                    <h3>Apresentação LBAW</h3>
+                    <p>28/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp2.jpg">
+                  <div class="content-details">
+                    <h3>Mini Teste PPIN</h3>
+                    <p>14/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa1.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa2.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp1.jpg">
+                  <div class="content-details">
+                    <h3>Apresentação LBAW</h3>
+                    <p>28/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp2.jpg">
+                  <div class="content-details">
+                    <h3>Mini Teste PPIN</h3>
+                    <p>14/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa1.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa2.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp1.jpg">
+                  <div class="content-details">
+                    <h3>Apresentação LBAW</h3>
+                    <p>28/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron content-lg p-0 mx-auto">
+                <a href="./event.html" class="text-white">
+                  <div class="content-overlay"></div>
+                  <img class="content-image rounded" src="./imgs/hp2.jpg">
+                  <div class="content-details">
+                    <h3>Mini Teste PPIN</h3>
+                    <p>14/03/2018
+                      <br> Porto, Portugal</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa1.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="jumbotron list content-lg p-0 mx-auto">
+                <div class="row p-2">
+                  <div class="col-2">
+                    <a href="./quaresma.html" class="text-white">
+                      <img src="./imgs/home.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+                  <div class="col-7">
+                    <h5>
+                      <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
+                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                    </h5>
+                  </div>
+                  <div class="col-12">
+                    <a href="./event.html" class="text-white">
+                      <img src="./imgs/fa2.jpg" class="img-fluid rounded">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

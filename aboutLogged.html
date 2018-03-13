@@ -39,10 +39,10 @@
               </button>
             </span>
           </div>
-
+  
         </li>
       </ul>
-
+  
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href=# data-toggle="modal" data-target="#add_event">
@@ -54,14 +54,13 @@
               <i class="fas fa-bell fa-fw"></i> Notifications </a>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend">Mariana wants to be your friend</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent">Quaresma invited you to an event</a>
             </div>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./profile.html">
+          <a class="nav-link" href="./tiagoc.html">
             <i class="fas fa-user fa-fw"></i> TiagoC </a>
         </li>
         <li class="navbar-item">
@@ -71,7 +70,54 @@
       </ul>
     </div>
   </nav>
-
+  
+  <div class="modal fade" id="addFriend">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Friend</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img src="./imgs/profile.jpg" class="img-fluid rounded mx-auto d-block">
+          <br>
+          <br>
+          <h3 class="text-center">Mariana wants to be your friend.</h3>
+          <br>
+          <button type="button" class="btn btn-success btn-lg btn-block">
+            <i class="fas fa-check fa-fw"></i> Accept </button>
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
+            <i class="fas fa-times fa-fw"></i> Decline </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="joinEvent">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Join Event</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <a href="./event.html" class="text-white">
+            <img src="./imgs/hp2.jpg" class="img-fluid rounded mx-auto d-block">
+          </a>
+          <br>
+          <br>
+          <h3 class="text-center">
+            <a href="./quaresma.html" class="text-white">Quaresma</a> invited you to
+            <a href="./event.html" class="text-white">Mini Teste PPIN</a>.</h3>
+          <br>
+          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./event.html'">
+            <i class="fas fa-check fa-fw"></i> Accept </button>
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
+            <i class="fas fa-times fa-fw"></i> Decline </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="modal fade" id="add_event">
     <div class="modal-dialog modal-dialog-centered modal-md">
   
@@ -167,20 +213,10 @@
   
           <label for="description">Description</label>
           <div class="input-group mb-2">
-            <textarea class="form-control" rows="1" cols="1" placeholder="Enter Description"></textarea>
+            <textarea class="form-control" rows="4" cols="1" placeholder="Enter Description"></textarea>
           </div>
-  
-          <label for="upload_image">Upload Image</label>
-          <div class="input-group mb-0">
-            <label class="btn btn-secondary">
-              Browse
-              <input type="file" hidden id="upload_image" class="form-control-file">
-            </label>
-          </div>
-  
           <hr>
-  
-          <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./event.html'">Add Event</button>
+          <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./eventOwner.html'">Add Event</button>
   
         </div>
       </div>
@@ -194,8 +230,8 @@
       <h3>LBAW1765</h3>
       <hr>
       <div class="row">
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="card m-1">
             <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
             <div class="card-body">
               <h4 class="card-title">Mariana Guimarães</h4>
@@ -203,8 +239,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="card m-1">
             <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
             <div class="card-body">
               <h4 class="card-title">Rui Quaresma</h4>
@@ -212,8 +248,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="card m-1">
             <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
             <div class="card-body">
               <h4 class="card-title">Rui Araújo</h4>
@@ -221,8 +257,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="card m-1">
             <img class="card-img-top img-fluid rounded" src="./imgs/profile.jpg" alt="Card image">
             <div class="card-body">
               <h4 class="card-title">Tiago Carvalho</h4>
@@ -232,7 +268,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
 </body>

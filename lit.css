@@ -106,7 +106,16 @@ figure-details {
   overflow: hidden;
 }
 
-.content .content-overlay {
+.content-lg {
+  display: block;
+  position: relative;
+  height: 240px;
+  width: 400px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.content-overlay {
   background: linear-gradient(to bottom, transparent, #000);
   position: absolute;
   left: 0;
@@ -120,7 +129,7 @@ figure-details {
   transition: all .3s ease-in-out;
 }
 
-.content:hover .content-overlay {
+.content-overlay {
   opacity: 1;
 }
 
@@ -141,7 +150,7 @@ figure-details {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.content .content-details {
+.content-details {
   top: 85%;
   left: 50%;
   opacity: 1;
@@ -152,16 +161,18 @@ figure-details {
   border-radius: 5px;
   background-color: transparent;
 }
-.map-responsive{
-    overflow:hidden;
-    padding-bottom:63.25%;
-    position:relative;
-    height:0;
+
+.map-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
 }
-.map-responsive iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
+
+.map-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 250px;
+  width: 400px;
+  position: absolute;
 }
