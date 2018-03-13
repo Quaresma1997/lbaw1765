@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+.navbar-brand {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 24px;
+  padding: 0;
+}
+
+input[type="text"] {
+  color: white;
+  background-color: #444;
+  border: 1px solid #444;
+}
+
+input[type="text"]:focus {
+  color: white;
+  background-color: #303030;
+}
+
+input[type="datetime-local"] {
+  color: white;
+  background-color: #444;
+  border: 1px solid #444;
+}
+
+input[type="datetime-local"]:focus {
+  color: white;
+  background-color: #303030;
+}
+
+input[type="password"] {
+  color: white;
+  background-color: #444;
+  border: 1px solid #444;
+}
+
+input[type="password"]:focus {
+  color: white;
+  background-color: #303030;
+}
+
+textarea.form-control {
+  color: white;
+  background-color: #444;
+  border: 1px solid #444;
+}
+
+textarea.form-control:focus {
+  color: white;
+  background-color: #303030;
+}
+
+.custom-select {
+  color: white;
+  background-color: #444;
+  border: 1px solid #444;
+}
+
+.custom-select:focus {
+  color: white;
+  background-color: #303030;
+}
+
+figure {
+  display: block;
+  height: 150px;
+  width: 270px;
+  overflow: hidden;
+  margin: 0;
+}
+
+figure img {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+figure:hover img {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+figure::after {
+  display: block;
+  position: relative;
+  background-image: linear-gradient(to bottom, transparent, #375a7f);
+  margin-top: -150px;
+  height: 150px;
+  content: '';
+}
+
+figure-details {
+  display: block;
+  height: 80px;
+  width: 270px;
+  overflow: hidden;
+  background-color: #375a7f;
+}
+
+.content {
+  display: block;
+  position: relative;
+  height: 230px;
+  width: 270px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.content-lg {
+  display: block;
+  position: relative;
+  height: 240px;
+  width: 400px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.content-overlay {
+  background: linear-gradient(to bottom, transparent, #000);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 1;
+  border-radius: 3px;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.content-overlay {
+  opacity: 1;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content-details {
+  top: 85%;
+  left: 50%;
+  opacity: 1;
+}
+
+.list {
+  border: 1px solid #375a7f;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.map-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.map-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 250px;
+  width: 400px;
+  position: absolute;
+}
