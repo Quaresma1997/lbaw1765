@@ -218,7 +218,14 @@
     <div class="jumbotron">
       <div class="row">
         <div class="col-12 col-lg-6">
+            <button class="btn btn-success" type="button" title="Accept"  onclick="window.location.href='./eventPageAccepted.html'">
+					<i class="fas fa-check fa-fw"> </i>Accept
+             </button>
+             <button class="btn btn-danger" type="button" title="Reject">
+					<i class="fas fa-times fa-fw"></i> Decline 
+              </button>
 
+			<hr>
           <h4>08/03/2018 at 08:30</h4>
           <h4>Feup, Porto, Portugal</h4>
           <br>
@@ -264,8 +271,7 @@
             <br> 
 
           </p>
-		  		<button type="button" class="btn btn-primary btn-lg btn-block mt-3" id="btn_editevent">
-              <i class="far fa-edit fa-fw"></i> Edit Event </button>
+		  		
 		            <!-- Categories Widget -->
           <div class="card my-4">
             <h5 class="card-header">Categories</h5>
@@ -296,7 +302,6 @@
             </div>
           </div>
 		  <div class="container-fluid">
-                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Invite">Invite Users</button>
                         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#participants">Participants</button>
                 </div>
 
@@ -330,49 +335,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="Invite" tabindex="-1" role="dialog" aria-labelledby="inviteModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="inviteModal">Invite Users</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="jumbotron p-1 mb-1 mt-1">
-                        <div class="row">
-                            <div class="col-md-3  col-3">
-                                <img src="http://placehold.it/50x50" class="img-fluid mx-auto rounded imgMember" alt="Cinque Terre">
-                            </div>
-                            <div class="col-md-7 col-7">
-                                <h3>JonasGoncalves</h3>
-                            </div>
-                            <div class="col-md-2 col-2 d-flex align-items-center">
-                                <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite"><i class="fas fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="jumbotron p-1">
-                        <div class="row">
-                            <div class="col-md-3 col-3">
-                                <img src="http://placehold.it/50x50" class="img-fluid rounded imgMember" alt="Cinque Terre">
-                            </div>
-                            <div class="col-md-7 col-7">
-                                <h3>AndreAlmeida</h3>
-                            </div>
-                            <div class="col-md-2 col-2 d-flex align-items-center">
-                                <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" ><i class="fas fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 	  
 	  
     </div>

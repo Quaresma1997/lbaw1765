@@ -154,6 +154,7 @@ figure-details {
 }
 .map-responsive{
     overflow:hidden;
+    padding-bottom:63.25%;
     position:relative;
     height:0;
 }
