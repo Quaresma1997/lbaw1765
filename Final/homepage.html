@@ -54,8 +54,8 @@
               <i class="fas fa-bell fa-fw"></i> Notifications </a>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend">Mariana wants to be your friend</a>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent">Quaresma invited you to an event</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend">Quaresma1997 wants to be your friend</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent">Quaresma1997 invited you to an event</a>
             </div>
           </div>
         </li>
@@ -79,12 +79,15 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <img src="./imgs/profile.jpg" class="img-fluid rounded mx-auto d-block">
+          <a href="./quaresma.html" class="text-white">
+            <img src="./imgs/profile.jpg" class="img-fluid rounded mx-auto d-block">
+          </a>
           <br>
           <br>
-          <h3 class="text-center">Mariana wants to be your friend.</h3>
+          <h3 class="text-center">
+            <a href="./quaresma.html" class="text-white">Quaresma1997</a> wants to be your friend.</h3>
           <br>
-          <button type="button" class="btn btn-success btn-lg btn-block">
+          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./quaresma.html'">
             <i class="fas fa-check fa-fw"></i> Accept </button>
           <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
             <i class="fas fa-times fa-fw"></i> Decline </button>
@@ -92,7 +95,7 @@
       </div>
     </div>
   </div>
-
+  
   <div class="modal fade" id="joinEvent">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
@@ -101,14 +104,16 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <a href="./event.html" class="text-white">
-          <img src="./imgs/hp2.jpg" class="img-fluid rounded mx-auto d-block">
+          <a href="./eventMemb.html" class="text-white">
+            <img src="./imgs/hp2.jpg" class="img-fluid rounded mx-auto d-block">
           </a>
           <br>
           <br>
-          <h3 class="text-center"><a href="./quaresma.html" class="text-white">Quaresma</a> invited you to <a href="./event.html" class="text-white">Mini Teste PPIN</a>.</h3>
+          <h3 class="text-center">
+            <a href="./quaresma.html" class="text-white">Quaresma1997</a> invited you to
+            <a href="./eventMemb.html" class="text-white">Mini Teste PPIN</a>.</h3>
           <br>
-          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./event.html'">
+          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./eventPart.html'">
             <i class="fas fa-check fa-fw"></i> Accept </button>
           <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
             <i class="fas fa-times fa-fw"></i> Decline </button>
@@ -244,17 +249,17 @@
           <hr>
           <div>
             <h2>Shortcuts</h2>
-            <a href="./event.html" class="text-white">Apresentação LBAW</a>
+            <a href="./eventPart.html" class="text-white">Apresentação LBAW</a>
             <br>
-            <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+            <a href="./eventPart.html" class="text-white">Mini Teste PPIN</a>
             <br>
-            <a href="./event.html" class="text-white">Queima das Fitas</a>
+            <a href="./eventPart.html" class="text-white">Queima das Fitas</a>
             <br>
-            <a href="./event.html" class="text-white">Web Summit 2018</a>
+            <a href="./eventPart.html" class="text-white">Web Summit 2018</a>
             <br>
-            <a href="./event.html" class="text-white">Apresentação LBAW</a>
+            <a href="./eventPart.html" class="text-white">Apresentação LBAW</a>
             <br>
-            <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+            <a href="./eventPart.html" class="text-white">Mini Teste PPIN</a>
           </div>
           <hr>
           <div>
@@ -268,7 +273,7 @@
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp1.jpg">
                   <div class="content-details">
@@ -281,7 +286,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp2.jpg">
                   <div class="content-details">
@@ -304,11 +309,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                      <a href="./eventMemb.html" class="text-white">Apresentação LBAW</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa1.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -326,11 +331,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                      <a href="./eventMemb.html" class="text-white">Mini Teste PPIN</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa2.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -339,7 +344,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp1.jpg">
                   <div class="content-details">
@@ -352,7 +357,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp2.jpg">
                   <div class="content-details">
@@ -375,11 +380,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                      <a href="./eventMemb.html" class="text-white">Apresentação LBAW</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa1.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -397,11 +402,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                      <a href="./eventMemb.html" class="text-white">Mini Teste PPIN</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa2.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -410,7 +415,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp1.jpg">
                   <div class="content-details">
@@ -423,7 +428,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp2.jpg">
                   <div class="content-details">
@@ -446,11 +451,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                      <a href="./eventMemb.html" class="text-white">Apresentação LBAW</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa1.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -468,11 +473,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                      <a href="./eventMemb.html" class="text-white">Mini Teste PPIN</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa2.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -481,7 +486,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp1.jpg">
                   <div class="content-details">
@@ -494,7 +499,7 @@
             </div>
             <div class="col-12 col-lg-6">
               <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="./event.html" class="text-white">
+                <a href="./eventMemb.html" class="text-white">
                   <div class="content-overlay"></div>
                   <img class="content-image rounded" src="./imgs/hp2.jpg">
                   <div class="content-details">
@@ -517,11 +522,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Apresentação LBAW</a>
+                      <a href="./eventMemb.html" class="text-white">Apresentação LBAW</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa1.jpg" class="img-fluid rounded">
                     </a>
                   </div>
@@ -539,11 +544,11 @@
                   <div class="col-7">
                     <h5>
                       <a href="./quaresma.html" class="text-white">Quaresma1997</a> joined
-                      <a href="./event.html" class="text-white">Mini Teste PPIN</a>
+                      <a href="./eventMemb.html" class="text-white">Mini Teste PPIN</a>
                     </h5>
                   </div>
                   <div class="col-12">
-                    <a href="./event.html" class="text-white">
+                    <a href="./eventMemb.html" class="text-white">
                       <img src="./imgs/fa2.jpg" class="img-fluid rounded">
                     </a>
                   </div>
