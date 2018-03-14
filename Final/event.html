@@ -23,8 +23,8 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg bg-primary navbar-light fixed-top">
-    <a class="navbar-brand" href="./homepage.html">EventSS</a>
+  <nav class="navbar navbar-expand-md bg-primary navbar-light fixed-top">
+    <a class="navbar-brand" href="./index.html">EventSS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,7 +35,7 @@
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search">
             <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" onclick="window.location.href='./searchLogged.html'">
+              <button type="button" class="btn btn-secondary" onclick="window.location.href='./search.html'">
                 <i class="fas fa-search fa-fw"></i>
               </button>
             </span>
@@ -43,138 +43,76 @@
   
         </li>
       </ul>
-  
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href=# data-toggle="modal" data-target="#add_event">
-            <i class="fas fa-plus fa-fw"></i> Add Event </a>
-        </li>
-        <li class="nav-item">
-          <div class="dropdown">
-            <a class="nav-link" href="#" data-toggle="dropdown">
-              <i class="fas fa-bell fa-fw"></i> Notifications </a>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend">Mariana wants to be your friend</a>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent">Quaresma invited you to an event</a>
-            </div>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./tiagoc.html">
-            <i class="fas fa-user fa-fw"></i> TiagoC </a>
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#sign_up">
+            <i class="fas fa-user fa-fw"></i> Sign Up </a>
         </li>
         <li class="navbar-item">
-          <a class="nav-link" href="./index.html">
-            <i class="fas fa-sign-out-alt fa-fw"></i> Logout </a>
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#login">
+            <i class="fas fa-sign-in-alt fa-fw"></i> Login </a>
         </li>
       </ul>
     </div>
+    </div>
   </nav>
   
-  <div class="modal fade" id="addFriend">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Add Friend</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <img src="./imgs/profile.jpg" class="img-fluid rounded mx-auto d-block">
-          <br>
-          <br>
-          <h3 class="text-center">Mariana wants to be your friend.</h3>
-          <br>
-          <button type="button" class="btn btn-success btn-lg btn-block">
-            <i class="fas fa-check fa-fw"></i> Accept </button>
-          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
-            <i class="fas fa-times fa-fw"></i> Decline </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal fade" id="joinEvent">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Join Event</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <a href="./event.html" class="text-white">
-            <img src="./imgs/hp2.jpg" class="img-fluid rounded mx-auto d-block">
-          </a>
-          <br>
-          <br>
-          <h3 class="text-center">
-            <a href="./quaresma.html" class="text-white">Quaresma</a> invited you to
-            <a href="./event.html" class="text-white">Mini Teste PPIN</a>.</h3>
-          <br>
-          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./event.html'">
-            <i class="fas fa-check fa-fw"></i> Accept </button>
-          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
-            <i class="fas fa-times fa-fw"></i> Decline </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="add_event">
+  <div class="modal fade" id="sign_up">
     <div class="modal-dialog modal-dialog-centered modal-md">
   
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">New Event</h4>
+          <h4 class="modal-title">Sign Up</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
   
         <div class="modal-body ">
   
-          <label for="name">Name</label>
+          <label for="username">Username</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="name">
-                <i class="fas fa-pencil-alt fa-fw"></i>
+              <span class="input-group-text" id="username">
+                <i class="fas fa-user fa-fw"></i>
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="Enter Name">
+            <input type="text" class="form-control" placeholder="Enter Username">
+          </div>
+  
+          <label for="email">Email</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="email">
+                <i class="fas fa-envelope fa-fw"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter Email">
           </div>
   
           <div class="row">
             <div class="col-12 col-sm-6">
-              <div class="form-group mb-2 p-0 m-0">
-                <label for="type">Type</label>
-                <select class="custom-select" id="type">
-                  <option value="Public" selected>Public</option>
-                  <option value="Private">Private</option>
-                </select>
+              <label for="first">First Name</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="first">
+                    <i class="fas fa-id-card fa-fw"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Enter First Name">
               </div>
             </div>
   
             <div class="col-12 col-sm-6">
-              <div class="form-group mb-2 p-0 m-0">
-                <label for="category">Category</label>
-                <select class="custom-select" id="category">
-                  <option value="Music">Music</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Educational">Educational</option>
-                  <option value="Other" selected>Other</option>
-                </select>
+              <label for="last">Last Name</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="last">
+                    <i class="fas fa-id-card fa-fw"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Enter Last Name">
               </div>
             </div>
-          </div>
-  
-          <label for="date">Date</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="date">
-                <i class="fas fa-calendar-alt fa-fw"></i>
-              </span>
-            </div>
-            <input type="datetime-local" class="form-control" placeholder="Enter Date">
           </div>
   
           <div class="row">
@@ -183,10 +121,10 @@
               <div class="input-group mb-2 p-0 m-0">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="country">
-                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <i class="fas fa-home fa-fw"></i>
                   </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Enter Country">
+                <input type="password" class="form-control" placeholder="Enter Country">
               </div>
             </div>
   
@@ -195,7 +133,7 @@
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="city">
-                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <i class="fas fa-home fa-fw"></i>
                   </span>
                 </div>
                 <input type="text" class="form-control" placeholder="Enter City">
@@ -203,23 +141,99 @@
             </div>
           </div>
   
-          <label for="spot">Place</label>
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <label for="password">Password</label>
+              <div class="input-group mb-2 p-0 m-0">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="password">
+                    <i class="fas fa-lock fa-fw"></i>
+                  </span>
+                </div>
+                <input type="password" class="form-control" placeholder="Enter Password">
+              </div>
+            </div>
+  
+            <div class="col-12 col-sm-6">
+              <label for="confpass">Confirm Password</label>
+              <div class="input-group mb-2 p-0 m-0">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="confpass">
+                    <i class="fas fa-lock fa-fw"></i>
+                  </span>
+                </div>
+                <input type="password" class="form-control" placeholder="Confirm Password">
+              </div>
+            </div>
+          </div>
+  
+          <hr>
+  
+          <button type="button" class="btn btn-block btn-success mb-2">Sign Up</button>
+  
+          <div class="btn-group d-flex" role="group">
+            <button type="button" class="btn btn-primary w-100">
+              <i class="fab fa-facebook-f fa-fw"></i>
+            </button>
+            <button type="button" class="btn btn-danger w-100">
+              <i class="fab fa-google fa-fw"></i>
+            </button>
+            <button type="button" class="btn btn-secondary w-100">
+              <i class="fab fa-github fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="login">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Login</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <div class="modal-body ">
+  
+          <label for="username">Username</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="place">
-                <i class="fas fa-map-marker-alt fa-fw"></i>
+              <span class="input-group-text" id="username">
+                <i class="fas fa-user fa-fw"></i>
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="Enter Place">
+            <input type="text" class="form-control" placeholder="Enter your Username">
           </div>
   
-          <label for="description">Description</label>
+          <label for="password">Password</label>
           <div class="input-group mb-2">
-            <textarea class="form-control" rows="4" cols="1" placeholder="Enter Description"></textarea>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="password">
+                <i class="fas fa-lock fa-fw"></i>
+              </span>
+            </div>
+            <input type="password" class="form-control" placeholder="Enter your Password">
           </div>
-          <hr>
-          <button type="button" class="btn btn-block btn-success mb-1" onclick="window.location.href='./eventOwner.html'">Add Event</button>
   
+          <hr>
+  
+          <button type="button" class="btn btn-block btn-success mb-2" onclick="window.location.href='./homepage.html'">Login</button>
+  
+          <div class="btn-group d-flex" role="group">
+            <button type="button" class="btn btn-primary w-100" onclick="window.location.href='./admin.html'">
+              <i class="fab fa-facebook-f fa-fw"></i>
+            </button>
+            <button type="button" class="btn btn-danger w-100">
+              <i class="fab fa-google fa-fw"></i>
+            </button>
+            <button type="button" class="btn btn-secondary w-100">
+              <i class="fab fa-github fa-fw"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
