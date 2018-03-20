@@ -3149,7 +3149,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+tipo: Tipo",
+											"text": "+tipo: Tipo de Evento",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16175,7 +16175,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Categoria",
+											"text": "Tipo de Categoria",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -17915,7 +17915,9 @@
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
-							"type": "Tipo",
+							"type": {
+								"$ref": "AAAAAAFiOrh+vf4hIZ0="
+							},
 							"isReadOnly": false,
 							"isOrdered": false,
 							"isUnique": false,
@@ -19448,7 +19450,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Categoria",
+					"name": "Tipo de Categoria",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,
