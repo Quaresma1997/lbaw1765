@@ -25,7 +25,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBN9rvw5/LWI="
 							},
-							"name": "Utilizador",
+							"name": "User",
 							"ownedElements": [
 								{
 									"_type": "UMLAssociation",
@@ -125,7 +125,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFiBOBCaA6Hjw8="
 									},
-									"name": "pede em amizade",
+									"name": "sends friend request",
 									"end1": {
 										"_type": "UMLAssociationEnd",
 										"_id": "AAAAAAFiG7GYunIrVs8=",
@@ -173,7 +173,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFiBOBCaA6Hjw8="
 									},
-									"name": "bane",
+									"name": "ban",
 									"end1": {
 										"_type": "UMLAssociationEnd",
 										"_id": "AAAAAAFiG8pOQKVEIh4=",
@@ -418,7 +418,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFiBOBCaA6Hjw8="
 									},
-									"name": "dataResgisto",
+									"name": "regist_date",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -436,7 +436,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFiBOBCaA6Hjw8="
 									},
-									"name": "primeiroNome",
+									"name": "first_name",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -454,7 +454,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFiBOBCaA6Hjw8="
 									},
-									"name": "ultimoNome",
+									"name": "last_name",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -472,7 +472,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFiBOBCaA6Hjw8="
 									},
-									"name": "imagePath",
+									"name": "image_path",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -560,7 +560,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Utilizador",
+											"text": "User",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -765,7 +765,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+dataResgisto: datetime",
+											"text": "+regist_date: datetime",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -794,7 +794,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+primeiroNome: string",
+											"text": "+first_name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -823,7 +823,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+ultimoNome: string",
+											"text": "+last_name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -852,7 +852,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+imagePath: string",
+											"text": "+image_path: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1053,7 +1053,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Localização",
+											"text": "Localization",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1229,7 +1229,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+morada: string",
+											"text": "+address: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1258,7 +1258,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+nome: string",
+											"text": "+name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1459,7 +1459,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Cidade",
+											"text": "City",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1577,7 +1577,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+nome: string",
+											"text": "+name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1778,7 +1778,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "País",
+											"text": "Country",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1896,7 +1896,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+nome: string",
+											"text": "+name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2944,7 +2944,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Evento",
+											"text": "Event",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3062,7 +3062,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+título: string",
+											"text": "+títle: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3091,7 +3091,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+data: datetime",
+											"text": "+date: datetime",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3120,7 +3120,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+descrição: text",
+											"text": "+description: text",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3149,7 +3149,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+tipo: Tipo de Evento",
+											"text": "+type: Type_of_event",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3773,7 +3773,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Imagem",
+											"text": "Image",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4515,7 +4515,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Convite",
+											"text": "Event_invite",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4633,7 +4633,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+resposta: boolean",
+											"text": "+answer: boolean",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4808,7 +4808,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+convida",
+									"text": "+invites",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -5002,7 +5002,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1054,
+									"left": 1062,
 									"top": 819,
 									"width": 0,
 									"height": 13,
@@ -5036,7 +5036,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1051,
+									"left": 1059,
 									"top": 805,
 									"width": 0,
 									"height": 13,
@@ -5070,7 +5070,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1054,
+									"left": 1062,
 									"top": 848,
 									"width": 22,
 									"height": 13,
@@ -5152,7 +5152,7 @@
 								"$ref": "AAAAAAFiOq3egIIsOvk="
 							},
 							"lineStyle": 0,
-							"points": "785:636;785:840;1080:840",
+							"points": "785:636;785:840;1088:840",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -5258,7 +5258,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Pedido de amigo",
+											"text": "Friend_request",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5376,7 +5376,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+resposta: boolean",
+											"text": "+answer: boolean",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5415,8 +5415,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 424,
-									"top": 800,
+									"left": 376,
+									"top": 888,
 									"width": 126.00341796875,
 									"height": 10,
 									"autoResize": false
@@ -5439,8 +5439,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -256,
-									"top": 40,
+									"left": -304,
+									"top": 128,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -5463,8 +5463,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -256,
-									"top": 40,
+									"left": -304,
+									"top": 128,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -5577,7 +5577,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Atividade de amigo",
+											"text": "Friend_activity",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5865,7 +5865,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Publicação",
+											"text": "Post",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5983,7 +5983,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+descriçao: string",
+											"text": "+description: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6012,7 +6012,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+data: datetime",
+											"text": "+date: datetime",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6213,7 +6213,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Sondagem",
+											"text": "Poll",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6501,7 +6501,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Opção",
+											"text": "Option",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6619,7 +6619,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+descrição: string",
+											"text": "+description: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6794,7 +6794,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+escolhe opção",
+									"text": "+chooses option",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -7786,7 +7786,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+comentario",
+									"text": "+comment",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -8236,7 +8236,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Administrador",
+											"text": "Admin",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8743,7 +8743,7 @@
 									},
 									"edgePosition": 2,
 									"underline": false,
-									"text": "+é dono",
+									"text": "+owns",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -9053,9 +9053,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1086,
+									"left": 1078,
 									"top": 423,
-									"width": 58,
+									"width": 74.07080078125,
 									"height": 13,
 									"autoResize": false,
 									"alpha": -0.0605320234417599,
@@ -9065,7 +9065,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+participa",
+									"text": "+participates",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -9580,19 +9580,19 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1007,
+									"left": 991,
 									"top": 744,
 									"width": 98.63623046875,
 									"height": 13,
 									"autoResize": false,
-									"alpha": -0.1857531464502724,
-									"distance": 303.2160945596391,
+									"alpha": -0.13343066359103228,
+									"distance": 300.6725793949292,
 									"hostEdge": {
 										"$ref": "AAAAAAFiFgzBdplJ0Zw="
 									},
 									"edgePosition": 2,
 									"underline": false,
-									"text": "+cria publicação",
+									"text": "+creates post",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -10016,7 +10016,7 @@
 									},
 									"edgePosition": 2,
 									"underline": false,
-									"text": "+é convidado",
+									"text": "+is invited",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -10318,7 +10318,7 @@
 							"width": 100,
 							"height": 50,
 							"autoResize": false,
-							"text": "{nome != null}",
+							"text": "{name!= null}",
 							"wordWrap": true
 						},
 						{
@@ -10365,7 +10365,7 @@
 							"width": 100,
 							"height": 50,
 							"autoResize": false,
-							"text": "{nome != null}",
+							"text": "{name != null}",
 							"wordWrap": true
 						},
 						{
@@ -10412,7 +10412,7 @@
 							"width": 129,
 							"height": 68,
 							"autoResize": false,
-							"text": "{título != null}\n{descriçao != null}\n{data!=null}",
+							"text": "{títle != null}\n{description != null}\n{date!=null}",
 							"wordWrap": true
 						},
 						{
@@ -10459,7 +10459,7 @@
 							"width": 161,
 							"height": 51,
 							"autoResize": false,
-							"text": "{data: DEFAULT today}",
+							"text": "{date: DEFAULT today}",
 							"wordWrap": true
 						},
 						{
@@ -10514,9 +10514,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 431,
+									"left": 424,
 									"top": 568,
-									"width": 110.931640625,
+									"width": 125.38525390625,
 									"height": 13,
 									"autoResize": false,
 									"alpha": 0.2825549092834135,
@@ -10526,7 +10526,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+pede em amizade",
+									"text": "+sends friend request",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -10952,7 +10952,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+tem",
+									"text": "+has",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -11424,7 +11424,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+bane",
+									"text": "+ban",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -11848,7 +11848,7 @@
 									},
 									"edgePosition": 1,
 									"underline": false,
-									"text": "+elimina",
+									"text": "+deletes",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -12252,7 +12252,7 @@
 							"width": 177,
 							"height": 57,
 							"autoResize": false,
-							"text": "uma publicação não pode ser comentário de si mesma",
+							"text": "a post can't be a comment of itself",
 							"wordWrap": true
 						},
 						{
@@ -12370,7 +12370,7 @@
 							"width": 105,
 							"height": 73,
 							"autoResize": false,
-							"text": "um utilizador não pode ser amigo de si mesmo",
+							"text": "a user can't be friend of himself",
 							"wordWrap": true
 						},
 						{
@@ -12441,7 +12441,7 @@
 							"width": 273,
 							"height": 121,
 							"autoResize": false,
-							"text": "{username!=null AND username UNIQUE}\n{password!=null}\n{email!=null AND email UNIQUE}\n{dataResgisto: DEFAULT today}\n{primeiroNome!=null}\n{ultimoNome!=null}",
+							"text": "{username!=null AND username UNIQUE}\n{password!=null}\n{email!=null AND email UNIQUE}\n{regist_date: DEFAULT today}\n{first_name!=null}\n{last_name!=null}",
 							"wordWrap": true
 						},
 						{
@@ -12534,7 +12534,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Classificação",
+											"text": "Rating",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -12652,7 +12652,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+valor: integer",
+											"text": "+value: integer",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13255,7 +13255,7 @@
 							"width": 161,
 							"height": 40,
 							"autoResize": false,
-							"text": "{valor>=1 AND valor<=5}\n",
+							"text": "{value>=1 AND value<=5}\n",
 							"wordWrap": true
 						},
 						{
@@ -13299,10 +13299,10 @@
 							"containerExtending": false,
 							"left": 1520,
 							"top": 272,
-							"width": 104.20166015625,
+							"width": 106.37255859375,
 							"height": 40,
 							"autoResize": false,
-							"text": "{morada!=null}",
+							"text": "{address!=null}",
 							"wordWrap": true
 						},
 						{
@@ -13364,7 +13364,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": -240,
+											"left": -224,
 											"top": -216,
 											"width": 0,
 											"height": 13,
@@ -13389,13 +13389,13 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 1085,
+											"left": 1093,
 											"top": 831,
 											"width": 95,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Por realizar",
+											"text": "Not_done",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13415,7 +13415,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": -240,
+											"left": -224,
 											"top": -216,
 											"width": 81,
 											"height": 13,
@@ -13441,7 +13441,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": -240,
+											"left": -224,
 											"top": -216,
 											"width": 0,
 											"height": 13,
@@ -13461,7 +13461,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1080,
+									"left": 1088,
 									"top": 824,
 									"width": 105,
 									"height": 25,
@@ -13497,7 +13497,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1120,
+									"left": 1128,
 									"top": 825,
 									"width": 121,
 									"height": 10,
@@ -13521,7 +13521,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 1120,
+									"left": 1128,
 									"top": 825,
 									"width": 121,
 									"height": 10,
@@ -13545,7 +13545,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -96,
+									"left": -88,
 									"top": -132,
 									"width": 10,
 									"height": 10,
@@ -13569,7 +13569,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -96,
+									"left": -88,
 									"top": -132,
 									"width": 10,
 									"height": 10,
@@ -13585,7 +13585,7 @@
 							"showShadow": true,
 							"containerChangeable": true,
 							"containerExtending": false,
-							"left": 1080,
+							"left": 1088,
 							"top": 824,
 							"width": 105,
 							"height": 49,
@@ -13826,7 +13826,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Realizado",
+											"text": "Done",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -14257,7 +14257,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Participante",
+											"text": "Participant",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -14948,7 +14948,7 @@
 								"$ref": "AAAAAAFiBQBnehxBZxo="
 							},
 							"lineStyle": 0,
-							"points": "686:866;686:840;784:840;784:839;931:839"
+							"points": "686:866;686:840;784:840;784:839;935:839"
 						},
 						{
 							"_type": "UMLAssociationView",
@@ -15439,7 +15439,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Proprietário",
+											"text": "Owner",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16175,7 +16175,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Tipo de Categoria",
+											"text": "Category",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16668,7 +16668,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Tipo de Evento",
+											"text": "Type_of_event",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16882,7 +16882,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Público",
+											"text": "Public",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16911,7 +16911,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Privado",
+											"text": "Private",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -17409,7 +17409,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Localização",
+					"name": "Localization",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -17454,7 +17454,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBOgLfw7qkiM="
 							},
-							"name": "morada",
+							"name": "address",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17472,7 +17472,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBOgLfw7qkiM="
 							},
-							"name": "nome",
+							"name": "name",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17496,7 +17496,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Cidade",
+					"name": "City",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -17695,7 +17695,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBOjl1w8aJRI="
 							},
-							"name": "nome",
+							"name": "name",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17719,7 +17719,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "País",
+					"name": "Country",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -17728,7 +17728,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBOlGnw9LxNc="
 							},
-							"name": "nome",
+							"name": "name",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17752,7 +17752,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Evento",
+					"name": "Event",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -17857,7 +17857,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBPD5WBE2OgU="
 							},
-							"name": "título",
+							"name": "títle",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17875,7 +17875,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBPD5WBE2OgU="
 							},
-							"name": "data",
+							"name": "date",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17893,7 +17893,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBPD5WBE2OgU="
 							},
-							"name": "descrição",
+							"name": "description",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17911,7 +17911,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBPD5WBE2OgU="
 							},
-							"name": "tipo",
+							"name": "type",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -17937,7 +17937,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Imagem",
+					"name": "Image",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -18111,7 +18111,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Convite",
+					"name": "Event_invite",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -18133,7 +18133,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBQBnehw/WeM="
 							},
-							"name": "convida",
+							"name": "invites",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFiBRIbLy2uS+U=",
@@ -18184,7 +18184,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBQBnehw/WeM="
 							},
-							"name": "resposta",
+							"name": "answer",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -18291,7 +18291,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Pedido de amigo",
+					"name": "Friend_request",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -18316,7 +18316,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBRTKQkx1COo="
 							},
-							"name": "resposta",
+							"name": "answer",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -18340,7 +18340,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Atividade de amigo",
+					"name": "Friend_activity",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -18578,7 +18578,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Publicação",
+					"name": "Post",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -18587,7 +18587,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBT84iUo/JHM="
 							},
-							"name": "descriçao",
+							"name": "description",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -18605,7 +18605,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBT84iUo/JHM="
 							},
-							"name": "data",
+							"name": "date",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -18629,7 +18629,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Sondagem",
+					"name": "Poll",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,
@@ -18642,7 +18642,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Opção",
+					"name": "Option",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -18650,7 +18650,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBT/nW060wZM="
 							},
-							"name": "tem",
+							"name": "has",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFiG7nbbsFgMAY=",
@@ -18701,7 +18701,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiBT/nW060wZM="
 							},
-							"name": "descrição",
+							"name": "description",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -18766,7 +18766,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiFeqe+CaGXiU="
 							},
-							"name": "escolhe opção",
+							"name": "chooses option",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFiFeqfNCbO6UI=",
@@ -18920,7 +18920,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiFe2CcErR7wU="
 							},
-							"name": "comentario",
+							"name": "comment",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFiFe2CsUsiP0s=",
@@ -18975,7 +18975,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Administrador",
+					"name": "Admin",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -18997,7 +18997,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiFfyzZ8elNfk="
 							},
-							"name": "elimina",
+							"name": "deletes",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFiG86+F/kcqbI=",
@@ -19066,7 +19066,7 @@
 								"_parent": {
 									"$ref": "AAAAAAFiFgKSw//uiW4="
 								},
-								"name": "é dono",
+								"name": "owns",
 								"reference": {
 									"$ref": "AAAAAAFiBPD5WBE2OgU="
 								},
@@ -19123,7 +19123,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiFgazfFap8vI="
 							},
-							"name": "participa",
+							"name": "participates",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFiFgaz/FcGwog=",
@@ -19192,7 +19192,7 @@
 								"_parent": {
 									"$ref": "AAAAAAFiFgzBdZlFVWc="
 								},
-								"name": "cria publicação",
+								"name": "creates post",
 								"reference": {
 									"$ref": "AAAAAAFiBT84iUo/JHM="
 								},
@@ -19268,7 +19268,7 @@
 								"_parent": {
 									"$ref": "AAAAAAFiFhN8FeraBUI="
 								},
-								"name": "é convidado",
+								"name": "is invited",
 								"reference": {
 									"$ref": "AAAAAAFiBQBnehw/WeM="
 								},
@@ -19317,7 +19317,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Classificação",
+					"name": "Rating",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -19326,7 +19326,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiITY7di5qq9E="
 							},
-							"name": "valor",
+							"name": "value",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -19350,7 +19350,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Por realizar",
+					"name": "Not_done",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -19379,7 +19379,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Realizado",
+					"name": "Done",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -19408,7 +19408,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Participante",
+					"name": "Participant",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -19437,7 +19437,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Proprietário",
+					"name": "Owner",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,
@@ -19450,7 +19450,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Tipo de Categoria",
+					"name": "Category",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,
@@ -19518,7 +19518,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiBN9rvw5+LBA="
 					},
-					"name": "Tipo de Evento",
+					"name": "Type_of_event",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,
@@ -19530,7 +19530,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiOrh+vf4hIZ0="
 							},
-							"name": "Público",
+							"name": "Public",
 							"visibility": "public"
 						},
 						{
@@ -19539,7 +19539,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFiOrh+vf4hIZ0="
 							},
-							"name": "Privado",
+							"name": "Private",
 							"visibility": "public"
 						}
 					]
