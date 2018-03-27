@@ -1,5 +1,4 @@
 --Types Enums
-PRAGMA foreign_keys = ON;
 
 DROP TYPE IF EXISTS categories CASCADE;
 CREATE TYPE categories AS ENUM(
@@ -33,9 +32,8 @@ CREATE TABLE cities (
     name text NOT NULL,
     country_id INTEGER NOT NULL,
     CONSTRAINT cities_pk PRIMARY KEY (id),
-    CONSTRAINT cities_name_uk UNIQUE (name),
-    CONSTRAINT cities_country_id_fk FOREIGN KEY (country_id) REFERENCES 
-    countries(id) ON DELETE SET NULL
+    CONSTRAINT cities_name_uk UNIQUE (name)
+    
 );
 
 DROP TABLE IF EXISTS countries CASCADE;
@@ -51,8 +49,6 @@ CREATE TABLE dones (
     event_id INTEGER NOT NULL,
     rating INTEGER NOT NULL,
     CONSTRAINT dones_pk PRIMARY KEY (event_id),
-    CONSTRAINT dones_event_id_fk FOREIGN KEY (event_id) REFERENCES
-     events(id) ON UPDATE CASCADE,
     CONSTRAINT rating_ck CHECK (((rating >= 1) AND (rating <= 5)))
 );
 
@@ -68,12 +64,6 @@ CREATE TABLE events (
     type event_type NOT NULL,
     category categories NOT NULL,
     CONSTRAINT events_pk PRIMARY KEY (id),
-    CONSTRAINT events_owner_id_fk FOREIGN KEY (owner_id) REFERENCES 
-    users(id) ON UPDATE CASCADE,
-    CONSTRAINT events_localization_id_fk FOREIGN KEY (localization_id) REFERENCES 
-    localizations(id) ON DELETE SET NULL,
-    CONSTRAINT events_image_id_fk FOREIGN KEY (image_id) REFERENCES 
-    images(id) ON DELETE SET NULL,
     CONSTRAINT date_ck CHECK ((date > now()))
 );
 
@@ -84,13 +74,7 @@ CREATE TABLE event_invites (
     event_id INTEGER NOT NULL,
     owner_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    CONSTRAINT event_invites_pk PRIMARY KEY (id),
-    CONSTRAINT event_invites_event_id_fk FOREIGN KEY (event_id) REFERENCES 
-    not_dones(event_id) ON DELETE CASCADE,
-    CONSTRAINT event_invites_owner_id_fk FOREIGN KEY (owner_id) REFERENCES 
-    owners(id) ON DELETE SET NULL,
-    CONSTRAINT event_invites_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    users(id) ON DELETE SET NULL
+    CONSTRAINT event_invites_pk PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS friend_activities CASCADE;
@@ -100,10 +84,6 @@ CREATE TABLE friend_activities (
     receiver_id INTEGER NOT NULL,
     event_id INTEGER NOT NULL,
     CONSTRAINT friend_activities_pk PRIMARY KEY (id),
-    CONSTRAINT friend_activities_sender_id_fk FOREIGN KEY (sender_id) REFERENCES
-    users(id) ON DELETE SET NULL,
-    CONSTRAINT friend_activities_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    users(id) ON DELETE SET NULL,
     CONSTRAINT friend_activities_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE CASCADE
 );
@@ -115,11 +95,7 @@ CREATE TABLE friend_requests (
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
     event_id INTEGER NOT NULL,
-    CONSTRAINT friend_requests_pk PRIMARY KEY (id),
-    CONSTRAINT friend_requests_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
-    participants(id) ON DELETE CASCADE,
-    CONSTRAINT friend_requests_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    users(id) ON DELETE CASCADE
+    CONSTRAINT friend_requests_pk PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS images CASCADE;
@@ -156,9 +132,7 @@ CREATE TABLE options (
     id SERIAL NOT NULL,
     description text NOT NULL,
     poll_id INTEGER NOT NULL,
-    CONSTRAINT options_pk PRIMARY KEY (id),
-    CONSTRAINT options_poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
-    polls(id) ON DELETE CASCADE
+    CONSTRAINT options_pk PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS owners CASCADE;
@@ -168,8 +142,6 @@ CREATE TABLE owners (
     event_id INTEGER NOT NULL,
     CONSTRAINT owners_pk PRIMARY KEY (id),
     CONSTRAINT owners_user_id_event_id_uk UNIQUE (user_id, event_id),
-    CONSTRAINT owners_user_id_fk FOREIGN KEY (user_id) REFERENCES
-    users(id) ON UPDATE CASCADE,
     CONSTRAINT owners_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE SET NULL
 );
@@ -181,8 +153,6 @@ CREATE TABLE participants (
     event_id INTEGER NOT NULL,
     CONSTRAINT participants_pk PRIMARY KEY (id),
     CONSTRAINT participants_user_id_event_id_uk UNIQUE (user_id, event_id),
-    CONSTRAINT participants_user_id_fk FOREIGN KEY (user_id) REFERENCES 
-    users(id) ON UPDATE CASCADE,
     CONSTRAINT participants_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE SET NULL
 );
@@ -191,9 +161,7 @@ DROP TABLE IF EXISTS polls CASCADE;
 CREATE TABLE polls (
     id SERIAL NOT NULL,
     post_id INTEGER NOT NULL,
-    CONSTRAINT polls_pk PRIMARY KEY (id),
-    CONSTRAINT polls_post_id_fk FOREIGN KEY (post_id) REFERENCES 
-    posts(id) ON DELETE CASCADE
+    CONSTRAINT polls_pk PRIMARY KEY (id)    
 );
 
 DROP TABLE IF EXISTS posts CASCADE;
@@ -207,8 +175,6 @@ CREATE TABLE posts (
     CONSTRAINT posts_pk PRIMARY KEY (id),
     CONSTRAINT posts_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE CASCADE,
-    CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
-    users(id) ON DELETE CASCADE,
     CONSTRAINT posts_image_id_fk FOREIGN KEY (image_id) REFERENCES 
     images(id) ON DELETE SET NULL
 );
@@ -230,3 +196,72 @@ CREATE TABLE users (
     CONSTRAINT users_city_id_fk FOREIGN KEY (city_id) REFERENCES 
     cities(id) ON DELETE SET NULL
 );
+
+
+ALTER TABLE ONLY cities
+    ADD CONSTRAINT cities_country_id_fk FOREIGN KEY (country_id) REFERENCES 
+    countries(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY dones
+    ADD CONSTRAINT dones_event_id_fk FOREIGN KEY (event_id) REFERENCES
+     events(id) ON UPDATE CASCADE;
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_owner_id_fk FOREIGN KEY (owner_id) REFERENCES 
+    users(id) ON UPDATE CASCADE;
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_localization_id_fk FOREIGN KEY (localization_id) REFERENCES 
+    localizations(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_image_id_fk FOREIGN KEY (image_id) REFERENCES 
+    images(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    not_dones(event_id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_owner_id_fk FOREIGN KEY (owner_id) REFERENCES 
+    owners(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY friend_activities
+    ADD CONSTRAINT friend_activities_sender_id_fk FOREIGN KEY (sender_id) REFERENCES
+    users(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY friend_activities
+    ADD CONSTRAINT friend_activities_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY friend_requests
+    ADD CONSTRAINT friend_requests_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
+    participants(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY friend_requests   
+    ADD CONSTRAINT friend_requests_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY options
+    ADD CONSTRAINT options_poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
+    polls(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY owners
+    ADD CONSTRAINT owners_user_id_fk FOREIGN KEY (user_id) REFERENCES
+    users(id) ON UPDATE CASCADE;
+
+ALTER TABLE ONLY participants
+    ADD CONSTRAINT participants_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    users(id) ON UPDATE CASCADE;
+
+ALTER TABLE ONLY polls
+    ADD CONSTRAINT polls_post_id_fk FOREIGN KEY (post_id) REFERENCES 
+    posts(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    users(id) ON DELETE CASCADE;
