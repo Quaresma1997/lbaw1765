@@ -96,18 +96,19 @@ INSERT INTO dones (event_id,rating)
 INSERT INTO dones (event_id,rating)
 			VALUES (7,3);
 			
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (1);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (3);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (4);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (5);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (6);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (8);
+			
 
 			
 INSERT INTO participants (id,user_id,event_id)

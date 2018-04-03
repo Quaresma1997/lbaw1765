@@ -47,7 +47,7 @@ CREATE TABLE countries (
 DROP TABLE IF EXISTS dones CASCADE;
 CREATE TABLE dones (
     event_id INTEGER NOT NULL,
-    rating INTEGER NOT NULL,
+    rating INTEGER,
     CONSTRAINT dones_pk PRIMARY KEY (event_id),
     CONSTRAINT rating_ck CHECK (((rating >= 1) AND (rating <= 5)))
 );
@@ -77,6 +77,17 @@ CREATE TABLE event_invites (
     CONSTRAINT event_invites_pk PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS event_warnings CASCADE;
+CREATE TABLE event_warnings (
+    id SERIAL NOT NULL,
+    event_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    message text NOT NULL,
+    CONSTRAINT event_warnings_pk PRIMARY KEY (id),
+    CONSTRAINT event_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES events(id),
+    CONSTRAINT event_warnings_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 DROP TABLE IF EXISTS friend_activities CASCADE;
 CREATE TABLE friend_activities (
     id SERIAL NOT NULL,
@@ -97,6 +108,14 @@ CREATE TABLE friend_requests (
     event_id INTEGER NOT NULL,
     CONSTRAINT friend_requests_pk PRIMARY KEY (id)
 );
+DROP TABLE IF EXISTS friendships CASCADE;
+CREATE TABLE friendships (
+    id SERIAL NOT NULL,
+    user_id_1 INTEGER NOT NULL,
+    user_id_2 INTEGER NOT NULL,
+    CONSTRAINT friendships_users_ids_uk UNIQUE (user_id_1, user_id_2)
+
+)
 
 DROP TABLE IF EXISTS images CASCADE;
 CREATE TABLE images (
@@ -246,6 +265,14 @@ ALTER TABLE ONLY friend_requests
     ADD CONSTRAINT friend_requests_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
     users(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_user_id_1 FOREIGN KEY (user_id_1) REFERENCES
+    users(id) ON UPDATE CASCADE;
+
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_user_id_2 FOREIGN KEY (user_id_2) REFERENCES
+    users(id) ON UPDATE CASCADE;
+
 ALTER TABLE ONLY options
     ADD CONSTRAINT options_poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
     polls(id) ON DELETE CASCADE;
@@ -253,6 +280,7 @@ ALTER TABLE ONLY options
 ALTER TABLE ONLY owners
     ADD CONSTRAINT owners_user_id_fk FOREIGN KEY (user_id) REFERENCES
     users(id) ON UPDATE CASCADE;
+
 
 ALTER TABLE ONLY participants
     ADD CONSTRAINT participants_user_id_fk FOREIGN KEY (user_id) REFERENCES 
@@ -265,3 +293,94 @@ ALTER TABLE ONLY polls
 ALTER TABLE ONLY posts
     ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
     users(id) ON DELETE CASCADE;
+
+UPDATE "users"
+SET password = ?,
+    email = ?,
+    first_name = ?,
+    last_name = ?,
+    image_path = ?,
+    city_id = ?
+WHERE id = ?;
+
+UPDATE events
+SET name = ?,
+    date = ?,
+    description = ?,
+    localization_id = ?,
+    image_id = ?,
+    event_type = ?,
+    category = ?
+WHERE id = ?;
+
+UPDATE dones
+SET rating = ?
+WHERE event_id = ?;
+
+UPDATE options
+SET description = ?
+WHERE id = ?;
+
+UPDATE posts
+SET description = ?.
+    date = ?,
+    image_id = ?
+WHERE id = ?;
+
+DELETE FROM "users"
+WHERE id = ?;
+
+DELETE FROM events
+WHERE id = ?;
+
+DELETE FROM posts
+WHERE id = ?;
+
+DELETE FROM options
+WHERE id = ?;
+
+DELETE FROM polls
+WHERE id = ?;
+
+DELETE FROM friendships
+WHERE id = ?;
+
+DELETE FROM friend_requests
+WHERE id = ?;
+
+DELETE FROM event_invites
+WHERE id = ?;
+
+CREATE FUNCTION set_event_as_done() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  IF EXISTS (SELECT event_id FROM not_done WHERE NEW.event_id = id) 
+  THEN
+    INSERT INTO dones (NEW.event_id, NULL);
+    DELETE FROM not_dones WHERE id = NEW.event_id;
+  END IF;
+  RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER set_event_as_done
+  BEFORE UPDATE OF date ON events
+  FOR EACH ROW
+  WHEN NEW.date = now()
+    EXECUTE PROCEDURE set_event_as_done(); 
+
+
+CREATE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
+$BODY$
+WHILE( SELECT id FROM participants WHERE participants.event_id = OLD.event_id)
+BEGIN
+  INSERT INTO event_warnings(OLD.event_id, id)
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER notificate_event_delete
+  FOR DELETE OR UPDATE ON events
+  FOR EACH ROW
+    EXECUTE PROCEDURE notificate_event_delete(); 
