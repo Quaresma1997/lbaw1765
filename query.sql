@@ -1,15 +1,19 @@
 
--->user profile
-SELECT username, last_name, first_name, email, image_path 
+--> user profile
+SELECT username, last_name, first_name, email, image_path, city_id
   FROM users 
-  WHERE users.id = $userId;
+  WHERE users.id = $user_id; 
  
- 
- -->pesquisa user
-SELECT id, username, last_name, first_name, image_path FROM users 
-  WHERE username LIKE %$search% OR first_name LIKE %$search%
+ --> search user
+SELECT id, username, image_path 
+FROM users 
+  WHERE username LIKE %$search%
 ORDER BY username;
 
+--> search event
+SELECT id, name, description, image_id, date, localization 
+FROM events
+  WHERE name LIKE %$search% OR localization LIKE %$search%;
 
 -->pesquisa categoria
 SELECT id, name, "date", description, image_id, category FROM events 
@@ -40,3 +44,4 @@ SELECT users.username, users.image_path
   WHERE users.id = participants.user_id AND participants.event_id=event.id; 
   
 --- testar e fazer modificações frequentes e os indexes
+
