@@ -412,28 +412,28 @@ SELECT user_id_1, user_id_2
 --> user events
 SELECT event_id
   FROM participants
-  WHERE user_id = $user_id
+  WHERE user_id = $user_id;
 
 SELECT event_id
   FROM owners
-  WHERE user_id = $user_id
+  WHERE user_id = $user_id;
 
 --> notifications
 SELECT sender_id
   FROM friend_requests
-  WHERE receiver_id = $user_id
+  WHERE receiver_id = $user_id;
 
 SELECT sender_id, event_id
   FROM friend_activities
-  WHERE receiver_id = $user_id
+  WHERE receiver_id = $user_id;
 
 SELECT owner_id, event_id
   FROM event_invites
-  WHERE receiver_id = $user_id
+  WHERE receiver_id = $user_id;
 
 SELECT event_id, "message"
   FROM event_warnings
-  WHERE receiver_id = $user_id
+  WHERE receiver_id = $user_id;
 
  --> search user
 SELECT id, username, image_path 
@@ -485,6 +485,14 @@ SELECT users.username
     FROM participants
     WHERE user_id IS NOT NULL AND participants.event_id=$event_id) ;
 
+	
+--> INDEXES
+
+ CREATE INDEX user_username ON users USING hash (username); 
+ 
+ CREATE INDEX owner_events ON events USING hash(owner_id); 
+ 
+ CREATE INDEX search_events ON events USING GIST (to_tsvector('english', name));
 
 --> INSERTS
 
