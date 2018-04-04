@@ -1,36 +1,64 @@
-
 --> user profile
 SELECT username, last_name, first_name, email, image_path, city_id
   FROM users 
   WHERE users.id = $user_id; 
  
+--> user friends
+SELECT user_id_1, user_id_2
+  FROM friendships
+  WHERE user_id_1 = $user_id OR user_id_2 = $user_id;
+
+--> user events
+SELECT event_id
+  FROM participants
+  WHERE user_id = $user_id
+
+SELECT event_id
+  FROM owners
+  WHERE user_id = $user_id
+
+--> notifications
+SELECT sender_id
+  FROM friend_requests
+  WHERE receiver_id = $user_id
+
+SELECT sender_id, event_id
+  FROM friend_activities
+  WHERE receiver_id = $user_id
+
+SELECT owner_id, event_id
+  FROM event_invites
+  WHERE receiver_id = $user_id
+
+SELECT event_id, "message"
+  FROM event_warnings
+  WHERE receiver_id = $user_id
+
  --> search user
 SELECT id, username, image_path 
 FROM users 
   WHERE username LIKE %$search%
-ORDER BY username;
+  ORDER BY username;
 
 --> search event
-SELECT id, name, description, image_id, date, localization 
+SELECT id, "name", image_id, "date", localization, category
 FROM events
-  WHERE name LIKE %$search% OR localization LIKE %$search%;
+  WHERE "name" LIKE %$search% OR localization LIKE %$search% AND event_type = 'public'
+  ORDER BY "name";
 
--->pesquisa categoria
-SELECT id, name, "date", description, image_id, category FROM events 
-  WHERE events.category LIKE %$category_type%
-ORDER BY date;
-
--->pesquisa event
-SELECT id, name, description, image_id, category, "date" FROM events
-  WHERE name LIKE %$search%
-  ORDER BY date;
+--> filter by category
+SELECT id, "name", image_id, "date", localization, category
+FROM events
+  WHERE "name" LIKE %$search% OR localization LIKE %$search% AND event_type = 'public' AND events.category LIKE %$categories%
+  ORDER BY "name";
   
--->pesquisa
-SELECT id, users.username, users.last_name, users.first_name, users.image_path, events.name, events.category, events.description, events.image_id FROM events, users 
-  WHERE title LIKE %$search% OR obs LIKE %$search%
-ORDER BY title; 
+--> search user
+SELECT username, email, image_path
+  FROM users 
+  WHERE username LIKE %$search% OR email LIKE %$search%
+ORDER BY username; 
 
--- pagina evento
+--> event page
 SELECT events.id, events.name, events.category, events.image_id, events.description, events."date" users.username
   FROM events, users
   WHERE events.owner_id = users.id AND events.id = $id;
@@ -43,5 +71,4 @@ SELECT users.username, users.image_path
   FROM participants
   WHERE users.id = participants.user_id AND participants.event_id=event.id; 
   
---- testar e fazer modificações frequentes e os indexes
 
