@@ -63,31 +63,44 @@ INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, 
 						
 INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
 			VALUES (20,'human','ZYG87WQA6FX','facilisis.magna.tellus@sociis.net','2018-04-01 11:55:12','Hu','Randolphe','/imgs/pyr.jpg');
+					
+/**
+INSERT INTO categories (id,name) VALUES (1,'Music');
+INSERT INTO categories (id,name) VALUES (2,'Sports');
+INSERT INTO categories (id,name) VALUES (3'Entertainment');
+INSERT INTO categories (id,name) VALUES (4,'Educational');
+INSERT INTO categories (id,name) VALUES (5,'Business');
+INSERT INTO categories (id,name) VALUES (6,'Other');
+
+INSERT INTO types_of_event (id,name) VALUES (1,'Public');
+INSERT INTO types_of_event (id,name) VALUES (2,'Private');
+*/
+
+					
 						
-						
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (1,'Antonys Birthday Party','nunc ac mattis ornare, lectus',1,1,1);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (1,'Antonys Birthday Party','nunc ac mattis ornare, lectus',1,1,1,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (2,'ENEI','Nunc quis arcu vel quam',2,2,2);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (2,'ENEI','Nunc quis arcu vel quam',2,2,2,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (3,'RockInRio','tempus eu, ligula. Aenean euismod',3,3,3);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (3,'RockInRio','tempus eu, ligula. Aenean euismod',3,3,3,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (4,'Nos Alive','dignissim pharetra. Nam ac nulla.',3,4,4);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (4,'Nos Alive','dignissim pharetra. Nam ac nulla.',3,4,4,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (5,'Christmas Dinner','dignissim pharetra. Nam ac nulla.',4,5,5);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (5,'Christmas Dinner','dignissim pharetra. Nam ac nulla.',4,5,5,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (6,'Mark Birthday Party','dignissim pharetra. Nam ac nulla.',1,1,6);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (6,'Mark Birthday Party','dignissim pharetra. Nam ac nulla.',1,1,6,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (7,'WebSummit','lorem lorem, luctus ut, pellentesque',6,6,7);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (7,'WebSummit','lorem lorem, luctus ut, pellentesque',6,6,7,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id)
-			VALUES (8,'Ted Talk','sollicitudin orci sem eget massa.',12,2,8);
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (8,'Ted Talk','sollicitudin orci sem eget massa.',12,2,8,'Public','Sports');
 			
 			
 			
@@ -96,18 +109,19 @@ INSERT INTO dones (event_id,rating)
 INSERT INTO dones (event_id,rating)
 			VALUES (7,3);
 			
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (1);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (3);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (4);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (5);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (6);
-INSERT INTO not_dones (event_id,)
+INSERT INTO not_dones (event_id)
 			VALUES (8);
+			
 
 			
 INSERT INTO participants (id,user_id,event_id)
@@ -198,7 +212,54 @@ INSERT INTO countries (id,name) VALUES (2,'Espanha');
 INSERT INTO countries (id,name) VALUES (3,'USA');
 
 
-INSERT INTO post (id,name) VALUES (3,'USA');
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (1,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,1,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (2,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,3,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (3,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,4,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (4,'Lorem ipsum dolor sit amet. ''2018-02-12 15:55:12',,1,16,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (5,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',2,18,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (6,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,10,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (7,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,17,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (8,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,14,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (9,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,5,3);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (10,'Lorem ipsum dolor sit amet. ','2018-01-12 15:55:12',2,16,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (11,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,12,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (12,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,15,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (13,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',5,12,3);
+
+INSERT INTO polls (id,post_id) VALUES (1,1);
+INSERT INTO polls (id,post_id) VALUES (2,2);
+INSERT INTO polls (id,post_id) VALUES (3,3);
+INSERT INTO polls (id,post_id) VALUES (4,4);
+
+INSERT INTO options (id,description,poll_id) VALUES (1,'Bar',1);
+INSERT INTO options (id,description,poll_id) VALUES (2,'Cafe',1);
+INSERT INTO options (id,description,poll_id) VALUES (3,'Club',1);
+INSERT INTO options (id,description,poll_id) VALUES (4,'Home',1);
+INSERT INTO options (id,description,poll_id) VALUES (5,'12/05/2018',2);
+INSERT INTO options (id,description,poll_id) VALUES (6,'13/05/2018',2);
+INSERT INTO options (id,description,poll_id) VALUES (7,'Great',3);
+INSERT INTO options (id,description,poll_id) VALUES (8,'Good',3);
+INSERT INTO options (id,description,poll_id) VALUES (9,'Available',4);
+INSERT INTO options (id,description,poll_id) VALUES (10,'Not Available',4);
+
+INSERT INTO admin (id,username,password,email) VALUES (1,'admin','admin123','amec.reset@edu.pt');
+
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (1,'YES',1,2,8);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (3,'YES',1,3,8);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (4,'NO',1,4,8);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (5,'YES',1,5,8);
+
+
+INSERT INTO friend_activities (id,sender_id,receiver_id,event_id) VALUES (1,1,2,1);
+INSERT INTO friend_activities (id,sender_id,receiver_id,event_id) VALUES (2,2,3,2);
+
+
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (1,'YES',1,1,2);
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (2,'YES',1,1,3);
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (3,'YES',1,1,4);
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (4,'YES',1,1,19);
+
+
 
 
 
