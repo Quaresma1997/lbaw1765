@@ -76,7 +76,7 @@ SELECT AVG(rating)
   FROM dones 
   WHERE dones.event_id= $event_id; 
 
---> Quem posso convidar para evento
+-->who can i invite to the event
 SELECT users.username
   FROM users, events
   WHERE users.id!= event.owner_id AND users.id  NOT IN (
