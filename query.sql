@@ -61,14 +61,27 @@ ORDER BY username;
 --> event page
 SELECT events.id, events.name, events.category, events.image_id, events.description, events."date" users.username
   FROM events, users
-  WHERE events.owner_id = users.id AND events.id = $id;
+  WHERE events.owner_id = users.id AND events.id = $event_id;
  
 SELECT posts.description, posts.id, posts.image_id, posts.user_id
   FROM posts,events
-  WHERE posts.event_id = events.id;
+  WHERE posts.event_id = $event_id;
   
 SELECT users.username, users.image_path
   FROM participants
-  WHERE users.id = participants.user_id AND participants.event_id=event.id; 
-  
+  WHERE users.id = participants.user_id AND participants.event_id=$event_id; 
+
+--> Rating of a event
+SELECT AVG(rating)
+  FROM dones 
+  WHERE dones.event_id= $event_id; 
+
+--> Quem posso convidar para evento
+SELECT users.username
+  FROM users, events
+  WHERE users.id!= event.owner_id AND users.id  NOT IN (
+    SELECT user_id
+    FROM participants
+    WHERE user_id IS NOT NULL AND participants.event_id=$event_id) ;
+
 
