@@ -1,8 +1,8 @@
 
 -->user profile
 SELECT username, last_name, first_name, email, image_path 
-  FROM "users" 
-  WHERE "users".id = $userId;
+  FROM users 
+  WHERE users.id = $userId;
  
  
  -->pesquisa user
@@ -12,33 +12,31 @@ ORDER BY username;
 
 
 -->pesquisa categoria
+SELECT id, name, "date", description, image_id, category FROM events 
+  WHERE events.category LIKE %$category_type%
+ORDER BY date;
 
 -->pesquisa event
-SELECT id, name, description, image_id, date FROM events
-  WHERE name LIKE %$search% OR date LIKE %$search%;
+SELECT id, name, description, image_id, category, "date" FROM events
+  WHERE name LIKE %$search%
+  ORDER BY date;
+  
 -->pesquisa
-SELECT id, title, obs, img, YEAR FROM WORK 
+SELECT id, users.username, users.last_name, users.first_name, users.image_path, events.name, events.category, events.description, events.image_id FROM events, users 
   WHERE title LIKE %$search% OR obs LIKE %$search%
 ORDER BY title; 
 
 -- pagina evento
-SELECT events.id, events.title, events.obs, events.img, events.year, "user".name
-  FROM events, "user"
-  WHERE events.id_user = "user".id AND events.id = $id;
+SELECT events.id, events.name, events.category, events.image_id, events.description, events."date" users.username
+  FROM events, users
+  WHERE events.owner_id = users.id AND events.id = $id;
  
-SELECT "user".name, comment.description, comment."date"
-  FROM "user", comment
-  WHERE comment.id_user = "user".id AND comment.id_work = $id;
+SELECT posts.description, posts.id, posts.image_id, posts.user_id
+  FROM posts,events
+  WHERE posts.event_id = events.id;
   
- -- IF date>current date 
- 
-SELECT rate.rate
-  FROM "user", rate
-  WHERE rate.id_user = $userId AND rate.id_work = $id;
- 
-SELECT AVG(rate)
-  FROM rate
-  WHERE rate.id_work = $id; 
- 
- 
---
+SELECT users.username, users.image_path
+  FROM participants
+  WHERE users.id = participants.user_id AND participants.event_id=event.id; 
+  
+--- testar e fazer modificações frequentes e os indexes
