@@ -79,28 +79,28 @@ INSERT INTO types_of_event (id,name) VALUES (2,'Private');
 					
 						
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (1,'Antonys Birthday Party','nunc ac mattis ornare, lectus',1,1,1,'Public','Sports');
+			VALUES (1,'Antonys Birthday Party', '2018-03-04 12:30:19.000000', 'nunc ac mattis ornare, lectus',1,1,1,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (2,'ENEI','Nunc quis arcu vel quam',2,2,2,'Public','Sports');
+			VALUES (2,'ENEI','2018-04-04 12:30:19.000000','Nunc quis arcu vel quam',2,2,2,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (3,'RockInRio','tempus eu, ligula. Aenean euismod',3,3,3,'Public','Sports');
+			VALUES (3,'RockInRio','2018-06-04 12:30:19.000000','tempus eu, ligula. Aenean euismod',3,3,3,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (4,'Nos Alive','dignissim pharetra. Nam ac nulla.',3,4,4,'Public','Sports');
+			VALUES (4,'Nos Alive','2018-08-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',3,4,4,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (5,'Christmas Dinner','dignissim pharetra. Nam ac nulla.',4,5,5,'Public','Sports');
+			VALUES (5,'Christmas Dinner','2018-10-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',4,5,5,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (6,'Mark Birthday Party','dignissim pharetra. Nam ac nulla.',1,1,6,'Public','Sports');
+			VALUES (6,'Mark Birthday Party','2018-04-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',1,1,6,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (7,'WebSummit','lorem lorem, luctus ut, pellentesque',6,6,7,'Public','Sports');
+			VALUES (7,'WebSummit','2018-04-04 12:30:19.000000','lorem lorem, luctus ut, pellentesque',6,6,7,'Public','Sports');
 			
 INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
-			VALUES (8,'Ted Talk','sollicitudin orci sem eget massa.',12,2,8,'Public','Sports');
+			VALUES (8,'Ted Talk','2018-04-04 12:30:19.000000','sollicitudin orci sem eget massa.',12,2,8,'Public','Sports');
 			
 			
 			
@@ -244,10 +244,10 @@ INSERT INTO options (id,description,poll_id) VALUES (10,'Not Available',4);
 
 INSERT INTO admin (id,username,password,email) VALUES (1,'admin','admin123','amec.reset@edu.pt');
 
-INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (1,'YES',1,2,8);
-INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (3,'YES',1,3,8);
-INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (4,'NO',1,4,8);
-INSERT INTO friend_requests (id,answer,sender_id,receiver_id,event_id) VALUES (5,'YES',1,5,8);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (1,'YES',1,2);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (3,'YES',1,3);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (4,'NO',1,4);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (5,'YES',1,5);
 
 
 INSERT INTO friend_activities (id,sender_id,receiver_id,event_id) VALUES (1,1,2,1);
@@ -259,8 +259,12 @@ INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (2,'Y
 INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (3,'YES',1,1,4);
 INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (4,'YES',1,1,19);
 
+INSERT INTO friendships (id, user_id_1, user_id_2) VALUES (1,2,3);
+INSERT INTO friendships (id, user_id_1, user_id_2) VALUES (2,4,7);
 
+INSERT INTO event_warnings (id, event_id, receiver_id, message) VALUES (1,4,1,"Canceled");
 
+INSERT INTO current_date (id, date) VALUES (1,'2018-04-04 12:30:19.000000');
 
-
+		
 		
