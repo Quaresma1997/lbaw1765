@@ -36,8 +36,8 @@ CREATE TABLE cities (
     
 );
 
-DROP TABLE IF EXISTS current_date CASCADE;
-CREATE TABLE current_date (
+DROP TABLE IF EXISTS "current_date" CASCADE;
+CREATE TABLE "current_date" (
     id SERIAL NOT NULL,
     date TIMESTAMP WITH TIME zone NOT NULL,
     CONSTRAINT current_date_pk PRIMARY KEY (id),
@@ -67,9 +67,9 @@ CREATE TABLE events (
     description text NOT NULL,
     owner_id INTEGER NOT NULL,
     localization_id INTEGER NOT NULL,
-    image_id INTEGER NOT NULL,
     type event_type NOT NULL,
     category categories NOT NULL,
+    rating DOUBLE,
     CONSTRAINT events_pk PRIMARY KEY (id),
     CONSTRAINT date_ck CHECK ((date > now()))
 );
@@ -126,7 +126,7 @@ CREATE TABLE friendships (
 DROP TABLE IF EXISTS images CASCADE;
 CREATE TABLE images (
     id SERIAL NOT NULL,
-    path text NOT NULL,
+    event_id INTEGER NOT NULL,
     CONSTRAINT images_pk PRIMARY KEY (id),
     CONSTRAINT images_path_uk UNIQUE (path)
 );
@@ -196,12 +196,24 @@ CREATE TABLE posts (
     date TIMESTAMP WITH TIME zone NOT NULL,
     event_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
-    image_id INTEGER NOT NULL,
+    image_path text NOT NULL,
     CONSTRAINT posts_pk PRIMARY KEY (id),
     CONSTRAINT posts_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE CASCADE,
     CONSTRAINT posts_image_id_fk FOREIGN KEY (image_id) REFERENCES 
     images(id) ON DELETE SET NULL
+);
+
+DROP TABLE IF EXISTS ratings CASCADE;
+CREATE TABLE ratings (
+    id SERIAL NOT NULL,
+    "value" INTEGER NOT NULL,
+    event_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    CONSTRAINT ratings_pk PRIMARY KEY (id),
+    CONSTRAINT ratings_user_id_event_id_uk UNIQUE (user_id, event_id),
+    CONSTRAINT ratings_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS users CASCADE;
@@ -300,9 +312,13 @@ ALTER TABLE ONLY posts
     ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
     users(id) ON DELETE CASCADE;
 
+ALTER TABLE ONLY ratings
+    ADD CONSTRAINT ratings_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    users(id) ON DELETE SET NULL;
+
 UPDATE "users"
 SET password = $password,
-    email = #email,
+    email = $email,
     first_name = $first_name,
     last_name = $last_name,
     image_path = $image_path,
@@ -333,7 +349,7 @@ SET description = $description.
     image_id = $image_id
 WHERE id = $id;
 
-UPDATE current_date
+UPDATE "current_date"
 SET date = $date
 WHERE id = $id;
 
@@ -375,7 +391,7 @@ $BODY$
 LANGUAGE plpgsql;
  
 CREATE TRIGGER set_event_as_done
-  BEFORE UPDATE OF date ON current_date
+  BEFORE UPDATE OF date ON "current_date"
   FOR EACH ROW
   WHEN NEW.date = now()
     EXECUTE PROCEDURE set_event_as_done(); 
@@ -394,6 +410,20 @@ CREATE TRIGGER notificate_event_delete
   FOR DELETE OR UPDATE ON events
   FOR EACH ROW
     EXECUTE PROCEDURE notificate_event_delete(); 
+
+
+CREATE FUNCTION rating_update() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  UPDATE events SET rating = (SELECT AVG("value") FROM ratings WHERE New.event_id = id)
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER rating_update
+  AFTER INSERT ON ratings
+  FOR EACH ROW
+    EXECUTE PROCEDURE rating_update(); 
 
 
 
