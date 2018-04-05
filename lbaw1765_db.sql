@@ -466,13 +466,13 @@ SELECT event_id, "message"
   WHERE receiver_id = $user_id;
 
 --> search event
-SELECT id, "name", image_id, "date", localization, category
+SELECT id, "name", image_path, "date", localization, category
 FROM events
   WHERE "name" LIKE %$search% OR localization LIKE %$search% AND event_type = 'public'
   ORDER BY "name";
 
 --> filter by category
-SELECT id, "name", image_id, "date", localization, category
+SELECT id, "name", image_path, "date", localization, category
 FROM events
   WHERE "name" LIKE %$search% OR localization LIKE %$search% AND event_type = 'public' AND events.category LIKE %$categories%
   ORDER BY "name";
@@ -484,7 +484,7 @@ SELECT username, email, image_path
 ORDER BY username; 
 
 --> event page
-SELECT events.id, events.name, events.category, events.image_id, events.description, events."date" users.username
+SELECT events.id, events.name, events.category, events.image_path, events.description, events."date" users.username
   FROM events, users
   WHERE events.owner_id = users.id AND events.id = $event_id;
  
