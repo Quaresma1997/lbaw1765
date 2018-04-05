@@ -435,12 +435,6 @@ SELECT event_id, "message"
   FROM event_warnings
   WHERE receiver_id = $user_id;
 
- --> search user
-SELECT id, username, image_path 
-FROM users 
-  WHERE username LIKE %$search%
-  ORDER BY username;
-
 --> search event
 SELECT id, "name", image_id, "date", localization, category
 FROM events
