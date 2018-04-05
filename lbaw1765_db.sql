@@ -1,7 +1,7 @@
 --Types Enums
 
-DROP TYPE IF EXISTS category_type CASCADE;
-CREATE TYPE category_type AS ENUM(
+DROP TYPE IF EXISTS categories CASCADE;
+CREATE TYPE categories AS ENUM(
     'Music',
     'Sports',
     'Entertainment',
@@ -9,43 +9,58 @@ CREATE TYPE category_type AS ENUM(
     'Business',
     'Other'
 );
-DROP TYPE IF EXISTS event_type CASCADE;
-CREATE TYPE event_type AS ENUM(
+DROP TYPE IF EXISTS types_of_event CASCADE;
+CREATE TYPE types_of_event AS ENUM(
     'Public',
     'Private'
 );
 
 --Tables
-DROP TABLE IF EXISTS admin CASCADE;
-CREATE TABLE admin (
+DROP TABLE IF EXISTS admins CASCADE;
+CREATE TABLE admins (
     id SERIAL NOT NULL,
     username text NOT NULL,
     password text NOT NULL,
-    email text NOT NULL
+    email text NOT NULL,
+    CONSTRAINT admins_pk PRIMARY KEY (id),
+    CONSTRAINT admins_email_uk UNIQUE (email)
 );
 
-DROP TABLE IF EXISTS city CASCADE;
-CREATE TABLE city (
+DROP TABLE IF EXISTS cities CASCADE;
+CREATE TABLE cities (
     id SERIAL NOT NULL,
     name text NOT NULL,
-    country_id INTEGER NOT NULL
+    country_id INTEGER NOT NULL,
+    CONSTRAINT cities_pk PRIMARY KEY (id),
+    CONSTRAINT cities_name_uk UNIQUE (name)
+    
 );
 
-DROP TABLE IF EXISTS country CASCADE;
-CREATE TABLE country (
+DROP TABLE IF EXISTS current_date CASCADE;
+CREATE TABLE current_date (
     id SERIAL NOT NULL,
-    name text NOT NULL
+    date TIMESTAMP WITH TIME zone NOT NULL,
+    CONSTRAINT current_date_pk PRIMARY KEY (id),
 );
 
-DROP TABLE IF EXISTS done CASCADE;
-CREATE TABLE done (
+DROP TABLE IF EXISTS countries CASCADE;
+CREATE TABLE countries (
+    id SERIAL NOT NULL,
+    name text NOT NULL,
+    CONSTRAINT countries_pk PRIMARY KEY (id),
+    CONSTRAINT countries_name_uk UNIQUE (name)
+);
+
+DROP TABLE IF EXISTS dones CASCADE;
+CREATE TABLE dones (
     event_id INTEGER NOT NULL,
-    rating INTEGER NOT NULL,
-    CONSTRAINT rating_ck CHECK (((rating > 0) AND (rating <= 5)))
+    rating INTEGER,
+    CONSTRAINT dones_pk PRIMARY KEY (event_id),
+    CONSTRAINT rating_ck CHECK (((rating >= 1) AND (rating <= 5)))
 );
 
-DROP TABLE IF EXISTS event CASCADE;
-CREATE TABLE event (
+DROP TABLE IF EXISTS events CASCADE;
+CREATE TABLE events (
     id SERIAL NOT NULL,
     name text NOT NULL,
     date TIMESTAMP WITH TIME zone NOT NULL,
@@ -54,250 +69,698 @@ CREATE TABLE event (
     localization_id INTEGER NOT NULL,
     image_id INTEGER NOT NULL,
     type event_type NOT NULL,
-    category category_type NOT NULL,
+    category categories NOT NULL,
+    CONSTRAINT events_pk PRIMARY KEY (id),
     CONSTRAINT date_ck CHECK ((date > now()))
 );
 
-DROP TABLE IF EXISTS eventInvite CASCADE;
-CREATE TABLE eventInvite (
+DROP TABLE IF EXISTS event_invites CASCADE;
+CREATE TABLE event_invites (
     id SERIAL NOT NULL,
     answer text NOT NULL,
     event_id INTEGER NOT NULL,
     owner_id INTEGER NOT NULL,
-    receiver_id INTEGER NOT NULL
+    receiver_id INTEGER NOT NULL,
+    CONSTRAINT event_invites_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS friendActivity CASCADE;
-CREATE TABLE friendActivity (
+DROP TABLE IF EXISTS event_warnings CASCADE;
+CREATE TABLE event_warnings (
+    id SERIAL NOT NULL,
+    event_id INTEGER NOT NULL,
+    receiver_id INTEGER NOT NULL,
+    message text NOT NULL,
+    CONSTRAINT event_warnings_pk PRIMARY KEY (id),
+    CONSTRAINT event_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES events(id),
+    CONSTRAINT event_warnings_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+DROP TABLE IF EXISTS friend_activities CASCADE;
+CREATE TABLE friend_activities (
     id SERIAL NOT NULL,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    event_id INTEGER NOT NULL
+    event_id INTEGER NOT NULL,
+    CONSTRAINT friend_activities_pk PRIMARY KEY (id),
+    CONSTRAINT friend_activities_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS friendRequest CASCADE;
-CREATE TABLE friendRequest (
+DROP TABLE IF EXISTS friend_requests CASCADE;
+CREATE TABLE friend_requests (
     id SERIAL NOT NULL,
     answer text NOT NULL,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    event_id INTEGER NOT NULL
+    CONSTRAINT friend_requests_pk PRIMARY KEY (id)
 );
-
-DROP TABLE IF EXISTS image CASCADE;
-CREATE TABLE image (
+DROP TABLE IF EXISTS friendships CASCADE;
+CREATE TABLE friendships (
     id SERIAL NOT NULL,
-    path text NOT NULL
+    user_id_1 INTEGER NOT NULL,
+    user_id_2 INTEGER NOT NULL,
+    CONSTRAINT friendships_users_ids_uk UNIQUE (user_id_1, user_id_2)
+
+)
+
+DROP TABLE IF EXISTS images CASCADE;
+CREATE TABLE images (
+    id SERIAL NOT NULL,
+    path text NOT NULL,
+    CONSTRAINT images_pk PRIMARY KEY (id),
+    CONSTRAINT images_path_uk UNIQUE (path)
 );
 
-DROP TABLE IF EXISTS localization CASCADE;
-CREATE TABLE localization (
+DROP TABLE IF EXISTS localizations CASCADE;
+CREATE TABLE localizations (
     id SERIAL NOT NULL,
     name text NOT NULL,
     address text NOT NULL,
     latitude FLOAT,
     longitude FLOAT,
-    city_id INTEGER NOT NULL
+    city_id INTEGER NOT NULL,
+    CONSTRAINT localizations_pk PRIMARY KEY (id),
+    CONSTRAINT localizations_city_id_fk FOREIGN KEY (city_id) REFERENCES 
+    cities(id) ON DELETE SET NULL
 );
 
-DROP TABLE IF EXISTS notDone CASCADE;
-CREATE TABLE notDone (
-    event_id INTEGER NOT NULL
+DROP TABLE IF EXISTS not_dones CASCADE;
+CREATE TABLE not_dones (
+    event_id INTEGER NOT NULL,
+    CONSTRAINT not_dones_pk PRIMARY KEY (event_id),
+    CONSTRAINT not_dones_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS option CASCADE;
-CREATE TABLE option (
+DROP TABLE IF EXISTS options CASCADE;
+CREATE TABLE options (
     id SERIAL NOT NULL,
     description text NOT NULL,
-    poll_id INTEGER NOT NULL
+    poll_id INTEGER NOT NULL,
+    CONSTRAINT options_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS owner CASCADE;
-CREATE TABLE owner (
-    user_id INTEGER NOT NULL,
-    event_id INTEGER NOT NULL
-);
-
-DROP TABLE IF EXISTS participant CASCADE;
-CREATE TABLE participant (
-    user_id INTEGER NOT NULL,
-    event_id INTEGER NOT NULL
-);
-
-DROP TABLE IF EXISTS poll CASCADE;
-CREATE TABLE poll (
+DROP TABLE IF EXISTS owners CASCADE;
+CREATE TABLE owners (
     id SERIAL NOT NULL,
-    post_id INTEGER NOT NULL
+    user_id INTEGER NOT NULL,
+    event_id INTEGER NOT NULL,
+    CONSTRAINT owners_pk PRIMARY KEY (id),
+    CONSTRAINT owners_user_id_event_id_uk UNIQUE (user_id, event_id),
+    CONSTRAINT owners_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE SET NULL
 );
 
-DROP TABLE IF EXISTS post CASCADE;
-CREATE TABLE post (
+DROP TABLE IF EXISTS participants CASCADE;
+CREATE TABLE participants (
+    id SERIAL NOT NULL,
+    user_id INTEGER NOT NULL,
+    event_id INTEGER NOT NULL,
+    CONSTRAINT participants_pk PRIMARY KEY (id),
+    CONSTRAINT participants_user_id_event_id_uk UNIQUE (user_id, event_id),
+    CONSTRAINT participants_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE SET NULL
+);
+
+DROP TABLE IF EXISTS polls CASCADE;
+CREATE TABLE polls (
+    id SERIAL NOT NULL,
+    post_id INTEGER NOT NULL,
+    CONSTRAINT polls_pk PRIMARY KEY (id)    
+);
+
+DROP TABLE IF EXISTS posts CASCADE;
+CREATE TABLE posts (
     id SERIAL NOT NULL,
     description text NOT NULL,
     date TIMESTAMP WITH TIME zone NOT NULL,
     event_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
-    image_id INTEGER NOT NULL
+    image_id INTEGER NOT NULL,
+    CONSTRAINT posts_pk PRIMARY KEY (id),
+    CONSTRAINT posts_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE CASCADE,
+    CONSTRAINT posts_image_id_fk FOREIGN KEY (image_id) REFERENCES 
+    images(id) ON DELETE SET NULL
 );
 
-DROP TABLE IF EXISTS "user" CASCADE;
-CREATE TABLE "user" (
+DROP TABLE IF EXISTS users CASCADE;
+CREATE TABLE users (
     id SERIAL NOT NULL,
     username text NOT NULL,
     password text NOT NULL,
     email text NOT NULL,
-    registDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
-    firstName text NOT NULL,
-    lastName text NOT NULL,
-    imagePath text NOT NULL,
-    city_id INTEGER NOT NULL
+    regist_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    image_path text NOT NULL,
+    city_id INTEGER NOT NULL,
+    CONSTRAINT users_pk PRIMARY KEY (id),
+    CONSTRAINT users_name_uk UNIQUE (username),
+    CONSTRAINT users_email_uk UNIQUE (email),
+    CONSTRAINT users_city_id_fk FOREIGN KEY (city_id) REFERENCES 
+    cities(id) ON DELETE SET NULL
 );
 
--- Primary Keys and Uniques
 
-ALTER TABLE ONLY admin
-    ADD CONSTRAINT admin_pk PRIMARY KEY (id);
+ALTER TABLE ONLY cities
+    ADD CONSTRAINT cities_country_id_fk FOREIGN KEY (country_id) REFERENCES 
+    countries(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY admin
-    ADD CONSTRAINT admin_email_uk UNIQUE (email);
+ALTER TABLE ONLY dones
+    ADD CONSTRAINT dones_event_id_fk FOREIGN KEY (event_id) REFERENCES
+     events(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY city
-    ADD CONSTRAINT city_pk PRIMARY KEY (id);  
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_owner_id_fk FOREIGN KEY (owner_id) REFERENCES 
+    users(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY city
-    ADD CONSTRAINT city_name_uk UNIQUE (name);
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_localization_id_fk FOREIGN KEY (localization_id) REFERENCES 
+    localizations(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY country
-    ADD CONSTRAINT country_pk PRIMARY KEY (id);  
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_image_id_fk FOREIGN KEY (image_id) REFERENCES 
+    images(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY country
-    ADD CONSTRAINT country_name_uk UNIQUE (name);
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    not_dones(event_id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY done
-    ADD CONSTRAINT done_pk PRIMARY KEY (event_id);  
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_owner_id_fk FOREIGN KEY (owner_id) REFERENCES 
+    owners(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY event
-    ADD CONSTRAINT event_pk PRIMARY KEY (id);  
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY eventInvite
-    ADD CONSTRAINT eventInvite_pk PRIMARY KEY (id);  
+ALTER TABLE ONLY friend_activities
+    ADD CONSTRAINT friend_activities_sender_id_fk FOREIGN KEY (sender_id) REFERENCES
+    users(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY friendActivity
-    ADD CONSTRAINT friendActivity_pk PRIMARY KEY (id);  
+ALTER TABLE ONLY friend_activities
+    ADD CONSTRAINT friend_activities_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY friendRequest
-    ADD CONSTRAINT friendRequest_pk PRIMARY KEY (id); 
+ALTER TABLE ONLY friend_requests
+    ADD CONSTRAINT friend_requests_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
+    participants(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY image
-    ADD CONSTRAINT image_pk PRIMARY KEY (id); 
+ALTER TABLE ONLY friend_requests   
+    ADD CONSTRAINT friend_requests_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY image
-    ADD CONSTRAINT image_path_uk UNIQUE (path);  
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_user_id_1 FOREIGN KEY (user_id_1) REFERENCES
+    users(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY localization
-    ADD CONSTRAINT localization_pk PRIMARY KEY (id);
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_user_id_2 FOREIGN KEY (user_id_2) REFERENCES
+    users(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY notDone
-    ADD CONSTRAINT notDone_pk PRIMARY KEY (event_id); 
+ALTER TABLE ONLY options
+    ADD CONSTRAINT options_poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
+    polls(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY option
-    ADD CONSTRAINT option_pk PRIMARY KEY (id);
+ALTER TABLE ONLY owners
+    ADD CONSTRAINT owners_user_id_fk FOREIGN KEY (user_id) REFERENCES
+    users(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY owner
-    ADD CONSTRAINT owner_pk PRIMARY KEY (user_id, event_id); 
 
-ALTER TABLE ONLY participant
-    ADD CONSTRAINT participant_pk PRIMARY KEY (user_id, event_id); 
+ALTER TABLE ONLY participants
+    ADD CONSTRAINT participants_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    users(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY poll
-    ADD CONSTRAINT poll_pk PRIMARY KEY (id);
+ALTER TABLE ONLY polls
+    ADD CONSTRAINT polls_post_id_fk FOREIGN KEY (post_id) REFERENCES 
+    posts(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY post
-    ADD CONSTRAINT post_pk PRIMARY KEY (id);
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    users(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY "user"
-    ADD CONSTRAINT user_pk PRIMARY KEY (id);
+UPDATE "users"
+SET password = $password,
+    email = #email,
+    first_name = $first_name,
+    last_name = $last_name,
+    image_path = $image_path,
+    city_id = $city_id
+WHERE id = $id;
 
-ALTER TABLE ONLY "user"
-    ADD CONSTRAINT user_name_uk UNIQUE (username);
+UPDATE events
+SET name = $name,
+    date = $date,
+    description = $description,
+    localization_id = $localization_id,
+    image_id = $image_id,
+    event_type = $event_type,
+    category = $category
+WHERE id = $id;
 
-ALTER TABLE ONLY "user"
-    ADD CONSTRAINT user_email_uk UNIQUE (email);
+UPDATE dones
+SET rating = $rating
+WHERE event_id = $event_id;
 
--- Foreign Keys
+UPDATE options
+SET description = $description
+WHERE id = $id;
 
-ALTER TABLE ONLY city
-    ADD CONSTRAINT city_country_id_fk FOREIGN KEY (country_id) REFERENCES country(id) ON DELETE SET NULL;
+UPDATE posts
+SET description = $description.
+    date = $date,
+    image_id = $image_id
+WHERE id = $id;
 
-ALTER TABLE ONLY done
-    ADD CONSTRAINT done_event_id_fk FOREIGN KEY (event_id) REFERENCES event(id) ON UPDATE CASCADE;
+UPDATE current_date
+SET date = $date
+WHERE id = $id;
 
-ALTER TABLE ONLY event
-    ADD CONSTRAINT event_owner_id_fk FOREIGN KEY (owner_id) REFERENCES "user"(id) ON UPDATE CASCADE;
+DELETE FROM "users"
+WHERE id = $id;
 
-ALTER TABLE ONLY event
-    ADD CONSTRAINT event_localization_id_fk FOREIGN KEY (localization_id) REFERENCES localization(id) ON DELETE SET NULL;
+DELETE FROM events
+WHERE id = $id;
 
-ALTER TABLE ONLY event
-    ADD CONSTRAINT event_image_id_fk FOREIGN KEY (image_id) REFERENCES image(id) ON DELETE SET NULL;
+DELETE FROM posts
+WHERE id = $id;
 
-ALTER TABLE ONLY eventInvite
-    ADD CONSTRAINT eventInvite_event_id_fk FOREIGN KEY (event_id) REFERENCES notDone(event_id) ON DELETE CASCADE;
+DELETE FROM options
+WHERE id = $id;
 
-ALTER TABLE ONLY eventInvite
-    ADD CONSTRAINT eventInvite_owner_id_fk FOREIGN KEY (owner_id) REFERENCES "user"(id) ON DELETE SET NULL;
+DELETE FROM polls
+WHERE id = $id;
 
-ALTER TABLE ONLY eventInvite
-    ADD CONSTRAINT eventInvite_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES "user"(id) ON DELETE SET NULL;
+DELETE FROM friendships
+WHERE id = $id;
 
-ALTER TABLE ONLY friendActivity
-    ADD CONSTRAINT friendActivity_sender_id_fk FOREIGN KEY (sender_id) REFERENCES "user"(id) ON DELETE SET NULL;
+DELETE FROM friend_requests
+WHERE id = $id;
 
-ALTER TABLE ONLY friendActivity
-    ADD CONSTRAINT friendActivity_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES "user"(id) ON DELETE SET NULL;
+DELETE FROM event_invites
+WHERE id = $id;
 
-ALTER TABLE ONLY friendActivity
-    ADD CONSTRAINT friendActivity_event_id_fk FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE CASCADE;
+CREATE FUNCTION set_event_as_done() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  IF EXISTS (SELECT event_id FROM not_done WHERE NEW.event_id = id) 
+  THEN
+    INSERT INTO dones (NEW.event_id, NULL);
+    DELETE FROM not_dones WHERE id = NEW.event_id;
+  END IF;
+  RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER set_event_as_done
+  BEFORE UPDATE OF date ON current_date
+  FOR EACH ROW
+  WHEN NEW.date = now()
+    EXECUTE PROCEDURE set_event_as_done(); 
 
-ALTER TABLE ONLY friendRequest
-    ADD CONSTRAINT friendRequest_sender_id_fk FOREIGN KEY (sender_id) REFERENCES "user"(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY friendRequest
-    ADD CONSTRAINT friendRequest_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES "user"(id) ON DELETE CASCADE;
+CREATE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
+$BODY$
+WHILE( SELECT id FROM participants WHERE participants.event_id = OLD.event_id)
+BEGIN
+  INSERT INTO event_warnings(OLD.event_id, id)
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER notificate_event_delete
+  FOR DELETE OR UPDATE ON events
+  FOR EACH ROW
+    EXECUTE PROCEDURE notificate_event_delete(); 
 
-ALTER TABLE ONLY localization
-    ADD CONSTRAINT localization_city_id_fk FOREIGN KEY (city_id) REFERENCES city(id) ON DELETE SET NULL;
 
-ALTER TABLE ONLY notDone
-    ADD CONSTRAINT notDone_event_id_fk FOREIGN KEY (event_id) REFERENCES event(id) ON UPDATE CASCADE;
 
-ALTER TABLE ONLY option
-    ADD CONSTRAINT option_poll_id_fk FOREIGN KEY (poll_id) REFERENCES poll(id) ON DELETE CASCADE;
+--> QUERIES
 
-ALTER TABLE ONLY owner
-    ADD CONSTRAINT owner_user_id_fk FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE;
+--> user profile
+SELECT username, last_name, first_name, email, image_path, city_id
+  FROM users 
+  WHERE users.id = $user_id; 
+ 
+--> user friends
+SELECT user_id_1, user_id_2
+  FROM friendships
+  WHERE user_id_1 = $user_id OR user_id_2 = $user_id;
 
-ALTER TABLE ONLY owner
-    ADD CONSTRAINT owner_event_id_fk FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE SET NULL;
+--> user events
+SELECT event_id
+  FROM participants
+  WHERE user_id = $user_id;
 
-ALTER TABLE ONLY participant
-    ADD CONSTRAINT participant_user_id_fk FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE;
+SELECT event_id
+  FROM owners
+  WHERE user_id = $user_id;
 
-ALTER TABLE ONLY participant
-    ADD CONSTRAINT participant_event_id_fk FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE SET NULL;
+--> notifications
+SELECT sender_id
+  FROM friend_requests
+  WHERE receiver_id = $user_id;
 
-ALTER TABLE ONLY poll
-    ADD CONSTRAINT poll_post_id_fk FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE;
+SELECT sender_id, event_id
+  FROM friend_activities
+  WHERE receiver_id = $user_id;
 
-ALTER TABLE ONLY post
-    ADD CONSTRAINT post_event_id_fk FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE CASCADE;
+SELECT owner_id, event_id
+  FROM event_invites
+  WHERE receiver_id = $user_id;
 
-ALTER TABLE ONLY post
-    ADD CONSTRAINT post_user_id_fk FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE;
+SELECT event_id, "message"
+  FROM event_warnings
+  WHERE receiver_id = $user_id;
 
-ALTER TABLE ONLY post
-    ADD CONSTRAINT post_image_id_fk FOREIGN KEY (image_id) REFERENCES image(id) ON DELETE SET NULL;
+ --> search user
+SELECT id, username, image_path 
+FROM users 
+  WHERE username LIKE %$search%
+  ORDER BY username;
 
-ALTER TABLE ONLY "user"
-    ADD CONSTRAINT user_city_id_fk FOREIGN KEY (city_id) REFERENCES city(id) ON DELETE SET NULL;
+--> search event
+SELECT id, "name", image_id, "date", localization, category
+FROM events
+  WHERE "name" LIKE %$search% OR localization LIKE %$search% AND event_type = 'public'
+  ORDER BY "name";
+
+--> filter by category
+SELECT id, "name", image_id, "date", localization, category
+FROM events
+  WHERE "name" LIKE %$search% OR localization LIKE %$search% AND event_type = 'public' AND events.category LIKE %$categories%
+  ORDER BY "name";
+  
+--> search user
+SELECT username, email, image_path
+  FROM users 
+  WHERE username LIKE %$search% OR email LIKE %$search%
+ORDER BY username; 
+
+--> event page
+SELECT events.id, events.name, events.category, events.image_id, events.description, events."date" users.username
+  FROM events, users
+  WHERE events.owner_id = users.id AND events.id = $event_id;
+ 
+SELECT posts.description, posts.id, posts.image_id, posts.user_id
+  FROM posts,events
+  WHERE posts.event_id = $event_id;
+  
+SELECT users.username, users.image_path
+  FROM participants
+  WHERE users.id = participants.user_id AND participants.event_id=$event_id; 
+
+--> Rating of a event
+SELECT AVG(rating)
+  FROM dones 
+  WHERE dones.event_id= $event_id; 
+
+-->who can i invite to the event
+SELECT users.username
+  FROM users, events
+  WHERE users.id!= event.owner_id AND users.id  NOT IN (
+    SELECT user_id
+    FROM participants
+    WHERE user_id IS NOT NULL AND participants.event_id=$event_id) ;
+
+	
+--> INDEXES
+
+ CREATE INDEX user_username ON users USING hash (username); 
+ 
+ CREATE INDEX owner_events ON events USING hash(owner_id); 
+ 
+ CREATE INDEX search_events ON events USING GIST (to_tsvector('english', name));
+
+--> INSERTS
+
+-- Here goes the SQL code - INSERTS
+ 
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (1,'sodales','GUL95ZXR9EX','sodales.at@curae.co.uk','2018-03-07 22:23:34','Zeph','Griffin','/imgs/natu.jpg');
+			
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (2,'uso1','12345','aliquam.iaculis.lacus@amet.co.uk','2018-04-07 11:23:34','Ben','Warren','/imgs/natur.jpg');
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (3,'robin','pass123','amet.ante@faucibusleo.net','2018-02-12 15:55:12','Robin','Wright','/imgs/natur.jpg');
+			
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (4,'bar123','semper123','ut.dolor@gmail.com','2017-12-12 23:55:12','Barry','Allen','/imgs/natur.jpg');
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (5,'reddevil','LBAW','Nulla@et.net','2018-02-12 15:55:12','Andrew','Irons','/imgs/november.jpg');
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (6,'rpedro10','lbaw1765','rpedro10@iol.pt','2018-01-01 23:55:12','Rui','Araujo','/imgs/fer.jpg');
+			
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (7,'joss123','CKB15AAW5MM','ante@fleo.com','2018-03-12 12:55:12','Joss','Stone','/imgs/natur.jpg');
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (8,'top123','SXT16TTW3MH','cursus.et@orciUt.co.uk','2018-01-03 13:55:12','Chris','Harris','/imgs/natur.jpg');
+			
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (9,'roland1','ZYS24FHN5GR','eget.dictum@orciDonec.edu','2018-03-12 09:55:12','Roland','Schitt','/imgs/natur.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (10,'david123','ZUS29FRTGVJ','amet@faucibusleo.net','2018-01-22 15:07:12','David','Rose','/imgs/natur.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (11,'catones', 'QQQ8EFHNGNR','amec.donec@faucibusleo.net','2017-11-12 15:55:12','Carlos','Antonio','/imgs/november.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (12,'emanem','ASDFGHJKL','donex@sapo.net','2018-01-13 15:55:12','Raheem','Sterling','/imgs/natur.jpg');			
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (13,'ufoExtis','ZXCVBNM','amet@iol.net','2018-02-12 15:55:12','Delle','Alli','/imgs/pyr.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (14,'ragnar','QAZWSXEDC','risus.In.mi@egestas.com','2018-02-09 15:55:12','Thor','Ragnarok','/imgs/fer.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (15,'seth','QWERTYUIOP','aliquet.diam.Sed@tinciduntnibh.co.uk','2018-01-12 15:55:12','Seth','Byers','/imgs/natu.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (16,'edNorton','TYT71DOD7YN','scelerisque.scelerisque.dui@arcuiaculisenim.ca','2018-02-23 15:55:12','Ed','Norton','/imgs/natur.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (17,'Pacquiao','SXT16TTW3MH','magnis@cursuset.edu','2018-04-12 15:55:12','Paky','Barret','/imgs/natur.jpg');	
+			
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (18,'steven','MPS10QPK6UE','arcu.Vestibulum@amet.org','2018-01-02 12:55:12','Donovan','Stevenson','/imgs/pyr.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (19,'porter123','QIG24ZOK3EM','dui.nec@ultriciesadipiscing.co.uk','2018-02-12 15:55:12','Porter','Osborn','/imgs/natu.jpg');
+						
+INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES (20,'human','ZYG87WQA6FX','facilisis.magna.tellus@sociis.net','2018-04-01 11:55:12','Hu','Randolphe','/imgs/pyr.jpg');
+					
+/**
+INSERT INTO categories (id,name) VALUES (1,'Music');
+INSERT INTO categories (id,name) VALUES (2,'Sports');
+INSERT INTO categories (id,name) VALUES (3'Entertainment');
+INSERT INTO categories (id,name) VALUES (4,'Educational');
+INSERT INTO categories (id,name) VALUES (5,'Business');
+INSERT INTO categories (id,name) VALUES (6,'Other');
+
+INSERT INTO types_of_event (id,name) VALUES (1,'Public');
+INSERT INTO types_of_event (id,name) VALUES (2,'Private');
+*/
+
+					
+						
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (1,'Antonys Birthday Party', '2018-03-04 12:30:19.000000', 'nunc ac mattis ornare, lectus',1,1,1,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (2,'ENEI','2018-04-04 12:30:19.000000','Nunc quis arcu vel quam',2,2,2,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (3,'RockInRio','2018-06-04 12:30:19.000000','tempus eu, ligula. Aenean euismod',3,3,3,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (4,'Nos Alive','2018-08-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',3,4,4,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (5,'Christmas Dinner','2018-10-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',4,5,5,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (6,'Mark Birthday Party','2018-04-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',1,1,6,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (7,'WebSummit','2018-04-04 12:30:19.000000','lorem lorem, luctus ut, pellentesque',6,6,7,'Public','Sports');
+			
+INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,category)
+			VALUES (8,'Ted Talk','2018-04-04 12:30:19.000000','sollicitudin orci sem eget massa.',12,2,8,'Public','Sports');
+			
+			
+			
+INSERT INTO dones (event_id,rating)
+			VALUES (2,5);
+INSERT INTO dones (event_id,rating)
+			VALUES (7,3);
+			
+INSERT INTO not_dones (event_id)
+			VALUES (1);
+INSERT INTO not_dones (event_id)
+			VALUES (3);
+INSERT INTO not_dones (event_id)
+			VALUES (4);
+INSERT INTO not_dones (event_id)
+			VALUES (5);
+INSERT INTO not_dones (event_id)
+			VALUES (6);
+INSERT INTO not_dones (event_id)
+			VALUES (8);
+			
+
+			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (1,1,1);
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (2,2,1);
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (3,2,2);
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (4,3,1);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (5,4,1);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (6,5,8);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (7,6,8);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (8,7,3);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (9,12,3);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (10,13,3);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (11,14,3);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (12,15,1);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (13,16,2);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (14,17,3);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (15,18,2);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (16,19,1);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (17,20,3);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (18,12,6);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (19,12,5);			
+INSERT INTO participants (id,user_id,event_id)
+			VALUES (20,10,4);
+			
+			
+			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (1,1,1);
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (2,2,2);			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (3,3,3);			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (4,3,4);			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (5,5,5);			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (6,1,6);			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (7,6,7);			
+INSERT INTO owners (id,user_id,event_id)
+			VALUES (8,12,8);
+
+			
+			
+INSERT INTO images (id,path) VALUES (1,'/imgs/natur.jpg');			
+INSERT INTO images (id,path) VALUES (2,'/imgs/natu.jpg');			
+INSERT INTO images (id,path) VALUES (3,'/imgs/pyr.jpg');			
+INSERT INTO images (id,path) VALUES (4,'/imgs/november.jpg');			
+INSERT INTO images (id,path) VALUES (5,'/imgs/taj.jpg');			
+INSERT INTO images (id,path) VALUES (6,'/imgs/fer.jpg');			
+INSERT INTO images (id,path) VALUES (7,'/imgs/fa1.jpg');			
+INSERT INTO images (id,path) VALUES (8,'/imgs/fa2.jpg');
+
+INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (1,'Restaurante O Pirata','Rua da Isabelinha',41.452993,-8.5775364,1);
+INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (2,'FEUP','Rua Roberto Frias',41.1779401,-8.5998763,2);
+INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (3,'Parque da BelaVista','Av. Arlindo Vicente',38.7507558,-9.1265431,3);
+INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (4,'Passeio Maritimo de Alges','Alges',38.697318,-9.2375993,3);
+INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (5,'Hotel Douro','Rua de Agramonte',41.1564707,-8.6288115,2);
+INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (6,'Norte shopping','Matosinhos',41.1825143,-8.6803795,2);
+
+
+INSERT INTO cities (id,name,country_id) VALUES (1,'Braga',1);
+INSERT INTO cities (id,name,country_id) VALUES (1,'Porto',1);
+INSERT INTO cities (id,name,country_id) VALUES (1,'Lisboa',1);
+
+INSERT INTO countries (id,name) VALUES (1,'Portugal');
+INSERT INTO countries (id,name) VALUES (2,'Espanha');
+INSERT INTO countries (id,name) VALUES (3,'USA');
+
+
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (1,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,1,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (2,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,3,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (3,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,4,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (4,'Lorem ipsum dolor sit amet. ''2018-02-12 15:55:12',,1,16,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (5,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',2,18,1);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (6,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,10,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (7,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,17,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (8,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,14,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (9,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,5,3);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (10,'Lorem ipsum dolor sit amet. ','2018-01-12 15:55:12',2,16,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (11,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,12,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (12,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,15,2);
+INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (13,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',5,12,3);
+
+INSERT INTO polls (id,post_id) VALUES (1,1);
+INSERT INTO polls (id,post_id) VALUES (2,2);
+INSERT INTO polls (id,post_id) VALUES (3,3);
+INSERT INTO polls (id,post_id) VALUES (4,4);
+
+INSERT INTO options (id,description,poll_id) VALUES (1,'Bar',1);
+INSERT INTO options (id,description,poll_id) VALUES (2,'Cafe',1);
+INSERT INTO options (id,description,poll_id) VALUES (3,'Club',1);
+INSERT INTO options (id,description,poll_id) VALUES (4,'Home',1);
+INSERT INTO options (id,description,poll_id) VALUES (5,'12/05/2018',2);
+INSERT INTO options (id,description,poll_id) VALUES (6,'13/05/2018',2);
+INSERT INTO options (id,description,poll_id) VALUES (7,'Great',3);
+INSERT INTO options (id,description,poll_id) VALUES (8,'Good',3);
+INSERT INTO options (id,description,poll_id) VALUES (9,'Available',4);
+INSERT INTO options (id,description,poll_id) VALUES (10,'Not Available',4);
+
+INSERT INTO admin (id,username,password,email) VALUES (1,'admin','admin123','amec.reset@edu.pt');
+
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (1,'YES',1,2);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (3,'YES',1,3);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (4,'NO',1,4);
+INSERT INTO friend_requests (id,answer,sender_id,receiver_id) VALUES (5,'YES',1,5);
+
+
+INSERT INTO friend_activities (id,sender_id,receiver_id,event_id) VALUES (1,1,2,1);
+INSERT INTO friend_activities (id,sender_id,receiver_id,event_id) VALUES (2,2,3,2);
+
+
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (1,'YES',1,1,2);
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (2,'YES',1,1,3);
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (3,'YES',1,1,4);
+INSERT INTO event_invites (id,answer,event_id,owner_id,receiver_id) VALUES (4,'YES',1,1,19);
+
+INSERT INTO friendships (id, user_id_1, user_id_2) VALUES (1,2,3);
+INSERT INTO friendships (id, user_id_1, user_id_2) VALUES (2,4,7);
+
+INSERT INTO event_warnings (id, event_id, receiver_id, message) VALUES (1,4,1,"Canceled");
+
+INSERT INTO current_date (id, date) VALUES (1,'2018-04-04 12:30:19.000000');
 
