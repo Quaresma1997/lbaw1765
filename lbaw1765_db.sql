@@ -127,6 +127,7 @@ DROP TABLE IF EXISTS images CASCADE;
 CREATE TABLE images (
     id SERIAL NOT NULL,
     event_id INTEGER NOT NULL,
+    path text NOT NULL,
     CONSTRAINT images_pk PRIMARY KEY (id),
     CONSTRAINT images_path_uk UNIQUE (path)
 );
@@ -200,8 +201,6 @@ CREATE TABLE posts (
     CONSTRAINT posts_pk PRIMARY KEY (id),
     CONSTRAINT posts_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE CASCADE,
-    CONSTRAINT posts_image_id_fk FOREIGN KEY (image_id) REFERENCES 
-    images(id) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS ratings CASCADE;
@@ -250,10 +249,6 @@ ALTER TABLE ONLY events
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_localization_id_fk FOREIGN KEY (localization_id) REFERENCES 
     localizations(id) ON DELETE SET NULL;
-
-ALTER TABLE ONLY events
-    ADD CONSTRAINT events_image_id_fk FOREIGN KEY (image_id) REFERENCES 
-    images(id) ON DELETE SET NULL;
 
 ALTER TABLE ONLY event_invites
     ADD CONSTRAINT event_invites_event_id_fk FOREIGN KEY (event_id) REFERENCES 
@@ -330,7 +325,6 @@ SET name = $name,
     date = $date,
     description = $description,
     localization_id = $localization_id,
-    image_id = $image_id,
     event_type = $event_type,
     category = $category
 WHERE id = $id;
@@ -496,10 +490,10 @@ SELECT users.username, users.image_path
   FROM participants
   WHERE users.id = participants.user_id AND participants.event_id=$event_id; 
 
---> Rating of a event
-SELECT AVG(rating)
-  FROM dones 
-  WHERE dones.event_id= $event_id; 
+--> Rating of an event
+SELECT rating
+  FROM events 
+  WHERE events.event_id= $event_id; 
 
 -->who can i invite to the event
 SELECT users.username
@@ -533,14 +527,14 @@ INSERT INTO countries (id,name) VALUES (3,'USA');
 INSERT INTO admins (id,username,password,email) VALUES (1,'admin1','password','sapo@iol.pt');
 
 
-INSERT INTO images (id,path) VALUES (1,'/imgs/natur.jpg');			
-INSERT INTO images (id,path) VALUES (2,'/imgs/natu.jpg');			
-INSERT INTO images (id,path) VALUES (3,'/imgs/pyr.jpg');			
-INSERT INTO images (id,path) VALUES (4,'/imgs/november.jpg');			
-INSERT INTO images (id,path) VALUES (5,'/imgs/taj.jpg');			
-INSERT INTO images (id,path) VALUES (6,'/imgs/fer.jpg');			
-INSERT INTO images (id,path) VALUES (7,'/imgs/fa1.jpg');			
-INSERT INTO images (id,path) VALUES (8,'/imgs/fa2.jpg');
+INSERT INTO images (id,event_id,path) VALUES (1,1,'/imgs/natur.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (2,2,'/imgs/natu.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (3,3,'/imgs/pyr.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (4,4,'/imgs/november.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (5,5,'/imgs/taj.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (6,6,'/imgs/fer.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (7,7,'/imgs/fa1.jpg');			
+INSERT INTO images (id,event_id,path) VALUES (8,8,'/imgs/fa2.jpg');
 
 INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (1,'Restaurante O Pirata','Rua da Isabelinha',41.452993,-8.5775364,1);
 INSERT INTO localizations (id,name,address,latitude,longitude,city_id) VALUES (2,'FEUP','Rua Roberto Frias',41.1779401,-8.5998763,2);
@@ -615,32 +609,32 @@ INSERT INTO users (id,username,password,email,regist_date,first_name,last_name, 
 			VALUES (20,'human','ZYG87WQA6FX','facilisis.magna.tellus@sociis.net',NOW(),'Hu','Randolphe','/imgs/pyr.jpg',2);
 					
 					
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (1,'Antonys Birthday Party', '2018-12-04 12:30:19.000000', 'nunc ac mattis ornare, lectus',1,1,1,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (1,'Antonys Birthday Party', '2018-12-04 12:30:19.000000', 'nunc ac mattis ornare, lectus',1,1,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (2,'ENEI','2018-04-24 12:30:19.000000','Nunc quis arcu vel quam',2,2,2,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (2,'ENEI','2018-04-24 12:30:19.000000','Nunc quis arcu vel quam',2,2,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (3,'RockInRio','2018-06-04 12:30:19.000000','tempus eu, ligula. Aenean euismod',3,3,3,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (3,'RockInRio','2018-06-04 12:30:19.000000','tempus eu, ligula. Aenean euismod',3,3,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (4,'Nos Alive','2018-08-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',3,4,4,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (4,'Nos Alive','2018-08-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',3,4,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (5,'Christmas Dinner','2018-10-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',4,5,5,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (5,'Christmas Dinner','2018-10-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',4,5,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (6,'Mark Birthday Party','2018-04-13 12:30:19.000000','dignissim pharetra. Nam ac nulla.',1,1,6,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (6,'Mark Birthday Party','2018-04-13 12:30:19.000000','dignissim pharetra. Nam ac nulla.',1,1,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (7,'WebSummit','2018-04-12 12:30:19.000000','lorem lorem, luctus ut, pellentesque',6,6,7,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (7,'WebSummit','2018-04-12 12:30:19.000000','lorem lorem, luctus ut, pellentesque',6,6,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (8,'Ted Talk','2018-04-06 12:30:19.000000','sollicitudin orci sem eget massa.',12,2,8,'Public','Sports');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (8,'Ted Talk','2018-04-06 12:30:19.000000','sollicitudin orci sem eget massa.',12,2,'Public','Sports');
 			
-INSERT INTO events (id,name,date,description,owner_id,localization_id,image_id,type,categories)
-			VALUES (9,'Teaches Conference','2018-04-13 12:30:19.000000','dignissim pharetra. Nam ac nulla.',1,1,6,'Private','Business');
+INSERT INTO events (id,name,date,description,owner_id,localization_id,type,category)
+			VALUES (9,'Teaches Conference','2018-04-13 12:30:19.000000','dignissim pharetra. Nam ac nulla.',1,1,'Private','Business');
 			
 			
 INSERT INTO dones (event_id,rating)
@@ -663,6 +657,9 @@ INSERT INTO not_dones (event_id)
 INSERT INTO not_dones (event_id)
 			VALUES (9);
 			
+
+INSERT INTO ratings (id, "value", event_id, user_id)
+            VALUES (1, 4, 2, 2);
 			
 			
 INSERT INTO participants (id,user_id,event_id)
@@ -730,19 +727,19 @@ INSERT INTO owners (id,user_id,event_id)
 INSERT INTO owners (id,user_id,event_id)
 			VALUES (9,20,9);
 
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (1,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,1,1);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (2,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,3,1);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (3,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,4,1);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (4,'Lorem ipsum dolor sit amet. ',NOW(),1,16,1);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (5,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',2,18,1);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (6,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,10,2);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (7,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,17,2);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (8,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,14,2);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (9,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,5,3);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (10,'Lorem ipsum dolor sit amet. ','2018-01-12 15:55:12',2,16,2);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (11,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,12,2);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (12,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,15,2);
-INSERT INTO posts (id,description,date,event_id, user_id, image_id) VALUES (13,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',5,12,3);
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (1,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,1,"/img/new.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (2,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,3,"/img/new.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (3,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,4,"/img/new.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (4,'Lorem ipsum dolor sit amet. ',NOW(),1,16,"/img/new.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (5,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',2,18,"/img/new.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (6,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,10,"/img/panda.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (7,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,17,"/img/panda.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (8,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,14,"/img/panda.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (9,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',4,5,"/img/panda.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (10,'Lorem ipsum dolor sit amet. ','2018-01-12 15:55:12',2,16,"/img/panda.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (11,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',3,12,"/img/sports.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (12,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',1,15,"/img/sports.jpg");
+INSERT INTO posts (id,description,date,event_id, user_id, image_path) VALUES (13,'Lorem ipsum dolor sit amet. ','2018-02-12 15:55:12',5,12,"/img/sports.jpg");
 
 INSERT INTO polls (id,post_id) VALUES (1,1);
 INSERT INTO polls (id,post_id) VALUES (2,2);
