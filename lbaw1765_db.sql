@@ -364,8 +364,27 @@ CREATE TRIGGER rating_update
     EXECUTE PROCEDURE rating_update()
     RETURN NULL;
 
+--> new trigger to add frienships
 
+CREATE OR REPLACE FUNCTION add_friendship()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+ IF NEW.answer =='YES' THEN
+ INSERT INTO friendships(sender_id,receiver_id)
+ VALUES(NEW.sender_id,NEW.receiver_id);
+ END IF;
+ 
+ RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
 
+CREATE TRIGGER add_friend
+  BEFORE INSERT 
+  ON friend_requests
+  FOR EACH ROW
+  EXECUTE PROCEDURE add_friendship();
 
 	
 --> INDEXES
