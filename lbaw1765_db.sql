@@ -66,7 +66,7 @@ CREATE TABLE events (
     date TIMESTAMP WITH TIME zone NOT NULL,
     description text NOT NULL,
     owner_id INTEGER NOT NULL,
-    localization_id INTEGER NOT NULL,
+    localization_id INTEGER,
     type types_of_event NOT NULL,
     category categories NOT NULL,
     CONSTRAINT events_pk PRIMARY KEY (id),
@@ -76,21 +76,29 @@ CREATE TABLE events (
 DROP TABLE IF EXISTS event_invites CASCADE;
 CREATE TABLE event_invites (
     id SERIAL NOT NULL,
-    answer text NOT NULL,
+    answer text,
     event_id INTEGER NOT NULL,
-    owner_id INTEGER NOT NULL,
+    owner_id INTEGER,
     receiver_id INTEGER NOT NULL,
     CONSTRAINT event_invites_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS event_warnings CASCADE;
-CREATE TABLE event_warnings (
+DROP TABLE IF EXISTS event_delete_warnings CASCADE;
+CREATE TABLE event_delete_warnings (
+    id SERIAL NOT NULL,
+    event_name text NOT NULL,
+    receiver_id INTEGER NOT NULL,
+    CONSTRAINT event_delete_warnings_pk PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS event_update_warnings CASCADE;
+CREATE TABLE event_update_warnings (
     id SERIAL NOT NULL,
     event_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    message text NOT NULL,
-    CONSTRAINT event_warnings_pk PRIMARY KEY (id),
-    CONSTRAINT event_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES events(id)
+    CONSTRAINT event_update_warnings_pk PRIMARY KEY (id),
+    CONSTRAINT event_update_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS friend_activities CASCADE;
@@ -107,7 +115,7 @@ CREATE TABLE friend_activities (
 DROP TABLE IF EXISTS friend_requests CASCADE;
 CREATE TABLE friend_requests (
     id SERIAL NOT NULL,
-    answer text NOT NULL,
+    answer text,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
     CONSTRAINT friend_requests_pk PRIMARY KEY (id)
@@ -147,7 +155,7 @@ CREATE TABLE not_dones (
     event_id INTEGER NOT NULL,
     CONSTRAINT not_dones_pk PRIMARY KEY (event_id),
     CONSTRAINT not_dones_event_id_fk FOREIGN KEY (event_id) REFERENCES 
-    events(id) ON UPDATE CASCADE
+    events(id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS options CASCADE;
@@ -166,7 +174,7 @@ CREATE TABLE owners (
     CONSTRAINT owners_pk PRIMARY KEY (id),
     CONSTRAINT owners_user_id_event_id_uk UNIQUE (user_id, event_id),
     CONSTRAINT owners_event_id_fk FOREIGN KEY (event_id) REFERENCES 
-    events(id) ON DELETE SET NULL
+    events(id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS participants CASCADE;
@@ -177,7 +185,7 @@ CREATE TABLE participants (
     CONSTRAINT participants_pk PRIMARY KEY (id),
     CONSTRAINT participants_user_id_event_id_uk UNIQUE (user_id, event_id),
     CONSTRAINT participants_event_id_fk FOREIGN KEY (event_id) REFERENCES 
-    events(id) ON DELETE SET NULL
+    events(id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS polls CASCADE;
@@ -209,7 +217,7 @@ CREATE TABLE ratings (
     CONSTRAINT ratings_pk PRIMARY KEY (id),
     CONSTRAINT ratings_user_id_event_id_uk UNIQUE (user_id, event_id),
     CONSTRAINT ratings_event_id_fk FOREIGN KEY (event_id) REFERENCES 
-    events(id) ON DELETE SET NULL
+    events(id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS users CASCADE;
@@ -222,7 +230,7 @@ CREATE TABLE users (
     first_name text NOT NULL,
     last_name text NOT NULL,
     image_path text NOT NULL,
-    city_id INTEGER NOT NULL,
+    city_id INTEGER,
     CONSTRAINT users_pk PRIMARY KEY (id),
     CONSTRAINT users_name_uk UNIQUE (username),
     CONSTRAINT users_email_uk UNIQUE (email),
@@ -257,19 +265,23 @@ ALTER TABLE ONLY event_invites
 
 ALTER TABLE ONLY event_invites
     ADD CONSTRAINT event_invites_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    users(id) ON DELETE SET NULL;
+    users(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY event_warnings
-    ADD CONSTRAINT event_warnings_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    users(id) ON DELETE SET NULL;
+ALTER TABLE ONLY event_delete_warnings
+    ADD CONSTRAINT event_delete_warnings_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY event_update_warnings
+    ADD CONSTRAINT event_update_warnings_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
+    users(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY friend_activities
     ADD CONSTRAINT friend_activities_sender_id_fk FOREIGN KEY (sender_id) REFERENCES
-    users(id) ON DELETE SET NULL;
+    users(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY friend_activities
     ADD CONSTRAINT friend_activities_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    users(id) ON DELETE SET NULL;
+    users(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY friend_requests
     ADD CONSTRAINT friend_requests_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
@@ -313,8 +325,7 @@ ALTER TABLE ONLY ratings
     users(id) ON DELETE SET NULL;
 
 
- DROP FUNCTION IF EXISTS set_event_as_done();
-CREATE FUNCTION set_event_as_done() RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
 $BODY$
 BEGIN
   IF EXISTS (SELECT event_id FROM not_done WHERE NEW.event_id = id) 
@@ -334,57 +345,97 @@ CREATE TRIGGER set_event_as_done
   WHEN NEW.date = GETDATE()
     EXECUTE PROCEDURE set_event_as_done(); 
  
-
-CREATE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
 $BODY$
-WHILE( SELECT id FROM participants WHERE participants.event_id = OLD.event_id)
+DECLARE
+    idx int;
 BEGIN
-  INSERT INTO event_warnings(OLD.event_id, id)
-END
+    FOR idx IN SELECT id FROM participants WHERE participants.event_id = OLD.id
+    LOOP
+        INSERT INTO event_delete_warnings (event_name, receiver_id) VALUES (OLD.name, idx);
+    END LOOP;
+    RETURN OLD;
+END;
 $BODY$
 LANGUAGE plpgsql;
- 
+
+DROP TRIGGER IF EXISTS notificate_event_delete ON "events";
 CREATE TRIGGER notificate_event_delete
-  FOR DELETE OR UPDATE ON events
+  BEFORE DELETE ON events
   FOR EACH ROW
     EXECUTE PROCEDURE notificate_event_delete();  
 
-DROP FUNCTION IF EXISTS rating_update();
-CREATE FUNCTION rating_update() RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION notificate_event_update() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    idx int;
+BEGIN
+    FOR idx IN SELECT id FROM participants WHERE participants.event_id = OLD.id
+    LOOP
+        INSERT INTO event_update_warnings (event_id, receiver_id) VALUES (OLD.id, idx);
+    END LOOP;
+    RETURN OLD;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS notificate_event_update ON "events";
+CREATE TRIGGER notificate_event_update
+  BEFORE DELETE ON events
+  FOR EACH ROW
+    EXECUTE PROCEDURE notificate_event_update();  
+
+CREATE OR REPLACE FUNCTION rating_update() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-  UPDATE dones SET rating = (SELECT AVG("value") FROM ratings WHERE New.event_id = event_id);
+  UPDATE dones SET rating = (SELECT AVG("value") FROM ratings WHERE New.event_id = event_id) WHERE event_id = New.event_id;
+  RETURN NULL;
 END
 $BODY$
+
 LANGUAGE plpgsql;
  
 CREATE TRIGGER rating_update
   AFTER INSERT ON ratings
   FOR EACH ROW
-    EXECUTE PROCEDURE rating_update()
-    RETURN NULL;
+    EXECUTE PROCEDURE rating_update();
 
---> new trigger to add frienships
 
-CREATE OR REPLACE FUNCTION add_friendship()
-  RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION accept_friend_request() RETURNS TRIGGER AS
 $BODY$
 BEGIN
- IF NEW.answer =='YES' THEN
- INSERT INTO friendships(sender_id,receiver_id)
- VALUES(NEW.sender_id,NEW.receiver_id);
- END IF;
- 
- RETURN NEW;
-END;
+  IF New.answer = 'yes' 
+  THEN
+    INSERT INTO friendships (user_id_1, user_id_2) VALUES (New.sender_id, New.receiver_id);
+  END IF;
+  RETURN NULL;
+END
 $BODY$
 LANGUAGE plpgsql;
-
-CREATE TRIGGER add_friend
-  BEFORE INSERT 
-  ON friend_requests
+ 
+CREATE TRIGGER accept_friend_request
+  AFTER UPDATE ON friend_requests
   FOR EACH ROW
-  EXECUTE PROCEDURE add_friendship();
+    EXECUTE PROCEDURE accept_friend_request();
+
+
+CREATE OR REPLACE FUNCTION accept_event_invite() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  IF New.answer = 'yes' 
+  THEN
+    INSERT INTO participants (user_id, event_id) VALUES (New.receiver_id, New.event_id);
+  END IF;
+  RETURN NULL;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER accept_event_invite
+  AFTER UPDATE ON event_invites
+  FOR EACH ROW
+    EXECUTE PROCEDURE accept_event_invite();
+
 
 	
 --> INDEXES

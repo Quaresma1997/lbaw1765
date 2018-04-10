@@ -16,10 +16,6 @@ SET name = $name,
     category = $category
 WHERE id = $id;
 
-UPDATE dones
-SET rating = $rating
-WHERE event_id = $event_id;
-
 UPDATE options
 SET description = $description
 WHERE id = $id;
@@ -27,7 +23,7 @@ WHERE id = $id;
 UPDATE posts
 SET description = $description,
     date = $date,
-    image_id = $image_id
+    image_path = $image_path
 WHERE id = $id;
 
 UPDATE "current_date"

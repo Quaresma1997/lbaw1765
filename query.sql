@@ -33,8 +33,12 @@ SELECT owner_id, event_id
 FROM event_invites
 WHERE receiver_id = $user_id;
 
-SELECT event_id, "message"
-FROM event_warnings
+SELECT event_name
+FROM event_delete_warnings
+WHERE receiver_id = $user_id;
+
+SELECT event_id
+FROM event_update_warnings
 WHERE receiver_id = $user_id;
 
 --> search event
@@ -70,8 +74,8 @@ WHERE users.id = participants.user_id AND participants.event_id=$event_id;
 
 --> Rating of an event
 SELECT rating
-FROM events
-WHERE events.event_id= $event_id;
+FROM dones
+WHERE dones.event_id= $event_id;
 
 -->who can i invite to the event
 SELECT users.username
