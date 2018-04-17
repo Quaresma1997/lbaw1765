@@ -6,6 +6,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+
+use App\City;
+use App\Country;
 
 class RegisterController extends Controller
 {
@@ -27,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/cards';
+    protected $redirectTo = '/homepage';
 
     /**
      * Create a new controller instance.
@@ -48,9 +52,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:30|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'first_name' => 'required|string|max:30',
+            'last_name' => 'required|string|max:30',
+            'city' => 'required|string|max:30',
+            'country' => 'required|string|max:30',
+            'password' => 'required|string|min:4|confirmed',
+            'image_path' => 'required|string',
         ]);
     }
 
@@ -62,10 +71,44 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+      $country_id = DB::table('countries')->select('id')->where('name', $data['country'])->first();
+
+      if($country_id == null){
+        $country = new Country();
+
+        // $this->authorize('create', $country);
+  
+        $country->name = $data['country'];
+        $country->save();
+
+        $country_id = DB::table('countries')->select('id')->where('name', $data['country'])->first();
+        
+      }
+
+
+      $city_id = DB::table('cities')->select('id')->where('name', $data['city'])->first();
+
+      if($city_id == null){
+        $city = new City();
+
+        // $this->authorize('create', $city);
+  
+        $city->name = $data['city'];
+        $city->country_id = $country_id->id;
+        $city->save();
+
+        $city_id = DB::table('cities')->select('id')->where('name', $data['city'])->first();
+        
+      }
+
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'city_id' => $city_id->id,
             'password' => bcrypt($data['password']),
+            'image_path' => $data['image_path'],
         ]);
     }
 }
