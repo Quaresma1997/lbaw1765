@@ -38,10 +38,12 @@ class ProfileController extends Controller
       $city = DB::table('cities')->select('*')->where('id', $city_id)->first();
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
 
+      $this->authorize('show', $user);
+
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
-      //$this->authorize('show', $user);
+      
 
       return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country]);
     }
@@ -75,6 +77,8 @@ class ProfileController extends Controller
     {
       $user = User::find($id);
 
+      $this->authorize('update', $user);
+
       if($user->email == $request->input('email'))
         $check_email = false;
       else {
@@ -105,6 +109,7 @@ class ProfileController extends Controller
         if($country_id == null){
           $new_country = new Country();
 
+          $this->authorize('create', $country);
     
           $new_country->name = $country;
           $new_country->save();
@@ -119,6 +124,8 @@ class ProfileController extends Controller
 
         if($city_id == null){
           $new_city = new City();
+
+          $this->authorize('create', $city);
 
           $new_city->name = $city;
           $new_city->country_id = $country_id->id;
@@ -135,7 +142,6 @@ class ProfileController extends Controller
       
       
 
-      $user->save();
       return response()->json(['message' => 'success', 'user' => $user, 'city' => $user->getCity($id), 'country' => $user->getCountry($city_id->id)]);
     }
 
@@ -147,6 +153,8 @@ class ProfileController extends Controller
         
         Auth::logout();
         $user = User::find($id);
+
+        $this->authorize('delete', $user);
 
 
         $user->delete();

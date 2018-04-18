@@ -39,6 +39,8 @@ class EventController extends Controller
     {
       $event = Event::find($id);
       
+      $this->authorize('show', $event);
+      
 
       $loca = Localization::find($event->localization_id);
         $city = City::find($loca->city_id);
@@ -88,6 +90,8 @@ class EventController extends Controller
         
       $event = new Event();
 
+      $this->authorize('add', $event);
+
       $event->name = $data->input('name');
       $event->date = $data->input('date');
       $event->description = $data->input('description');
@@ -102,7 +106,7 @@ class EventController extends Controller
       if($country_id == null){
         $country = new Country();
 
-        // $this->authorize('create', $country);
+        $this->authorize('create', $country);
   
         $country->name = $data['country'];
         $country->save();
@@ -117,7 +121,7 @@ class EventController extends Controller
       if($city_id == null){
         $city = new City();
 
-        // $this->authorize('create', $city);
+        $this->authorize('create', $city);
   
         $city->name = $data['city'];
         $city->country_id = $country_id->id;
@@ -128,6 +132,9 @@ class EventController extends Controller
       }
 
       $localization = new Localization();
+
+      $this->authorize('create', $localization);
+
       $localization->name = $data->input('place');
       $localization->address = $data->input('address');
       $localization->city_id = $city_id->id;
@@ -146,17 +153,13 @@ class EventController extends Controller
     public function delete(Request $request, $id)
     {
       $event = Event::find($id);
-      if(Auth::user()->id != $event->owner_id)
-        return response()->json(['message' => 'error', 'error' => 'Cannot delete other user events!']);
-      else{
+
+      $this->authorize('delete', $event);
         
-        $event->delete();
+      if($event->delete())
         return redirect('/');
 
-      }
-
-
-
+      else
       return response()->json(['message' => 'error', 'error' => 'Error deleting event!']);
     }
 

@@ -11,11 +11,11 @@ class CityPolicy
 {
     use HandlesAuthorization;
 
-    // public function create(User $user)
-    // {
-    //   // User can only create items in cards they own
-    //   return Auth::check();
-    // }
+    public function create(User $user)
+    {
+      // User can only create items in cards they own
+      return Auth::check();
+    }
 
     // public function update(User $user, Item $item)
     // {

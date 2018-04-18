@@ -394,11 +394,10 @@ function deleteProfileRequest(event){
 function deleteEventRequest(event){
   let id = this.closest('div').getAttribute('data-id');
 
-  sendAjaxRequest('delete', '/api/event/' + id, null, eventDeletedHandler);
+  sendAjaxRequest('delete', '/api/event/' + id, null, eventDeletedHandler(id));
 }
 
 function profileEditedHandler() {
-  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   let profile;
   if(message == 'success'){
@@ -411,11 +410,12 @@ function profileEditedHandler() {
 }
 
 function profileDeletedHandler(){
+  
   if (this.status != 200) window.location = '/';
 }
 
-function eventDeletedHandler(){
-  if (this.status != 200) window.location = '/';
+function eventDeletedHandler(id){
+  if (this.status != 200) window.location = '/events/' + id;
 }
 
 function updateProfile(profile, city, country){
