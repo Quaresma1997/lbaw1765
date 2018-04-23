@@ -71,7 +71,7 @@
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
-                        <select class = 'custom-select' id = 'select_country' name = 'country'>
+                        <select class = 'custom-select' id = 'select_country_event' name = 'country'>
                
                 </select>
                         @if ($errors->has('country'))
@@ -89,7 +89,7 @@
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
-                        <select class = 'custom-select' id = 'select_city' name = 'city'>
+                        <select class = 'custom-select' id = 'select_city_event' name = 'city'>
                
                 </select>
                         @if ($errors->has('city'))
@@ -144,7 +144,7 @@
                   @endif
                </div>
                <hr>
-               <button type="submit" class="btn btn-block btn-success mb-1" id="btn_addEvent" name="off">Add Event</button>
+               <button type="submit" class="btn btn-block btn-success mb-1" name="off">Add Event</button>
             </form>
          </div>
       </div>

@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid p-1 my-1 list">
+<div class="jumbotron jumbotron-fluid p-1 my-1 list col-6">
     <a href="/events/{{$event->id}}" class="text-white">
         <div class="row">
                         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">

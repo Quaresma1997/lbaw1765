@@ -25,7 +25,11 @@ function addEventListeners() {
 
   let editProfile = document.querySelector('#btn_editprofile');
   if (editProfile != null){  
-       
+      if(cities == null){
+        getCurCountry();
+        sendCitiesRequest();
+        sendCountriesRequest();
+      }
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
@@ -37,9 +41,7 @@ function addEventListeners() {
 
   let editProfileConfirm = document.querySelector('form.edit_profile');
   if (editProfileConfirm != null){
-     getCurCountry();
-     sendCitiesRequest();
-     sendCountriesRequest();
+    
     editProfileConfirm.addEventListener('submit', sendEditProfileRequest);
 
   }
@@ -48,13 +50,6 @@ function addEventListeners() {
   if (editProfileCancel != null)
   editProfileCancel.addEventListener('click', cancelEditProfile);
 
-  let openAddEvent = document.querySelector('#open_add_event');
-  if (openAddEvent != null)
-    openAddEvent.addEventListener('click', getAddEventCitiesCoutries);
-
-  let btn_addEvent = document.querySelector('#btn_addEvent');
-  if (btn_addEvent != null && btn_addEvent.name == "on")
-      putAddEventOptions();
 
   let addEvent = document.querySelector('form.add_event');
   if (addEvent != null){
@@ -67,10 +62,12 @@ function addEventListeners() {
   deleteEvent.addEventListener('click', deleteEventRequest);
 
    let editEvent = document.querySelector('#btn_editEvent');
-   if (editEvent != null && !editEvent.disabled){
+   if (editEvent != null){
+     if (cities == null) {
      getCurCountryEvent();
      sendCitiesRequest();
      sendCountriesRequest(); 
+     }
      editEvent.addEventListener('click', createEditEventForm);
    }
 
@@ -79,27 +76,60 @@ function addEventListeners() {
     selectCity.addEventListener('change', createCityInput);
 
   let selectCountry = document.querySelector('#select_country');
-  if (selectCountry != null)
+  if (selectCountry != null){
     selectCountry.addEventListener('change', createCountryInput);
+  }
+
+  let selectCityEvent = document.querySelector('#select_city_event');
+  if (selectCityEvent != null)
+    selectCityEvent.addEventListener('change', createCityInput);
+
+  let selectCountryEvent = document.querySelector('#select_country_event');
+  if (selectCountryEvent != null) {
+    selectCountryEvent.addEventListener('change', createCountryInput);
+  }
+    
 
   let editEventConfirm = document.querySelector('form.edit_event');
   if (editEventConfirm != null)
     editEventConfirm.addEventListener('submit', sendEditEventRequest);
 
   let editEventCancel = document.querySelector('form.edit_event #btn_cancel_edit_event');
-  // if (editEventCancel != null)
-  //   editEventCancel.addEventListener('click', cancelEditEvent);
+  if (editEventCancel != null)
+    editEventCancel.addEventListener('click', cancelEditEvent);
   
+ 
+
+  let modalAddEvent = $('#add_event');
+  if(modalAddEvent != null){
+    modalAddEvent.on('hide.bs.modal', function () {
+      isEvent = false;
+      cities = null;
+      addEventListeners();
+    });
+    modalAddEvent.on('show.bs.modal', function () {
+      isEvent = true;
+      if (editEventConfirm != null)
+        cancelEditEvent();
+      if(editProfileConfirm != null)
+        cancelEditProfile();
+      getAddEventCitiesCoutries();
+    });
+    modalAddEvent.on('shown.bs.modal', function () {
+     putAddEventOptions();
+    });
+
+
+  }
 }
 
-let current_first_name, current_last_name, current_email, current_city, current_country, current_img;
-let cities, countries;
+let current_first_name, current_last_name, current_email, current_city, current_country, current_img, current_description, current_date;
+let cities, countries, isEvent;
+
 
 function getAddEventCitiesCoutries(){
-  let addEvent = document.querySelector('form.add_event');
   sendCitiesRequest();
   sendCountriesRequest();
-  console.log("AA");
 }
 
 
@@ -130,7 +160,11 @@ function getCurCountry() {
 }
 
 function createCityInput(){
-  let select = document.querySelector('#select_city');
+  let select;
+  if(isEvent)
+     select = document.querySelector('#select_city_event');
+  else
+     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
   let input = document.createElement("input");
   input.type = "text";
@@ -157,7 +191,12 @@ function createCityInput(){
 }
 
 function createCountryInput() {
-  let select = document.querySelector('#select_country');
+  let select;
+  if (isEvent)
+     select = document.querySelector('#select_country_event');
+  else
+     select = document.querySelector('#select_country');
+
   let country = select.selectedOptions[0].value;
   let input = document.createElement("input");
   input.type = "text";
@@ -168,6 +207,7 @@ function createCountryInput() {
   input.name = "country";
 
   if (country == "Other"){
+    console.log("OTHER");
     select.parentElement.appendChild(input);
     cities = new Array();
     changeCityOptions();
@@ -179,7 +219,7 @@ function createCountryInput() {
       select.parentElement.removeChild(old_input);
       select.name = "country";
     }
-
+    console.log("COUNTRY");
     sendCitiesRequest();
   }
 
@@ -188,7 +228,11 @@ function createCountryInput() {
 
 function changeCityOptions(){
   let main_div = document.querySelector("#user_info_container");
-  let select_city = document.querySelector('#select_city');
+  let select_city;
+  if(isEvent)
+     select_city = document.querySelector('#select_city_event');
+  else
+     select_city = document.querySelector('#select_city');
 
   if(select_city == null)
     return;
@@ -211,8 +255,8 @@ function changeCityOptions(){
 }
 
 function putAddEventOptions() {
-  let select_country = document.querySelector("#select_country");
-  let select_city = document.querySelector("#select_city");
+  let select_country = document.querySelector("#select_country_event");
+  let select_city = document.querySelector("#select_city_event");
   let i;
     let countries_options = "";
     for (i = 0; i < countries.length; i++) {
@@ -366,23 +410,22 @@ function createEditProfileForm(event){
 function createEditEventForm(event) {
   let main_div = document.querySelector("#event_data");
 
-  let parent = main_div.parentElement;
-  let btn_edit = parent.querySelector("#btn_editEvent");
-  btn_edit.disabled = true;
-
   let name = main_div.querySelector("#event_name").innerText;
 
   let date_text = main_div.querySelector("#event_date").innerText;
-  let index_second_dots = date_text.indexOf(':', date_text.indexOf(':', 1));
-  let date = date_text.substr(1, date_text.indexOf(' ', 2) - 1);
-  let time = date_text.substr(date_text.indexOf(' ', 2) + 1, 5 );
+  // console.log(date_text);
+  // let index_second_dots = date_text.indexOf(':', date_text.indexOf(':', 1));
+  // let date = date_text.substr(1, date_text.indexOf(' ', 2) - 1);
+  // let time = date_text.substr(date_text.indexOf(' ', 2) + 1, 5 );
+  let date = date_text;
+  let time;
 
   let localization = main_div.querySelector("#event_localization").innerText;
 
   let index_first_comma = localization.indexOf(',');
   let index_second_comma = localization.indexOf(',', index_first_comma + 1);
 
-  let place = localization.substr(1, index_first_comma - 1);
+  let place = localization.substr(0, index_first_comma - 1);
   let city = localization.substr(index_first_comma + 2, index_second_comma - index_first_comma - 2);
   let country = localization.substr(index_second_comma + 2, localization.size);
 
@@ -390,9 +433,11 @@ function createEditEventForm(event) {
 
   current_name = name;
   current_date = date;
+  console.log(date);
   current_place = place;
   current_city = city;
   current_country = country;
+  current_description = description;
 
   let form_name =
       "<label for='name'>Name</label>" +
@@ -509,6 +554,24 @@ function cancelEditProfile(event){
     "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>";
 
     addEventListeners();
+}
+
+function cancelEditEvent(event){
+  let main_div = document.querySelector("#event_data");
+   main_div.innerHTML =
+  "<h1 class='display-4' id='event_name'>" + current_name + "</h1><br>" +
+    "<div class='row'>" +
+    "<div class='col-12 col-lg-5'>" +
+    "<h5 id='event_date'>" +
+    "<i class='fas fa-clock fa-fw' ></i>" + current_date + "</h5>" +
+    "<h5 id='event_localization'>" +
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5><br>" +
+    "</div>" +
+    "<div class='col - 12 col - lg - 7'>" +
+    "<h1>Description</h1><br>" +
+    "<p id='event_description'>" + current_description + "</p>" +
+    "</div>" +
+    "</div>"
 }
 
 
@@ -693,9 +756,12 @@ function sendAddEventRequest(event){
 }
 
 function sendCitiesRequest(){
-  let country_elem = document.querySelector('select[id=select_country]');
+  let country_elem;
+  if(isEvent)
+    country_elem = document.querySelector('select[id=select_country_event]');
+  else
+    country_elem = document.querySelector('select[id=select_country]');
   let country;
-  console.log(country_elem.length);
   if (country_elem != null){
     if (country_elem.length > 0)
       country = country_elem.selectedOptions[0].value;
@@ -817,10 +883,6 @@ function getCountriesHandler() {
   for (let i = 0; i < countr.length; i++) {
     countries.push(countr[i].name);
   }
-
-  let btn_addEvent = document.querySelector('#btn_addEvent');
-  btn_addEvent.name = "on";
-
   addEventListeners();
 }
 
