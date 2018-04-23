@@ -35,4 +35,10 @@ class EventPolicy
       // Only an event owner can delete it
       return $user->id == $event->owner_id;
     }
+
+    public function update(User $user, Event $event)
+    {
+      // Only an event owner can delete it
+      return $user->id == $event->owner_id;
+    }
 }

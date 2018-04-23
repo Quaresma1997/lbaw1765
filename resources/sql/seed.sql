@@ -31,9 +31,7 @@ CREATE TABLE cities (
     id SERIAL NOT NULL,
     name text NOT NULL,
     country_id INTEGER NOT NULL,
-    CONSTRAINT cities_pk PRIMARY KEY (id),
-    CONSTRAINT cities_name_uk UNIQUE (name)
-    
+    CONSTRAINT cities_pk PRIMARY KEY (id)    
 );
 
 DROP TABLE IF EXISTS "current_date" CASCADE;
@@ -63,7 +61,7 @@ DROP TABLE IF EXISTS events CASCADE;
 CREATE TABLE events (
     id SERIAL NOT NULL,
     name text NOT NULL,
-    date TIMESTAMP WITH TIME zone NOT NULL,
+    date DATE NOT NULL,
     description text NOT NULL,
     owner_id INTEGER NOT NULL,
     localization_id INTEGER,
@@ -469,96 +467,96 @@ INSERT INTO localizations (name,address,latitude,longitude,city_id) VALUES ('Hot
 INSERT INTO localizations (name,address,latitude,longitude,city_id) VALUES ('Norte shopping','Matosinhos',41.1825143,-8.6803795,2);
 
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('sodales','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','sodales.at@curae.co.uk',NOW(),'Zeph','Griffin','/imgs/natu.jpg',2);
+			VALUES ('sodales','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','sodales.at@curae.co.uk',NOW(),'Zeph','Griffin','/imgs/profile.jpg',2);
 			
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('uso1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquam.iaculis.lacus@amet.co.uk',NOW(),'Ben','Warren','/imgs/natur.jpg',1);
+			VALUES ('uso1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquam.iaculis.lacus@amet.co.uk',NOW(),'Ben','Warren','/imgs/profile.jpg',1);
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('robin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet.ante@faucibusleo.net',NOW(),'Robin','Wright','/imgs/natur.jpg',2);
+			VALUES ('robin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet.ante@faucibusleo.net',NOW(),'Robin','Wright','/imgs/profile.jpg',2);
 			
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('bar123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ut.dolor@gmail.com',NOW(),'Barry','Allen','/imgs/natur.jpg',3);
+			VALUES ('bar123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ut.dolor@gmail.com',NOW(),'Barry','Allen','/imgs/profile.jpg',3);
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('reddevil','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','Nulla@et.net',NOW(),'Andrew','Irons','/imgs/november.jpg',2);
+			VALUES ('reddevil','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','Nulla@et.net',NOW(),'Andrew','Irons','/imgs/profile.jpg',2);
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('rpedro10','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','rpedro10@iol.pt',NOW(),'Rui','Araujo','/imgs/fer.jpg',3);
+			VALUES ('rpedro10','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','rpedro10@iol.pt',NOW(),'Rui','Araujo','/imgs/profile.jpg',3);
 			
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('joss123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ante@fleo.com',NOW(),'Joss','Stone','/imgs/natur.jpg',1);
+			VALUES ('joss123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ante@fleo.com',NOW(),'Joss','Stone','/imgs/profile.jpg',1);
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('top123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','cursus.et@orciUt.co.uk',NOW(),'Chris','Harris','/imgs/natur.jpg',1);
+			VALUES ('top123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','cursus.et@orciUt.co.uk',NOW(),'Chris','Harris','/imgs/profile.jpg',1);
 			
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('roland1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','eget.dictum@orciDonec.edu',NOW(),'Roland','Schitt','/imgs/natur.jpg',2);
+			VALUES ('roland1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','eget.dictum@orciDonec.edu',NOW(),'Roland','Schitt','/imgs/profile.jpg',2);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('david123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@faucibusleo.net',NOW(),'David','Rose','/imgs/natur.jpg',2);
+			VALUES ('david123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@faucibusleo.net',NOW(),'David','Rose','/imgs/profile.jpg',2);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('catones', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amec.donec@faucibusleo.net',NOW(),'Carlos','Antonio','/imgs/november.jpg',2);
+			VALUES ('catones', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amec.donec@faucibusleo.net',NOW(),'Carlos','Antonio','/imgs/profile.jpg',2);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('emanem','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','donex@sapo.net',NOW(),'Raheem','Sterling','/imgs/natur.jpg',3);			
+			VALUES ('emanem','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','donex@sapo.net',NOW(),'Raheem','Sterling','/imgs/profile.jpg',3);			
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('ufoExtis','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@iol.net',NOW(),'Delle','Alli','/imgs/pyr.jpg',2);
+			VALUES ('ufoExtis','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@iol.net',NOW(),'Delle','Alli','/imgs/profile.jpg',2);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('ragnar','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','risus.In.mi@egestas.com',NOW(),'Thor','Ragnarok','/imgs/fer.jpg',1);
+			VALUES ('ragnar','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','risus.In.mi@egestas.com',NOW(),'Thor','Ragnarok','/imgs/profile.jpg',1);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('seth','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquet.diam.Sed@tinciduntnibh.co.uk',NOW(),'Seth','Byers','/imgs/natu.jpg',2);
+			VALUES ('seth','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquet.diam.Sed@tinciduntnibh.co.uk',NOW(),'Seth','Byers','/imgs/profile.jpg',2);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('edNorton','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','scelerisque.scelerisque.dui@arcuiaculisenim.ca',NOW(),'Ed','Norton','/imgs/natur.jpg',1);
+			VALUES ('edNorton','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','scelerisque.scelerisque.dui@arcuiaculisenim.ca',NOW(),'Ed','Norton','/imgs/profile.jpg',1);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('Pacquiao','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','magnis@cursuset.edu',NOW(),'Paky','Barret','/imgs/natur.jpg',3);	
+			VALUES ('Pacquiao','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','magnis@cursuset.edu',NOW(),'Paky','Barret','/imgs/profile.jpg',3);	
 			
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('steven','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','arcu.Vestibulum@amet.org',NOW(),'Donovan','Stevenson','/imgs/pyr.jpg',1);
+			VALUES ('steven','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','arcu.Vestibulum@amet.org',NOW(),'Donovan','Stevenson','/imgs/profile.jpg',1);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('porter123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','dui.nec@ultriciesadipiscing.co.uk',NOW(),'Porter','Osborn','/imgs/natu.jpg',2);
+			VALUES ('porter123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','dui.nec@ultriciesadipiscing.co.uk',NOW(),'Porter','Osborn','/imgs/profile.jpg',2);
 						
 INSERT INTO users (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('human','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','facilisis.magna.tellus@sociis.net',NOW(),'Hu','Randolphe','/imgs/pyr.jpg',2);
+			VALUES ('human','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','facilisis.magna.tellus@sociis.net',NOW(),'Hu','Randolphe','/imgs/profile.jpg',2);
 					
 					
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Antonys Birthday Party', '2019-12-04 12:30:19.000000', 'nunc ac mattis ornare, lectus',1,1,'Public','Sports');
+			VALUES ('Antonys Birthday Party', '2019-12-04 12:30:00', 'nunc ac mattis ornare, lectus',1,1,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('ENEI','2019-04-24 12:30:19.000000','Nunc quis arcu vel quam',2,2,'Public','Sports');
+			VALUES ('ENEI','2019-04-24 12:30:00','Nunc quis arcu vel quam',2,2,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('RockInRio','2019-06-04 12:30:19.000000','tempus eu, ligula. Aenean euismod',3,3,'Public','Sports');
+			VALUES ('RockInRio','2019-06-04 12:30:00','tempus eu, ligula. Aenean euismod',3,3,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Nos Alive','2019-08-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',4,4,'Public','Sports');
+			VALUES ('Nos Alive','2019-08-04 12:30:00','dignissim pharetra. Nam ac nulla.',4,4,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Christmas Dinner','2019-10-04 12:30:19.000000','dignissim pharetra. Nam ac nulla.',5,5,'Public','Sports');
+			VALUES ('Christmas Dinner','2019-10-04 12:30:00','dignissim pharetra. Nam ac nulla.',5,5,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Mark Birthday Party','2019-04-13 12:30:19.000000','dignissim pharetra. Nam ac nulla.',6,1,'Public','Sports');
+			VALUES ('Mark Birthday Party','2019-04-13 12:30:00','dignissim pharetra. Nam ac nulla.',6,1,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('WebSummit','2019-04-12 12:30:19.000000','lorem lorem, luctus ut, pellentesque',7,6,'Public','Sports');
+			VALUES ('WebSummit','2019-04-12 12:30:00','lorem lorem, luctus ut, pellentesque',7,6,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Ted Talk','2019-04-24 12:30:19.000000','sollicitudin orci sem eget massa.',8,2,'Public','Sports');
+			VALUES ('Ted Talk','2019-04-24 12:30:00','sollicitudin orci sem eget massa.',8,2,'Public','Sports');
 			
 INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Teaches Conference','2019-04-13 12:30:19.000000','dignissim pharetra. Nam ac nulla.',9,1,'Private','Business');
+			VALUES ('Teaches Conference','2019-04-13 12:30:00','dignissim pharetra. Nam ac nulla.',9,1,'Private','Business');
 			
 
 

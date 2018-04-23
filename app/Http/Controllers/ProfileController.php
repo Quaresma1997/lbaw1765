@@ -41,10 +41,6 @@ class ProfileController extends Controller
       $this->authorize('show', $user);
 
       
-      // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
-
-      
-
       return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country]);
     }
 
@@ -89,34 +85,29 @@ class ProfileController extends Controller
       if(!$validator->passes())
         return response()->json(['message' => $validator->errors()->all()]);
 
-      
-
-      //$this->authorize('update', $user);
-
       $user->first_name = $request->input('first_name');
       $user->last_name = $request->input('last_name');
       $user->email = $request->input('email');
+      $user->image_path = $request->input('img');
       
 
       $city = $request->input('city');
       $country = $request->input('country');
 
-      
-
-     
         $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
 
         if($country_id == null){
           $new_country = new Country();
 
-          $this->authorize('create', $country);
+          $this->authorize('create', $user);
     
           $new_country->name = $country;
           $new_country->save();
 
-          $country_id = DB::table('countries')->select('id')->where('name', $country)->first()->id;
+          $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
           
         }
+
       
 
       
@@ -125,20 +116,36 @@ class ProfileController extends Controller
         if($city_id == null){
           $new_city = new City();
 
-          $this->authorize('create', $city);
+          $this->authorize('create', $user);
 
           $new_city->name = $city;
           $new_city->country_id = $country_id->id;
           $new_city->save();
           
 
-          $city_id = DB::table('cities')->select('id')->where('name', $city)->first()->id;
+          $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
           
+        }else{
+          $existing_city = City::find($city_id->id);
+
+          if($existing_city->country_id != $country_id->id){
+            $new_city = new City();
+
+            $this->authorize('create', $user);
+
+            $new_city->name = $city;
+            $new_city->country_id = $country_id->id;
+            $new_city->save();
+            
+
+            $city_id = DB::table('cities')->select('id')->where('name', $city)->where('country_id', $country_id->id)->first();
+          }
         }
 
      
-
       $user->city_id = $city_id->id;
+
+      $user->save();
       
       
 

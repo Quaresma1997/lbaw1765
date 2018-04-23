@@ -100,10 +100,10 @@
       </a>
     </div>
 
-    <div class="jumbotron" data-id="{{ $event->id }}">
+    <div class="jumbotron" >
       <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_deleteEvent">
         <i class="fas fa-trash-alt fa-fw"></i> Delete </button>
-      <button type="button" class="btn btn-primary mx-1 float-right">
+      <button type="button" class="btn btn-primary mx-1 float-right" id="btn_editEvent">
         <i class="far fa-edit fa-fw"></i> Edit </button>
       <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">
         <i class="fas fa-clipboard-list fa-fw"></i> Participants </button>
@@ -112,16 +112,17 @@
       <br>
       <br>
       <hr>
-      <h1 class="display-4">{{$event->name}}</h1>
+      <div id="event_data" data-id="{{ $event->id }}">
+      <h1 class="display-4" id="event_name">{{$event->name}}</h1>
       <br>
       <div class="row">
         <div class="col-12 col-lg-5">
-          <h5>
-            <i class="fas fa-clock fa-fw"></i> {{$event->date}} </h5>
-          <h5>
+          <h5 id="event_date">
+            <i class="fas fa-clock fa-fw" ></i> {{$event->date}}</h5>
+          <h5 id="event_localization">
             <i class="fas fa-map-marker-alt fa-fw"></i> {{$event->place}}, {{$event->city}}, {{$event->country}} </h5>
           <br>
-          <!-- <div class="map-responsive">
+         <!--  <div class="map-responsive">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12012.041648923578!2d-8.5976876!3d41.1779401!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x405225b4b451f7d7!2sFEUP+-+Faculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1520958961221"
               frameborder="0" allowfullscreen></iframe>
           </div> -->
@@ -129,11 +130,12 @@
         <div class="col-12 col-lg-7">
           <h1>Description</h1>
           <br>
-          <p>
+          <p id="event_description">
           {{$event->description}}
           </p>
         </div>
       </div>
+    </div>
     </div>
 
     <div class="jumbotron">

@@ -9,7 +9,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
          </div>
          <div class="modal-body ">
-            <form class="add_event">
+            <form class="add_event" name="off">
                <label for="name">Name</label>
                <div class="input-group mb-2">
                   <div class="input-group-prepend">
@@ -71,7 +71,9 @@
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
-                        <input id="country" type="text" name="country" placeholder="Enter country" required>
+                        <select class = 'custom-select' id = 'select_country' name = 'country'>
+               
+                </select>
                         @if ($errors->has('country'))
                         <span class="error">
                         {{ $errors-> first('country') }}
@@ -87,7 +89,9 @@
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
-                        <input id="city" type="text" name="city" placeholder="Enter city" required>
+                        <select class = 'custom-select' id = 'select_city' name = 'city'>
+               
+                </select>
                         @if ($errors->has('city'))
                         <span class="error">
                         {{ $errors-> first('city') }}
@@ -140,7 +144,7 @@
                   @endif
                </div>
                <hr>
-               <button type="submit" class="btn btn-block btn-success mb-1">Add Event</button>
+               <button type="submit" class="btn btn-block btn-success mb-1" id="btn_addEvent" name="off">Add Event</button>
             </form>
          </div>
       </div>

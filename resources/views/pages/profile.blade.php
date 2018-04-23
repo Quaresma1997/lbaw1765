@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row">
-      <div class="col-12 col-lg-3">
+      <div class="col-12 col-lg-4">
         <div class="container mx-auto sticky-top">
           <h1>{{$user->username}}</h1>
           <hr>
@@ -22,7 +22,6 @@
             <label id="user_info_l2"><i class="fas fa-envelope fa-fw mr-1"></i>{{$user->email}}</label>
             <br>
             <label id="user_info_l3"><i class="fas fa-map-marker-alt fa-fw mr-1"></i>{{$city}}, {{$country}}</label>
-
             <button type="button" class="btn btn-primary btn-lg btn-block mt-3" id="btn_editprofile">
               <i class="far fa-edit fa-fw"></i> Edit Profile </button>
             <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="btn_deleteprofile">
@@ -30,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-9">
+      <div class="col-12 col-lg-8">
         <div class="container mx-auto">
           <ul class="nav nav-tabs nav-justified" role="tablist">
             <li class="nav-item">
@@ -49,41 +48,6 @@
             <div class="tab-content">
               <div id="events" class="container tab-pane fade show active">
               @each('partials.event', $user->events(), 'event')
-                
-                <!-- <div class="row">
-                  <div class="col-12 col-lg-6 px-1">
-                    <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                      <div class="row">
-                        <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="{{url('/imgs/pyra.jpg')}}">
-                        </div>
-                        <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
-                          <div class="my-1">
-                            <h4>Apresentação LBAW</h4>
-                            <p>08/03/2018
-                              <br> Porto, Portugal</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-lg-6 px-1">
-                    <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                      <div class="row">
-                        <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="{{url('/imgs/pyra.jpg')}}">
-                        </div>
-                        <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
-                          <div class="my-1">
-                            <h4>Apresentação LBAW</h4>
-                            <p>08/03/2018
-                              <br> Porto, Portugal</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
               </div>
 
 

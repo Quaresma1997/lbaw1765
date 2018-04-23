@@ -20,7 +20,7 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href=# data-toggle="modal" data-target="#add_event">
+          <a class="nav-link" href=# data-toggle="modal" data-target="#add_event" id="open_add_event">
             <i class="fas fa-plus fa-fw"></i> Add Event </a>
         </li>
         <li class="nav-item">

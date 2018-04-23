@@ -43,6 +43,16 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+      $countries = Country::all();
+        
+      $cities = City::where('country_id', 1)->get();
+
+      
+      return view('auth.register', ['cities' => $cities, 'countries' => $countries]);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -56,8 +66,6 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'first_name' => 'required|string|max:30',
             'last_name' => 'required|string|max:30',
-            'city' => 'required|string|max:30',
-            'country' => 'required|string|max:30',
             'password' => 'required|string|min:4|confirmed',
             'image_path' => 'required|string',
         ]);
@@ -71,37 +79,55 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-      $country_id = DB::table('countries')->select('id')->where('name', $data['country'])->first();
+       $city = $data['city'];
+       $country = $data['country'];
 
-      if($country_id == null){
-        $country = new Country();
+        $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
 
-        // $this->authorize('create', $country);
-  
-        $country->name = $data['country'];
-        $country->save();
+        if($country_id == null){
+          $new_country = new Country();
 
-        $country_id = DB::table('countries')->select('id')->where('name', $data['country'])->first();
-        
-      }
+        //   $this->authorize('create', $user);
+    
+          $new_country->name = $country;
+          $new_country->save();
 
+          $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
+          
+        }
+      
+        $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
 
-      $city_id = DB::table('cities')->select('id')->where('name', $data['city'])->first();
+        if($city_id == null){
+          $new_city = new City();
 
-      if($city_id == null){
-        $city = new City();
+        //   $this->authorize('create', $user);
 
-        // $this->authorize('create', $city);
-  
-        $city->name = $data['city'];
-        $city->country_id = $country_id->id;
-        $city->save();
+          $new_city->name = $city;
+          $new_city->country_id = $country_id->id;
+          $new_city->save();
+          
 
-        $city_id = DB::table('cities')->select('id')->where('name', $data['city'])->first();
-        
-      }
+          $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
+          
+        }else{
+          $existing_city = City::find($city_id->id);
 
-        return User::create([
+          if($existing_city->country_id != $country_id->id){
+            $new_city = new City();
+
+            // $this->authorize('create', $user);
+
+            $new_city->name = $city;
+            $new_city->country_id = $country_id->id;
+            $new_city->save();
+            
+
+            $city_id = DB::table('cities')->select('id')->where('name', $city)->where('country_id', $country_id->id)->first();
+          }
+        }
+
+        return  User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'first_name' => $data['first_name'],

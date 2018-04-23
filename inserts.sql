@@ -1,4 +1,3 @@
-
 --> INSERTS
 
 -- Here goes the SQL code - INSERTS

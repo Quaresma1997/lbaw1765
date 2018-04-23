@@ -29,7 +29,7 @@ class Event extends Model
       }
 
     public function getCity($id){
-        $city_id = DB::table('users')->select('city_id')->where('id', $id)->first()->city_id;
+        $city_id = DB::table('localizations')->select('city_id')->where('id', $id)->first()->city_id;
         return DB::table('cities')->select('name')->where('id', $city_id)->first()->name;
     }
 
@@ -37,5 +37,6 @@ class Event extends Model
         $country_id = DB::table('cities')->select('country_id')->where('id', $city_id)->first()->country_id;
         return DB::table('countries')->select('name')->where('id', $country_id)->first()->name;
       }
+      
 
 }

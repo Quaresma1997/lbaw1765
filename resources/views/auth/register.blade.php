@@ -1,42 +1,40 @@
 @extends('layouts.app')
 
 @section('navbar')
-<a class="navbar-brand" href="{{ route('index') }}">EventSS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      
-      <ul class="navbar-nav ml-auto">
-      <li class="navbar-item">
-      <a class="nav-link" href="{{route('login')}}">
-            <i class="fas fa-sign-in-alt fa-fw"></i> Login </a>
-        </li>
-        
-      </ul>
-    </div>
-    </div>
-  
+  @include('partials.navNotLoggedIn')
 @endsection
 
+
+
 @section('content')
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form method="POST" action="{{ route('register') }}">
     {{ csrf_field() }}
 
     <label for="username">Username</label>
-     <div class="input-group mb-2">
+    <div class="input-group mb-2">
             <div class="input-group-prepend">
               <span class="input-group-text" id="username">
                 <i class="fas fa-user fa-fw"></i>
               </span>
             </div>
             <input id="username" type="text" name="username" placeholder="Username" required autofocus>
-    @if ($errors->has('name'))
-      <span class="error">
-          {{ $errors->first('name') }}
-      </span>
-    @endif
-          </div>
+            <!-- @if ($errors->has('username'))
+              <div class="error alert alert-danger ml-3">
+                <li>{{ $errors->first('username') }} </li>
+              </div>
+            @endif -->
+    </div>
 
    
 
@@ -100,7 +98,17 @@
                     <i class="fas fa-home fa-fw"></i>
                   </span>
                 </div>
-                <input id="country" type="text" name="country" placeholder="Enter country" required>
+                  <select class = 'custom-select' id = 'select_country' name = 'country'>
+                @foreach($countries->all() as $country){
+                  @if($country->id == 1)
+                  <option value = '{{$country->name}}' selected>{{$country->name}}</option>
+                  @else
+                  <option value = '{{$country->name}}'>{{$country->name}}</option>
+                  @endif
+                }
+                @endforeach
+                <option value = 'Other'>Other</option>
+                </select>
     @if ($errors->has('country'))
       <span class="error">
           {{ $errors->first('country') }}
@@ -118,7 +126,17 @@
                     <i class="fas fa-home fa-fw"></i>
                   </span>
                 </div>
-                <input id="city" type="text" name="city" placeholder="Enter city" required>
+                <select class = 'custom-select' id = 'select_city' name = 'city'>
+                @foreach($cities->all() as $city){
+                  @if($city->id == 1)
+                  <option value = '{{$city->name}}' selected>{{$city->name}}</option>
+                  @else
+                  <option value = '{{$city->name}}'>{{$city->name}}</option>
+                  @endif
+                }
+                @endforeach
+                <option value = 'Other'>Other</option>
+                </select>
     @if ($errors->has('city'))
       <span class="error">
           {{ $errors->first('city') }}
