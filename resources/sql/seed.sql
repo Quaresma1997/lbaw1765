@@ -62,13 +62,14 @@ CREATE TABLE events (
     id SERIAL NOT NULL,
     name text NOT NULL,
     date DATE NOT NULL,
+    time TIME NOT NULL,
     description text NOT NULL,
     owner_id INTEGER NOT NULL,
     localization_id INTEGER,
     type types_of_event NOT NULL,
     category categories NOT NULL,
     CONSTRAINT events_pk PRIMARY KEY (id),
-    CONSTRAINT date_ck CHECK ((date > now()))
+    CONSTRAINT date_ck CHECK ((date >current_date))
 );
 
 DROP TABLE IF EXISTS event_invites CASCADE;
@@ -227,7 +228,7 @@ CREATE TABLE users (
     regist_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     first_name text NOT NULL,
     last_name text NOT NULL,
-    image_path text NOT NULL,
+    image_path text DEFAULT '/imgs/profile.jpg' NOT NULL,
     city_id INTEGER,
     remember_token text,
     CONSTRAINT users_pk PRIMARY KEY (id),
@@ -341,7 +342,7 @@ ALTER TABLE ONLY ratings
 -- CREATE TRIGGER set_event_as_done
 --   BEFORE UPDATE OF date ON "current_date"
 --   FOR EACH ROW
---   WHEN NEW.date = GETDATE()
+--   WHEN NEW.date = current_date()
 --     EXECUTE PROCEDURE set_event_as_done(); 
  
 CREATE OR REPLACE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
@@ -531,32 +532,32 @@ INSERT INTO users (username,password,email,regist_date,first_name,last_name, ima
 			VALUES ('human','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','facilisis.magna.tellus@sociis.net',NOW(),'Hu','Randolphe','/imgs/profile.jpg',2);
 					
 					
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Antonys Birthday Party', '2019-12-04 12:30:00', 'nunc ac mattis ornare, lectus',1,1,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('Antonys Birthday Party', '2019-04-25', '12:30:00', 'nunc ac mattis ornare, lectus',1,1,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('ENEI','2019-04-24 12:30:00','Nunc quis arcu vel quam',2,2,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('ENEI','2019-04-24', '12:30:00','Nunc quis arcu vel quam',2,2,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('RockInRio','2019-06-04 12:30:00','tempus eu, ligula. Aenean euismod',3,3,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('RockInRio','2019-06-04', '12:30:00','tempus eu, ligula. Aenean euismod',3,3,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Nos Alive','2019-08-04 12:30:00','dignissim pharetra. Nam ac nulla.',4,4,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('Nos Alive','2019-08-04', '12:30:00','dignissim pharetra. Nam ac nulla.',4,4,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Christmas Dinner','2019-10-04 12:30:00','dignissim pharetra. Nam ac nulla.',5,5,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('Christmas Dinner','2019-10-04', '12:30:00','dignissim pharetra. Nam ac nulla.',5,5,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Mark Birthday Party','2019-04-13 12:30:00','dignissim pharetra. Nam ac nulla.',6,1,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('Mark Birthday Party','2019-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',6,1,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('WebSummit','2019-04-12 12:30:00','lorem lorem, luctus ut, pellentesque',7,6,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('WebSummit','2019-04-12', '12:30:00','lorem lorem, luctus ut, pellentesque',7,6,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Ted Talk','2019-04-24 12:30:00','sollicitudin orci sem eget massa.',8,2,'Public','Sports');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('Ted Talk','2019-04-24', '12:30:00','sollicitudin orci sem eget massa.',8,2,'Public','Sports');
 			
-INSERT INTO events (name,date,description,owner_id,localization_id,type,category)
-			VALUES ('Teaches Conference','2019-04-13 12:30:00','dignissim pharetra. Nam ac nulla.',9,1,'Private','Business');
+INSERT INTO events (name,date, time,description,owner_id,localization_id,type,category)
+			VALUES ('Teaches Conference','2019-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',9,1,'Private','Business');
 			
 
 

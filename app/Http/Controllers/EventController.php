@@ -92,6 +92,7 @@ class EventController extends Controller
 
       $event->name = $data->input('name');
       $event->date = $data->input('date');
+      $event->time = $data->input('time');
       $event->description = $data->input('description');
       $event->owner_id = Auth::user()->id;
       $event->type = $data->input('type');
@@ -192,7 +193,8 @@ class EventController extends Controller
         return response()->json(['message' => $validator->errors()->all()]);
 
       $event->name = $request->input('name');
-      $event->date = $request->input('datetime');
+      $event->date = $request->input('date');
+      $event->time = $request->input('time');
       $event->description = $request->input('description');
 
       $city = $request->input('city');

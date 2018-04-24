@@ -67,7 +67,6 @@ class RegisterController extends Controller
             'first_name' => 'required|string|max:30',
             'last_name' => 'required|string|max:30',
             'password' => 'required|string|min:4|confirmed',
-            'image_path' => 'required|string',
         ]);
     }
 
@@ -134,7 +133,6 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'city_id' => $city_id->id,
             'password' => bcrypt($data['password']),
-            'image_path' => $data['image_path'],
         ]);
     }
 }

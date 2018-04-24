@@ -1,4 +1,6 @@
 function addEventListeners() {
+  if(countries == null)
+  getAddEventCitiesCountries();  
   let itemCheckers = document.querySelectorAll('article.card li.item input[type=checkbox]');
   [].forEach.call(itemCheckers, function(checker) {
     checker.addEventListener('change', sendItemUpdateRequest);
@@ -27,8 +29,8 @@ function addEventListeners() {
   if (editProfile != null){  
       if(cities == null){
         getCurCountry();
+        console.log(current_country);
         sendCitiesRequest();
-        sendCountriesRequest();
       }
     editProfile.addEventListener('click', createEditProfileForm);
   }
@@ -65,8 +67,8 @@ function addEventListeners() {
    if (editEvent != null){
      if (cities == null) {
      getCurCountryEvent();
+     
      sendCitiesRequest();
-     sendCountriesRequest(); 
      }
      editEvent.addEventListener('click', createEditEventForm);
    }
@@ -104,8 +106,19 @@ function addEventListeners() {
   if(modalAddEvent != null){
     modalAddEvent.on('hide.bs.modal', function () {
       isEvent = false;
-      cities = null;
-      addEventListeners();
+      
+
+      if (editProfile != null){
+        getCurCountry();
+        sendCitiesRequest();
+      }else if (editEvent != null) {
+        getCurCountryEvent();
+        sendCitiesRequest();
+      } else{
+        current_country = countries[0];
+        sendCitiesRequest();
+      }
+      // addEventListeners();
     });
     modalAddEvent.on('show.bs.modal', function () {
       isEvent = true;
@@ -113,22 +126,28 @@ function addEventListeners() {
         cancelEditEvent();
       if(editProfileConfirm != null)
         cancelEditProfile();
-      getAddEventCitiesCoutries();
+      
+      
+      
+      
     });
     modalAddEvent.on('shown.bs.modal', function () {
      putAddEventOptions();
+     createCountryInput();
     });
 
 
   }
 }
 
-let current_first_name, current_last_name, current_email, current_city, current_country, current_img, current_description, current_date;
+let current_first_name, current_last_name, current_email;
+let current_city, current_country, current_img, current_description, current_date, current_time;
 let cities, countries, isEvent;
 
 
-function getAddEventCitiesCoutries(){
-  sendCitiesRequest();
+function getAddEventCitiesCountries(){
+  
+  
   sendCountriesRequest();
 }
 
@@ -206,6 +225,8 @@ function createCountryInput() {
   input.required = true;
   input.name = "country";
 
+  console.log("OLAAAAAA", country);
+
   if (country == "Other"){
     console.log("OTHER");
     select.parentElement.appendChild(input);
@@ -261,7 +282,7 @@ function putAddEventOptions() {
     let countries_options = "";
     for (i = 0; i < countries.length; i++) {
       countries_options += "<option value = '" + countries[i];
-      if (countries[i] == country)
+      if (countries[i] == current_country)
         countries_options += "' selected>" + countries[i] + "</option>";
       else
         countries_options += "'>" + countries[i] + "</option>";
@@ -273,12 +294,13 @@ function putAddEventOptions() {
         let cities_options = "";
         for (i = 0; i < cities.length; i++) {
           cities_options += "<option value = '" + cities[i];
-          if (cities[i] == city)
+          if (cities[i] == current_city)
             cities_options += "' selected>" + cities[i] + "</option>";
           else
             cities_options += "'>" + cities[i] + "</option>";
         }
         cities_options += "<option value = 'Other'>Other</option>";
+        select_city.innerHTML = cities_options;
 
 
 }
@@ -413,12 +435,9 @@ function createEditEventForm(event) {
   let name = main_div.querySelector("#event_name").innerText;
 
   let date_text = main_div.querySelector("#event_date").innerText;
-  // console.log(date_text);
-  // let index_second_dots = date_text.indexOf(':', date_text.indexOf(':', 1));
-  // let date = date_text.substr(1, date_text.indexOf(' ', 2) - 1);
-  // let time = date_text.substr(date_text.indexOf(' ', 2) + 1, 5 );
-  let date = date_text;
-  let time;
+  let index_at = date_text.indexOf('at');
+  let date = date_text.substr(0, index_at - 1);
+  let time = date_text.substr(index_at + 3, date_text.size);
 
   let localization = main_div.querySelector("#event_localization").innerText;
 
@@ -433,7 +452,7 @@ function createEditEventForm(event) {
 
   current_name = name;
   current_date = date;
-  console.log(date);
+  current_time = time;
   current_place = place;
   current_city = city;
   current_country = country;
@@ -563,7 +582,7 @@ function cancelEditEvent(event){
     "<div class='row'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
-    "<i class='fas fa-clock fa-fw' ></i>" + current_date + "</h5>" +
+    "<i class='fas fa-clock fa-fw' ></i>" + current_date + " at " + current_time + "</h5>" +
     "<h5 id='event_localization'>" +
     "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5><br>" +
     "</div>" +
@@ -767,8 +786,12 @@ function sendCitiesRequest(){
       country = country_elem.selectedOptions[0].value;
     else
       country = "Other";
-  }else
+  }else{
+   if(current_country == null)
+    country = "Other";
+    else
     country = current_country;
+  }
     console.log(country);
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
@@ -836,14 +859,12 @@ function sendEditEventRequest(event) {
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
-  let datetime = date + " " + time + ":00.000000";
-
-
   
   sendAjaxRequest('post', '/api/event/' + id,
       {
         name: name,
-        datetime: datetime,
+        date: date,
+        time: time,
         place: place,
         city: city,
         country: country,
@@ -873,17 +894,21 @@ function getCitiesHandler(){
   for(let i= 0; i < cit.length ; i++){
     cities.push(cit[i].name);
   }
+  console.log(cities);
   changeCityOptions();
 }
 
 function getCountriesHandler() {
-  
+  console.log("AAA");
   let countr = JSON.parse(this.responseText)['countries'];
   countries = new Array();
   for (let i = 0; i < countr.length; i++) {
     countries.push(countr[i].name);
   }
-  addEventListeners();
+  if(current_country == null)
+    current_country = countr[0].name;
+  sendCitiesRequest();
+  //addEventListeners();
 }
 
 function profileEditedHandler() {
@@ -953,7 +978,7 @@ function updateEvent(event, city, country, localization) {
   "<div class='row'>"+
     "<div class='col-12 col-lg-5'>"+
       "<h5 id='event_date'>"+
-        "<i class='fas fa-clock fa-fw' ></i>" + event.date + "</h5>"+
+        "<i class='fas fa-clock fa-fw' ></i>" + event.date + " at " + event.time + "</h5>"+
       "<h5 id='event_localization'>"+
         "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5><br>"+
     "</div>"+

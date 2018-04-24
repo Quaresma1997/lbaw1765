@@ -118,7 +118,7 @@
       <div class="row">
         <div class="col-12 col-lg-5">
           <h5 id="event_date">
-            <i class="fas fa-clock fa-fw mr-1" ></i>{{$event->date}}</h5>
+            <i class="fas fa-clock fa-fw mr-1" ></i>{{$event->date}} at {{$event->time}}</h5>
           <h5 id="event_localization">
             <i class="fas fa-map-marker-alt fa-fw mr-1"></i>{{$event->place}}, {{$event->city}}, {{$event->country}} </h5>
           <br>

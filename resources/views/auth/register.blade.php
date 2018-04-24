@@ -146,24 +146,6 @@
             </div>
           </div>
 
-              <label for="image_path">Image</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="image_path">
-                    <i class="fas fa-home fa-fw"></i>
-                  </span>
-                </div>
-                <input id="image_path" type="text" name="image_path" placeholder="Enter image_path" required>
-    @if ($errors->has('image_path'))
-      <span class="error">
-          {{ $errors->first('image_path') }}
-      </span>
-    @endif
-    </div>
-    
-
-
-
           <div class="row">
             <div class="col-12 col-sm-6">
               <label for="password">Password</label>

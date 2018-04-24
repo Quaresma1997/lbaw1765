@@ -13,7 +13,7 @@
                <label for="name">Name</label>
                <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                     <span class="input-group-text" id="name">
+                     <span class="input-group-text">
                      <i class="fas fa-pencil-alt fa-fw"></i>
                      </span>
                   </div>
@@ -48,26 +48,47 @@
                      </div>
                   </div>
                </div>
-               <label for="date">Date</label>
-               <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="date">
-                     <i class="fas fa-calendar-alt fa-fw"></i>
-                     </span>
-                  </div>
-                  <input id="date" type="datetime-local" name="name" placeholder="Enter Date" required autofocus>
-                  @if ($errors->has('date'))
-                  <span class="error">
-                  {{ $errors-> first('date') }}
-                  </span>
-                  @endif
-               </div>
+               <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <label for="date">Date</label>
+                     <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fas fa-calendar-alt fa-fw"></i>
+                        </span>
+                        </div>
+                        <input id="date" type="date" name="date" required>
+                        @if ($errors->has('date'))
+                        <span class="error">
+                        {{ $errors-> first('date') }}
+                        </span>
+                        @endif
+                        </div>
+                       </div>
+                  <div class="col-12 col-sm-6">
+                  <label for="date">Time</label>
+                <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text">
+                        <i class="fas fa-calendar-alt fa-fw"></i>
+                        </span>
+                        </div>
+                        <input id="time" type="time" name="time" required>
+                        @if ($errors->has('time'))
+                        <span class="error">
+                        {{ $errors-> first('time') }}
+                        </span>
+                        @endif
+                </div>
+                </div>
+                </div>
+
                <div class="row">
                   <div class="col-12 col-sm-6">
                      <label for="country">Country</label>
                      <div class="input-group mb-2 p-0 m-0">
                         <div class="input-group-prepend">
-                           <span class="input-group-text" id="country">
+                           <span class="input-group-text">
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
@@ -85,7 +106,7 @@
                      <label for="city">City</label>
                      <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                           <span class="input-group-text" id="city">
+                           <span class="input-group-text">
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
@@ -105,7 +126,7 @@
                      <label for="place">Place</label>
                      <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                           <span class="input-group-text" id="place">
+                           <span class="input-group-text">
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
@@ -121,7 +142,7 @@
                      <label for="address">Address</label>
                      <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                           <span class="input-group-text" id="address">
+                           <span class="input-group-text">
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
