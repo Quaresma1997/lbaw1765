@@ -46,11 +46,11 @@
               </span>
             </div>
             <input id="email" type="email" name="email" placeholder="Email" required>
-    @if ($errors->has('email'))
+    <!-- @if ($errors->has('email'))
       <span class="error">
           {{ $errors->first('email') }}
       </span>
-    @endif
+    @endif -->
           </div>
 
           <div class="row">
@@ -63,11 +63,11 @@
                   </span>
                 </div>
                 <input id="first_name" type="text" name="first_name" placeholder="Enter first name" required>
-    @if ($errors->has('first_name'))
+    <!-- @if ($errors->has('first_name'))
       <span class="error">
           {{ $errors->first('first_name') }}
       </span>
-    @endif
+    @endif -->
               </div>
             </div>
           
@@ -80,11 +80,11 @@
                   </span>
                 </div>
                 <input id="last_name" type="text" name="last_name" placeholder="Enter last name" required>
-    @if ($errors->has('last_name'))
+    <!-- @if ($errors->has('last_name'))
       <span class="error">
           {{ $errors->first('last_name') }}
       </span>
-    @endif
+    @endif -->
               </div>
             </div>
           </div>
@@ -109,11 +109,11 @@
                 @endforeach
                 <option value = 'Other'>Other</option>
                 </select>
-    @if ($errors->has('country'))
+    <!-- @if ($errors->has('country'))
       <span class="error">
           {{ $errors->first('country') }}
       </span>
-    @endif
+    @endif -->
               </div>
             </div>
 
@@ -137,11 +137,11 @@
                 @endforeach
                 <option value = 'Other'>Other</option>
                 </select>
-    @if ($errors->has('city'))
+    <!-- @if ($errors->has('city'))
       <span class="error">
           {{ $errors->first('city') }}
       </span>
-    @endif
+    @endif -->
               </div>
             </div>
           </div>
@@ -156,11 +156,11 @@
                   </span>
                 </div>
                 <input id="password" type="password" name="password" placeholder="Enter password" required>
-    @if ($errors->has('password'))
+    <!-- @if ($errors->has('password'))
       <span class="error">
           {{ $errors->first('password') }}
       </span>
-    @endif
+    @endif -->
               </div>
             </div>
 

@@ -20,6 +20,17 @@
 @endsection
 
 @section('content')
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form method="POST" action="{{ route('login') }}">
     {{ csrf_field() }}
     
@@ -31,11 +42,11 @@
               </span>
             </div>
             <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus>
-            @if ($errors->has('username'))
+            <!-- @if ($errors->has('username'))
                 <span class="error">
                     {{ $errors->first('username') }}
                 </span>
-            @endif
+            @endif -->
           </div>
           
 
@@ -47,11 +58,11 @@
               </span>
             </div>
             <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
-    @if ($errors->has('password'))
+    <!-- @if ($errors->has('password'))
         <span class="error">
             {{ $errors->first('password') }}
         </span>
-    @endif
+    @endif -->
           </div>
          
 

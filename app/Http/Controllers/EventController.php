@@ -82,6 +82,7 @@ class EventController extends Controller
      */
     public function add(Request $data)
     {
+      echo("AAAAAAAA");
        $validated = $this->valid($data);
        if(!$validated->passes())
          return response()->json(['message' => $validated->errors()->all()]);
@@ -100,8 +101,8 @@ class EventController extends Controller
  
       // LOCALIZATION_ID
 
-      $city = $request->input('city');
-      $country = $request->input('country');
+      $city = $data->input('city');
+      $country = $data->input('country');
 
      
 

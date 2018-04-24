@@ -1,6 +1,6 @@
 function addEventListeners() {
-  if(countries == null)
-  getAddEventCitiesCountries();  
+  // if(countries == null)
+  // getAddEventCitiesCountries();  
   let itemCheckers = document.querySelectorAll('article.card li.item input[type=checkbox]');
   [].forEach.call(itemCheckers, function(checker) {
     checker.addEventListener('change', sendItemUpdateRequest);
@@ -27,11 +27,11 @@ function addEventListeners() {
 
   let editProfile = document.querySelector('#btn_editprofile');
   if (editProfile != null){  
-      if(cities == null){
-        getCurCountry();
-        console.log(current_country);
-        sendCitiesRequest();
-      }
+      // if(cities == null){
+      //   getCurCountry();
+      //   console.log(current_country);
+      //   sendCitiesRequest();
+      // }
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
@@ -65,11 +65,11 @@ function addEventListeners() {
 
    let editEvent = document.querySelector('#btn_editEvent');
    if (editEvent != null){
-     if (cities == null) {
-     getCurCountryEvent();
+    //  if (cities == null) {
+    //  getCurCountryEvent();
      
-     sendCitiesRequest();
-     }
+    //  sendCitiesRequest();
+    //  }
      editEvent.addEventListener('click', createEditEventForm);
    }
 
@@ -106,34 +106,24 @@ function addEventListeners() {
   if(modalAddEvent != null){
     modalAddEvent.on('hide.bs.modal', function () {
       isEvent = false;
-      
 
-      if (editProfile != null){
-        getCurCountry();
-        sendCitiesRequest();
-      }else if (editEvent != null) {
-        getCurCountryEvent();
-        sendCitiesRequest();
-      } else{
-        current_country = countries[0];
-        sendCitiesRequest();
-      }
-      // addEventListeners();
     });
     modalAddEvent.on('show.bs.modal', function () {
       isEvent = true;
-      if (editEventConfirm != null)
+      if (editEventConfirm != null && isEditing)
         cancelEditEvent();
-      if(editProfileConfirm != null)
+      if (editProfileConfirm != null && isEditing)
         cancelEditProfile();
+
+      isDefault = true;
       
       
       
       
     });
     modalAddEvent.on('shown.bs.modal', function () {
-     putAddEventOptions();
-     createCountryInput();
+      putAddEventOptions();
+    //  createCountryInput();
     });
 
 
@@ -141,17 +131,8 @@ function addEventListeners() {
 }
 
 let current_first_name, current_last_name, current_email;
-let current_city, current_country, current_img, current_description, current_date, current_time;
-let cities, countries, isEvent;
-
-
-function getAddEventCitiesCountries(){
-  
-  
-  sendCountriesRequest();
-}
-
-
+let current_city, current_country, current_city_default, current_country_default, current_img, current_description, current_date, current_time;
+let cities, cities_default, countries, isEvent, isDefault = true, isEditing = false;
 
 // $(document).ready(function(){
 //   $('[data-toggle="tooltip"]').tooltip();
@@ -166,7 +147,7 @@ function getCurCountryEvent(){
 
   let country = localization.substr(index_second_comma + 2, localization.size);
 
-  current_country = country;
+  current_country_default = country;
 }
 
 function getCurCountry() {
@@ -225,10 +206,9 @@ function createCountryInput() {
   input.required = true;
   input.name = "country";
 
-  console.log("OLAAAAAA", country);
+  console.log("createCountryInput", country);
 
   if (country == "Other"){
-    console.log("OTHER");
     select.parentElement.appendChild(input);
     cities = new Array();
     changeCityOptions();
@@ -240,9 +220,12 @@ function createCountryInput() {
       select.parentElement.removeChild(old_input);
       select.name = "country";
     }
-    console.log("COUNTRY");
-    sendCitiesRequest();
+    // console.log("COUNTRY");
+    sendCitiesRequest(country);
+
   }
+
+  
 
 
 }
@@ -258,21 +241,34 @@ function changeCityOptions(){
   if(select_city == null)
     return;
 
+  let use_cities;
+  let thisCurCity;
+  if(isDefault){
+    use_cities = cities_default;
+    thisCurCity = use_cities[0];
+  }
+  else{
+    use_cities = cities;
+    thisCurCity = current_city;
+  }
+    console.log(thisCurCity);
+
+  
+
   let cities_options = "";
   let i;
-  for (i = 0; i < cities.length; i++) {
-    cities_options += "<option value = '" + cities[i];
-    if (cities[i] == current_city)
-      cities_options += "' selected>" + cities[i] + "</option>";
+  for (i = 0; i < use_cities.length; i++) {
+    cities_options += "<option value = '" + use_cities[i];
+    if (use_cities[i] == thisCurCity)
+      cities_options += "' selected>" + use_cities[i] + "</option>";
     else
-      cities_options += "'>" + cities[i] + "</option>";
+      cities_options += "'>" + use_cities[i] + "</option>";
   }
   cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
-
   
-    createCityInput();
+  createCityInput();
 }
 
 function putAddEventOptions() {
@@ -282,7 +278,7 @@ function putAddEventOptions() {
     let countries_options = "";
     for (i = 0; i < countries.length; i++) {
       countries_options += "<option value = '" + countries[i];
-      if (countries[i] == current_country)
+      if (countries[i] == current_country_default)
         countries_options += "' selected>" + countries[i] + "</option>";
       else
         countries_options += "'>" + countries[i] + "</option>";
@@ -294,7 +290,7 @@ function putAddEventOptions() {
         let cities_options = "";
         for (i = 0; i < cities.length; i++) {
           cities_options += "<option value = '" + cities[i];
-          if (cities[i] == current_city)
+          if (i == 0)
             cities_options += "' selected>" + cities[i] + "</option>";
           else
             cities_options += "'>" + cities[i] + "</option>";
@@ -425,6 +421,8 @@ function createEditProfileForm(event){
     div1 + div2 + div3 + btns
     + "</form>";
 
+    isEditing = true;
+
       addEventListeners();
   
 }
@@ -552,6 +550,8 @@ function createEditEventForm(event) {
       btns + 
     "</form>";
 
+  isEditing = true;
+
   addEventListeners();
 
 }
@@ -572,6 +572,8 @@ function cancelEditProfile(event){
     "<button type='button' class='btn btn-outline-danger btn-lg btn-block'>" +
     "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>";
 
+    isEditing = false;
+
     addEventListeners();
 }
 
@@ -590,7 +592,11 @@ function cancelEditEvent(event){
     "<h1>Description</h1><br>" +
     "<p id='event_description'>" + current_description + "</p>" +
     "</div>" +
-    "</div>"
+    "</div>";
+
+    addEventListeners();
+
+    isEditing = false;
 }
 
 
@@ -747,15 +753,22 @@ function sendCreateCardRequest(event) {
 }
 
 function sendAddEventRequest(event){
-  let name = document.querySelector('input[id=name').value;
+  let name = document.querySelector('input[id=name]').value;
   let type = document.querySelector('#select_type select').value;
   let category = this.querySelector('#select_category select').value;
-  let date = this.querySelector('input[id=date').value;
-  let city = this.querySelector('input[id=city]').value;
-  let country = this.querySelector('input[id=country]').value;
+  let date = this.querySelector('input[id=date]').value;
+  let time = this.querySelector('input[id=time]').value;
+  let city = this.querySelector('select[id=select_city_event]').selectedOptions[0].value;
+  let country = this.querySelector('select[id=select_country_event]').selectedOptions[0].value;
   let place = this.querySelector('input[id=place]').value;
   let address = this.querySelector('input[id=address]').value;
   let description = this.querySelector('#description').value;
+
+  if (city == "Other")
+    city = this.querySelector('input[id=input_city]').value;
+
+  if (country == "Other")
+    country = this.querySelector('input[id=input_country]').value;
   
 
   if (name != '' && date != '' && city != '' && country != '' && place != '' && address != '' && description != '' ){
@@ -764,6 +777,7 @@ function sendAddEventRequest(event){
       type: type,
       category: category,
       date: date,
+      time: time,
       city: city,
       country: country,
       place: place,
@@ -774,30 +788,14 @@ function sendAddEventRequest(event){
   event.preventDefault();
 }
 
-function sendCitiesRequest(){
-  let country_elem;
-  if(isEvent)
-    country_elem = document.querySelector('select[id=select_country_event]');
-  else
-    country_elem = document.querySelector('select[id=select_country]');
-  let country;
-  if (country_elem != null){
-    if (country_elem.length > 0)
-      country = country_elem.selectedOptions[0].value;
-    else
-      country = "Other";
-  }else{
-   if(current_country == null)
-    country = "Other";
-    else
-    country = current_country;
-  }
-    console.log(country);
-  sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
-}
+
 
 function sendCountriesRequest() {
   sendAjaxRequest('get', '/countries', null, getCountriesHandler);
+}
+
+function sendCitiesRequest(country) {
+  sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
 
 function sendEditProfileRequest(event) {
@@ -890,24 +888,34 @@ function deleteEventRequest(event){
 
 function getCitiesHandler(){
   let cit = JSON.parse(this.responseText)['cities'];
-  cities = new Array();
-  for(let i= 0; i < cit.length ; i++){
-    cities.push(cit[i].name);
+  if(isDefault){
+    cities_default = new Array();
+    for (let i = 0; i < cit.length; i++) {
+      cities_default.push(cit[i].name);
+    }
+    console.log(cities_default);
+  }else{
+    cities = new Array();
+    for (let i = 0; i < cit.length; i++) {
+      cities.push(cit[i].name);
+    }
+    console.log(cities);
   }
-  console.log(cities);
   changeCityOptions();
+  //changeCityOptions();
 }
 
 function getCountriesHandler() {
-  console.log("AAA");
+  console.log("getCountriesHandler");
   let countr = JSON.parse(this.responseText)['countries'];
   countries = new Array();
   for (let i = 0; i < countr.length; i++) {
     countries.push(countr[i].name);
   }
-  if(current_country == null)
-    current_country = countr[0].name;
-  sendCitiesRequest();
+
+  current_country_default = countr[0].name;
+  sendCitiesRequest(current_country_default);
+  isDefault = false;
   //addEventListeners();
 }
 
@@ -919,6 +927,19 @@ function profileEditedHandler() {
     city = JSON.parse(this.responseText)['city'];
     country = JSON.parse(this.responseText)['country'];
     updateProfile(profile, city, country);
+  }else{
+    let content = document.querySelector("#content");
+    let errors = document.createElement("div");
+    errors.classList.add("alert");
+    errors.classList.add("alert-danger");
+    errors.innerHTML = 
+      "<ul>";
+    message.forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
+    });
+    errors.innerHTML += "</ul>";
+    content.insertBefore(errors, content.firstChild);
+   
   }
 
 }
@@ -932,6 +953,18 @@ function eventEditedHandler() {
     country = JSON.parse(this.responseText)['country'];
     localization = JSON.parse(this.responseText)['localization'];
     updateEvent(event, city, country, localization);
+  }else{
+    let content = document.querySelector("#content");
+    let errors = document.createElement("div");
+    errors.classList.add("alert");
+    errors.classList.add("alert-danger");
+    errors.innerHTML =
+      "<ul>";
+    message.forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
+    });
+    errors.innerHTML += "</ul>";
+    content.insertBefore(errors, content.firstChild);
   }
 
 }
@@ -963,6 +996,8 @@ function updateProfile(profile, city, country){
     "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>"
   ;
 
+  isEditing = false;
+
   addEventListeners();
 }
 
@@ -988,6 +1023,8 @@ function updateEvent(event, city, country, localization) {
     "</div>"+
   "</div>"
   ;
+
+  isEditing = false;
 
   addEventListeners();
 }
@@ -1051,11 +1088,12 @@ function cardAddedHandler() {
 
 function eventAddedHandler(){
   console.log(this.responseText);
-  //if (this.status != 200) window.location = '/';
   let response = JSON.parse(this.responseText);
   if(response['message'] == 'success'){
     let id = response['id'];
     window.location = '/events/' + id;
+  }else{
+    console.log("BUAAAAAAAAAA");
   }
 }
 
@@ -1098,5 +1136,8 @@ function createItem(item) {
 
   return new_item;
 }
+
+sendCountriesRequest();
+
 
 addEventListeners();

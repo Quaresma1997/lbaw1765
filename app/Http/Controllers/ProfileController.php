@@ -168,9 +168,6 @@ class ProfileController extends Controller
         return redirect('/');
 
       }
-
-
-
       return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
     }
 }

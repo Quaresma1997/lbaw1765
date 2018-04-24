@@ -18,11 +18,11 @@
                      </span>
                   </div>
                   <input id="name" type="text" name="name" placeholder="Event Name" required autofocus>
-                  @if ($errors->has('name'))
+                  <!-- @if ($errors->has('name'))
                   <span class="error">
                   {{ $errors-> first('name') }}
                   </span>
-                  @endif
+                  @endif -->
                </div>
                
                <div class="row">
@@ -58,11 +58,11 @@
                         </span>
                         </div>
                         <input id="date" type="date" name="date" required>
-                        @if ($errors->has('date'))
+                        <!-- @if ($errors->has('date'))
                         <span class="error">
                         {{ $errors-> first('date') }}
                         </span>
-                        @endif
+                        @endif -->
                         </div>
                        </div>
                   <div class="col-12 col-sm-6">
@@ -74,11 +74,11 @@
                         </span>
                         </div>
                         <input id="time" type="time" name="time" required>
-                        @if ($errors->has('time'))
+                        <!-- @if ($errors->has('time'))
                         <span class="error">
                         {{ $errors-> first('time') }}
                         </span>
-                        @endif
+                        @endif -->
                 </div>
                 </div>
                 </div>
@@ -95,11 +95,11 @@
                         <select class = 'custom-select' id = 'select_country_event' name = 'country'>
                
                 </select>
-                        @if ($errors->has('country'))
+                        <!-- @if ($errors->has('country'))
                         <span class="error">
                         {{ $errors-> first('country') }}
                         </span>
-                        @endif  
+                        @endif   -->
                      </div>
                   </div>
                   <div class="col-12 col-sm-6">
@@ -113,11 +113,11 @@
                         <select class = 'custom-select' id = 'select_city_event' name = 'city'>
                
                 </select>
-                        @if ($errors->has('city'))
+                        <!-- @if ($errors->has('city'))
                         <span class="error">
                         {{ $errors-> first('city') }}
                         </span>
-                        @endif
+                        @endif -->
                      </div>
                   </div>
                </div>
@@ -131,11 +131,11 @@
                            </span>
                         </div>
                         <input id="place" type="text" name="place" placeholder="Enter place" required>
-                        @if ($errors->has('place'))
+                        <!-- @if ($errors->has('place'))
                         <span class="error">
                         {{ $errors-> first('place') }}
                         </span>
-                        @endif
+                        @endif -->
                      </div>
                   </div>
                   <div class="col-12 col-sm-6">
@@ -147,22 +147,22 @@
                            </span>
                         </div>
                         <input id="address" type="text" name="address" placeholder="Enter address" required>
-                        @if ($errors->has('address'))
+                        <!-- @if ($errors->has('address'))
                         <span class="error">
                         {{ $errors-> first('address') }}
                         </span>
-                        @endif
+                        @endif -->
                      </div>
                   </div>
                </div>
                <label for="description">Description</label>
                <div class="input-group mb-2">
                   <textarea id="description" class="form-control" rows="4" cols="1" name="description" placeholder="Enter Description" required></textarea>
-                  @if ($errors->has('description'))
+                  <!-- @if ($errors->has('description'))
                   <span class="error">
                   {{ $errors-> first('description') }}
                   </span>
-                  @endif
+                  @endif -->
                </div>
                <hr>
                <button type="submit" class="btn btn-block btn-success mb-1" name="off">Add Event</button>
