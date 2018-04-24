@@ -929,16 +929,21 @@ function profileEditedHandler() {
     updateProfile(profile, city, country);
   }else{
     let content = document.querySelector("#content");
-    let errors = document.createElement("div");
-    errors.classList.add("alert");
-    errors.classList.add("alert-danger");
-    errors.innerHTML = 
+    let errors;
+    erros = content.querySelector("#errors");
+    if (errors == null) {
+      errors = document.createElement("div");
+      errors.id = "errors";
+      errors.classList.add("alert");
+      errors.classList.add("alert-danger");
+    }
+    errors.innerHTML =
       "<ul>";
-    message.forEach(element => {
+    response['message'].forEach(element => {
       errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
-    content.insertBefore(errors, content.firstChild);
+    form.insertBefore(errors, form.firstChild);
    
   }
 
@@ -954,17 +959,22 @@ function eventEditedHandler() {
     localization = JSON.parse(this.responseText)['localization'];
     updateEvent(event, city, country, localization);
   }else{
-    let content = document.querySelector("#content");
-    let errors = document.createElement("div");
-    errors.classList.add("alert");
-    errors.classList.add("alert-danger");
-    errors.innerHTML =
-      "<ul>";
-    message.forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
-    });
-    errors.innerHTML += "</ul>";
-    content.insertBefore(errors, content.firstChild);
+     let content = document.querySelector("#content");
+     let errors;
+     erros = content.querySelector("#errors");
+     if (errors == null) {
+       errors = document.createElement("div");
+       errors.id = "errors";
+       errors.classList.add("alert");
+       errors.classList.add("alert-danger");
+     }
+     errors.innerHTML =
+       "<ul>";
+     response['message'].forEach(element => {
+       errors.innerHTML += "<li>" + element + "</li>";
+     });
+     errors.innerHTML += "</ul>";
+     form.insertBefore(errors, form.firstChild);
   }
 
 }
@@ -1093,7 +1103,22 @@ function eventAddedHandler(){
     let id = response['id'];
     window.location = '/events/' + id;
   }else{
-    console.log("BUAAAAAAAAAA");
+    let form = document.querySelector("#form_add_event");
+    let errors;
+    erros = form.querySelector("#errors");
+    if(errors == null){
+      errors = document.createElement("div");
+      errors.id = "errors";
+      errors.classList.add("alert");
+      errors.classList.add("alert-danger");
+    }
+    errors.innerHTML =
+      "<ul>";
+    response['message'].forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
+    });
+    errors.innerHTML += "</ul>";
+    form.insertBefore(errors, form.firstChild);
   }
 }
 

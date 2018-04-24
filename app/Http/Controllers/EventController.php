@@ -67,7 +67,9 @@ class EventController extends Controller
         return Validator::make($data->all(), [
             'name' => 'required|string|max:30',
             'city' => 'required|string|max:30',
+            'date' => 'required|date|after:today',
             'country' => 'required|string|max:30',
+            'city' => 'required|string|max:30',
             'place' => 'required|string|max:30',
             // 'address' => 'required|string|max:30',
             'description' => 'string|max:255',
@@ -82,7 +84,6 @@ class EventController extends Controller
      */
     public function add(Request $data)
     {
-      echo("AAAAAAAA");
        $validated = $this->valid($data);
        if(!$validated->passes())
          return response()->json(['message' => $validated->errors()->all()]);

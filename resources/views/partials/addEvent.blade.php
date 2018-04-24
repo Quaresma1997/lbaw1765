@@ -9,7 +9,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
          </div>
          <div class="modal-body ">
-            <form class="add_event" name="off">
+            <form class="add_event" id="form_add_event">
                <label for="name">Name</label>
                <div class="input-group mb-2">
                   <div class="input-group-prepend">
@@ -165,7 +165,7 @@
                   @endif -->
                </div>
                <hr>
-               <button type="submit" class="btn btn-block btn-success mb-1" name="off">Add Event</button>
+               <button type="submit" class="btn btn-block btn-success mb-1" >Add Event</button>
             </form>
          </div>
       </div>
