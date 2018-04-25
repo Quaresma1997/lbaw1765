@@ -179,7 +179,7 @@
 
       <hr>
 
-<button type="submit" class="btn btn-block btn-success mb-2">Sign Up</button>
+<button type="submit" class="btn btn-block btn-success mb-2" id="btn_signUp">Sign Up</button>
 
 <div class="btn-group d-flex" role="group">
   <button type="button" class="btn btn-primary w-100">

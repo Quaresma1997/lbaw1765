@@ -112,7 +112,6 @@ class EventController extends Controller
         if($country_id == null){
           $new_country = new Country();
 
-          $this->authorize('create', $user);
     
           $new_country->name = $country;
           $new_country->save();
@@ -126,7 +125,6 @@ class EventController extends Controller
         if($city_id == null){
           $new_city = new City();
 
-          $this->authorize('create', $user);
 
           $new_city->name = $city;
           $new_city->country_id = $country_id->id;
@@ -141,7 +139,6 @@ class EventController extends Controller
           if($existing_city->country_id != $country_id->id){
             $new_city = new City();
 
-            $this->authorize('create', $user);
 
             $new_city->name = $city;
             $new_city->country_id = $country_id->id;
@@ -174,17 +171,24 @@ class EventController extends Controller
     public function delete(Request $request, $id)
     {
       $event = Event::find($id);
-
       $this->authorize('delete', $event);
+      try{
+            $event->delete();
+            return response()->json(['message' => 'success']);
+        }catch (QueryException $e){
+            return response()->json(['message' => 'error']);
+        }
         
-      if($event->delete())
-        return redirect('/');
-
-      else
-      return response()->json(['message' => 'error', 'error' => 'Error deleting event!']);
+      // if($event->delete())
+      //   return response()->json(['message' => 'success']);
+      // else
+      //   return response()->json(['message' => 'error']);
+     
     }
 
     public function update(Request $request, $id){
+
+      
        
       $event = Event::find($id);
       $this->authorize('update', $event);
@@ -199,17 +203,21 @@ class EventController extends Controller
       $event->time = $request->input('time');
       $event->description = $request->input('description');
 
+      
+
       $city = $request->input('city');
       $country = $request->input('country');
 
      
 
       $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
+      
 
         if($country_id == null){
           $new_country = new Country();
+          
 
-          $this->authorize('create', $user);
+          
     
           $new_country->name = $country;
           $new_country->save();
@@ -217,13 +225,13 @@ class EventController extends Controller
           $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
           
         }
+        
       
         $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
 
         if($city_id == null){
           $new_city = new City();
 
-          $this->authorize('create', $user);
 
           $new_city->name = $city;
           $new_city->country_id = $country_id->id;
@@ -238,7 +246,6 @@ class EventController extends Controller
           if($existing_city->country_id != $country_id->id){
             $new_city = new City();
 
-            $this->authorize('create', $user);
 
             $new_city->name = $city;
             $new_city->country_id = $country_id->id;
@@ -249,15 +256,29 @@ class EventController extends Controller
           }
         }
 
+        
+
         $localization = Localization::find($event->localization_id);
+
+        
 
         $localization->name = $request->input('place');
         $localization->city_id = $city_id->id;
         // $localization->address = $request->input('address');
 
-        $localization->save();
+        try{
+            $localization->save();
+        }catch (QueryException $e){
+            return response()->json(['message' => 'Error updating localization']);
+        }
+
+        try{
+            $event->save();
+        }catch (QueryException $e){
+            return response()->json(['message' => 'Error updating event']);
+        }
             
-        $event->save();
+        
 
         return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->getCity($localization->id), 'country' => $event->getCountry($city_id->id)]);
 

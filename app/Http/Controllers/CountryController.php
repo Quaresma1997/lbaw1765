@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Database\QueryException;
+    
 use App\City;
 use App\Country;
 use App\Event;
@@ -29,8 +30,14 @@ class CountryController extends Controller
 
     public function list(Request $data)
     {
-        $countries = Country::all();
-        return response()->json(['countries' => $countries]);
+        try{
+            $countries =  DB::table('countries')->get();
+            // $countries = Country::all();
+            return response()->json(['message'=>"success", 'countries' => $countries]);
+        }catch (QueryException $e){
+            return response()->json(['message'=>"Error"]);
+        }
+        
     }
 
 }

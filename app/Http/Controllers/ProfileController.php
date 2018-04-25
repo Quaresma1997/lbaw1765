@@ -154,20 +154,14 @@ class ProfileController extends Controller
 
     public function delete(Request $request, $id)
     {
-      if(Auth::user()->id != $id)
-        return response()->json(['message' => 'error', 'error' => 'Cannot delete other user profile!']);
-      else{
-        
-        Auth::logout();
-        $user = User::find($id);
+      $user = User::find($id);
 
-        $this->authorize('delete', $user);
+      $this->authorize('delete', $user);
 
-
-        $user->delete();
+      Auth::logout();
+      if($user->delete())
         return redirect('/');
-
-      }
-      return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
+      else
+        return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
     }
 }
