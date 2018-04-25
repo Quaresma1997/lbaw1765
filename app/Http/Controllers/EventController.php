@@ -277,9 +277,7 @@ class EventController extends Controller
         }catch (QueryException $e){
             return response()->json(['message' => 'Error updating event']);
         }
-            
-        
-
+ 
         return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->getCity($localization->id), 'country' => $event->getCountry($city_id->id)]);
 
     }

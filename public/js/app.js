@@ -1048,7 +1048,6 @@ function profileEditedHandler() {
 }
 
 function eventEditedHandler() {
-  
   let message = JSON.parse(this.responseText)['message'];
   let event;
   if (message == 'success') {

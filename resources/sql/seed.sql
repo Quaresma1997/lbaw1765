@@ -345,96 +345,96 @@ ALTER TABLE ONLY ratings
 --   WHEN NEW.date = current_date()
 --     EXECUTE PROCEDURE set_event_as_done(); 
  
-CREATE OR REPLACE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
-$BODY$
-DECLARE
-    idx int;
-BEGIN
-    FOR idx IN SELECT user_id FROM participants WHERE participants.event_id = OLD.id
-    LOOP
-        INSERT INTO event_delete_warnings (event_name, receiver_id) VALUES (OLD.name, idx);
-    END LOOP;
-    RETURN OLD;
-END;
-$BODY$
-LANGUAGE plpgsql;
+-- CREATE OR REPLACE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
+-- $BODY$
+-- DECLARE
+--     idx int;
+-- BEGIN
+--     FOR idx IN SELECT user_id FROM participants WHERE participants.event_id = OLD.id
+--     LOOP
+--         INSERT INTO event_delete_warnings (event_name, receiver_id) VALUES (OLD.name, idx);
+--     END LOOP;
+--     RETURN OLD;
+-- END;
+-- $BODY$
+-- LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS notificate_event_delete ON "events";
-CREATE TRIGGER notificate_event_delete
-  BEFORE DELETE ON events
-  FOR EACH ROW
-    EXECUTE PROCEDURE notificate_event_delete();  
+-- DROP TRIGGER IF EXISTS notificate_event_delete ON "events";
+-- CREATE TRIGGER notificate_event_delete
+--   BEFORE DELETE ON events
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE notificate_event_delete();  
 
-CREATE OR REPLACE FUNCTION notificate_event_update() RETURNS TRIGGER AS
-$BODY$
-DECLARE
-    idx int;
-BEGIN
-    FOR idx IN SELECT id FROM participants WHERE participants.event_id = OLD.id
-    LOOP
-        INSERT INTO event_update_warnings (event_id, receiver_id) VALUES (OLD.id, idx);
-    END LOOP;
-    RETURN OLD;
-END;
-$BODY$
-LANGUAGE plpgsql;
+-- CREATE OR REPLACE FUNCTION notificate_event_update() RETURNS TRIGGER AS
+-- $BODY$
+-- DECLARE
+--     idx int;
+-- BEGIN
+--     FOR idx IN SELECT id FROM participants WHERE participants.event_id = OLD.id
+--     LOOP
+--         INSERT INTO event_update_warnings (event_id, receiver_id) VALUES (OLD.id, idx);
+--     END LOOP;
+--     RETURN OLD;
+-- END;
+-- $BODY$
+-- LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS notificate_event_update ON "events";
-CREATE TRIGGER notificate_event_update
-  BEFORE UPDATE ON events
-  FOR EACH ROW
-    EXECUTE PROCEDURE notificate_event_update();  
+-- DROP TRIGGER IF EXISTS notificate_event_update ON "events";
+-- CREATE TRIGGER notificate_event_update
+--   BEFORE UPDATE ON events
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE notificate_event_update();  
 
-CREATE OR REPLACE FUNCTION rating_update() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  UPDATE dones SET rating = (SELECT AVG("value") FROM ratings WHERE New.event_id = event_id) WHERE event_id = New.event_id;
-  RETURN NULL;
-END
-$BODY$
+-- CREATE OR REPLACE FUNCTION rating_update() RETURNS TRIGGER AS
+-- $BODY$
+-- BEGIN
+--   UPDATE dones SET rating = (SELECT AVG("value") FROM ratings WHERE New.event_id = event_id) WHERE event_id = New.event_id;
+--   RETURN NULL;
+-- END
+-- $BODY$
 
-LANGUAGE plpgsql;
+-- LANGUAGE plpgsql;
  
-CREATE TRIGGER rating_update
-  AFTER INSERT ON ratings
-  FOR EACH ROW
-    EXECUTE PROCEDURE rating_update();
+-- CREATE TRIGGER rating_update
+--   AFTER INSERT ON ratings
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE rating_update();
 
 
-CREATE OR REPLACE FUNCTION accept_friend_request() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  IF New.answer = 'yes' 
-  THEN
-    INSERT INTO friendships (user_id_1, user_id_2) VALUES (New.sender_id, New.receiver_id);
-  END IF;
-  RETURN NULL;
-END
-$BODY$
-LANGUAGE plpgsql;
+-- CREATE OR REPLACE FUNCTION accept_friend_request() RETURNS TRIGGER AS
+-- $BODY$
+-- BEGIN
+--   IF New.answer = 'yes' 
+--   THEN
+--     INSERT INTO friendships (user_id_1, user_id_2) VALUES (New.sender_id, New.receiver_id);
+--   END IF;
+--   RETURN NULL;
+-- END
+-- $BODY$
+-- LANGUAGE plpgsql;
  
-CREATE TRIGGER accept_friend_request
-  AFTER UPDATE ON friend_requests
-  FOR EACH ROW
-    EXECUTE PROCEDURE accept_friend_request();
+-- CREATE TRIGGER accept_friend_request
+--   AFTER UPDATE ON friend_requests
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE accept_friend_request();
 
 
-CREATE OR REPLACE FUNCTION accept_event_invite() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  IF New.answer = 'yes' 
-  THEN
-    INSERT INTO participants (user_id, event_id) VALUES (New.receiver_id, New.event_id);
-  END IF;
-  RETURN NULL;
-END
-$BODY$
-LANGUAGE plpgsql;
+-- CREATE OR REPLACE FUNCTION accept_event_invite() RETURNS TRIGGER AS
+-- $BODY$
+-- BEGIN
+--   IF New.answer = 'yes' 
+--   THEN
+--     INSERT INTO participants (user_id, event_id) VALUES (New.receiver_id, New.event_id);
+--   END IF;
+--   RETURN NULL;
+-- END
+-- $BODY$
+-- LANGUAGE plpgsql;
  
-CREATE TRIGGER accept_event_invite
-  AFTER UPDATE ON event_invites
-  FOR EACH ROW
-    EXECUTE PROCEDURE accept_event_invite();
+-- CREATE TRIGGER accept_event_invite
+--   AFTER UPDATE ON event_invites
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE accept_event_invite();
 
 
 	
