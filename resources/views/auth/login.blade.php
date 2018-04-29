@@ -30,11 +30,9 @@
         </ul>
     </div>
 @endif
-<div class="jumbotron">
+<div class="jumbotron container" id="jumbotron_login" >
   <h3 class="title">Login</h3> 
-  <div class="container">
-
-    <div class="row">
+  <hr>
       <form method="POST" action="{{ route('login') }}">
           {{ csrf_field() }}
           
@@ -95,10 +93,6 @@
                 </div>
               </div>
 
-
-          
       </form>
-    </div>
-  </div>
 </div>
 @endsection

@@ -27,6 +27,13 @@ select.custom-select:focus {
   background-color: #303030;
 }
 
+div#jumbotron_register {
+  max-width: 700px;
+}
+div#jumbotron_login{
+  max-width: 500px;
+}
+
 figure {
   display: block;
   height: 150px;
