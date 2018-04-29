@@ -113,7 +113,7 @@
                           <i class="fas fa-home fa-fw"></i>
                         </span>
                       </div>
-                        <select class = 'custom-select' id = 'select_country' name = 'country'>
+                        <select class = 'custom-select' id = 'select_country' name = 'country' placeholder = "Country">
                       @foreach($countries->all() as $country){
                         @if($country->id == 1)
                         <option value = '{{$country->name}}' selected>{{$country->name}}</option>
@@ -122,7 +122,7 @@
                         @endif
                       }
                       @endforeach
-                      <option value = 'Other'>Other</option>
+                      <option value = 'Other'>Other</option>                     
                       </select>
           <!-- @if ($errors->has('country'))
             <span class="error">
@@ -130,6 +130,7 @@
             </span>
           @endif -->
                     </div>
+                    <input type="text" id="input_country" class="form-control" placeholder="Country" name="Country" >
                   </div>
 
                   
@@ -141,7 +142,7 @@
                           <i class="fas fa-home fa-fw"></i>
                         </span>
                       </div>
-                      <select class = 'custom-select' id = 'select_city' name = 'city'>
+                      <select class = 'custom-select' id = 'select_city' name = 'city' placeholder = "City">
                       @foreach($cities->all() as $city){
                         @if($city->id == 1)
                         <option value = '{{$city->name}}' selected>{{$city->name}}</option>
@@ -158,6 +159,7 @@
             </span>
           @endif -->
                     </div>
+                    <input type="text" id="input_city" class="form-control" placeholder="City" name="City">
                   </div>
                 </div>
 

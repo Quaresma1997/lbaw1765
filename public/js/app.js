@@ -189,22 +189,23 @@ function createCityInput() {
   else
     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
-  let input = document.createElement("input");
+ /* let input = document.createElement("input");
   input.type = "text";
   input.id = "input_city";
   input.classList.add("form-control");
   input.placeholder = "City";
   input.required = true;
-  input.name = "city";
-
+  input.name = "city";*/
   if(justRemoveOther)
     city = "";
 
   if (city == "Other") {
-    if (select.parentElement.querySelector("input[id=input_city") == null)
-      select.parentElement.appendChild(input);
+    if (select.parentElement.querySelector("input[id=input_city") == null){
+      $('#input_city').show();
+    }
     select.name = "select_city";
   } else {
+    $('#input_city').hide();
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
@@ -223,14 +224,13 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
-  let input = document.createElement("input");
+ /* let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
-  input.name = "country";
-
+  input.name = "country";*/
   if (justRemoveOther)
     country = current_country_default;
 
@@ -238,15 +238,18 @@ function createCountryInput() {
 
   if (country == "Other") {
 
-    select.parentElement.appendChild(input);
+    //select.parentElement.appendChild(input);
+    $('#input_country').show();
+
     if (isEvent || isSignUp)
       cities_default = new Array();
-    else
+    else{
       cities = new Array();
+    }
     changeCityOptions();
     select.name = "select_country";
   } else {
-    
+    $('#input_country').hide();
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
