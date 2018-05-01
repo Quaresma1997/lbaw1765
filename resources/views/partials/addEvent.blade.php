@@ -17,7 +17,7 @@
                      <i class="fas fa-pencil-alt fa-fw"></i>
                      </span>
                   </div>
-                  <input id="name" type="text" name="name" placeholder="Event Name" required autofocus>
+                  <input id="name" type="text" name="name" placeholder="Event Name" class="form-control" required autofocus>
                   <!-- @if ($errors->has('name'))
                   <span class="error">
                   {{ $errors-> first('name') }}
@@ -57,7 +57,7 @@
                         <i class="fas fa-calendar-alt fa-fw"></i>
                         </span>
                         </div>
-                        <input id="date" type="date" name="date" required>
+                        <input class="form-control" id="date" type="date" name="date" required>
                         <!-- @if ($errors->has('date'))
                         <span class="error">
                         {{ $errors-> first('date') }}
@@ -73,7 +73,7 @@
                         <i class="fas fa-calendar-alt fa-fw"></i>
                         </span>
                         </div>
-                        <input id="time" type="time" name="time" required>
+                        <input class="form-control" id="time" type="time" name="time" required>
                         <!-- @if ($errors->has('time'))
                         <span class="error">
                         {{ $errors-> first('time') }}
@@ -130,7 +130,7 @@
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
-                        <input id="place" type="text" name="place" placeholder="Enter place" required>
+                        <input class="form-control" id="place" type="text" name="place" placeholder="Enter place" required>
                         <!-- @if ($errors->has('place'))
                         <span class="error">
                         {{ $errors-> first('place') }}
@@ -146,7 +146,7 @@
                            <i class="fas fa-map-marker-alt fa-fw"></i>
                            </span>
                         </div>
-                        <input id="address" type="text" name="address" placeholder="Enter address" required>
+                        <input class="form-control" id="address" type="text" name="address" placeholder="Enter address" required>
                         <!-- @if ($errors->has('address'))
                         <span class="error">
                         {{ $errors-> first('address') }}

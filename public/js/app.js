@@ -201,11 +201,13 @@ function createCityInput() {
 
   if (city == "Other") {
     if (select.parentElement.querySelector("input[id=input_city") == null){
-      $('#input_city').show();
+      $('#input_city').removeAttr('disabled');;
+      $('#input_city').show(10000);
     }
     select.name = "select_city";
   } else {
-    $('#input_city').hide();
+    $('#input_city').hide(10000);
+    $('#input_city').attr('disabled','disabled');
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
@@ -239,7 +241,8 @@ function createCountryInput() {
   if (country == "Other") {
 
     //select.parentElement.appendChild(input);
-    $('#input_country').show();
+    $('#input_country').removeAttr('disabled');;
+    $('#input_country').show(10000);
 
     if (isEvent || isSignUp)
       cities_default = new Array();
@@ -249,7 +252,8 @@ function createCountryInput() {
     changeCityOptions();
     select.name = "select_country";
   } else {
-    $('#input_country').hide();
+    $('#input_country').hide(10000);
+    $('#input_country').attr('disabled','disabled');
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
