@@ -97,7 +97,7 @@ function addEventListeners() {
     if (signUp != null) {
       isSignUp = true;
       select = document.querySelector('#select_country');
-      select.selectedIndex = 0;
+      select.selectedIndex = 2;
       createCountryInput();
     }
 
@@ -202,11 +202,11 @@ function createCityInput() {
   if (city == "Other") {
     if (select.parentElement.querySelector("input[id=input_city") == null){
       $('#input_city').removeAttr('disabled');;
-      $('#input_city').show(10000);
+      $('#input_city').show();
     }
     select.name = "select_city";
   } else {
-    $('#input_city').hide(10000);
+    $('#input_city').hide();
     $('#input_city').attr('disabled','disabled');
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
@@ -242,7 +242,7 @@ function createCountryInput() {
 
     //select.parentElement.appendChild(input);
     $('#input_country').removeAttr('disabled');;
-    $('#input_country').show(10000);
+    $('#input_country').show();
 
     if (isEvent || isSignUp)
       cities_default = new Array();
@@ -252,7 +252,7 @@ function createCountryInput() {
     changeCityOptions();
     select.name = "select_country";
   } else {
-    $('#input_country').hide(10000);
+    $('#input_country').hide();
     $('#input_country').attr('disabled','disabled');
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
@@ -295,6 +295,8 @@ function changeCityOptions() {
   
   let cities_options = "";
   let i;
+  cities_options += "<option value = 'Other'>Other</option>"+
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -302,7 +304,6 @@ function changeCityOptions() {
     else
       cities_options += "'>" + use_cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
 
@@ -328,6 +329,8 @@ function putAddEventOptions() {
   
 
   let cities_options = "";
+  cities_options += "<option value = 'Other'>Other</option>"+
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -335,7 +338,6 @@ function putAddEventOptions() {
     else
       cities_options += "'>" + cities_default[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
   select_city.innerHTML = cities_options;
 
 
