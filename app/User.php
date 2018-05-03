@@ -71,6 +71,18 @@ class User extends Authenticatable
     return $events;
   }
   
+  public function posts(){
+
+    return $id->hasMany('App\Post');
+
+  }
+  /** 
+  public function Events(){
+
+    return $id->hasMany('App\Event');
+
+  }
+*/
 
 
 

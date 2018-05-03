@@ -37,6 +37,23 @@ class Event extends Model
         $country_id = DB::table('cities')->select('country_id')->where('id', $city_id)->first()->country_id;
         return DB::table('countries')->select('name')->where('id', $country_id)->first()->name;
       }
-      
 
+         /**
+   * Items inside this card
+   */
+  
+  /**
+      public function posts($id) {
+        $posts = DB::table('posts')->where('event_id', $id)->orderBy('date')->get();
+    
+      return $posts;
+    }
+       */
+
+      public function posts(){
+
+        return $this->hasMany('App\Post');
+
+      }
+      
 }

@@ -8,6 +8,7 @@
 @include('partials.joinEvent');
 @include('partials.addEvent');
 
+
 @section('content')
   <div class="modal fade" id="participants">
     <div class="modal-dialog modal-dialog-centered modal-md">
@@ -156,98 +157,11 @@
       <br>
       <br>
       <hr>
-      <div class "container">
-        <div class="row">
-          <div class="col-3 offset-2 col-md-2 col-lg-1">
-            <a href="./tiagoc.html" class="text-white">
-              <img src="./imgs/com.jpg" class="rounded-circle">
-            </a>
-          </div>
-          <div class="col-7">
-            <h5>
-              <a href="./tiagoc.html" class="text-white">TiagoC</a>
-              <br>
-              <small class="text-muted">08/03 at 12:55</small>
-            </h5>
-          </div>
-          <div class="col-8 offset-2">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              <br> Nec ultrices dui sapien eget mi proin sed libero.
-              <br> Egestas sed tempus urna et pharetra.
-              <br> Amet nisl purus in mollis nunc sed id.
-              <br>
-              <a class="text-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <i class="ion-reply"></i>
-                <strong> Comments </strong>
-              </a>
-              <a href=# class="text-primary float-right mx-1">
-                <strong> Delete </strong>
-              </a>
-              <a href=# class="text-primary float-right mx-1">
-                <strong> Edit </strong>
-              </a>
-            </p>
-          </div>
-          <div class="collapse col-7 offset-3" id="collapseExample">
-            <div class="row">
-              <div class="col-5 col-md-2">
-                <a href="./quaresma.html" class="text-white">
-                  <img src="./imgs/com.jpg" class="rounded-circle">
-                </a>
-              </div>
-              <div class="col-7">
-                <h5>
-                  <a href="./quaresma.html" class="text-white">Quaresma1997</a>
-                  <br>
-                  <small class="text-muted">08/03 at 13:23</small>
-                </h5>
-              </div>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              <br> Nec ultrices dui sapien eget mi proin sed libero.
-            </p>
-            <div class="row">
-              <div class="col-5 col-md-2">
-                <a href="./quaresma.html" class="text-white">
-                  <img src="./imgs/com.jpg" class="rounded-circle">
-                </a>
-              </div>
-              <div class="col-7">
-                <h5>
-                  <a href="./quaresma.html" class="text-white">Quaresma1997</a>
-                  <br>
-                  <small class="text-muted">08/03 at 13:25</small>
-                </h5>
-              </div>
-            </div>
-            <p>Should this event be delayed?</p>
-            <div class="custom-control custom-radio mb-1">
-              <input type="radio" id="yes" name="customRadio" class="custom-control-input">
-              <label class="custom-control-label" for="yes">Yes</label>
-            </div>
-            <div class="custom-control custom-radio mb-1">
-              <input type="radio" id="no" name="customRadio" class="custom-control-input">
-              <label class="custom-control-label" for="no">No</label>
-            </div>
-            <div class="custom-control custom-radio mb-1">
-              <input type="radio" id="maybe" name="customRadio" class="custom-control-input">
-              <label class="custom-control-label" for="maybe">Maybe</label>
-            </div>
-            <br>
-            <div class="input-group m-1">
-              <textarea class="form-control" rows="4" cols="1" placeholder="Write something here..."></textarea>
-            </div>
-            <div class="mt-1">
-              <button type="button" class="btn btn-primary float-right">
-                <i class="fas fa-comment fa-fw"></i> Comment </button>
-              <button type="button" class="btn btn-secondary mx-1 float-right">
-                <i class="fas fa-plus fa-fw"></i> Image </button>
-              <button type="button" class="btn btn-secondary float-right">
-                <i class="fas fa-plus fa-fw"></i> Poll </button>
-            </div>
-          </div>
+            
+         @each('partials.post', $event->posts, 'post')
+         
+          
+  
         </div>
       </div>
     </div>

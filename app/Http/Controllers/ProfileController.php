@@ -38,6 +38,7 @@ class ProfileController extends Controller
       $city = DB::table('cities')->select('*')->where('id', $city_id)->first();
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
 
+  
       $this->authorize('show', $user);
 
       

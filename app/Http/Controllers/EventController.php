@@ -13,6 +13,8 @@ use App\City;
 use App\Country;
 use App\Event;
 use App\Localization;
+use App\Post;
+
 
 class EventController extends Controller
 {
@@ -41,20 +43,24 @@ class EventController extends Controller
       
       $this->authorize('show', $event);
       
-      $loca = Localization::find($event->localization_id);
+        $loca = Localization::find($event->localization_id);
         $city = City::find($loca->city_id);
         $country = Country ::find($city->country_id);
         $event->city = $city->name;
         $event->country = $country->name;
         $event->place = $loca->name;
 
+       
+      
+      
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
       //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event]);
+      return view('pages.events', ['event' => $event])->with('posts',$event->posts);
     }
+    
 
     /**
      * Get a validator for an incoming registration request.
