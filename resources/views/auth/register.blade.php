@@ -113,16 +113,16 @@
                           <i class="fas fa-home fa-fw"></i>
                         </span>
                       </div>
-                        <select class = 'custom-select' id = 'select_country' name = 'country' placeholder = "Country">
+                        <select class = 'custom-select' id = 'select_country' name = 'country'>
                         <option value = 'Other'>Other</option>
                         <option disabled>────────────────────</option>
-                      @foreach($countries->all() as $country){
+                      @foreach($countries->all() as $country)
                         @if($country->id == 1)
-                        <option value = '{{$country->name}}' selected>{{$country->name}}</option>
+                        <option value = '{{$country->name}}' selected >{{$country->name}}</option>
                         @else
                         <option value = '{{$country->name}}'>{{$country->name}}</option>
                         @endif
-                      }
+                      
                       @endforeach
                       </select>
           <!-- @if ($errors->has('country'))
