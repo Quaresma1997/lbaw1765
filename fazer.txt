@@ -1,7 +1,0 @@
-tabela ratings, médias de rating
-
-images para eventos event_id
-
-post -> image path
-
-user -> image_path
