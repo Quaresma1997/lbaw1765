@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use App\Category;
 
 class HomePageController extends Controller
 {
@@ -17,7 +18,8 @@ class HomePageController extends Controller
      */
     public function show()
     {
-      return view('pages.homepage');
+        $categories = Category::getAll();
+      return view('pages.homepage', ['categories' => $categories]);
     }
 
 }

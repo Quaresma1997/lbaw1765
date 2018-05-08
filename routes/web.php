@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     if(Auth::check())
-    return redirect('homepage');
+        return redirect('homepage');
     else
         return redirect('index');
 });

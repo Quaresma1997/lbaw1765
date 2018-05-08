@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-
 class IndexController extends Controller
 {
     /**
@@ -17,6 +16,9 @@ class IndexController extends Controller
      */
     public function show()
     {
+      if(Auth::check())
+      return redirect('homepage');
+      else
       return view('pages.index');
     }
 

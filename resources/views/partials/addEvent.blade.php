@@ -39,11 +39,10 @@
                      <div class="form-group mb-2 p-0 m-0" id="select_category">
                         <label for="category">Category</label>
                         <select class="custom-select" id="category" name="select_category">
-                           <option value="Music">Music</option>
-                           <option value="Sports">Sports</option>
-                           <option value="Entertainment">Entertainment</option>
-                           <option value="Educational">Educational</option>
-                           <option value="Other" selected>Other</option>
+                           @foreach($categories as $cat)
+                              <option value="{{ $cat->name }}">{{ $cat->name }}</option>
+                           @endforeach
+                           <option value="Other">Other</option>
                         </select>
                      </div>
                   </div>

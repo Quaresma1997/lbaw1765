@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use App\Category;
 
 class AboutController extends Controller
 {
@@ -17,7 +18,8 @@ class AboutController extends Controller
      */
     public function show()
     {
-      return view('pages.about');
+        $categories = Category::getAll();
+        return view('pages.about', ['categories' => $categories]);
     }
 
 }

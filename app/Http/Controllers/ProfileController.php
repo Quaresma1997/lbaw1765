@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\City;
 use App\Country;
+use App\Category;
 use Image;
 
 class ProfileController extends Controller
@@ -38,12 +39,13 @@ class ProfileController extends Controller
       $city_id = DB::table('users')->select('city_id')->where('id', $id)->first()->city_id;
       $city = DB::table('cities')->select('*')->where('id', $city_id)->first();
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
+      $categories = Category::getAll();
 
 
       $this->authorize('show', $user);
 
       
-      return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country]);
+      return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country, 'categories' => $categories]);
     }
 
     private function valid(Request $request, $check_email){
