@@ -97,7 +97,7 @@ function addEventListeners() {
     if (signUp != null) {
       isSignUp = true;
       select = document.querySelector('#select_country');
-      select.selectedIndex = 2;
+      select.selectedIndex = 0;
       createCountryInput();
     }
 
@@ -189,25 +189,22 @@ function createCityInput() {
   else
     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
- /* let input = document.createElement("input");
+  let input = document.createElement("input");
   input.type = "text";
   input.id = "input_city";
   input.classList.add("form-control");
   input.placeholder = "City";
   input.required = true;
-  input.name = "city";*/
+  input.name = "city";
+
   if(justRemoveOther)
     city = "";
 
   if (city == "Other") {
-    if (select.parentElement.querySelector("input[id=input_city") == null){
-      $('#input_city').removeAttr('disabled');;
-      $('#input_city').show();
-    }
+    if (select.parentElement.querySelector("input[id=input_city") == null)
+      select.parentElement.appendChild(input);
     select.name = "select_city";
   } else {
-    $('#input_city').hide();
-    $('#input_city').attr('disabled','disabled');
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
@@ -226,13 +223,14 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
- /* let input = document.createElement("input");
+  let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
-  input.name = "country";*/
+  input.name = "country";
+
   if (justRemoveOther)
     country = current_country_default;
 
@@ -240,20 +238,15 @@ function createCountryInput() {
 
   if (country == "Other") {
 
-    //select.parentElement.appendChild(input);
-    $('#input_country').removeAttr('disabled');;
-    $('#input_country').show();
-
+    select.parentElement.appendChild(input);
     if (isEvent || isSignUp)
       cities_default = new Array();
-    else{
+    else
       cities = new Array();
-    }
     changeCityOptions();
     select.name = "select_country";
   } else {
-    $('#input_country').hide();
-    $('#input_country').attr('disabled','disabled');
+    
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
@@ -295,8 +288,6 @@ function changeCityOptions() {
   
   let cities_options = "";
   let i;
-  cities_options += "<option value = 'Other'>Other</option>"+
-  "<option disabled>────────────────────</option>";
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -304,6 +295,7 @@ function changeCityOptions() {
     else
       cities_options += "'>" + use_cities[i] + "</option>";
   }
+  cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
 
@@ -329,8 +321,6 @@ function putAddEventOptions() {
   
 
   let cities_options = "";
-  cities_options += "<option value = 'Other'>Other</option>"+
-  "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -338,6 +328,7 @@ function putAddEventOptions() {
     else
       cities_options += "'>" + cities_default[i] + "</option>";
   }
+  cities_options += "<option value = 'Other'>Other</option>";
   select_city.innerHTML = cities_options;
 
 
@@ -1044,7 +1035,7 @@ function profileEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    response['message'].forEach(element => {
+    message['message'].forEach(element => {
       errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
@@ -1081,7 +1072,7 @@ function eventEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    response['message'].forEach(element => {
+    message['message'].forEach(element => {
       errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
@@ -1112,7 +1103,7 @@ function eventDeletedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    response['message'].forEach(element => {
+    message['message'].forEach(element => {
       errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";

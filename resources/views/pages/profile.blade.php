@@ -15,7 +15,7 @@
           <h1>{{$user->username}}</h1>
           <hr>
           <div id="user_info_container" data-id="{{ $user->id }}">
-            <img src="{{url($user->image_path)}}" id="user_info_img" class="img img-fluid rounded mb-3">
+            <img src="/imgs/{{ $user->image_path }}" id="user_info_img" class="img img-fluid rounded mb-3">
             <br>
             <label id="user_info_l1"><i class="fas fa-user fa-fw mr-1"></i>{{$user->first_name}} {{$user->last_name}}</label>
             <br>

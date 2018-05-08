@@ -43,14 +43,14 @@ class EventController extends Controller
       
       $this->authorize('show', $event);
       
-        $loca = Localization::find($event->localization_id);
-        $city = City::find($loca->city_id);
-        $country = Country ::find($city->country_id);
-        $event->city = $city->name;
-        $event->country = $country->name;
-        $event->place = $loca->name;
+      $loca = Localization::find($event->localization_id);
+      $city = City::find($loca->city_id);
+      $country = Country ::find($city->country_id);
+      $event->city = $city->name;
+      $event->country = $country->name;
+      $event->place = $loca->name;
 
-       
+      
       
       
       
@@ -70,16 +70,16 @@ class EventController extends Controller
      */
     private function valid(Request $data)
     {
-        return Validator::make($data->all(), [
-            'name' => 'required|string|max:30',
-            'city' => 'required|string|max:30',
-            'date' => 'required|date|after:today',
-            'country' => 'required|string|max:30',
-            'city' => 'required|string|max:30',
-            'place' => 'required|string|max:30',
+      return Validator::make($data->all(), [
+        'name' => 'required|string|max:30',
+        'city' => 'required|string|max:30',
+        'date' => 'required|date|after:today',
+        'country' => 'required|string|max:30',
+        'city' => 'required|string|max:30',
+        'place' => 'required|string|max:30',
             // 'address' => 'required|string|max:30',
-            'description' => 'string|max:255',
-        ]);
+        'description' => 'string|max:255',
+      ]);
     }
 
     /**
@@ -90,203 +90,203 @@ class EventController extends Controller
      */
     public function add(Request $data)
     {
-       $validated = $this->valid($data);
-       if(!$validated->passes())
-         return response()->json(['message' => $validated->errors()->all()]);
-        
-      $event = new Event();
+     $validated = $this->valid($data);
+     if(!$validated->passes())
+       return response()->json(['message' => $validated->errors()->all()]);
+     
+     $event = new Event();
 
-      $this->authorize('add', $event);
+     $this->authorize('add', $event);
 
-      $event->name = $data->input('name');
-      $event->date = $data->input('date');
-      $event->time = $data->input('time');
-      $event->description = $data->input('description');
-      $event->owner_id = Auth::user()->id;
-      $event->type = $data->input('type');
-      $event->category = $data->input('category');
- 
+     $event->name = $data->input('name');
+     $event->date = $data->input('date');
+     $event->time = $data->input('time');
+     $event->description = $data->input('description');
+     $event->owner_id = Auth::user()->id;
+     $event->type = $data->input('type');
+     $event->category = $data->input('category');
+     
       // LOCALIZATION_ID
 
-      $city = $data->input('city');
-      $country = $data->input('country');
+     $city = $data->input('city');
+     $country = $data->input('country');
 
      
 
-      $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
+     $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
 
-        if($country_id == null){
-          $new_country = new Country();
+     if($country_id == null){
+      $new_country = new Country();
 
-    
-          $new_country->name = $country;
-          $new_country->save();
-
-          $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
-          
-        }
       
-        $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
+      $new_country->name = $country;
+      $new_country->save();
 
-        if($city_id == null){
-          $new_city = new City();
+      $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
+      
+    }
+    
+    $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
 
-
-          $new_city->name = $city;
-          $new_city->country_id = $country_id->id;
-          $new_city->save();
-          
-
-          $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
-          
-        }else{
-          $existing_city = City::find($city_id->id);
-
-          if($existing_city->country_id != $country_id->id){
-            $new_city = new City();
+    if($city_id == null){
+      $new_city = new City();
 
 
-            $new_city->name = $city;
-            $new_city->country_id = $country_id->id;
-            $new_city->save();
-            
+      $new_city->name = $city;
+      $new_city->country_id = $country_id->id;
+      $new_city->save();
+      
 
-            $city_id = DB::table('cities')->select('id')->where('name', $city)->where('country_id', $country_id->id)->first();
-          }
-        }
+      $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
+      
+    }else{
+      $existing_city = City::find($city_id->id);
 
-      $localization = new Localization();
-
-      $this->authorize('create', $localization);
-
-      $localization->name = $data->input('place');
-      $localization->address = $data->input('address');
-      $localization->city_id = $city_id->id;
-
-      $localization->save();
-            
-      $event->localization_id = $localization->id;
-
-      $event->save();
+      if($existing_city->country_id != $country_id->id){
+        $new_city = new City();
 
 
+        $new_city->name = $city;
+        $new_city->country_id = $country_id->id;
+        $new_city->save();
+        
 
-      return response()->json(['message' => 'success', 'id' => $event->id]);
+        $city_id = DB::table('cities')->select('id')->where('name', $city)->where('country_id', $country_id->id)->first();
+      }
     }
 
-    public function delete(Request $request, $id)
-    {
-      $event = Event::find($id);
-      $this->authorize('delete', $event);
-      try{
-            $event->delete();
-            return response()->json(['message' => 'success']);
-        }catch (QueryException $e){
-            return response()->json(['message' => 'error']);
-        }
-        
+    $localization = new Localization();
+
+    $this->authorize('create', $localization);
+
+    $localization->name = $data->input('place');
+    $localization->address = $data->input('address');
+    $localization->city_id = $city_id->id;
+
+    $localization->save();
+    
+    $event->localization_id = $localization->id;
+
+    $event->save();
+
+
+
+    return response()->json(['message' => 'success', 'id' => $event->id]);
+  }
+
+  public function delete(Request $request, $id)
+  {
+    $event = Event::find($id);
+    $this->authorize('delete', $event);
+    try{
+      $event->delete();
+      return response()->json(['message' => 'success']);
+    }catch (QueryException $e){
+      return response()->json(['message' => 'error']);
+    }
+    
       // if($event->delete())
       //   return response()->json(['message' => 'success']);
       // else
       //   return response()->json(['message' => 'error']);
-     
-    }
+    
+  }
 
-    public function update(Request $request, $id){
+  public function update(Request $request, $id){
+
+    
+   
+    $event = Event::find($id);
+    $this->authorize('update', $event);
+
+    $validator = $this->valid($request);
+    
+    if(!$validator->passes())
+      return response()->json(['message' => $validator->errors()->all()]);
+
+    $event->name = $request->input('name');
+    $event->date = $request->input('date');
+    $event->time = $request->input('time');
+    $event->description = $request->input('description');
+
+    
+
+    $city = $request->input('city');
+    $country = $request->input('country');
+
+    
+
+    $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
+    
+
+    if($country_id == null){
+      $new_country = new Country();
+      
 
       
-       
-      $event = Event::find($id);
-      $this->authorize('update', $event);
-
-      $validator = $this->valid($request);
-     
-      if(!$validator->passes())
-        return response()->json(['message' => $validator->errors()->all()]);
-
-      $event->name = $request->input('name');
-      $event->date = $request->input('date');
-      $event->time = $request->input('time');
-      $event->description = $request->input('description');
-
       
-
-      $city = $request->input('city');
-      $country = $request->input('country');
-
-     
+      $new_country->name = $country;
+      $new_country->save();
 
       $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
       
-
-        if($country_id == null){
-          $new_country = new Country();
-          
-
-          
+    }
     
-          $new_country->name = $country;
-          $new_country->save();
+    
+    $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
 
-          $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
-          
-        }
-        
+    if($city_id == null){
+      $new_city = new City();
+
+
+      $new_city->name = $city;
+      $new_city->country_id = $country_id->id;
+      $new_city->save();
       
-        $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
 
-        if($city_id == null){
-          $new_city = new City();
+      $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
+      
+    }else{
+      $existing_city = City::find($city_id->id);
 
-
-          $new_city->name = $city;
-          $new_city->country_id = $country_id->id;
-          $new_city->save();
-          
-
-          $city_id = DB::table('cities')->select('id')->where('name', $city)->first();
-          
-        }else{
-          $existing_city = City::find($city_id->id);
-
-          if($existing_city->country_id != $country_id->id){
-            $new_city = new City();
+      if($existing_city->country_id != $country_id->id){
+        $new_city = new City();
 
 
-            $new_city->name = $city;
-            $new_city->country_id = $country_id->id;
-            $new_city->save();
-            
-
-            $city_id = DB::table('cities')->select('id')->where('name', $city)->where('country_id', $country_id->id)->first();
-          }
-        }
-
+        $new_city->name = $city;
+        $new_city->country_id = $country_id->id;
+        $new_city->save();
         
 
-        $localization = Localization::find($event->localization_id);
+        $city_id = DB::table('cities')->select('id')->where('name', $city)->where('country_id', $country_id->id)->first();
+      }
+    }
 
-        
+    
 
-        $localization->name = $request->input('place');
-        $localization->city_id = $city_id->id;
+    $localization = Localization::find($event->localization_id);
+
+    
+
+    $localization->name = $request->input('place');
+    $localization->city_id = $city_id->id;
         // $localization->address = $request->input('address');
 
-        try{
-            $localization->save();
-        }catch (QueryException $e){
-            return response()->json(['message' => 'Error updating localization']);
-        }
-
-        try{
-            $event->save();
-        }catch (QueryException $e){
-            return response()->json(['message' => 'Error updating event']);
-        }
- 
-        return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->getCity($localization->id), 'country' => $event->getCountry($city_id->id)]);
-
+    try{
+      $localization->save();
+    }catch (QueryException $e){
+      return response()->json(['message' => 'Error updating localization']);
     }
+
+    try{
+      $event->save();
+    }catch (QueryException $e){
+      return response()->json(['message' => 'Error updating event']);
+    }
+    
+    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->getCity($localization->id), 'country' => $event->getCountry($city_id->id)]);
+
+  }
 
 
 }

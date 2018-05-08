@@ -36,7 +36,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/profile/{{ Auth::user()->id }}">
-            <i class="fas fa-user fa-fw"></i> {{ Auth::user()->username }} </a>
+              <img src="/imgs/{{ Auth::user()->image_path }}" style="max-height: 30px; max-width: 30px;" id="img_nav_profile">
+             {{ Auth::user()->username }} </a>
         </li>
         <li class="navbar-item">
           <a class="nav-link" href="{{ route('logout')}}">
