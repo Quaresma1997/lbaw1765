@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 
+use App\Rules\BannedEmail;
+
 use App\City;
 use App\Country;
 
@@ -48,7 +50,6 @@ class RegisterController extends Controller
       $countries = Country::all();
         
       $cities = City::where('country_id', 1)->get();
-
       
       return view('auth.register', ['cities' => $cities, 'countries' => $countries]);
     }
@@ -61,9 +62,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        
+
+
+
+
         return Validator::make($data, [
             'username' => 'required|string|max:30|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new BannedEmail],
             'first_name' => 'required|string|max:30',
             'last_name' => 'required|string|max:30',
             'password' => 'required|string|min:4|confirmed',

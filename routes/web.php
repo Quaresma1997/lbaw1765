@@ -13,6 +13,9 @@
 
 Route::get('/', function () {
     if(Auth::check())
+        if(Auth::user()->is_admin)
+        return redirect('admin');
+        else
         return redirect('homepage');
     else
         return redirect('index');
@@ -34,6 +37,8 @@ Route::post('api/add_event', 'EventController@add');
 Route::delete('api/event/{id}', 'EventController@delete');
 Route::post('api/event/{id}', 'EventController@update');
 
+Route::delete('api/admin/{username}', 'AdminController@delete');
+
 // Authentication
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -50,6 +55,9 @@ Route::get('index', 'IndexController@show')->name('index');
 
 //Homepage
 Route::get('homepage', 'HomePageController@show')->name('homepage');
+
+//Admin
+Route::get('admin', 'AdminController@show')->name('admin');
 
 //Profile
 Route::get('profile/{id}', 'ProfileController@show');

@@ -38,6 +38,6 @@ class UserPolicy
     public function delete(User $user)
     {
       // Only a card owner can delete it
-      return Auth::user()->id == $user->id;
+      return (Auth::user()->id == $user->id || $user->is_admin);
     }
 }

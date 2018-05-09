@@ -18,7 +18,9 @@ class HomePageController extends Controller
      */
     public function show()
     {
-        $categories = Category::getAll();
+        if(Auth::user()->is_admin)
+            return redirect('admin');
+        $categories = Category::all();
       return view('pages.homepage', ['categories' => $categories]);
     }
 

@@ -17,9 +17,9 @@ class IndexController extends Controller
     public function show()
     {
       if(Auth::check())
-      return redirect('homepage');
+        return redirect('homepage');
       else
-      return view('pages.index');
+        return view('pages.index');
     }
 
 }

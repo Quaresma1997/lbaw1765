@@ -39,7 +39,7 @@ class ProfileController extends Controller
       $city_id = DB::table('users')->select('city_id')->where('id', $id)->first()->city_id;
       $city = DB::table('cities')->select('*')->where('id', $city_id)->first();
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
-      $categories = Category::getAll();
+      $categories = Category::all();
 
 
       $this->authorize('show', $user);
@@ -162,7 +162,7 @@ class ProfileController extends Controller
       
       
 
-      return response()->json(['message' => 'success', 'user' => $user, 'city' => $user->getCity($id), 'country' => $user->getCountry($city_id->id)]);
+      return response()->json(['message' => 'success', 'user' => $user, 'city' => $user->city->name, 'country' => $user->city->country->name]);
     }
 
     public function delete(Request $request, $id)

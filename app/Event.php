@@ -28,14 +28,8 @@ class Event extends Model
         return $this->belongsTo('App\User');
       }
 
-    public function getCity($id){
-        $city_id = DB::table('localizations')->select('city_id')->where('id', $id)->first()->city_id;
-        return DB::table('cities')->select('name')->where('id', $city_id)->first()->name;
-    }
-
-    public function getCountry($city_id){
-        $country_id = DB::table('cities')->select('country_id')->where('id', $city_id)->first()->country_id;
-        return DB::table('countries')->select('name')->where('id', $country_id)->first()->name;
+      public function localization() {
+        return $this->belongsTo('App\Localization');
       }
 
       public function posts(){
@@ -43,5 +37,7 @@ class Event extends Model
         return $this->hasMany('App\Post');
 
       }
+
+ 
       
 }

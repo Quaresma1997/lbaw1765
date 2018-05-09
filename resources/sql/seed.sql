@@ -1,9 +1,8 @@
-DROP TYPE IF EXISTS categories CASCADE;
-DROP TYPE IF EXISTS types CASCADE;
 --Tables
 DROP TABLE IF EXISTS baned_users CASCADE;
 CREATE TABLE baned_users (
     id SERIAL NOT NULL,
+    email text NOT NULL,
     CONSTRAINT baned_users_pk PRIMARY KEY (id)    
 );
 
@@ -204,7 +203,7 @@ CREATE TABLE "users" (
     regist_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     first_name text NOT NULL,
     last_name text NOT NULL,
-    image_path text DEFAULT '/imgs/profile.jpg' NOT NULL,
+    image_path text DEFAULT 'profile.jpg' NOT NULL,
     city_id INTEGER,
     remember_token text,
     is_admin BOOLEAN DEFAULT false NOT NULL,
@@ -448,8 +447,8 @@ INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, i
 INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
 			VALUES ('uso1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquam.iaculis.lacus@amet.co.uk',NOW(),'Ben','Warren','profile.jpg',1);
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id, is_admin)
-			VALUES ('robin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet.ante@faucibusleo.net',NOW(),'Robin','Wright','profile.jpg',2, true);
+INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
+			VALUES ('robin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet.ante@faucibusleo.net',NOW(),'Robin','Wright','profile.jpg',2);
 			
 			
 INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
@@ -505,7 +504,10 @@ INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, i
 INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
 			VALUES ('human','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','facilisis.magna.tellus@sociis.net',NOW(),'Hu','Randolphe','profile.jpg',2);
 					
+INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id, is_admin)
+			VALUES ('admin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','admin@gmail.com',NOW(),'Super','User','profile.jpg',2, true);
 					
+
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
 			VALUES ('Antonys Birthday Party', '2019-04-25', '12:30:00', 'nunc ac mattis ornare, lectus',1,1,true,1);
 			

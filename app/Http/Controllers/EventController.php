@@ -14,6 +14,7 @@ use App\Country;
 use App\Event;
 use App\Localization;
 use App\Post;
+use App\Category;
 
 
 class EventController extends Controller
@@ -49,16 +50,14 @@ class EventController extends Controller
       $event->city = $city->name;
       $event->country = $country->name;
       $event->place = $loca->name;
-
-      
-      
+      $categories = Category::all();     
       
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
       //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event])->with('posts',$event->posts);
+      return view('pages.events', ['event' => $event, 'categories' => $categories]);
     }
     
 
@@ -220,10 +219,7 @@ class EventController extends Controller
     
 
     if($country_id == null){
-      $new_country = new Country();
-      
-
-      
+      $new_country = new Country();      
       
       $new_country->name = $country;
       $new_country->save();
@@ -284,7 +280,7 @@ class EventController extends Controller
       return response()->json(['message' => 'Error updating event']);
     }
     
-    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->getCity($localization->id), 'country' => $event->getCountry($city_id->id)]);
+    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name]);
 
   }
 

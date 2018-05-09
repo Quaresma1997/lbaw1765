@@ -41,51 +41,22 @@ class User extends Authenticatable
     //     return $user;
     // }
 
-    public function getCity($id){
-        $city_id = DB::table('users')->select('city_id')->where('id', $id)->first()->city_id;
-        return DB::table('cities')->select('name')->where('id', $city_id)->first()->name;
-    }
+      public function city(){
 
-    public function getCountry($city_id){
-        $country_id = DB::table('cities')->select('country_id')->where('id', $city_id)->first()->country_id;
-        return DB::table('countries')->select('name')->where('id', $country_id)->first()->name;
+        return $this->belongsTo('App\City');
+
       }
-
-      /**
-   * Items inside this card
-   */
-  public function events() {
-      $cities = array();
-      $countries = array();
-    $events = DB::table('events')->where('owner_id', $this->id)->orderBy('id')->get();
-    foreach($events as $event){
-        $loca = Localization::find($event->localization_id);
-        $city = City::find($loca->city_id);
-        $country = Country ::find($city->country_id);
-        $event->city = $city->name;
-        $event->country = $country->name;
-        array_push($cities, $city->name);
-        array_push($countries, $country->name);
-    }
-    
-    return $events;
-  }
   
-  public function posts(){
+  public function events(){
 
-    return $id->hasMany('App\Post');
-
-  }
-  /** 
-  public function Events(){
-
-    return $id->hasMany('App\Event');
+    return $this->hasMany('App\Event', 'owner_id');
 
   }
-*/
 
-
-
+  public static function getAll() {
+		return DB::table('users')->get();
+	}
+ 
 
 
     // /**

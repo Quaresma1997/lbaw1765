@@ -143,9 +143,15 @@ function addEventListeners() {
       putAddEventOptions();
       //  createCountryInput();
     });
-
-
   }
+  
+  btns_banUser = document.querySelectorAll('#btn_banUser');
+  for (let i = 0; i < btns_banUser.length; i++) {
+    btns_banUser[i].addEventListener('click', function(){
+      currentUser = i;
+      sendBanUserRequest();
+    });
+  } 
 }
 
 let current_first_name, current_last_name, current_email;
@@ -153,6 +159,8 @@ let current_city, current_country, current_city_default, current_country_default
 let cities, cities_default, countries, isEvent, isDefault = true, isSignUp;
   isEditing = false;
 let justRemoveOther;
+
+let btns_banUser, currentUser;
 
 // $(document).ready(function(){
 //   $('[data-toggle="tooltip"]').tooltip();
@@ -790,6 +798,13 @@ function sendAjaxRequest(method, url, data, handler) {
   request.send(encodeForAjax(data));
 }
 
+function sendBanUserRequest() {
+  let username = btns_banUser[currentUser].parentNode.parentNode.querySelector("#span_username").innerText;
+
+  sendAjaxRequest('delete', '/api/admin/' + username, null, userBanedHandler);
+
+}
+
 function sendItemUpdateRequest() {
   let item = this.closest('li.item');
   let id = item.getAttribute('data-id');
@@ -910,9 +925,7 @@ function sendEditProfileRequest(event) {
     index = img_path.indexOf('\\', 3);
   }
 
-  let img_name = img_path.substr(index + 1, img_path.size);
-  img = '/imgs/' + img_name;
-
+  let img = img_path.substr(index + 1, img_path.size);
 
   sendAjaxRequest('post', '/api/profile/' + id, {
     first_name: first_name,
@@ -1011,6 +1024,14 @@ function getCountriesHandler() {
     alert("ERROR getting countries!");
   }
   //addEventListeners();
+}
+
+function userBanedHandler(){
+  console.log(this.responseText);
+  let message = JSON.parse(this.responseText)['message'];
+  if(message == "success"){
+    btns_banUser[currentUser].parentNode.parentNode.remove();
+  }
 }
 
 function profileEditedHandler() {
@@ -1114,11 +1135,13 @@ function eventDeletedHandler() {
 function updateProfile(profile, city, country) {
   let main_div = document.querySelector("#user_info_container");
 
-  let img = document.querySelector("#user_info_img");
+  let img = document.querySelector("#img_nav_profile");
+
+  img.src = "/imgs/" + profile.image_path;
 
   main_div.innerHTML =
 
-    "<img src='" + profile.image_path + "' id='user_info_img' class='img img-fluid rounded mb-3'><br>" +
+    "<img src='/imgs/" + profile.image_path + "' id='user_info_img' class='img img-fluid rounded mb-3'><br>" +
     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + profile.first_name + " " + profile.last_name + "</label><br>" +
     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + profile.email + "</label><br>" +
     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + city + ", " + country + "</label>" +

@@ -18,7 +18,7 @@ class AboutController extends Controller
      */
     public function show()
     {
-        $categories = Category::getAll();
+        $categories = Category::all();
         return view('pages.about', ['categories' => $categories]);
     }
 

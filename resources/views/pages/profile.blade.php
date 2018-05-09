@@ -48,7 +48,7 @@
             <div class="tab-content">
               <div id="events" class="container tab-pane fade show active">
               <div class="row">
-                @each('partials.event', $user->events(), 'event')
+                @each('partials.event', $user->events()->get(), 'event')
                 </div>
               </div>
 

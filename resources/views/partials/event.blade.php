@@ -8,7 +8,7 @@
                           <div class="my-1">
                             <h4>{{$event->name}}</h4>
                             <p>{{$event->date}}
-                              <br> {{$event->city}}, {{$event->country}}</p>
+                              <br> {{$event->localization->city->name}}, {{$event->localization->city->country->name}}</p>
                           </div>
                         </div>
         </div>
