@@ -24,8 +24,8 @@ class Event extends Model
     //     return DB::table('countries')->select('name')->where('id', $country_id)->first()->name;
     //   }
 
-    public function owner() {
-        return $this->belongsTo('App\User');
+      public function owner() {
+        return $this->belongsTo('App\User', 'owner_id');
       }
 
       public function localization() {
@@ -37,6 +37,12 @@ class Event extends Model
         return $this->hasMany('App\Post');
 
       }
+
+      public function participants() {
+        return $this->hasMany('App\Participant');
+      }
+
+
 
  
       

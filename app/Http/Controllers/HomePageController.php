@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Category;
+use App\User;
 
 class HomePageController extends Controller
 {
@@ -20,8 +21,14 @@ class HomePageController extends Controller
     {
         if(Auth::user()->is_admin)
             return redirect('admin');
+
+        $participant = Auth::user()->participant;
+        $events = [];
+        if($participant != null)
+            $events = $participant->getEvents();
+        
         $categories = Category::all();
-      return view('pages.homepage', ['categories' => $categories]);
+      return view('pages.homepage', ['categories' => $categories, 'events' => $events]);
     }
 
 }

@@ -19,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
       'App\City' => 'App\Policies\CityPolicy',
       'App\Country' => 'App\Policies\CountryPolicy',
       'App\Event' => 'App\Policies\EventPolicy',
-      'App\Localization' => 'App\Policies\LocalizationPolicy'
+      'App\Localization' => 'App\Policies\LocalizationPolicy',
+      'App\Participant' => 'App\Policies\ParticipantPolicy',
       
 
     ];

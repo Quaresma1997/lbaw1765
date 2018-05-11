@@ -36,6 +36,8 @@ Route::delete('api/profile/{id}', 'ProfileController@delete');
 Route::post('api/add_event', 'EventController@add');
 Route::delete('api/event/{id}', 'EventController@delete');
 Route::post('api/event/{id}', 'EventController@update');
+Route::delete('api/participant/', 'ParticipantController@delete');
+Route::post('api/participant/', 'ParticipantController@create');
 
 Route::delete('api/admin/{username}', 'AdminController@delete');
 

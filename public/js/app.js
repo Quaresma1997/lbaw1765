@@ -35,7 +35,7 @@ function addEventListeners() {
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
-  
+
 
   let deleteProfile = document.querySelector('#btn_deleteprofile');
   if (deleteProfile != null)
@@ -67,11 +67,11 @@ function addEventListeners() {
 
   let editEvent = document.querySelector('#btn_editEvent');
   if (editEvent != null) {
-     if (cities == null) {
+    if (cities == null) {
       getCurCountryEvent();
-      
+
       sendCitiesRequest(current_country);
-     }
+    }
     editEvent.addEventListener('click', createEditEventForm);
   }
 
@@ -93,13 +93,13 @@ function addEventListeners() {
     selectCountryEvent.addEventListener('change', createCountryInput);
   }
 
-    let signUp = document.querySelector('#btn_signUp');
-    if (signUp != null) {
-      isSignUp = true;
-      select = document.querySelector('#select_country');
-      select.selectedIndex = 0;
-      createCountryInput();
-    }
+  let signUp = document.querySelector('#btn_signUp');
+  if (signUp != null) {
+    isSignUp = true;
+    select = document.querySelector('#select_country');
+    select.selectedIndex = 0;
+    createCountryInput();
+  }
 
 
   let editEventConfirm = document.querySelector('form.edit_event');
@@ -115,12 +115,12 @@ function addEventListeners() {
   let modalAddEvent = $('#add_event');
   if (modalAddEvent != null) {
     modalAddEvent.on('hide.bs.modal', function () {
-      
+
       justRemoveOther = true;
       createCityInput();
       createCountryInput();
-      
-      
+
+
 
     });
     modalAddEvent.on('hidden.bs.modal', function () {
@@ -144,14 +144,14 @@ function addEventListeners() {
       //  createCountryInput();
     });
   }
-  
+
   btns_banUser = document.querySelectorAll('#btn_banUser');
   for (let i = 0; i < btns_banUser.length; i++) {
-    btns_banUser[i].addEventListener('click', function(){
+    btns_banUser[i].addEventListener('click', function () {
       currentUser = i;
       sendBanUserRequest();
     });
-  } 
+  }
 
   btns_remEvent = document.querySelectorAll('#btn_remEvent');
   for (let i = 0; i < btns_remEvent.length; i++) {
@@ -160,12 +160,25 @@ function addEventListeners() {
       sendRemEventRequest();
     });
   }
+
+  let cancelParticipation = document.querySelector('#btn_cancelParticipation');
+  if (cancelParticipation != null) {
+    cancelParticipation.addEventListener('click', sendCancelParticipationRequest);
+
+  }
+
+  let addParticipation = document.querySelector('#btn_addParticipation');
+  if (addParticipation != null) {
+    addParticipation.addEventListener('click', sendAddParticipationRequest);
+
+  }
 }
 
 let current_first_name, current_last_name, current_email;
 let current_city, current_country, current_city_default, current_country_default, current_img, current_description, current_date, current_time;
-let cities, cities_default, countries, isEvent, isDefault = true, isSignUp;
-  isEditing = false;
+let cities, cities_default, countries, isEvent, isDefault = true,
+  isSignUp;
+isEditing = false;
 let justRemoveOther;
 
 let btns_banUser, currentUser, currentEvent;
@@ -194,12 +207,12 @@ function getCurCountry() {
 
   current_country = country;
 
-  
+
 }
 
 function createCityInput() {
   let select;
-  
+
   if (isEvent)
     select = document.querySelector('#select_city_event');
   else
@@ -213,7 +226,7 @@ function createCityInput() {
   input.required = true;
   input.name = "city";
 
-  if(justRemoveOther)
+  if (justRemoveOther)
     city = "";
 
   if (city == "Other") {
@@ -250,7 +263,7 @@ function createCountryInput() {
   if (justRemoveOther)
     country = current_country_default;
 
-  
+
 
   if (country == "Other") {
 
@@ -262,7 +275,7 @@ function createCountryInput() {
     changeCityOptions();
     select.name = "select_country";
   } else {
-    
+
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
@@ -299,9 +312,9 @@ function changeCityOptions() {
     thisCurCity = current_city;
   }
 
-  
-  
-  
+
+
+
   let cities_options = "";
   let i;
   for (i = 0; i < use_cities.length; i++) {
@@ -334,7 +347,7 @@ function putAddEventOptions() {
   countries_options += "<option value = 'Other'>Other</option>";
   select_country.innerHTML = countries_options;
 
-  
+
 
   let cities_options = "";
   for (i = 0; i < cities_default.length; i++) {
@@ -408,7 +421,7 @@ function createEditProfileForm(event) {
 
 
 
-  
+
   let cities_options = "";
   let i;
   for (i = 0; i < cities.length; i++) {
@@ -488,7 +501,7 @@ function createEditEventForm(event) {
   let index_first_comma = localization.indexOf(',');
   let index_second_comma = localization.indexOf(',', index_first_comma + 1);
 
-  
+
   let place = localization.substr(0, index_first_comma);
   let city = localization.substr(index_first_comma + 2, index_second_comma - index_first_comma - 2);
   let country = localization.substr(index_second_comma + 2, localization.size);
@@ -521,7 +534,7 @@ function createEditEventForm(event) {
     "</div>" +
     "</div>";
 
-  
+
   let cities_options = "";
   let i;
   for (i = 0; i < cities.length; i++) {
@@ -908,7 +921,7 @@ function sendCountriesRequest() {
 }
 
 function sendCitiesRequest(country) {
-  
+
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
 
@@ -990,38 +1003,67 @@ function deleteProfileRequest(event) {
   let id = this.closest('div').getAttribute('data-id');
 
   sendAjaxRequest('delete', '/api/profile/' + id, null, profileDeletedHandler);
+  event.preventDefault();
 }
 
 function deleteEventRequest(event) {
   let id = document.querySelector("#event_data").getAttribute('data-id');
 
   sendAjaxRequest('delete', '/api/event/' + id, null, eventDeletedHandler);
+  event.preventDefault();
+}
+
+function sendCancelParticipationRequest(event) {
+  let event_id = this.getAttribute('event-id');
+  let user_id = this.getAttribute('user-id');
+
+  sendAjaxRequest('delete', '/api/participant/', {
+    event_id: event_id,
+    user_id: user_id
+  }, participationCanceledHandler);
+
+  event.preventDefault();
+
+}
+
+function sendAddParticipationRequest(event) {
+  let event_id = this.getAttribute('event-id');
+  let user_id = this.getAttribute('user-id');
+
+  console.log(event_id + "   " + user_id);
+
+  sendAjaxRequest('post', '/api/participant/', {
+    event_id: event_id,
+    user_id: user_id
+  }, participationAddedHandler);
+
+  event.preventDefault();
 }
 
 function getCitiesHandler() {
-  
+
   let cit = JSON.parse(this.responseText)['cities'];
-  
+
   if (isDefault || isEvent || isSignUp) {
     cities_default = new Array();
     for (let i = 0; i < cit.length; i++) {
       cities_default.push(cit[i].name);
     }
     isDefault = false;
-   
+
   } else {
     cities = new Array();
     for (let i = 0; i < cit.length; i++) {
       cities.push(cit[i].name);
     }
-    
+
   }
   changeCityOptions();
   //changeCityOptions();
 }
 
 function getCountriesHandler() {
-  
+
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     let countr = JSON.parse(this.responseText)['countries'];
@@ -1032,7 +1074,7 @@ function getCountriesHandler() {
 
     current_country_default = countr[0].name;
     sendCitiesRequest(current_country_default);
-    
+
     addEventListeners();
 
   } else {
@@ -1041,10 +1083,10 @@ function getCountriesHandler() {
   //addEventListeners();
 }
 
-function userBanedHandler(){
+function userBanedHandler() {
   console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
-  if(message == "success"){
+  if (message == "success") {
     btns_banUser[currentUser].parentNode.parentNode.remove();
   }
 }
@@ -1100,10 +1142,10 @@ function eventEditedHandler() {
     country = JSON.parse(this.responseText)['country'];
     localization = JSON.parse(this.responseText)['localization'];
     updateEvent(event, city, country, localization);
-     
-     getCurCountryEvent();
-     sendCountriesRequest();
-     
+
+    getCurCountryEvent();
+    sendCountriesRequest();
+
   } else {
     let content = document.querySelector("#content");
     let errors;
@@ -1153,6 +1195,21 @@ function eventDeletedHandler() {
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
   }
+}
+
+function participationCanceledHandler(){
+  let message = JSON.parse(this.responseText)['message'];
+  if (this.status == 200) window.location = '/';
+
+}
+
+function participationAddedHandler() {
+  let response = JSON.parse(this.responseText);
+   if (response['message'] == 'success') {
+     let id = response['id'];
+     window.location = '/events/' + id;
+   }
+
 }
 
 function updateProfile(profile, city, country) {
@@ -1264,7 +1321,7 @@ function cardAddedHandler() {
 }
 
 function eventAddedHandler() {
-  
+
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];

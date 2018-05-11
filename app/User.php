@@ -53,9 +53,12 @@ class User extends Authenticatable
 
   }
 
-  public static function getAll() {
-		return DB::table('users')->get();
-	}
+  public function participant(){
+
+    return $this->hasOne('App\Participant');
+
+  }
+
  
 
 
