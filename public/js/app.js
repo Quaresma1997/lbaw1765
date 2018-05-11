@@ -152,6 +152,14 @@ function addEventListeners() {
       sendBanUserRequest();
     });
   } 
+
+  btns_remEvent = document.querySelectorAll('#btn_remEvent');
+  for (let i = 0; i < btns_remEvent.length; i++) {
+    btns_remEvent[i].addEventListener('click', function () {
+      currentEvent = i;
+      sendRemEventRequest();
+    });
+  }
 }
 
 let current_first_name, current_last_name, current_email;
@@ -160,7 +168,7 @@ let cities, cities_default, countries, isEvent, isDefault = true, isSignUp;
   isEditing = false;
 let justRemoveOther;
 
-let btns_banUser, currentUser;
+let btns_banUser, currentUser, currentEvent;
 
 // $(document).ready(function(){
 //   $('[data-toggle="tooltip"]').tooltip();
@@ -805,6 +813,13 @@ function sendBanUserRequest() {
 
 }
 
+function sendRemEventRequest() {
+  let event = btns_remEvent[currentEvent].parentNode.parentNode.querySelector("#span_event_name").parentNode;
+
+  sendAjaxRequest('delete', '/api/event/' + event.getAttribute('event_id'), null, eventRemHandler);
+
+}
+
 function sendItemUpdateRequest() {
   let item = this.closest('li.item');
   let id = item.getAttribute('data-id');
@@ -1031,6 +1046,14 @@ function userBanedHandler(){
   let message = JSON.parse(this.responseText)['message'];
   if(message == "success"){
     btns_banUser[currentUser].parentNode.parentNode.remove();
+  }
+}
+
+function eventRemHandler() {
+  console.log(this.responseText);
+  let message = JSON.parse(this.responseText)['message'];
+  if (message == "success") {
+    btns_remEvent[currentEvent].parentNode.parentNode.remove();
   }
 }
 

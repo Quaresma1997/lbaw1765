@@ -33,7 +33,7 @@ class EventPolicy
     public function delete(User $user, Event $event)
     {
       // Only an event owner can delete it
-      return $user->id == $event->owner_id;
+      return ($user->id == $event->owner_id || $user->is_admin);
     }
 
     public function update(User $user, Event $event)

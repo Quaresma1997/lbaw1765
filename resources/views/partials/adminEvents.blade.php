@@ -23,13 +23,13 @@
           @foreach($events as $event)
             <tr class="d-flex">
               <td class="col-5">
-                <a href="./event.html" class="text-white">{{ $event->name }}</a>
+                <a href="./event.html" class="text-white" event_id="{{ $event->id }}"><span id="span_event_name">{{ $event->name }}</span></a>
               </td>
               <td class="col-6">
                 <a href="./tiagoc.html" class="text-white">{{ $event->owner->username }}</a>
               </td>
               <td class="col-1">
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event">
+                <button type="button" id="btn_remEvent" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event">
                   <i class="fas fa-trash-alt fa-fw"></i>
                 </button>
               </td>
