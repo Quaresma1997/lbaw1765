@@ -1,4 +1,5 @@
 --Tables
+
 DROP TABLE IF EXISTS baned_users CASCADE;
 CREATE TABLE baned_users (
     id SERIAL NOT NULL,
