@@ -131,7 +131,7 @@
             </span>
           @endif -->
                     </div>
-                    <input type="text" id="input_country" class="form-control" placeholder="Country" name="Country" disabled >
+                    <input type="text" id="input_country" class="form-control" placeholder="Country" name="Country" disabled>
                   </div>
 
                   
@@ -161,7 +161,7 @@
             </span>
           @endif -->
                     </div>
-                    <input type="text" id="input_city" class="form-control" placeholder="City" name="City" disabled>
+                    <input type="text" id="input_city" class="form-control" placeholder="City" name="City" disabled >
                   </div>
                 </div>
 

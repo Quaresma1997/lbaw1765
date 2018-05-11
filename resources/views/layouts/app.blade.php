@@ -37,7 +37,7 @@
       @yield('navbar')
     </nav>
     
-    <div class="container" id="content" style="margin-top:10em" class="row">
+    <div class="container" id="content" class="row">
         @yield('content')
     </div>
     </main>

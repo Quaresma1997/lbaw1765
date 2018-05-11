@@ -97,7 +97,7 @@ function addEventListeners() {
   if (signUp != null) {
     isSignUp = true;
     select = document.querySelector('#select_country');
-    select.selectedIndex = 0;
+    select.selectedIndex = 2;
     createCountryInput();
   }
 
@@ -218,25 +218,32 @@ function createCityInput() {
   else
     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
-  let input = document.createElement("input");
+  /*let input = document.createElement("input");
   input.type = "text";
   input.id = "input_city";
   input.classList.add("form-control");
   input.placeholder = "City";
   input.required = true;
-  input.name = "city";
+  input.name = "city";*/
+  $('#input_city').hide(); 
 
   if (justRemoveOther)
     city = "";
 
   if (city == "Other") {
-    if (select.parentElement.querySelector("input[id=input_city") == null)
-      select.parentElement.appendChild(input);
+    if (select.parentElement.querySelector("input[id=input_city") == null) {
+      //select.parentElement.appendChild(input);
+      $('#input_city').removeAttr('disabled');; 
+      $('#input_city').show(); 
+    }
+      
     select.name = "select_city";
   } else {
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
-      select.parentElement.removeChild(old_input);
+      $('#input_city').hide(); 
+      $('#input_city').attr('disabled','disabled');
+      //select.parentElement.removeChild(old_input);
       select.name = "city";
     }
 
@@ -252,13 +259,15 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
-  let input = document.createElement("input");
+  /*let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
-  input.name = "country";
+  input.name = "country";*/
+  $('#input_country').hide(); 
+
 
   if (justRemoveOther)
     country = current_country_default;
@@ -268,6 +277,9 @@ function createCountryInput() {
   if (country == "Other") {
 
     select.parentElement.appendChild(input);
+    $('#input_country').removeAttr('disabled');; 
+    $('#input_country').show(); 
+
     if (isEvent || isSignUp)
       cities_default = new Array();
     else
@@ -278,7 +290,9 @@ function createCountryInput() {
 
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
-      select.parentElement.removeChild(old_input);
+      //select.parentElement.removeChild(old_input);
+      $('#input_country').hide(); 
+      $('#input_country').attr('disabled','disabled'); 
       select.name = "country";
     }
 
@@ -317,6 +331,9 @@ function changeCityOptions() {
 
   let cities_options = "";
   let i;
+  $('#input_city').hide(); 
+  cities_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -324,7 +341,7 @@ function changeCityOptions() {
     else
       cities_options += "'>" + use_cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+//  cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
 
@@ -335,7 +352,10 @@ function putAddEventOptions() {
   let select_country = document.querySelector("#select_country_event");
   let select_city = document.querySelector("#select_city_event");
   let i;
+  $('#input_country').hide(); 
   let countries_options = "";
+  countries_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -344,12 +364,15 @@ function putAddEventOptions() {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  countries_options += "<option value = 'Other'>Other</option>";
+  //countries_options += "<option value = 'Other'>Other</option>";
   select_country.innerHTML = countries_options;
 
 
 
   let cities_options = "";
+  $('#input_city').hide(); 
+  cities_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -357,7 +380,7 @@ function putAddEventOptions() {
     else
       cities_options += "'>" + cities_default[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+  //cities_options += "<option value = 'Other'>Other</option>";
   select_city.innerHTML = cities_options;
 
 
@@ -424,6 +447,9 @@ function createEditProfileForm(event) {
 
   let cities_options = "";
   let i;
+  $('#input_city').hide(); 
+  cities_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -431,9 +457,12 @@ function createEditProfileForm(event) {
     else
       cities_options += "'>" + cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+ // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
+  $('#input_country').hide(); 
+  countries_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -442,7 +471,7 @@ function createEditProfileForm(event) {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  countries_options += "<option value = 'Other'>Other</option>";
+//  countries_options += "<option value = 'Other'>Other</option>";
 
 
   let div3 =
@@ -454,11 +483,13 @@ function createEditProfileForm(event) {
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
+    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >"+
     "</div>" +
     "<div class='col-5 pl-1'>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
+    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >"+
     "</div>" +
     "</div>";
 
@@ -537,6 +568,9 @@ function createEditEventForm(event) {
 
   let cities_options = "";
   let i;
+  $('#input_city').hide(); 
+  cities_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -544,9 +578,11 @@ function createEditEventForm(event) {
     else
       cities_options += "'>" + cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+  //cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
+  countries_options += "<option value = 'Other'>Other</option>"+ 
+  "<option disabled>────────────────────</option>"; 
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -555,7 +591,7 @@ function createEditEventForm(event) {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  countries_options += "<option value = 'Other'>Other</option>";
+  //countries_options += "<option value = 'Other'>Other</option>";
 
   let form_localization =
     "<div class='row mt-3'>" +
@@ -571,12 +607,14 @@ function createEditEventForm(event) {
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
+    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >"+
     "</div>" +
     "<div class='col-3 pl-1 pr-0'>" +
     "<label for='city'>City</label>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
+    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >"+
     "</div>" +
     "</div>";
 

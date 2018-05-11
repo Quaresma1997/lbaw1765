@@ -1,4 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+#content{
+  margin-top: 10em; 
+}
+@media(max-width:576px){
+  #content{
+    margin-top: 75px;
+    padding: 5px 
+  }
+  #tab_events{
+    padding-left: 0;
+    padding-right: 0; 
+  }
+}
+
+
 .navbar-brand {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 24px;
@@ -37,6 +52,9 @@ div#jumbotron_register {
 }
 div#jumbotron_login{
   max-width: 500px;
+}
+div#jumbotron_admin{
+  padding: 2rem 0;
 }
 
 figure {
