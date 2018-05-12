@@ -1,6 +1,4 @@
 --Tables
-DROP TYPE IF EXISTS categories CASCADE;
-DROP TYPE IF EXISTS types CASCADE;
 
 DROP TABLE IF EXISTS baned_users CASCADE;
 CREATE TABLE baned_users (
