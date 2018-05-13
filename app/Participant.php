@@ -21,8 +21,10 @@ class Participant extends Model
         return $events;
     }
 
-    public function inEvent($event_id){
-        return Participant::where('user_id', $this->user_id)->where('event_id', $event_id)->first();
+    
+
+    public function event(){
+        return $this->belongsTo('App\Event');
     }
     //
 }

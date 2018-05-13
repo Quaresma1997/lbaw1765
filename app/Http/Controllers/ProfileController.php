@@ -171,10 +171,11 @@ class ProfileController extends Controller
 
       $this->authorize('delete', $user);
 
-      Auth::logout();
-      if($user->delete())
+      
+      if($user->delete()){
+        Auth::logout();
         return redirect('/');
-      else
+      }else
         return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
     }
   }

@@ -42,6 +42,10 @@ class Event extends Model
         return $this->hasMany('App\Participant');
       }
 
+      public function event_invites(){
+       return $this->hasMany('App\EventInvite');
+      }
+
 
 
  

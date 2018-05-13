@@ -29,8 +29,14 @@
               <i class="fas fa-bell fa-fw"></i> Notifications </a>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend">Quaresma1997 wants to be your friend</a>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent">Quaresma1997 invited you to an event</a>
+           @foreach(Auth::user()->friend_requests_received as $friend_request)
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend{{$friend_request->id}}">{{$friend_request->sender->username}} wants to be your friend</a>
+            @endforeach
+              
+       
+            @foreach(Auth::user()->event_invites as $invite)
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent{{$invite->id}}">{{ $invite->sender->username}} invited you to an event</a>
+            @endforeach
             </div>
           </div>
         </li>
