@@ -38,6 +38,14 @@ Route::delete('api/event/{id}', 'EventController@delete');
 Route::post('api/event/{id}', 'EventController@update');
 Route::delete('api/participant/', 'ParticipantController@delete');
 Route::post('api/participant/', 'ParticipantController@create');
+Route::delete('api/friendship/', 'FriendshipController@delete');
+// Route::post('api/friendship/', 'FriendshipController@create');
+Route::put('api/invite/', 'EventInviteController@create');
+Route::delete('api/invite/', 'EventInviteController@delete');
+Route::post('api/invite/', 'EventInviteController@update');
+Route::put('api/friend_request/', 'FriendRequestController@create');
+Route::post('api/friend_request/', 'FriendRequestController@update');
+
 
 Route::delete('api/admin/{username}', 'AdminController@delete');
 

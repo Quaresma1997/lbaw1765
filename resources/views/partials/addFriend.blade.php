@@ -1,4 +1,4 @@
-<div class="modal fade" id="addFriend">
+<div class="modal fade" id="addFriend{{$friend_request->id}}">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
@@ -6,17 +6,17 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <a href="./quaresma.html" class="text-white">
-            <img src="./imgs/profile.jpg" class="img-fluid rounded mx-auto d-block">
+          <a href="{{ url('profile/' . $friend_request->sender_id)}}" class="text-white">
+            <img src="/imgs/{{ $friend_request->sender->image_path }}" class="img-fluid rounded mx-auto d-block">
           </a>
           <br>
           <br>
           <h3 class="text-center">
-            <a href="./quaresma.html" class="text-white">Quaresma1997</a> wants to be your friend.</h3>
+            <a href="{{ url('profile/' . $friend_request->sender_id)}}" class="text-white">{{$friend_request->sender->username}}</a> wants to be your friend.</h3>
           <br>
-          <button type="button" class="btn btn-success btn-lg btn-block" onclick="window.location.href='./quaresma.html'">
+          <button type="button" class="btn btn-success btn-lg btn-block" id="btn_acceptFriend" sender-id="{{$friend_request->sender->id}}" receiver-id="{{$friend_request->receiver->id}}">
             <i class="fas fa-check fa-fw"></i> Accept </button>
-          <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">
+          <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="btn_declineFriend" sender-id="{{$friend_request->sender->id}}" receiver-id="{{$friend_request->receiver->id}}">
             <i class="fas fa-times fa-fw"></i> Decline </button>
         </div>
       </div>

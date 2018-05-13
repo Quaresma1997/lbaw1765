@@ -15,8 +15,8 @@
           <thead>
             <tr class="d-flex">
               <th class="col-5">Name</th>
-              <th class="col-6">Owner</th>
-              <th class="col-1">Delete</th>
+              <th class="col-sm-5 col-xs-4">Owner</th>
+              <th class="col-sm-2 col-xs-3" style="text-align: center;">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -25,10 +25,10 @@
               <td class="col-5">
                 <a href="./event.html" class="text-white" event_id="{{ $event->id }}"><span id="span_event_name">{{ $event->name }}</span></a>
               </td>
-              <td class="col-6">
+              <td class="col-sm-5 col-xs-4">
                 <a href="./tiagoc.html" class="text-white">{{ $event->owner->username }}</a>
               </td>
-              <td class="col-1">
+              <td class="col-sm-2 col-xs-3" style="text-align: center">
                 <button type="button" id="btn_remEvent" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Delete Event">
                   <i class="fas fa-trash-alt fa-fw"></i>
                 </button>

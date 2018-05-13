@@ -100,6 +100,7 @@
                         </span>
                         @endif   -->
                      </div>
+                     <input type="text" id="input_country" class="form-control" placeholder="Country" name="Country" disabled>
                   </div>
                   <div class="col-12 col-sm-6">
                      <label for="city">City</label>
@@ -118,6 +119,8 @@
                         </span>
                         @endif -->
                      </div>
+                     <input type="text" id="input_city" class="form-control" placeholder="City" name="City" disabled >
+
                   </div>
                </div>
                <div class="row">

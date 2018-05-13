@@ -4,8 +4,8 @@
     @include('partials.navLoggedIn')
 @endsection
 
-@include('partials.addFriend')
-@include('partials.joinEvent')
+@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
 @include('partials.addEvent')
 
 
@@ -22,18 +22,27 @@
         <div class="modal-body">
           <div class="jumbotron p-1 mb-1">
           @foreach($event->participants as $participant)
+            
             <div class="row mb-4">
               <div class="col-md-3 col-3">
-                <a href="./tiagoc.html" class="text-white">
+                <a href="{{ url('profile/' . $participant->user_id)}}" class="text-white">
                   <img src="/imgs/{{ $participant->user->image_path }}" class="img-fluid rounded">
                 </a>
               </div>
-              <div class="col-md-9 col-9">
-                <h3>
-                  <a href="./tiagoc.html" class="text-white">{{ $participant->user->username }}</a>
-                </h3>
+              <div class="col-md-6 col-6">
+              <a href="{{ url('profile/' . $participant->user_id)}}" class="text-white">
+                  <h3 class="my-4">{{ $participant->user->username }}</h3>
+                  </a>
               </div>
+              @if(Auth::user()->id == $event->owner->id)
+              <div class="col-md-3 col-3 d-flex align-items-center">
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Remove" id="btn_removeParticipant" event-id="{{$event->id}}" user-id="{{$participant->user->id}}">
+                    <i class="fas fa-times fa-fw"></i> Remove
+                  </button>
+                </div>
+                @endif
             </div>
+            
           @endforeach
           </div>
         </div>
@@ -41,9 +50,10 @@
     </div>
   </div>
 
+
   @if($event->owner->id == Auth::user()->id)
     @include('partials.eventAsOwner')
-  @elseif(Auth::user()->participant->inEvent($event->id) != null)
+  @elseif(Auth::user()->inEvent($event->id) != null)
     @include('partials.eventAsParticipant')
   @else
     @include('partials.eventAsVisitor')

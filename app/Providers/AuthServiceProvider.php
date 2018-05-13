@@ -21,6 +21,9 @@ class AuthServiceProvider extends ServiceProvider
       'App\Event' => 'App\Policies\EventPolicy',
       'App\Localization' => 'App\Policies\LocalizationPolicy',
       'App\Participant' => 'App\Policies\ParticipantPolicy',
+      'App\Friendship' => 'App\Policies\FriendshipPolicy',
+      'App\EventInvite' => 'App\Policies\EventInvitePolicy',
+      'App\FriendRequest' => 'App\Policies\FriendRequestPolicy',
       
 
     ];

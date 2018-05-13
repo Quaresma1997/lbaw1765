@@ -97,7 +97,7 @@ function addEventListeners() {
   if (signUp != null) {
     isSignUp = true;
     select = document.querySelector('#select_country');
-    select.selectedIndex = 0;
+    select.selectedIndex = 2;
     createCountryInput();
   }
 
@@ -167,11 +167,64 @@ function addEventListeners() {
 
   }
 
+  btns_removeParticipant = document.querySelectorAll('#btn_removeParticipant');
+  for (let i = 0; i < btns_removeParticipant.length; i++) {
+    btns_removeParticipant[i].addEventListener('click', function () {
+      currentParticipant = i;
+      sendRemoveParticipantRequest();
+    });
+  }
+
   let addParticipation = document.querySelector('#btn_addParticipation');
   if (addParticipation != null) {
     addParticipation.addEventListener('click', sendAddParticipationRequest);
 
   }
+
+
+  let addFriend = document.querySelector('#btn_addFriend');
+  if (addFriend != null) {
+    addFriend.addEventListener('click', sendAddFriendRequest);
+  }
+
+  let removeFriend = document.querySelector('#btn_removeFriend');
+  if (removeFriend != null) {
+    removeFriend.addEventListener('click', sendRemoveFriendRequest);
+  }
+
+  let acceptEventInvite = document.querySelectorAll('#btn_acceptEventInvite');
+  for (let i = 0; i < acceptEventInvite.length; i++) {
+    acceptEventInvite[i].addEventListener('click', sendAcceptEventInviteRequest);
+  }
+
+  let declineEventInvite = document.querySelectorAll('#btn_declineEventInvite');
+  for (let i = 0; i < declineEventInvite.length; i++) {
+    declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
+  }
+
+    let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
+    for (let i = 0; i < acceptFriend.length; i++) {
+      acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
+    }
+
+    let declineFriend = document.querySelectorAll('#btn_declineFriend');
+    for (let i = 0; i < declineFriend.length; i++) {
+      declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
+    }
+
+  btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+  for (let i = 0; i < btns_makeInvite.length; i++) {
+    makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
+    btns_makeInvite[i].addEventListener('click', makeInvite[i]);
+  }
+
+  btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+  for (let i = 0; i < btns_cancelInvite.length; i++) {
+    cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
+    btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
+  }
+
+
 }
 
 let current_first_name, current_last_name, current_email;
@@ -181,7 +234,9 @@ let cities, cities_default, countries, isEvent, isDefault = true,
 isEditing = false;
 let justRemoveOther;
 
-let btns_banUser, currentUser, currentEvent;
+let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
+let makeInvite = new Array(), cancelInvite = new Array();
+
 
 // $(document).ready(function(){
 //   $('[data-toggle="tooltip"]').tooltip();
@@ -218,25 +273,32 @@ function createCityInput() {
   else
     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
-  let input = document.createElement("input");
+  /*let input = document.createElement("input");
   input.type = "text";
   input.id = "input_city";
   input.classList.add("form-control");
   input.placeholder = "City";
   input.required = true;
-  input.name = "city";
+  input.name = "city";*/
+  $('#input_city').hide();
 
   if (justRemoveOther)
     city = "";
 
   if (city == "Other") {
-    if (select.parentElement.querySelector("input[id=input_city") == null)
-      select.parentElement.appendChild(input);
+    if (select.parentElement.querySelector("input[id=input_city") == null) {
+      //select.parentElement.appendChild(input);
+      $('#input_city').removeAttr('disabled');;
+      $('#input_city').show();
+    }
+
     select.name = "select_city";
   } else {
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
-      select.parentElement.removeChild(old_input);
+      $('#input_city').hide();
+      $('#input_city').attr('disabled', 'disabled');
+      //select.parentElement.removeChild(old_input);
       select.name = "city";
     }
 
@@ -252,13 +314,15 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
-  let input = document.createElement("input");
+  /*let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
-  input.name = "country";
+  input.name = "country";*/
+  $('#input_country').hide();
+
 
   if (justRemoveOther)
     country = current_country_default;
@@ -268,6 +332,9 @@ function createCountryInput() {
   if (country == "Other") {
 
     select.parentElement.appendChild(input);
+    $('#input_country').removeAttr('disabled');;
+    $('#input_country').show();
+
     if (isEvent || isSignUp)
       cities_default = new Array();
     else
@@ -278,7 +345,9 @@ function createCountryInput() {
 
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
-      select.parentElement.removeChild(old_input);
+      //select.parentElement.removeChild(old_input);
+      $('#input_country').hide();
+      $('#input_country').attr('disabled', 'disabled');
       select.name = "country";
     }
 
@@ -317,6 +386,9 @@ function changeCityOptions() {
 
   let cities_options = "";
   let i;
+  $('#input_city').hide();
+  cities_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -324,7 +396,7 @@ function changeCityOptions() {
     else
       cities_options += "'>" + use_cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+  //  cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
 
@@ -335,7 +407,10 @@ function putAddEventOptions() {
   let select_country = document.querySelector("#select_country_event");
   let select_city = document.querySelector("#select_city_event");
   let i;
+  $('#input_country').hide();
   let countries_options = "";
+  countries_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -344,12 +419,15 @@ function putAddEventOptions() {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  countries_options += "<option value = 'Other'>Other</option>";
+  //countries_options += "<option value = 'Other'>Other</option>";
   select_country.innerHTML = countries_options;
 
 
 
   let cities_options = "";
+  $('#input_city').hide();
+  cities_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -357,7 +435,7 @@ function putAddEventOptions() {
     else
       cities_options += "'>" + cities_default[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+  //cities_options += "<option value = 'Other'>Other</option>";
   select_city.innerHTML = cities_options;
 
 
@@ -424,6 +502,9 @@ function createEditProfileForm(event) {
 
   let cities_options = "";
   let i;
+  $('#input_city').hide();
+  cities_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -431,9 +512,12 @@ function createEditProfileForm(event) {
     else
       cities_options += "'>" + cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+  // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
+  $('#input_country').hide();
+  countries_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -442,7 +526,7 @@ function createEditProfileForm(event) {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  countries_options += "<option value = 'Other'>Other</option>";
+  //  countries_options += "<option value = 'Other'>Other</option>";
 
 
   let div3 =
@@ -454,11 +538,13 @@ function createEditProfileForm(event) {
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
+    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >" +
     "</div>" +
     "<div class='col-5 pl-1'>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
+    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >" +
     "</div>" +
     "</div>";
 
@@ -537,6 +623,9 @@ function createEditEventForm(event) {
 
   let cities_options = "";
   let i;
+  $('#input_city').hide();
+  cities_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -544,9 +633,11 @@ function createEditEventForm(event) {
     else
       cities_options += "'>" + cities[i] + "</option>";
   }
-  cities_options += "<option value = 'Other'>Other</option>";
+  //cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
+  countries_options += "<option value = 'Other'>Other</option>" +
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -555,7 +646,7 @@ function createEditEventForm(event) {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  countries_options += "<option value = 'Other'>Other</option>";
+  //countries_options += "<option value = 'Other'>Other</option>";
 
   let form_localization =
     "<div class='row mt-3'>" +
@@ -571,12 +662,14 @@ function createEditEventForm(event) {
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
+    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >" +
     "</div>" +
     "<div class='col-3 pl-1 pr-0'>" +
     "<label for='city'>City</label>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
+    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >" +
     "</div>" +
     "</div>";
 
@@ -1030,8 +1123,6 @@ function sendAddParticipationRequest(event) {
   let event_id = this.getAttribute('event-id');
   let user_id = this.getAttribute('user-id');
 
-  console.log(event_id + "   " + user_id);
-
   sendAjaxRequest('post', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
@@ -1039,6 +1130,136 @@ function sendAddParticipationRequest(event) {
 
   event.preventDefault();
 }
+
+function sendAddFriendRequest(event) {
+  let sender = this.getAttribute('sender-id');
+  let receiver = this.getAttribute('receiver-id');
+
+  sendAjaxRequest('put', '/api/friend_request/', {
+    sender: sender,
+    receiver: receiver
+  }, friendRequestedHandler);
+
+  event.preventDefault();
+}
+
+function sendRemoveFriendRequest(event) {
+  let user1 = this.getAttribute('user-id-1');
+  let user2 = this.getAttribute('user-id-2');
+
+  sendAjaxRequest('delete', '/api/friendship/', {
+    user1: user1,
+    user2: user2
+  }, friendRemovedHandler);
+
+  event.preventDefault();
+}
+
+function sendAcceptEventInviteRequest(event) {
+  let event_id = this.getAttribute('event-id');
+  let receiver = this.getAttribute('receiver-id');
+
+  let answer = true;
+
+  
+
+  sendAjaxRequest('post', '/api/invite/', {
+    event_id: event_id,
+    receiver: receiver,
+    answer: answer
+  }, acceptedInviteHandler);
+}
+
+function sendDeclineEventInviteRequest(event) {
+  let event_id = this.getAttribute('event-id');
+  let receiver = this.getAttribute('receiver-id');
+
+  let answer = false;
+
+  sendAjaxRequest('post', '/api/invite/', {
+    event_id: event_id,
+    receiver: receiver,
+    answer: answer
+  }, declinedInviteHandler);
+}
+
+function sendAcceptFriendRequest(event) {
+  let sender = this.getAttribute('sender-id');
+  let receiver = this.getAttribute('receiver-id');
+
+  let answer = true;
+
+
+
+  sendAjaxRequest('post', '/api/friend_request/', {
+    sender: sender,
+    receiver: receiver,
+    answer: answer
+  }, acceptedFriendHandler);
+}
+
+function sendDeclineFriendRequest(event) {
+  let sender = this.getAttribute('sender-id');
+  let receiver = this.getAttribute('receiver-id');
+
+  let answer = false;
+
+  sendAjaxRequest('post', '/api/friend_request/', {
+    sender: sender,
+    receiver: receiver,
+    answer: answer
+  }, declinedFriendHandler);
+}
+
+
+
+
+function sendRemoveParticipantRequest() {
+
+  let event_id = btns_removeParticipant[currentParticipant].getAttribute('event-id');
+  let user_id = btns_removeParticipant[currentParticipant].getAttribute('user-id');
+
+  sendAjaxRequest('delete', '/api/participant/', {
+    event_id: event_id,
+    user_id: user_id
+  }, participantRemovedHandler);
+
+}
+
+
+function sendMakeInviteRequest(i) {
+  let event_id = btns_makeInvite[i].getAttribute('event-id');
+  let sender = btns_makeInvite[i].getAttribute('sender-id');
+  let receiver = btns_makeInvite[i].getAttribute('receiver-id');
+
+  currentInvite = i;
+
+  sendAjaxRequest('put', '/api/invite/', {
+    event_id: event_id,
+    receiver: receiver,
+    sender: sender,
+    currentInvite: currentInvite
+  }, madeInviteHandler);
+
+}
+
+function sendCancelInviteRequest(i) {
+  let event_id = btns_cancelInvite[i].getAttribute('event-id');
+  let sender = btns_cancelInvite[i].getAttribute('sender-id');
+  let receiver = btns_cancelInvite[i].getAttribute('receiver-id');
+
+  currentInvite = i;
+
+  sendAjaxRequest('delete', '/api/invite/', {
+    event_id: event_id,
+    receiver: receiver,
+    sender: sender,
+    currentInvite: currentInvite
+  }, canceledInviteHandler);
+
+}
+
+
 
 function getCitiesHandler() {
 
@@ -1084,7 +1305,6 @@ function getCountriesHandler() {
 }
 
 function userBanedHandler() {
-  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     btns_banUser[currentUser].parentNode.parentNode.remove();
@@ -1092,7 +1312,6 @@ function userBanedHandler() {
 }
 
 function eventRemHandler() {
-  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     btns_remEvent[currentEvent].parentNode.parentNode.remove();
@@ -1197,20 +1416,162 @@ function eventDeletedHandler() {
   }
 }
 
-function participationCanceledHandler(){
+function participationCanceledHandler() {
   let message = JSON.parse(this.responseText)['message'];
   if (this.status == 200) window.location = '/';
 
 }
 
-function participationAddedHandler() {
-  let response = JSON.parse(this.responseText);
-   if (response['message'] == 'success') {
-     let id = response['id'];
-     window.location = '/events/' + id;
-   }
+function participantRemovedHandler() {
+  let message = JSON.parse(this.responseText)['message'];
+  if (message == "success") {
+    btns_removeParticipant[currentParticipant].parentNode.parentNode.remove();
+  }
 
 }
+
+function participationAddedHandler() {
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/events/' + id;
+  }
+
+}
+
+function acceptedInviteHandler() {
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/events/' + id;
+  }
+
+}
+
+function declinedInviteHandler() {
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/events/' + id;
+  }
+
+}
+
+function acceptedFriendHandler() {
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/profile/' + id;
+  }
+
+}
+
+function declinedFriendHandler() {
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/profile/' + id;
+  }
+
+}
+
+
+function friendRequestedHandler() {
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/profile/' + id;
+  }
+
+}
+
+function friendRemovedHandler() {
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let id = response['id'];
+    window.location = '/profile/' + id;
+  }
+}
+
+function madeInviteHandler() {
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let curIn = response['currentInvite'];
+    for (let i = 0; i < btns_cancelInvite.length; i++) {
+      btns_cancelInvite[i].removeEventListener('click', cancelInvite[i]);
+    }
+    let clone = btns_makeInvite[curIn].cloneNode(true);
+    btns_makeInvite[curIn].parentNode.appendChild(clone);
+    btns_makeInvite[curIn].remove();
+    while (clone.firstChild) {
+      clone.removeChild(clone.firstChild);
+    }
+    let span = document.createElement('span');
+    let label = document.createElement('i');
+    label.classList.add("fas");
+    label.classList.add("fa-times");
+    span.textContent = " Cancel";
+    clone.appendChild(label);
+    clone.appendChild(span);
+
+    clone.classList.remove("btn-success");
+    clone.classList.add("btn-outline-danger");
+
+    clone.id = "btn_cancelInvite";
+
+btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+cancelInvite = new Array();
+for (let i = 0; i < btns_cancelInvite.length; i++) {
+  cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
+  btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
+}
+
+
+  }
+}
+
+function canceledInviteHandler() {
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let curIn = response['currentInvite'];
+    for (let i = 0; i < btns_makeInvite.length; i++) {
+      btns_makeInvite[i].removeEventListener('click', makeInvite[i]);
+    }
+    let clone = btns_cancelInvite[curIn].cloneNode(true);
+    btns_cancelInvite[curIn].parentNode.appendChild(clone);
+    btns_cancelInvite[curIn].remove();
+    while (clone.firstChild) {
+      clone.removeChild(clone.firstChild);
+    }
+    let span = document.createElement('span');
+    let label = document.createElement('i');
+    label.classList.add("fas");
+    label.classList.add("fa-plus");
+    span.textContent = " Invite";
+    clone.appendChild(label);
+    clone.appendChild(span);
+
+    clone.classList.remove("btn-outline-danger");
+    clone.classList.add("btn-success");
+
+    clone.id = "btn_inviteToEvent";
+btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+makeInvite = new Array();
+    for (let i = 0; i < btns_makeInvite.length; i++) {
+      makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
+      btns_makeInvite[i].addEventListener('click', makeInvite[i]);
+    }
+
+
+  }
+
+}
+
 
 function updateProfile(profile, city, country) {
   let main_div = document.querySelector("#user_info_container");

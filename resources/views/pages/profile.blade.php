@@ -4,9 +4,9 @@
     @include('partials.navLoggedIn')
 @endsection
 
-@include('partials.addFriend');
-@include('partials.joinEvent');
-@include('partials.addEvent');
+@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+@include('partials.addEvent')
 
 @section('content')
 <div class="row">
@@ -22,10 +22,13 @@
             <label id="user_info_l2"><i class="fas fa-envelope fa-fw mr-1"></i>{{$user->email}}</label>
             <br>
             <label id="user_info_l3"><i class="fas fa-map-marker-alt fa-fw mr-1"></i>{{$city}}, {{$country}}</label>
-            <button type="button" class="btn btn-primary btn-lg btn-block mt-3" id="btn_editprofile">
-              <i class="far fa-edit fa-fw"></i> Edit Profile </button>
-            <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="btn_deleteprofile">
-              <i class="far fa-trash-alt fa-fw"></i> Delete Profile </button>
+            @if(Auth::user()->id == $user->id)
+              @include('partials.userProfile')
+            @elseif(Auth::user()->friendWith($user->id) != null)
+              @include('partials.friendProfile')
+            @else
+              @include('partials.otherUserProfile')
+            @endif
           </div>
         </div>
       </div>
@@ -55,36 +58,25 @@
 
               <div id="friends" class="container tab-pane fade">
                 <div class="row mt-3">
-                  <div class="col-12 col-lg-6 px-1">
+                  @foreach($user->getFriends() as $friend)
+                    <div class="col-12 col-lg-6 px-1">
                     <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                      <a href="./quaresma.html" class="text-white">
+                      <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
                       <div class="row">
                         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="{{url('/imgs/profile.jpg')}}">
+                          <img class="img-fluid rounded" src="/imgs/{{ $friend->image_path }}">
                         </div>
                         <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
                           <div>
-                            <h3 class="my-4">Quaresma1997</h3>
+                            <h3 class="my-4">{{$friend->username}}</h3>
                           </div>
                         </div>
                       </div>
                       </a>
                     </div>
                   </div>
-                  <div class="col-12 col-lg-6 px-1">
-                    <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                      <div class="row">
-                        <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="{{url('/imgs/profile.jpg')}}">
-                        </div>
-                        <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
-                          <div>
-                            <h3 class="my-4">Quaresma1997</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  @endforeach
+                  
                 </div>
             </div>
           </div>

@@ -13,17 +13,17 @@
         <table class="table table-hover">
           <thead>
             <tr class="d-flex">
-              <th class="col-5">Username</th>
-              <th class="col-6">Email</th>
-              <th class="col-1">Ban</th>
+              <th class="col-sm-5 col-xs-4">Username</th>
+              <th class="col-sm-6 col-xs-5">Email</th>
+              <th class="col-sm-1 col-xs-3">Ban</th>
             </tr>
           </thead>
           <tbody>
           @foreach($users as $user)
             <tr class="d-flex">
-              <td class="col-5"><a href="./tiagoc.html" class="text-white"><span id="span_username">{{ $user->username }}</span></a></td>
-              <td class="col-6">{{ $user->email }}</td>
-              <td class="col-1">
+              <td class="col-sm-5 col-xs-4"><a href="./tiagoc.html" class="text-white"><span id="span_username">{{ $user->username }}</span></a></td>
+              <td class="col-sm-6 col-xs-5">{{ $user->email }}</td>
+              <td class="col-sm-1 col-xs-3">
                 <button type="button" id="btn_banUser" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Ban User">
                   <i class="fas fa-ban fa-fw"></i>
                 </button>

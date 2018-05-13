@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 use App\Participant;
 
@@ -25,8 +26,9 @@ class ParticipantController extends Controller
         $user_id = $request->input('user_id');
         $participant = Participant::where('event_id', $event_id)->where('user_id', $user_id)->first();
 
+        $owner = $participant->event->owner;
 
-        $this->authorize('delete', $participant);
+        $this->authorize('delete', Auth::user(), $participant, $owner);
 
 
         if($participant->delete()){        

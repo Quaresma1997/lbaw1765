@@ -22,10 +22,14 @@ class HomePageController extends Controller
         if(Auth::user()->is_admin)
             return redirect('admin');
 
-        $participant = Auth::user()->participant;
+        $participants = Auth::user()->participants;
         $events = [];
-        if($participant != null)
-            $events = $participant->getEvents();
+        if($participants != null){
+            $events = array();
+            foreach($participants as $participant){
+                array_push($events, $participant->event);
+            }
+        }
         
         $categories = Category::all();
       return view('pages.homepage', ['categories' => $categories, 'events' => $events]);

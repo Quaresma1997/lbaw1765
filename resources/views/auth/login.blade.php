@@ -81,7 +81,7 @@
                 
 
                 <div class="btn-group d-flex" role="group">
-                  <button type="button" class="btn btn-primary w-100" onclick="window.location.href='./admin.html'">
+                  <button type="button" class="btn btn-primary w-100">
                     <i class="fab fa-facebook-f fa-fw"></i>
                   </button>
                   <button type="button" class="btn btn-danger w-100">
