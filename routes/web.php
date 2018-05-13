@@ -52,6 +52,9 @@ Route::post('register', 'Auth\RegisterController@register');
 //About
 Route::get('about', 'AboutController@show')->name('about');
 
+//Search
+Route::get('search', ['uses'=> 'SearchController@index', 'as' => 'search']);
+
 //Index
 Route::get('index', 'IndexController@show')->name('index');
 
@@ -72,6 +75,8 @@ Route::get('cities/{country}', 'CityController@list');
 
 //Countries
 Route::get('countries', 'CountryController@list');
+
+
 
 
 

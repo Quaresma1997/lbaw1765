@@ -6,6 +6,9 @@ CREATE TABLE baned_users (
     CONSTRAINT baned_users_pk PRIMARY KEY (id)    
 );
 
+DROP TYPE IF EXISTS categories CASCADE;
+DROP TYPE IF EXISTS types CASCADE;
+
 DROP TABLE IF EXISTS categories CASCADE;
 CREATE TABLE categories (
     id SERIAL NOT NULL,
