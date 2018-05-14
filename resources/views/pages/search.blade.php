@@ -4,15 +4,21 @@
     @include('partials.navLoggedIn')
 @endsection
 
-@include('partials.addFriend');
-@include('partials.joinEvent');
+@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
 
 @section('content')
 
+
+@if (count($events) === 0  and count($users) === 0 )
+
+    <h2>No results found!</h2> 
+
+@else
 {{$events}}
 
 {{$users}}
-
+@endif
 
 
   <div class="container">
@@ -88,52 +94,26 @@
           </div>
         </div>
       </div>
+
       <div class="col-12 col-lg-9">
         <div class="container mx-auto" style="padding-top:10em">
           <div class="tab-content" name="content">
             <div class="tab-pane active">
               <div class="row mt-3">
-                <div class="col-12 col-lg-6 px-1">
 
-                 @foreach($events as $event)
-                  <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                    <a href="/events/{{$event->id}}" class="text-white">
-                      <div class="row">
-                        <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="./imgs/pyra.jpg">
-                        </div>
-                        <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
-                          <div class="my-1">
-                            <h4>{{$event->name}}</h4>
-                            <p>{{$event->date}}
-                              <br> {{$event->localization->city->name}}, {{$event->localization->city->country->name}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                @endforeach
-                
-                      
-                              
-                
-               
-              
-                
-                </div>
+              @each('partials.event', $events, 'event')
               </div>
             </div>
-            @foreach($users as $user)
 
-            <div class="tab-pane">
+          <div class="tab-pane">
               <div class="row mt-3">
-                <div class="col-12 col-lg-6 px-1">
-                  <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                    <a href="/profile/{{$user->id}}" class="text-white">
+              @foreach($users as  $user)
+                    <div class="col-12 col-lg-6 px-1">
+                    <div class="jumbotron jumbotron-fluid p-1 my-1 list">
+                      <a href="{{ url('profile/' . $user->id)}}" class="text-white">
                       <div class="row">
                         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="{{$user->image_path}}">
+                          <img class="img-fluid rounded" src="/imgs/{{ $user->image_path }}">
                         </div>
                         <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
                           <div>
@@ -141,17 +121,16 @@
                           </div>
                         </div>
                       </div>
-                    </a>
-                  </div>
-                </div>
-                @endforeach
-
+                      </a>
+                    </div>
+                    </div>
+                  @endforeach
                 
-        </div>
+              </div>
+            </div>        
       </div>
     </div>
   </div>
-
 
 
 @endsection
