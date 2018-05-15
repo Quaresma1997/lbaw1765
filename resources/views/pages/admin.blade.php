@@ -6,8 +6,8 @@
 
 @section('content')
 
-    <div class="jumbotron container" id="jumbotron_admin">
-    <h1 class="display-4">Administration</h1>
+  <div class="jumbotron container" id="jumbotron_admin">
+    <h1 >Administration</h1>
     <hr>
     <ul class="nav nav-tabs nav-justified" role="tablist">
       <li class="nav-item">

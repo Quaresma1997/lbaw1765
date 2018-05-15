@@ -7,12 +7,21 @@
     margin-top: 75px;
     padding: 5px 
   }
-  #tab_events{
+  #tab_events, #tab_users{
     padding-left: 0;
     padding-right: 0; 
   }
 }
 
+#jumbotron_admin h1{
+  padding-left: 5%;
+  overflow: auto;
+}
+
+#tab_events td, 
+#tab_users td{
+  overflow: hidden; 
+}
 
 .navbar-brand {
   font-family: 'Josefin Sans', sans-serif;
