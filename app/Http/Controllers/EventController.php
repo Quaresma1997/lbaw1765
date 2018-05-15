@@ -50,14 +50,28 @@ class EventController extends Controller
       $event->city = $city->name;
       $event->country = $country->name;
       $event->place = $loca->name;
-      $categories = Category::all();     
+      $categories = Category::all();   
       
+      $participants_invited_ids = array();
+
+      $users_invited_ids = array();
+
+      foreach($event->event_invites as $invite){
+        array_push($users_invited_ids, $invite->receiver_id);
+        array_push($participants_invited_ids, $invite->receiver_id);
+      }
+
+      foreach($event->participants as $participant){
+          array_push($participants_invited_ids, $participant->user_id);
+      }
+      
+      array_push($participants_invited_ids, $event->owner->id);
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
       //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event, 'categories' => $categories]);
+      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)]);
     }
     
 

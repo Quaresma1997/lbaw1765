@@ -9,23 +9,46 @@
         </div>
         <div class="modal-body">
           <div class="jumbotron p-1 mb-1 mt-1">
-            <div class="row">
-              <div class="col-md-3  col-3">
-                <a href="./quaresma.html" class="text-white">
-                  <img src="./imgs/profile.jpg" class="img-fluid mx-auto rounded">
-                </a>
+          @foreach($event->event_invites as $invite)
+              <div class="row mb-4">
+                <div class="col-md-3  col-3">
+                  <a href="{{ url('profile/' . $invite->receiver->id)}}" class="text-white">
+                    <img src="/imgs/{{ $invite->receiver->image_path }}" class="img-fluid mx-auto rounded">
+                  </a>
+                </div>
+                <div class="col-md-6 col-6">
+                  <h3 class="my-4">
+                    <a href="{{ url('profile/' . $invite->receiver->id)}}" class="text-white">{{ $invite->receiver->username }}</a>
+                  </h3>
+                </div>
+                <div class="col-md-3 col-3 d-flex align-items-center">
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Cancel Invite" id="btn_cancelInvite"
+                    event-id="{{$event->id}}" sender-id="{{Auth::user()->id}}" receiver-id="{{$invite->receiver->id}}" current="">
+                    <i class="fas fa-times" ></i><span> Cancel</span>
+                  </button>
+                </div>
               </div>
-              <div class="col-md-7 col-7">
-                <h3>
-                  <a href="./quaresma.html" class="text-white">Quaresma1997</a>
-                </h3>
+            @endforeach
+            @foreach($users as $user)
+              <div class="row mb-4">
+                <div class="col-md-3  col-3">
+                  <a href="{{ url('profile/' . $user->id)}}" class="text-white">
+                    <img src="/imgs/{{ $user->image_path }}" class="img-fluid mx-auto rounded">
+                  </a>
+                </div>
+                <div class="col-md-6 col-6">
+                  <h3 class="my-4">
+                    <a href="{{ url('profile/' . $user->id)}}" class="text-white">{{ $user->username }}</a>
+                  </h3>
+                </div>
+                <div class="col-md-3 col-3 d-flex align-items-center">
+                  <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" id="btn_inviteToEvent"
+                    event-id="{{$event->id}}" sender-id="{{Auth::user()->id}}" receiver-id="{{$user->id}}">
+                    <i class="fas fa-plus" ></i><span> Invite</span>
+                  </button>
+                </div>
               </div>
-              <div class="col-md-2 col-2 d-flex align-items-center">
-                <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
-            </div>
+            @endforeach
           </div>
         </div>
       </div>

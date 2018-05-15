@@ -53,13 +53,75 @@ class User extends Authenticatable
 
   }
 
-  public function participant(){
+  public function participants(){
 
-    return $this->hasOne('App\Participant');
+    return $this->hasMany('App\Participant');
 
   }
 
- 
+  public function event_invites(){
+
+    return $this->hasMany('App\EventInvite', 'receiver_id');
+
+  }
+
+  public function friend_requests_received(){
+
+    return $this->hasMany('App\FriendRequest', 'receiver_id');
+
+  }
+
+  public function friend_requests_sent(){
+
+    return $this->hasMany('App\FriendRequest', 'sender_id');
+
+  }
+
+  public function inEvent($event_id){
+        return Participant::where('user_id', $this->id)->where('event_id', $event_id)->first();
+    }
+
+   public function getFriends(){
+    $friendships = Friendship::where('user_id_1', $this->id)->orWhere('user_id_2', $this->id)->get();
+    $friends = array();
+
+     foreach($friendships as $friendship){
+       if($friendship->user_id_1 == $this->id){
+         array_push($friends, $friendship->user2);
+       }else{
+         array_push($friends, $friendship->user1);
+       }
+               
+      }
+
+      return $friends;
+    // return $this->hasMany('App\Friendship', 'user_id_1')->hasMany('App\Friendship', 'user_id_2');
+  }
+
+  
+    public function friendWith($user_id){
+        return (Friendship::where('user_id_1', $this->id)->where('user_id_2', $user_id)->first()
+                || Friendship::where('user_id_2', $this->id)->where('user_id_1', $user_id)->first());
+    }
+    
+    public function sentFriendRequestTo($user_id){
+      $users_ids = array();
+      foreach($this->friend_requests_sent as $request){
+        array_push($users_ids, $request->receiver_id);
+      }
+
+      return in_array($user_id, $users_ids);
+    }
+
+     public function receivedFriendRequestFrom($user_id){
+      $users_ids = array();
+      foreach($this->friend_requests_received as $request){
+        array_push($users_ids, $request->sender_id);
+      }
+
+      return in_array($user_id, $users_ids);
+    }
+
 
 
     // /**

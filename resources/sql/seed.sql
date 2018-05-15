@@ -1,6 +1,4 @@
 --Tables
-DROP TYPE IF EXISTS categories CASCADE;
-DROP TYPE IF EXISTS types CASCADE;
 
 DROP TABLE IF EXISTS baned_users CASCADE;
 CREATE TABLE baned_users (
@@ -67,10 +65,12 @@ CREATE TABLE events (
 DROP TABLE IF EXISTS event_invites CASCADE;
 CREATE TABLE event_invites (
     id SERIAL NOT NULL,
-    answer text,
+    answer BOOLEAN,
     event_id INTEGER NOT NULL,
+    sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    CONSTRAINT event_invites_pk PRIMARY KEY (id)
+    CONSTRAINT event_invites_pk PRIMARY KEY (id),
+    CONSTRAINT event_invites_uk UNIQUE (event_id, receiver_id)
 );
 
 DROP TABLE IF EXISTS event_delete_warnings CASCADE;
@@ -105,11 +105,13 @@ CREATE TABLE friend_activities (
 DROP TABLE IF EXISTS friend_requests CASCADE;
 CREATE TABLE friend_requests (
     id SERIAL NOT NULL,
-    answer text,
+    answer BOOLEAN,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    CONSTRAINT friend_requests_pk PRIMARY KEY (id)
+    CONSTRAINT friend_requests_pk PRIMARY KEY (id),
+    CONSTRAINT friend_requests_uk UNIQUE (sender_id, receiver_id)
 );
+
 DROP TABLE IF EXISTS friendships CASCADE;
 CREATE TABLE friendships (
     id SERIAL NOT NULL,
@@ -237,6 +239,10 @@ ALTER TABLE ONLY events
 ALTER TABLE ONLY event_invites
     ADD CONSTRAINT event_invites_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     not_dones(event_id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY event_invites
+    ADD CONSTRAINT event_invites_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
+    "users"(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY event_invites
     ADD CONSTRAINT event_invites_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
@@ -374,9 +380,12 @@ CREATE TRIGGER rating_update
 CREATE OR REPLACE FUNCTION accept_friend_request() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-  IF New.answer = 'yes' 
+  IF New.answer = true 
   THEN
     INSERT INTO friendships (user_id_1, user_id_2) VALUES (New.sender_id, New.receiver_id);
+    DELETE FROM friend_requests WHERE sender_id = New.sender_id AND receiver_id = New.receiver_id;
+  ELSEIF New.answer = false THEN
+    DELETE FROM friend_requests WHERE sender_id = New.sender_id AND receiver_id = New.receiver_id;
   END IF;
   RETURN NULL;
 END
@@ -392,9 +401,12 @@ CREATE TRIGGER accept_friend_request
 CREATE OR REPLACE FUNCTION accept_event_invite() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-  IF New.answer = 'yes' 
+  IF New.answer = true 
   THEN
     INSERT INTO participants (user_id, event_id) VALUES (New.receiver_id, New.event_id);
+    DELETE FROM event_invites WHERE event_id = New.event_id AND receiver_id = New.receiver_id;
+  ELSEIF New.answer = false THEN
+    DELETE FROM event_invites WHERE event_id = New.event_id AND receiver_id = New.receiver_id;
   END IF;
   RETURN NULL;
 END
@@ -405,6 +417,35 @@ CREATE TRIGGER accept_event_invite
   AFTER UPDATE ON event_invites
   FOR EACH ROW
     EXECUTE PROCEDURE accept_event_invite();
+
+
+CREATE OR REPLACE FUNCTION avoid_reverse_friendships() RETURNS TRIGGER AS
+$BODY$
+
+DECLARE found_count int;
+DECLARE newcol1 int;
+DECLARE newcol2 int;
+DECLARE dummy int;
+BEGIN
+    
+        SELECT COUNT(1) INTO found_count FROM friendships
+        WHERE user_id_1 = New.user_id_2 AND user_id_2 = New.user_id_1;
+        IF found_count = 1 THEN
+            SELECT 1 INTO dummy FROM information_schema.tables;
+        ELSE
+            RETURN New;
+        END IF;
+
+        RETURN NULL;
+        
+  END
+$BODY$
+LANGUAGE plpgsql;
+ 
+CREATE TRIGGER avoid_reverse_friendships
+  BEFORE INSERT ON friendships
+  FOR EACH ROW
+    EXECUTE PROCEDURE avoid_reverse_friendships();
 
 
 	
@@ -552,13 +593,14 @@ INSERT INTO images (event_id,path) VALUES (8,'/imgs/fa2.jpg');
 
 
 			
-INSERT INTO dones (event_id)
-			VALUES (2);
+
 INSERT INTO dones (event_id)
 			VALUES (7);
 			
 INSERT INTO not_dones (event_id)
 			VALUES (1);
+INSERT INTO not_dones (event_id)
+			VALUES (2);
 INSERT INTO not_dones (event_id)
 			VALUES (3);
 INSERT INTO not_dones (event_id)
@@ -649,7 +691,19 @@ INSERT INTO options (description,poll_id) VALUES ('Available',4);
 INSERT INTO options (description,poll_id) VALUES ('Not Available',4);
 
 INSERT INTO friend_requests (sender_id, receiver_id) VALUES (1, 2);
-INSERT INTO friend_requests (sender_id, receiver_id) VALUES (3, 4);
+INSERT INTO friend_requests (sender_id, receiver_id) VALUES (4, 3);
+INSERT INTO friend_requests (sender_id, receiver_id) VALUES (5, 3);
+INSERT INTO friend_requests (sender_id, receiver_id) VALUES (3, 6);
+INSERT INTO friend_requests (sender_id, receiver_id) VALUES (7, 3);
+INSERT INTO friend_requests (sender_id, receiver_id) VALUES (8, 4);
 
-INSERT INTO event_invites (event_id, receiver_id) VALUES (1, 10);
-INSERT INTO event_invites (event_id, receiver_id) VALUES (1, 12);
+INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (2, 2, 10);
+INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (2, 2, 12);
+
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 10);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 4);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 6);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 7);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (8, 2);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (3, 2);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (9, 2);

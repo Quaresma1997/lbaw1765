@@ -3,24 +3,22 @@
 namespace App\Policies;
 
 use App\User;
-use App\Participant;
-
+use App\Friendship;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
-
-class ParticipantPolicy
+class FriendshipPolicy
 {
     use HandlesAuthorization;
 
     public function create(User $user)
     {
       // Any user can create a new card
-      return true;
+      return Auth::check();
     }
 
-    public function delete(User $user, Participant $part, User $owner)
+    public function delete(User $user, Friendship $friend)
     {
       // Only an event owner can delete it
-      return $user->id == $part->user_id || $user->id == $owner->id;
+      return ($user->id == $friend->user_id_1 || $user->id == $friend->user_id_2);
     }
 }
