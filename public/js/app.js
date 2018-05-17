@@ -974,7 +974,7 @@ function sendCreateCardRequest(event) {
 function sendAddEventRequest(event) {
   let name = document.querySelector('input[id=name]').value;
   let type = document.querySelector('#select_type select').value;
-  let category = this.querySelector('#select_category select').value;
+  let category = this.querySelector('#select_category select').selectedIndex + 1;
   let date = this.querySelector('input[id=date]').value;
   let time = this.querySelector('input[id=time]').value;
   let city = this.querySelector('select[id=select_city_event]').selectedOptions[0].value;
@@ -989,11 +989,18 @@ function sendAddEventRequest(event) {
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
+  let is_public;
+  if (type == "Public")
+    is_public = true;
+  else
+    is_public = false;
+
+
 
   if (name != '' && date != '' && city != '' && country != '' && place != '' && address != '' && description != '') {
     sendAjaxRequest('post', '/api/add_event', {
       name: name,
-      type: type,
+      is_public: is_public,
       category: category,
       date: date,
       time: time,
