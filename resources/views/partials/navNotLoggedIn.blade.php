@@ -6,17 +6,18 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <br>
       <ul class="navbar-nav mr-auto">
+      <form action ="{{route('search')}}" method="get" class="form-inline">
         <li class="nav-item">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search">
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" onclick="window.location.href='./search.html'">
+            <input type="text" class="form-control" name="query" placeholder="Search" required>
+            <span class="input-group-append"> 
+              <button type="submit" class="btn btn-secondary" >
                 <i class="fas fa-search fa-fw"></i>
               </button>
             </span>
           </div>
-
         </li>
+        </form>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">

@@ -1,11 +1,23 @@
 @extends('layouts.app')
 
 @section('navbar')
-    @include('partials.navLoggedIn')
+
+  @if(Auth::user())
+        @include('partials.navLoggedIn')
+        @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+        @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+        @include('partials.addEvent')
+  @else
+        @include('partials.navNotLoggedIn')
+       @include('partials.register')
+        @include('partials.login')
+  @endif
+
+       
+
+           
 @endsection
 
-@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
-@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
 
 @section('content')
 
