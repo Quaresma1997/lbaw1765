@@ -131,8 +131,7 @@
             </span>
           @endif -->
                     </div>
-                    <input type="text" id="input_country" class="form-control" placeholder="Country" name="Country" disabled>
-                  </div>
+                    <input type="text" id="input_country" class="form-control" placeholder="Country" name="Country" disabled >                  </div>
 
                   
                   <div class="col-12 col-sm-6">

@@ -35,7 +35,7 @@ function addEventListeners() {
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
-
+  
 
   let deleteProfile = document.querySelector('#btn_deleteprofile');
   if (deleteProfile != null)
@@ -67,11 +67,11 @@ function addEventListeners() {
 
   let editEvent = document.querySelector('#btn_editEvent');
   if (editEvent != null) {
-    if (cities == null) {
+     if (cities == null) {
       getCurCountryEvent();
-
+      
       sendCitiesRequest(current_country);
-    }
+     }
     editEvent.addEventListener('click', createEditEventForm);
   }
 
@@ -93,13 +93,13 @@ function addEventListeners() {
     selectCountryEvent.addEventListener('change', createCountryInput);
   }
 
-  let signUp = document.querySelector('#btn_signUp');
-  if (signUp != null) {
-    isSignUp = true;
-    select = document.querySelector('#select_country');
-    select.selectedIndex = 2;
-    createCountryInput();
-  }
+    let signUp = document.querySelector('#btn_signUp');
+    if (signUp != null) {
+      isSignUp = true;
+      select = document.querySelector('#select_country');
+      select.selectedIndex = 2;
+      createCountryInput();
+    }
 
 
   let editEventConfirm = document.querySelector('form.edit_event');
@@ -115,12 +115,12 @@ function addEventListeners() {
   let modalAddEvent = $('#add_event');
   if (modalAddEvent != null) {
     modalAddEvent.on('hide.bs.modal', function () {
-
+      
       justRemoveOther = true;
       createCityInput();
       createCountryInput();
-
-
+      
+      
 
     });
     modalAddEvent.on('hidden.bs.modal', function () {
@@ -144,98 +144,98 @@ function addEventListeners() {
       //  createCountryInput();
     });
   }
-
-  btns_banUser = document.querySelectorAll('#btn_banUser');
-  for (let i = 0; i < btns_banUser.length; i++) {
-    btns_banUser[i].addEventListener('click', function () {
-      currentUser = i;
-      sendBanUserRequest();
-    });
-  }
-
-  btns_remEvent = document.querySelectorAll('#btn_remEvent');
-  for (let i = 0; i < btns_remEvent.length; i++) {
-    btns_remEvent[i].addEventListener('click', function () {
-      currentEvent = i;
-      sendRemEventRequest();
-    });
-  }
-
-  let cancelParticipation = document.querySelector('#btn_cancelParticipation');
-  if (cancelParticipation != null) {
-    cancelParticipation.addEventListener('click', sendCancelParticipationRequest);
-
-  }
-
-  btns_removeParticipant = document.querySelectorAll('#btn_removeParticipant');
-  for (let i = 0; i < btns_removeParticipant.length; i++) {
-    btns_removeParticipant[i].addEventListener('click', function () {
-      currentParticipant = i;
-      sendRemoveParticipantRequest();
-    });
-  }
-
-  let addParticipation = document.querySelector('#btn_addParticipation');
-  if (addParticipation != null) {
-    addParticipation.addEventListener('click', sendAddParticipationRequest);
-
-  }
-
-
-  let addFriend = document.querySelector('#btn_addFriend');
-  if (addFriend != null) {
-    addFriend.addEventListener('click', sendAddFriendRequest);
-  }
-
-  let removeFriend = document.querySelector('#btn_removeFriend');
-  if (removeFriend != null) {
-    removeFriend.addEventListener('click', sendRemoveFriendRequest);
-  }
-
-  let acceptEventInvite = document.querySelectorAll('#btn_acceptEventInvite');
-  for (let i = 0; i < acceptEventInvite.length; i++) {
-    acceptEventInvite[i].addEventListener('click', sendAcceptEventInviteRequest);
-  }
-
-  let declineEventInvite = document.querySelectorAll('#btn_declineEventInvite');
-  for (let i = 0; i < declineEventInvite.length; i++) {
-    declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
-  }
-
-    let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
-    for (let i = 0; i < acceptFriend.length; i++) {
-      acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
+    btns_banUser = document.querySelectorAll('#btn_banUser');
+    for (let i = 0; i < btns_banUser.length; i++) {
+      btns_banUser[i].addEventListener('click', function () {
+        currentUser = i;
+        sendBanUserRequest();
+      });
+    }
+  
+    btns_remEvent = document.querySelectorAll('#btn_remEvent');
+    for (let i = 0; i < btns_remEvent.length; i++) {
+      btns_remEvent[i].addEventListener('click', function () {
+        currentEvent = i;
+        sendRemEventRequest();
+      });
+    }
+  
+    let cancelParticipation = document.querySelector('#btn_cancelParticipation');
+    if (cancelParticipation != null) {
+      cancelParticipation.addEventListener('click', sendCancelParticipationRequest);
+  
+    }
+  
+    btns_removeParticipant = document.querySelectorAll('#btn_removeParticipant');
+    for (let i = 0; i < btns_removeParticipant.length; i++) {
+      btns_removeParticipant[i].addEventListener('click', function () {
+        currentParticipant = i;
+        sendRemoveParticipantRequest();
+      });
+    }
+  
+    let addParticipation = document.querySelector('#btn_addParticipation');
+    if (addParticipation != null) {
+      addParticipation.addEventListener('click', sendAddParticipationRequest);
+  
+    }
+  
+  
+    let addFriend = document.querySelector('#btn_addFriend');
+    if (addFriend != null) {
+      addFriend.addEventListener('click', sendAddFriendRequest);
+    }
+  
+    let removeFriend = document.querySelector('#btn_removeFriend');
+    if (removeFriend != null) {
+      removeFriend.addEventListener('click', sendRemoveFriendRequest);
+    }
+  
+    let acceptEventInvite = document.querySelectorAll('#btn_acceptEventInvite');
+    for (let i = 0; i < acceptEventInvite.length; i++) {
+      acceptEventInvite[i].addEventListener('click', sendAcceptEventInviteRequest);
+    }
+  
+    let declineEventInvite = document.querySelectorAll('#btn_declineEventInvite');
+    for (let i = 0; i < declineEventInvite.length; i++) {
+      declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
+    }
+  
+      let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
+      for (let i = 0; i < acceptFriend.length; i++) {
+        acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
+      }
+  
+      let declineFriend = document.querySelectorAll('#btn_declineFriend');
+      for (let i = 0; i < declineFriend.length; i++) {
+        declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
+      }
+  
+    btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+    for (let i = 0; i < btns_makeInvite.length; i++) {
+      makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
+      btns_makeInvite[i].addEventListener('click', makeInvite[i]);
+    }
+  
+    btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+    for (let i = 0; i < btns_cancelInvite.length; i++) {
+      cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
+      btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
     }
 
-    let declineFriend = document.querySelectorAll('#btn_declineFriend');
-    for (let i = 0; i < declineFriend.length; i++) {
-      declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
-    }
-
-  btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
-  for (let i = 0; i < btns_makeInvite.length; i++) {
-    makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
-    btns_makeInvite[i].addEventListener('click', makeInvite[i]);
   }
 
-  btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
-  for (let i = 0; i < btns_cancelInvite.length; i++) {
-    cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
-    btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
-  }
-
-
-}
 
 let current_first_name, current_last_name, current_email;
 let current_city, current_country, current_city_default, current_country_default, current_img, current_description, current_date, current_time;
 let cities, cities_default, countries, isEvent, isDefault = true,
   isSignUp;
-isEditing = false;
+  isEditing = false;
 let justRemoveOther;
 
 let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
 let makeInvite = new Array(), cancelInvite = new Array();
+
 
 
 // $(document).ready(function(){
@@ -262,7 +262,7 @@ function getCurCountry() {
 
   current_country = country;
 
-
+  
 }
 
 function createCityInput() {
@@ -305,7 +305,6 @@ function createCityInput() {
   }
 
 }
-
 function createCountryInput() {
   let select;
   if (isEvent)
@@ -314,40 +313,37 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
-  /*let input = document.createElement("input");
+ /* let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
   input.name = "country";*/
-  $('#input_country').hide();
-
-
   if (justRemoveOther)
     country = current_country_default;
 
-
+  
 
   if (country == "Other") {
 
-    select.parentElement.appendChild(input);
+    //select.parentElement.appendChild(input);
     $('#input_country').removeAttr('disabled');;
     $('#input_country').show();
 
     if (isEvent || isSignUp)
       cities_default = new Array();
     else
-      cities = new Array();
+      cities = new Array(); 
     changeCityOptions();
     select.name = "select_country";
   } else {
 
+    $('#input_country').hide();
+    $('#input_country').attr('disabled','disabled');
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
-      //select.parentElement.removeChild(old_input);
-      $('#input_country').hide();
-      $('#input_country').attr('disabled', 'disabled');
+    //  select.parentElement.removeChild(old_input);
       select.name = "country";
     }
 
@@ -381,14 +377,14 @@ function changeCityOptions() {
     thisCurCity = current_city;
   }
 
-
-
-
+  
+  
+  
   let cities_options = "";
   let i;
   $('#input_city').hide();
   cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -396,7 +392,7 @@ function changeCityOptions() {
     else
       cities_options += "'>" + use_cities[i] + "</option>";
   }
-  //  cities_options += "<option value = 'Other'>Other</option>";
+    //  cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
 
@@ -410,7 +406,7 @@ function putAddEventOptions() {
   $('#input_country').hide();
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -422,12 +418,12 @@ function putAddEventOptions() {
   //countries_options += "<option value = 'Other'>Other</option>";
   select_country.innerHTML = countries_options;
 
-
+  
 
   let cities_options = "";
   $('#input_city').hide();
   cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -435,7 +431,7 @@ function putAddEventOptions() {
     else
       cities_options += "'>" + cities_default[i] + "</option>";
   }
-  //cities_options += "<option value = 'Other'>Other</option>";
+    //cities_options += "<option value = 'Other'>Other</option>";
   select_city.innerHTML = cities_options;
 
 
@@ -499,12 +495,11 @@ function createEditProfileForm(event) {
 
 
 
-
+  
   let cities_options = "";
   let i;
-  $('#input_city').hide();
   cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -515,9 +510,8 @@ function createEditProfileForm(event) {
   // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
-  $('#input_country').hide();
   countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -587,7 +581,7 @@ function createEditEventForm(event) {
   let index_first_comma = localization.indexOf(',');
   let index_second_comma = localization.indexOf(',', index_first_comma + 1);
 
-
+  
   let place = localization.substr(0, index_first_comma);
   let city = localization.substr(index_first_comma + 2, index_second_comma - index_first_comma - 2);
   let country = localization.substr(index_second_comma + 2, localization.size);
@@ -620,12 +614,11 @@ function createEditEventForm(event) {
     "</div>" +
     "</div>";
 
-
+  
   let cities_options = "";
   let i;
-  $('#input_city').hide();
   cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -637,7 +630,7 @@ function createEditEventForm(event) {
 
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -989,11 +982,11 @@ function sendAddEventRequest(event) {
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
-  let is_public;
-  if (type == "Public")
-    is_public = true;
-  else
-    is_public = false;
+    let is_public;
+    if (type == "Public")
+      is_public = true;
+    else
+      is_public = false;
 
 
 
@@ -1021,7 +1014,7 @@ function sendCountriesRequest() {
 }
 
 function sendCitiesRequest(country) {
-
+  
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
 
@@ -1269,29 +1262,29 @@ function sendCancelInviteRequest(i) {
 
 
 function getCitiesHandler() {
-
+  
   let cit = JSON.parse(this.responseText)['cities'];
-
+  
   if (isDefault || isEvent || isSignUp) {
     cities_default = new Array();
     for (let i = 0; i < cit.length; i++) {
       cities_default.push(cit[i].name);
     }
     isDefault = false;
-
+   
   } else {
     cities = new Array();
     for (let i = 0; i < cit.length; i++) {
       cities.push(cit[i].name);
     }
-
+    
   }
   changeCityOptions();
   //changeCityOptions();
 }
 
 function getCountriesHandler() {
-
+  
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     let countr = JSON.parse(this.responseText)['countries'];
@@ -1302,7 +1295,7 @@ function getCountriesHandler() {
 
     current_country_default = countr[0].name;
     sendCitiesRequest(current_country_default);
-
+    
     addEventListeners();
 
   } else {
@@ -1347,8 +1340,8 @@ function profileEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    message['message'].forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
+      message['message'].forEach(element => {
+        errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
@@ -1368,10 +1361,10 @@ function eventEditedHandler() {
     country = JSON.parse(this.responseText)['country'];
     localization = JSON.parse(this.responseText)['localization'];
     updateEvent(event, city, country, localization);
-
-    getCurCountryEvent();
-    sendCountriesRequest();
-
+     
+     getCurCountryEvent();
+     sendCountriesRequest();
+     
   } else {
     let content = document.querySelector("#content");
     let errors;
@@ -1384,8 +1377,8 @@ function eventEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    message['message'].forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
+      message['message'].forEach(element => {
+        errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
@@ -1415,8 +1408,8 @@ function eventDeletedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    message['message'].forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
+      message['message'].forEach(element => {
+        errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
@@ -1689,7 +1682,7 @@ function cardAddedHandler() {
 }
 
 function eventAddedHandler() {
-
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
