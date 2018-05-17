@@ -10,25 +10,27 @@
     </div>
   </div>
 </div>
-<table class="table table-hover">
-  <thead>
-    <tr class="d-flex">
-      <th class="col-4">Username</th>
-      <th class="col col-sm-6 col-xs-5">Email</th>
-      <th class="col col-sm-2 col-xs-3" style="text-align: center;">Ban</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($users as $user)
+<div class="row">
+  <table class="table table-hover table-responsive">
+    <thead>
       <tr class="d-flex">
-        <td class="col-4"><a href="./tiagoc.html" class="text-white"><span id="span_username">{{ $user->username }}</span></a></td>
-        <td class="col col-sm-6 col-xs-5">{{ $user->email }}</td>
-        <td class="col col-sm-2 col-xs-3" style="text-align: center">
-          <button type="button" id="btn_banUser" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Ban User">
-            <i class="fas fa-ban fa-fw"></i>
-          </button>
-        </td>
-     </tr>
-    @endforeach
-  </tbody>
-</table>
+        <th class="col-4">Username</th>
+        <th class="col-sm-6 col-5">Email</th>
+        <th class="col-sm-2 col-3" style="text-align: center;">Ban</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($users as $user)
+        <tr class="d-flex">
+          <td class="col-4"><a href="./tiagoc.html" class="text-white"><span id="span_username">{{ $user->username }}</span></a></td>
+          <td class="col-sm-6 col-5">{{ $user->email }}</td>
+          <td class="col-sm-2 col-3" style="text-align: center">
+            <button type="button" id="btn_banUser" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Ban User">
+              <i class="fas fa-ban fa-fw"></i>
+            </button>
+          </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
