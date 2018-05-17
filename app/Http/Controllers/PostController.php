@@ -24,17 +24,25 @@ class PostController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-/** 
-    public function show($id)
-    {
-      $post = Post::find($id);
-      
-      
-        $user = User::find($post->user_id);
 
-        $post->user_id = $user->username;
+    public function add()
+    {
+      
 
     }
-*/
+
+    public function delete()
+    {
+      
+
+    }
+    public function edit()
+    {
+      
+
+    }
+    
+    
+
 
 }

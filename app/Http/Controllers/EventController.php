@@ -116,8 +116,8 @@ class EventController extends Controller
      $event->time = $data->input('time');
      $event->description = $data->input('description');
      $event->owner_id = Auth::user()->id;
-     $event->type = $data->input('type');
-     $event->category = $data->input('category');
+    $event->is_public = $data->input('is_public');
+     $event->category_id = $data->input('category');
      
       // LOCALIZATION_ID
 
