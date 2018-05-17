@@ -1,0 +1,10 @@
+imagens via multipart
+
+edit perfil via multipart
+
+cron paa notificacoes e eventos realizados por exemplo,
+se um utilizador estiver a usar e o evento passou a realizado altera em tempo real
+
+https://laravel.com/docs/5.6/filesystem
+
+https://laravel.com/docs/5.6/scheduling
