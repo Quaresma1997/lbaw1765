@@ -29,9 +29,10 @@ function addEventListeners() {
   if (editProfile != null) {
     if (cities == null) {
       getCurCountry();
-      //   
+
       sendCitiesRequest(current_country);
     }
+   
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
@@ -72,6 +73,7 @@ function addEventListeners() {
       
       sendCitiesRequest(current_country);
      }
+    
     editEvent.addEventListener('click', createEditEventForm);
   }
 
@@ -493,8 +495,6 @@ function createEditProfileForm(event) {
 
     "</div>";
 
-
-
   
   let cities_options = "";
   let i;
@@ -522,6 +522,20 @@ function createEditProfileForm(event) {
   }
   //  countries_options += "<option value = 'Other'>Other</option>";
 
+  let countries_input = "";
+  // por algum motivo nunca aparece o country == 'Other'
+  if(country == "Other")
+    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country'>" ;
+  else
+    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled>" ;
+
+  let cities_input = "";
+  if(city == "Other")
+    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' >" ;
+  else
+    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled>" ;
+    
+
 
   let div3 =
     "<div class='row'>" +
@@ -532,13 +546,13 @@ function createEditProfileForm(event) {
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >" +
+    cities_input +
     "</div>" +
     "<div class='col-5 pl-1'>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >" +
+    countries_input +
     "</div>" +
     "</div>";
 
@@ -641,6 +655,21 @@ function createEditEventForm(event) {
   }
   //countries_options += "<option value = 'Other'>Other</option>";
 
+  let countries_input = "";
+// por algum motivo nunca aparece o country == 'Other'
+  if(country == "Other")
+    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country'>" ;
+  else
+    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled>" ;
+
+  let cities_input = "";
+  if(city == "Other")
+    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' >" ;
+  else
+    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled>" ;
+    
+
+
   let form_localization =
     "<div class='row mt-3'>" +
     "<div class='col-1 pr-0'>" +
@@ -655,14 +684,14 @@ function createEditEventForm(event) {
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >" +
+    countries_input +
     "</div>" +
     "<div class='col-3 pl-1 pr-0'>" +
     "<label for='city'>City</label>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >" +
+    cities_input +
     "</div>" +
     "</div>";
 
@@ -1032,7 +1061,7 @@ function sendEditProfileRequest(event) {
 
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
-
+  
   let index;
   if (img_path == "") {
     img_path = current_img;
@@ -1325,7 +1354,7 @@ function profileEditedHandler() {
     profile = JSON.parse(this.responseText)['user'];
     city = JSON.parse(this.responseText)['city'];
     country = JSON.parse(this.responseText)['country'];
-    updateProfile(profile, city, country);
+    updateProfile(profile, city, country);    
     getCurCountry();
     sendCountriesRequest();
   } else {
