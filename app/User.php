@@ -98,6 +98,32 @@ class User extends Authenticatable
     // return $this->hasMany('App\Friendship', 'user_id_1')->hasMany('App\Friendship', 'user_id_2');
   }
 
+  public function getFriendsEvents(){
+    $friends = $this->getFriends();
+    $friend_events = [];
+    if($friends != null){
+      $friend_events = array();
+      foreach($friends as $friend){
+                array_push($friend_events, $friend->publicEvents());
+            }
+          }
+
+          return $friend_events;
+  }
+
+  public function publicEvents(){
+    $participants = $this->participants;
+        $participating = [];
+        if($participants != null){
+            $participating = array();
+            foreach($participants as $participant){
+              if($participant->event->is_public)
+                array_push($participating, $participant->event);
+            }
+        }
+        return $participating;
+  }
+
   
     public function friendWith($user_id){
         return (Friendship::where('user_id_1', $this->id)->where('user_id_2', $user_id)->first()

@@ -53,7 +53,11 @@
       <div class="col-12 col-xl-9">
         <div class="container" >
           <div class="row">
-            @each('partials.eventExtended', $events, 'event')
+           @foreach($events as $friend_events)
+            @each('partials.eventExtended', $friend_events, 'event')
+            
+           @endforeach
+           
            
           </div>
         </div>

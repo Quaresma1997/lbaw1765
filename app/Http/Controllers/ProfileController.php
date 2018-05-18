@@ -41,11 +41,18 @@ class ProfileController extends Controller
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
       $categories = Category::all();
 
+      $participants = $user->participants;
+        $participating = [];
+        if($participants != null){
+            $participating = array();
+            foreach($participants as $participant){
+                array_push($participating, $participant->event);
+            }
+        }
 
       $this->authorize('show', $user);
-
       
-      return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country, 'categories' => $categories]);
+      return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country, 'categories' => $categories, 'events_participating' => $participating]);
     }
 
     private function valid(Request $request, $check_email){

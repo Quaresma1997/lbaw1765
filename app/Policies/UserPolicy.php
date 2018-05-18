@@ -14,7 +14,7 @@ class UserPolicy
     public function show(User $user)
     {
       // Only a card owner can see it
-      return Auth::check();
+      return true;
     }
 
     public function list(User $user)
