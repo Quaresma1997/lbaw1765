@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FriendRequest extends Model
 {
-    public $timestamps  = false;
+    public $timestamps  = true;
 
      public function sender() {
         return $this->belongsTo('App\User', 'sender_id');

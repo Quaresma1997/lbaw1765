@@ -1142,7 +1142,7 @@ function sendCancelParticipationRequest(event) {
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
-  }, participationCanceledHandler);
+  }, participationHandler);
 
   event.preventDefault();
 
@@ -1155,7 +1155,7 @@ function sendAddParticipationRequest(event) {
   sendAjaxRequest('post', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
-  }, participationAddedHandler);
+  }, participationHandler);
 
   event.preventDefault();
 }
@@ -1251,7 +1251,7 @@ function sendRemoveParticipantRequest() {
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
-  }, participantRemovedHandler);
+  }, participationHandler);
 
 }
 
@@ -1445,21 +1445,7 @@ function eventDeletedHandler() {
   }
 }
 
-function participationCanceledHandler() {
-  let message = JSON.parse(this.responseText)['message'];
-  if (this.status == 200) window.location = '/';
-
-}
-
-function participantRemovedHandler() {
-  let message = JSON.parse(this.responseText)['message'];
-  if (message == "success") {
-    btns_removeParticipant[currentParticipant].parentNode.parentNode.remove();
-  }
-
-}
-
-function participationAddedHandler() {
+function participationHandler() {
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -1467,6 +1453,15 @@ function participationAddedHandler() {
   }
 
 }
+
+// function participantRemovedHandler() {
+//   let message = JSON.parse(this.responseText)['message'];
+//   if (message == "success") {
+//     btns_removeParticipant[currentParticipant].parentNode.parentNode.remove();
+//   }
+
+// }
+
 
 function acceptedInviteHandler() {
   let response = JSON.parse(this.responseText);

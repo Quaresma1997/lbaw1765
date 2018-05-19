@@ -32,14 +32,17 @@
               <i class="fas fa-bell fa-fw"></i> Notifications </a>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-           @foreach(Auth::user()->friend_requests_received as $friend_request)
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend{{$friend_request->id}}">{{$friend_request->sender->username}} wants to be your friend</a>
+           @foreach(Auth::user()->notifications() as $notification)
+            @if($notification->type == 1 )
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent{{$notification->id}}">{{$notification->sender->username}} invited you to an event</a>
+           @elseif($notification->type == 2 )
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend{{$notification->id}}">{{$notification->sender->username}} wants to be your friend</a>
+            @endif
             @endforeach
-              
-       
-            @foreach(Auth::user()->event_invites as $invite)
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#joinEvent{{$invite->id}}">{{ $invite->sender->username}} invited you to an event</a>
-            @endforeach
+
+            @if(sizeof(Auth::user()->notifications()) == 0)
+              <span class="dropdown-item">No notifications</span>
+            @endif
             </div>
           </div>
         </li>

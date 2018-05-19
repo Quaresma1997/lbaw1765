@@ -9,6 +9,7 @@
 @include('partials.addEvent')
 
 @section('content')
+
 <div class="row">
       <div class="col-12 col-lg-4">
         <div class="container mx-auto sticky-top">
@@ -46,11 +47,17 @@
               </a>
             </li>
           </ul>
-         
+
           <div class="container">
             <div class="tab-content">
               <div id="events" class="container tab-pane fade show active">
-              <div class="row">
+              <div class="row mt-3">
+              @if(sizeof($user->events) == 0 and sizeof($events_participating) == 0)
+
+              <h3>There are no events to show!</h3>
+
+              @endif
+
                 @each('partials.event', $user->events, 'event')
                 @each('partials.event', $events_participating, 'event')
                 </div>
@@ -59,25 +66,15 @@
 
               <div id="friends" class="container tab-pane fade">
                 <div class="row mt-3">
-                  @foreach($user->getFriends() as $friend)
-                    <div class="col-12 col-lg-6 px-1">
-                    <div class="jumbotron jumbotron-fluid p-1 my-1 list">
-                      <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
-                      <div class="row">
-                        <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="/imgs/{{ $friend->image_path }}">
-                        </div>
-                        <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
-                          <div>
-                            <h3 class="my-4">{{$friend->username}}</h3>
-                          </div>
-                        </div>
-                      </div>
-                      </a>
-                    </div>
-                  </div>
-                  @endforeach
-                  
+                @if(sizeof($user->getFriends()) == 0 )
+
+                <h3>There are no friends to show!</h3>
+
+                @endif
+
+                @each('partials.friend', $user->getFriends(), 'friend')
+
+
                 </div>
             </div>
           </div>

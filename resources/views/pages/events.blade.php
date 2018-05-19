@@ -55,11 +55,11 @@
     @include('partials.eventAsOwner')
   @elseif(Auth::user()->inEvent($event->id) != null)
     @include('partials.eventAsParticipant')
+  @elseif(Auth::user()->invite_to_event($event->id) != null)
+    @include('partials.eventAsInvited')
   @else
     @include('partials.eventAsVisitor')
   @endif
-
- 
 
   
 

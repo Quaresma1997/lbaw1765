@@ -69,6 +69,8 @@ CREATE TABLE event_invites (
     event_id INTEGER NOT NULL,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
+        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_invites_pk PRIMARY KEY (id),
     CONSTRAINT event_invites_uk UNIQUE (event_id, receiver_id)
 );
@@ -78,6 +80,8 @@ CREATE TABLE event_delete_warnings (
     id SERIAL NOT NULL,
     event_name text NOT NULL,
     receiver_id INTEGER NOT NULL,
+        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_delete_warnings_pk PRIMARY KEY (id)
 );
 
@@ -86,6 +90,8 @@ CREATE TABLE event_update_warnings (
     id SERIAL NOT NULL,
     event_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
+        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_update_warnings_pk PRIMARY KEY (id),
     CONSTRAINT event_update_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE CASCADE
@@ -108,6 +114,8 @@ CREATE TABLE friend_requests (
     answer BOOLEAN,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT friend_requests_pk PRIMARY KEY (id),
     CONSTRAINT friend_requests_uk UNIQUE (sender_id, receiver_id)
 );
@@ -161,6 +169,8 @@ CREATE TABLE participants (
     id SERIAL NOT NULL,
     user_id INTEGER NOT NULL,
     event_id INTEGER NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT participants_pk PRIMARY KEY (id),
     CONSTRAINT participants_user_id_event_id_uk UNIQUE (user_id, event_id),
     CONSTRAINT participants_event_id_fk FOREIGN KEY (event_id) REFERENCES 
@@ -178,7 +188,7 @@ DROP TABLE IF EXISTS posts CASCADE;
 CREATE TABLE posts (
     id SERIAL NOT NULL,
     description text NOT NULL,
-    date TIMESTAMP WITH TIME zone NOT NULL,
+    date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     event_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     image_path text,
@@ -266,7 +276,7 @@ ALTER TABLE ONLY friend_activities
 
 ALTER TABLE ONLY friend_requests
     ADD CONSTRAINT friend_requests_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
-    participants(id) ON DELETE CASCADE;
+    "users"(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY friend_requests   
     ADD CONSTRAINT friend_requests_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 

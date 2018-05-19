@@ -64,14 +64,17 @@ class EventController extends Controller
       foreach($event->participants as $participant){
           array_push($participants_invited_ids, $participant->user_id);
       }
+
+      $admin_id = User::where('username', 'admin')->first()->id;
       
       array_push($participants_invited_ids, $event->owner->id);
+      array_push($participants_invited_ids, $admin_id);
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
       //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)]);
+      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)->sortBy('id')]);
     }
     
 

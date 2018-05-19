@@ -6,6 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
+use App\EventInvite;
+use App\FriendRequest;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -65,6 +68,14 @@ class User extends Authenticatable
 
   }
 
+  public function invite_to_event($event_id){
+    if(sizeof($this->event_invites) != 0)
+      return $this->event_invites->where('receiver_id', $this->id)->where('event_id', $event_id)->first();
+    else
+      return null;
+
+  }
+
   public function friend_requests_received(){
 
     return $this->hasMany('App\FriendRequest', 'receiver_id');
@@ -104,25 +115,39 @@ class User extends Authenticatable
     if($friends != null){
       $friend_events = array();
       foreach($friends as $friend){
-                array_push($friend_events, $friend->publicEvents());
+          foreach($this->publicEvents($friend) as $event){
+            array_push($friend_events, $event);
+          }
+                
             }
           }
+
+    usort($friend_events, array($this, "cmp_participation"));
+          
 
           return $friend_events;
   }
 
-  public function publicEvents(){
-    $participants = $this->participants;
+  public function publicEvents($friend){
+    $participants = $friend->participants;
         $participating = [];
         if($participants != null){
             $participating = array();
             foreach($participants as $participant){
               if($participant->event->is_public)
-                array_push($participating, $participant->event);
+              $new_event = $participant->event;
+              $new_event->participant = $participant;
+                array_push($participating, $new_event);
             }
         }
         return $participating;
   }
+
+  function cmp_participation($a, $b)
+{
+    return strcmp($a->participant->created_at, $b->participant->created_at);
+}
+
 
   
     public function friendWith($user_id){
@@ -148,12 +173,32 @@ class User extends Authenticatable
       return in_array($user_id, $users_ids);
     }
 
+    public function notifications(){
+      $notifications = $this->friend_requests_received->toBase()->merge($this->event_invites);
+
+      $not_array = array();
+
+      foreach($notifications as $notification){
+        if($notification instanceof EventInvite)
+          $notification->type = 1;
+        elseif($notification instanceof FriendRequest)
+          $notification->type = 2;
+        array_push($not_array, $notification);
+      }
+
+      usort($not_array, array($this, "cmp_notifications"));
 
 
-    // /**
-    //  * The cards this user owns.
-    //  */
-    //  public function cards() {
-    //   return $this->hasMany('App\Card');
-    // }
+      return $not_array;
+    }
+
+      function cmp_notifications($a, $b)
+{
+    return strcmp($a->created_at, $b->created_at);
 }
+
+}
+
+
+
+

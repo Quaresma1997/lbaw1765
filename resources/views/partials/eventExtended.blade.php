@@ -11,7 +11,6 @@
                 </a>
               </div>
             </div> -->
-
 <div class="col-12 col-lg-6">
               <div class="jumbotron list content-lg p-0 mx-auto">
                 <div class="row p-2">
@@ -22,7 +21,7 @@
                   </div>
                   <div class="col-7">
                     <h5>
-                      <a href="/profile/{{$event->owner_id}}" class="text-white">{{$event->owner->username}}</a> joined
+                      <a href="/profile/{{$event->participant->user->id}}" class="text-white">{{$event->participant->user->username}}</a> joined
                       <a href="/events/{{$event->id}}" class="text-white">{{$event->name}}</a>
                     </h5>
                   </div>

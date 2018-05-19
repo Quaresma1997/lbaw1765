@@ -53,11 +53,13 @@
       <div class="col-12 col-xl-9">
         <div class="container" >
           <div class="row">
-           @foreach($events as $friend_events)
-            @each('partials.eventExtended', $friend_events, 'event')
-            
-           @endforeach
-           
+          @if(sizeof(Auth::user()->getFriendsEvents()) == 0)
+
+          <h3>There are no friend activities to show!</h3>
+          
+          @endif
+
+          @each('partials.eventExtended', Auth::user()->getFriendsEvents(), 'event')
            
           </div>
         </div>

@@ -32,7 +32,7 @@ class ParticipantController extends Controller
 
 
         if($participant->delete()){        
-            return response()->json(['message' => 'success']);
+            return response()->json(['message' => 'success', 'id' => $request->input('event_id')]);
         }
         else
             return response()->json(['message' => 'error', 'error' => 'Error deleting participation!']);  
