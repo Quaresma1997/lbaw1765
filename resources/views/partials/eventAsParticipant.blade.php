@@ -27,6 +27,8 @@
     </div>
 
     <div class="jumbotron" >
+      <div class="row" style="display:grid;">
+      <div class="flex">
       <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_cancelParticipation" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
         <i class="fas fa-times fa-fw"></i> Cancel Participation </button>
       <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">
@@ -34,6 +36,8 @@
    
       <br>
       <br>
+      </div>
+      </div>
       <hr>
       <div id="event_data" data-id="{{ $event->id }}">
       <h1 class="display-4" id="event_name">{{$event->name}}</h1>

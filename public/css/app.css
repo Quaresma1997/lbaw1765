@@ -51,6 +51,31 @@ select.custom-select:focus {
   background-color: #303030;
 }
 
+@media(min-width:767px){
+  #jumbotron_register #input_city, 
+  #jumbotron_register #input_country{
+    min-width:219px;
+  }
+}
+@media(max-width:767px) and (min-width:376px){
+  #jumbotron_register #input_city, 
+  #jumbotron_register #input_country{
+    min-width:209px;
+  }
+}
+@media(max-width:375px){
+  #jumbotron_register #input_city, 
+  #jumbotron_register #input_country{
+    width:250px ;
+    min-width: 100%;
+  }
+}
+
+#add_event #input_city, 
+#add_event #input_country {
+  min-width:135px;
+}
+
 #input_city, 
 #input_country {
   border-radius:5px;

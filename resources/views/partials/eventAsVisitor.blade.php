@@ -27,13 +27,17 @@
     </div>
 
     <div class="jumbotron" >
+      <div class="row" style="display:grid;">
+      <div class="flex">
+
       <button type="button" class="btn btn-success mx-1 float-right" id="btn_addParticipation" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
         <i class="fas fa-check fa-fw"></i> Join Event </button>
       <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">
         <i class="fas fa-clipboard-list fa-fw"></i> Participants </button>
-
       <br>
       <br>
+      </div>
+      </div>
       <hr>
       <div id="event_data" data-id="{{ $event->id }}">
       <h1 class="display-4" id="event_name">{{$event->name}}</h1>

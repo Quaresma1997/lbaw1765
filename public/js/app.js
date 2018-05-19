@@ -269,38 +269,31 @@ function getCurCountry() {
 
 function createCityInput() {
   let select;
-
+  
   if (isEvent)
     select = document.querySelector('#select_city_event');
   else
     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
-  /*let input = document.createElement("input");
+  let input = document.createElement("input");
   input.type = "text";
   input.id = "input_city";
   input.classList.add("form-control");
   input.placeholder = "City";
   input.required = true;
-  input.name = "city";*/
-  $('#input_city').hide();
+  input.name = "city";
 
-  if (justRemoveOther)
+  if(justRemoveOther)
     city = "";
 
   if (city == "Other") {
-    if (select.parentElement.querySelector("input[id=input_city") == null) {
-      //select.parentElement.appendChild(input);
-      $('#input_city').removeAttr('disabled');;
-      $('#input_city').show();
-    }
-
+    if (select.parentElement.querySelector("input[id=input_city") == null)
+      select.parentElement.appendChild(input);
     select.name = "select_city";
   } else {
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
-      $('#input_city').hide();
-      $('#input_city').attr('disabled', 'disabled');
-      //select.parentElement.removeChild(old_input);
+      select.parentElement.removeChild(old_input);
       select.name = "city";
     }
 
@@ -315,13 +308,14 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
- /* let input = document.createElement("input");
+  let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
-  input.name = "country";*/
+  input.name = "country";
+
   if (justRemoveOther)
     country = current_country_default;
 
@@ -329,23 +323,18 @@ function createCountryInput() {
 
   if (country == "Other") {
 
-    //select.parentElement.appendChild(input);
-    $('#input_country').removeAttr('disabled');;
-    $('#input_country').show();
-
+    select.parentElement.appendChild(input);
     if (isEvent || isSignUp)
       cities_default = new Array();
     else
-      cities = new Array(); 
+      cities = new Array();
     changeCityOptions();
     select.name = "select_country";
   } else {
-
-    $('#input_country').hide();
-    $('#input_country').attr('disabled','disabled');
+    
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
-    //  select.parentElement.removeChild(old_input);
+      select.parentElement.removeChild(old_input);
       select.name = "country";
     }
 
@@ -357,6 +346,7 @@ function createCountryInput() {
 
 
 }
+
 
 function changeCityOptions() {
   let main_div = document.querySelector("#user_info_container");
@@ -384,7 +374,6 @@ function changeCityOptions() {
   
   let cities_options = "";
   let i;
-  $('#input_city').hide();
   cities_options += "<option value = 'Other'>Other</option>" +
   "<option disabled>────────────────────</option>";
   for (i = 0; i < use_cities.length; i++) {
@@ -405,7 +394,6 @@ function putAddEventOptions() {
   let select_country = document.querySelector("#select_country_event");
   let select_city = document.querySelector("#select_city_event");
   let i;
-  $('#input_country').hide();
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>" +
   "<option disabled>────────────────────</option>";
@@ -423,7 +411,6 @@ function putAddEventOptions() {
   
 
   let cities_options = "";
-  $('#input_city').hide();
   cities_options += "<option value = 'Other'>Other</option>" +
   "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
@@ -522,7 +509,7 @@ function createEditProfileForm(event) {
   }
   //  countries_options += "<option value = 'Other'>Other</option>";
 
-  let countries_input = "";
+ /* let countries_input = "";
   // por algum motivo nunca aparece o country == 'Other'
   if(country == "Other")
     countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country'>" ;
@@ -534,7 +521,7 @@ function createEditProfileForm(event) {
     cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' >" ;
   else
     cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled>" ;
-    
+ */   
 
 
   let div3 =
@@ -546,13 +533,13 @@ function createEditProfileForm(event) {
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    cities_input +
+  //  cities_input +
     "</div>" +
     "<div class='col-5 pl-1'>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    countries_input +
+   // countries_input +
     "</div>" +
     "</div>";
 
@@ -655,7 +642,7 @@ function createEditEventForm(event) {
   }
   //countries_options += "<option value = 'Other'>Other</option>";
 
-  let countries_input = "";
+/*  let countries_input = "";
 // por algum motivo nunca aparece o country == 'Other'
   if(country == "Other")
     countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country'>" ;
@@ -668,7 +655,7 @@ function createEditEventForm(event) {
   else
     cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled>" ;
     
-
+*/
 
   let form_localization =
     "<div class='row mt-3'>" +
@@ -684,14 +671,14 @@ function createEditEventForm(event) {
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    countries_input +
+    //countries_input +
     "</div>" +
     "<div class='col-3 pl-1 pr-0'>" +
     "<label for='city'>City</label>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    cities_input +
+    //cities_input +
     "</div>" +
     "</div>";
 
