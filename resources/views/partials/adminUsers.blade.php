@@ -11,7 +11,7 @@
   </div>
 </div>
 <div class="row">
-  <table class="table table-hover table-responsive">
+  <table class="table table-hover">
     <thead>
       <tr class="d-flex">
         <th class="col-4">Username</th>

@@ -10,8 +10,8 @@
             </div>
           </div>
         </div>
-<div class="">
-        <table class="table table-hover table-responsive">
+<div class="row">
+        <table class="table table-hover">
           <thead>
             <tr class="d-flex">
               <th class="col-5">Name</th>
