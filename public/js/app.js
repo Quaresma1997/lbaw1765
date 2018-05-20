@@ -375,7 +375,7 @@ function changeCityOptions() {
   let cities_options = "";
   let i;
   cities_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -396,7 +396,7 @@ function putAddEventOptions() {
   let i;
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -412,7 +412,7 @@ function putAddEventOptions() {
 
   let cities_options = "";
   cities_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -486,7 +486,7 @@ function createEditProfileForm(event) {
   let cities_options = "";
   let i;
   cities_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -498,7 +498,7 @@ function createEditProfileForm(event) {
 
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -508,20 +508,6 @@ function createEditProfileForm(event) {
 
   }
   //  countries_options += "<option value = 'Other'>Other</option>";
-
- /* let countries_input = "";
-  // por algum motivo nunca aparece o country == 'Other'
-  if(country == "Other")
-    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country'>" ;
-  else
-    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled>" ;
-
-  let cities_input = "";
-  if(city == "Other")
-    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' >" ;
-  else
-    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled>" ;
- */   
 
 
   let div3 =
@@ -533,13 +519,11 @@ function createEditProfileForm(event) {
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-  //  cities_input +
     "</div>" +
     "<div class='col-5 pl-1'>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-   // countries_input +
     "</div>" +
     "</div>";
 
@@ -602,7 +586,7 @@ function createEditEventForm(event) {
     "<input type='text' id='input_name' class='form-control' placeholder='Event name' value='" + name + "' required>";
   let form_date =
     "<div class='row mt-3'>" +
-    "<div class='col-1 pr-0'>" +
+    "<div class='col-1 pr-0' style='margin-top: 40px;'>" +
     "<i class='fas fa-clock fa-fw' ></i>" +
     "</div>" +
     "<div class='col-5'>" +
@@ -619,7 +603,7 @@ function createEditEventForm(event) {
   let cities_options = "";
   let i;
   cities_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -631,7 +615,7 @@ function createEditEventForm(event) {
 
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>" +
-  "<option disabled>────────────────────</option>";
+    "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -642,43 +626,27 @@ function createEditEventForm(event) {
   }
   //countries_options += "<option value = 'Other'>Other</option>";
 
-/*  let countries_input = "";
-// por algum motivo nunca aparece o country == 'Other'
-  if(country == "Other")
-    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country'>" ;
-  else
-    countries_input += "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled>" ;
-
-  let cities_input = "";
-  if(city == "Other")
-    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' >" ;
-  else
-    cities_input += "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled>" ;
-    
-*/
 
   let form_localization =
     "<div class='row mt-3'>" +
-    "<div class='col-1 pr-0'>" +
+    "<div class='col-1 pr-0' style='margin-top: 40px;'>" +
     "<i class='fas fa-map-marker-alt fa-fw' ></i>" +
     "</div>" +
-    "<div class='col-5'>" +
+    "<div class='col-sm-5 col-10'>" +
     "<label for='place'>Place</label>" +
     "<input type='text' id='input_place' class='form-control' placeholder='Event place' value='" + place + "' required>" +
     "</div>" +
-    "<div class='col-3 px-0'>" +
+    "<div class='col-sm-3 col-6'>" +
     "<label for='country'>Country</label>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    //countries_input +
     "</div>" +
-    "<div class='col-3 pl-1 pr-0'>" +
+    "<div class='col-sm-3 col-6'>" +
     "<label for='city'>City</label>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    //cities_input +
     "</div>" +
     "</div>";
 
