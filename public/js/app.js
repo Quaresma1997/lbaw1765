@@ -455,9 +455,12 @@ function createEditProfileForm(event) {
   current_country = country;
 
   let btn_img =
-    "<form action='myform.cgi' class='img_form'>" +
+    "<form action='myform.cgi' class='img_form' style='text-align:center'>" +
+    "<label class='fileContainer'>"+
+    "Upload"+
     "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
+    "</label>"+
     "</form>"
 
   ;
