@@ -374,8 +374,10 @@ function changeCityOptions() {
   
   let cities_options = "";
   let i;
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  cities_options += "<option value = 'Other'>Other</option>" ;
+  if (use_cities.length!=0)
+    cities_options += "<option disabled>────────────────────</option>";
+  
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -395,8 +397,9 @@ function putAddEventOptions() {
   let select_city = document.querySelector("#select_city_event");
   let i;
   let countries_options = "";
-  countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  countries_options += "<option value = 'Other'>Other</option>";
+  if (countries.length!=0)
+  countries_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -411,9 +414,10 @@ function putAddEventOptions() {
   
 
   let cities_options = "";
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
-  for (i = 0; i < cities_default.length; i++) {
+  cities_options += "<option value = 'Other'>Other</option>" ;
+  if (cities_default.length!=0)
+  cities_options += "<option disabled>────────────────────</option>";
+    for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
       cities_options += "' selected>" + cities_default[i] + "</option>";
@@ -485,9 +489,10 @@ function createEditProfileForm(event) {
   
   let cities_options = "";
   let i;
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
-  for (i = 0; i < cities.length; i++) {
+  cities_options += "<option value = 'Other'>Other</option>" ;
+  if (cities.length!=0)
+  cities_options += "<option disabled>────────────────────</option>";
+    for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
       cities_options += "' selected>" + cities[i] + "</option>";
@@ -497,9 +502,10 @@ function createEditProfileForm(event) {
   // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
-  countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
-  for (i = 0; i < countries.length; i++) {
+  countries_options += "<option value = 'Other'>Other</option>";
+  if (countries.length!=0)
+  countries_options += "<option disabled>────────────────────</option>";
+    for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
       countries_options += "' selected>" + countries[i] + "</option>";
@@ -602,8 +608,9 @@ function createEditEventForm(event) {
   
   let cities_options = "";
   let i;
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  cities_options += "<option value = 'Other'>Other</option>" ;
+  if (cities.length!=0)
+  cities_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -614,8 +621,9 @@ function createEditEventForm(event) {
   //cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
-  countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  countries_options += "<option value = 'Other'>Other</option>" ;
+  if (countries.length!=0)
+  countries_options += "<option disabled>────────────────────</option>";  
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
