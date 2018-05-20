@@ -467,10 +467,10 @@ function createEditProfileForm(event) {
     "<div class='col-2 my-auto'>" +
     "<i class='fas fa-user fa-fw '></i>" +
     "</div>" +
-    "<div class='col-4 px-0'>" +
+    "<div class='col-4 px-0 pr-3'>" +
     "<input type='text' id='input_first_name' class='form-control' placeholder='First name' value='" + first_name + "' required>" +
     "</div>" +
-    "<div class='col-6 pl-1'>" +
+    "<div class='col-5 pl-1'>" +
     "<input type='text' id='input_last_name' class='form-control' placeholder='Last name' value='" + last_name + "' required>" +
     "</div>" +
     "</div>";
@@ -480,7 +480,7 @@ function createEditProfileForm(event) {
     "<div class='col-2 my-auto'>" +
     "<i class='fas fa-envelope fa-fw '></i>" +
     "</div>" +
-    "<div class='col-10 pr-3 pl-0'>" +
+    "<div class='col-9 pr-3 pl-0'>" +
     "<input type='email' id='input_email' class='form-control' placeholder='First name' value='" + email + "' required>" +
     "</div>" +
 
@@ -521,7 +521,7 @@ function createEditProfileForm(event) {
     "<div class='col-2 my-auto'>" +
     "<i class='fas fa-map-marker-alt fa-fw '></i>" +
     "</div>" +
-    "<div class='col-5 pl-0'>" +
+    "<div class='col-4 pl-0'>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
@@ -534,10 +534,13 @@ function createEditProfileForm(event) {
     "</div>";
 
   let btns =
-    "<div class='mt-3'>" +
+    "<div class='mt-3 row'>" +
+    "<div class='col-6 d-flex justify-content-end'>" +
     "<button type='submit' class='btn btn-success btn-block' id='btn_confirm_edit_profile'><span><i class='fas fa-check fa-fw'></i> Confirm</span> </button>" +
-
+    "</div>"+
+    "<div class='col-6 d-flex justify-content-start'>" +
     "<button type='button' class='btn btn-outline-danger btn-block' id='btn_cancel_edit_profile'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
+    "</div>"+
     "</div>";
 
 
@@ -592,14 +595,11 @@ function createEditEventForm(event) {
     "<input type='text' id='input_name' class='form-control' placeholder='Event name' value='" + name + "' required>";
   let form_date =
     "<div class='row mt-3'>" +
-    "<div class='col-1 pr-0' style='margin-top: 40px;'>" +
-    "<i class='fas fa-clock fa-fw' ></i>" +
-    "</div>" +
-    "<div class='col-5'>" +
+    "<div class='col-6'>" +
     "<label for='date'>Date</label>" +
     "<input type='date' id='input_date' class='form-control' value='" + date + "' required>" +
     "</div>" +
-    "<div class='col-5'>" +
+    "<div class='col-6'>" +
     "<label for='time'>Time</label>" +
     "<input type='time' id='input_time' class='form-control' value='" + time + "' required>" +
     "</div>" +
@@ -637,10 +637,7 @@ function createEditEventForm(event) {
 
   let form_localization =
     "<div class='row mt-3'>" +
-    "<div class='col-1 pr-0' style='margin-top: 40px;'>" +
-    "<i class='fas fa-map-marker-alt fa-fw' ></i>" +
-    "</div>" +
-    "<div class='col-sm-5 col-10'>" +
+    "<div class='col-sm-6 col-10'>" +
     "<label for='place'>Place</label>" +
     "<input type='text' id='input_place' class='form-control' placeholder='Event place' value='" + place + "' required>" +
     "</div>" +

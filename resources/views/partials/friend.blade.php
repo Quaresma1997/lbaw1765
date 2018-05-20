@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-6 px-1">
-                    <div class="jumbotron jumbotron-fluid p-1 my-1 list">
+                    <div class="jumbotron jumbotron-fluid p-1 my-1 list" style="text-align: center">
                       <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
                       <div class="row">
                         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
