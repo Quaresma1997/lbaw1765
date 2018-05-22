@@ -5,11 +5,16 @@
 @media(max-width:576px){
   #content{
     margin-top: 75px;
-    padding: 5px 
+    padding: 0px;
   }
   #tab_events, #tab_users{
     padding-left: 0;
     padding-right: 0; 
+  }
+  #search_admin_users, 
+  #search_admin_events{
+    padding-left:0px;
+    padding-right: 0px 
   }
 }
 
@@ -18,9 +23,16 @@
   overflow: auto;
 }
 
+#jumbotron_admin .table{
+  margin-left: 14px !important ;
+  margin-right:14px !important ;
+  display: grid;
+  overflow-x: scroll;
+}
+
 #tab_events td, 
 #tab_users td{
-  overflow: hidden; 
+  overflow: auto; 
 }
 
 .navbar-brand {
@@ -131,7 +143,6 @@ div#jumbotron_admin{
   top: 0;
   cursor: pointer;
 }
-
 
 figure {
   display: block;

@@ -1,7 +1,7 @@
 <div class="row mt-3">
-          <div class="col-12 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4">
+          <div class="col-12 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4" id="search_admin_events">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search Events">
+              <input type="text" class="form-control" placeholder="Search Events" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" >
               <span class="input-group-append">
                 <button type="button" class="btn btn-secondary">
                   <i class="fas fa-search fa-fw"></i>
