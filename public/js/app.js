@@ -32,11 +32,11 @@ function addEventListeners() {
 
       sendCitiesRequest(current_country);
     }
-   
+
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
-  
+
 
   let deleteProfile = document.querySelector('#btn_deleteprofile');
   if (deleteProfile != null)
@@ -68,12 +68,12 @@ function addEventListeners() {
 
   let editEvent = document.querySelector('#btn_editEvent');
   if (editEvent != null) {
-     if (cities == null) {
+    if (cities == null) {
       getCurCountryEvent();
-      
+
       sendCitiesRequest(current_country);
-     }
-    
+    }
+
     editEvent.addEventListener('click', createEditEventForm);
   }
 
@@ -95,13 +95,13 @@ function addEventListeners() {
     selectCountryEvent.addEventListener('change', createCountryInput);
   }
 
-    let signUp = document.querySelector('#btn_signUp');
-    if (signUp != null) {
-      isSignUp = true;
-      select = document.querySelector('#select_country');
-      select.selectedIndex = 2;
-      createCountryInput();
-    }
+  let signUp = document.querySelector('#btn_signUp');
+  if (signUp != null) {
+    isSignUp = true;
+    select = document.querySelector('#select_country');
+    select.selectedIndex = 2;
+    createCountryInput();
+  }
 
 
   let editEventConfirm = document.querySelector('form.edit_event');
@@ -117,12 +117,12 @@ function addEventListeners() {
   let modalAddEvent = $('#add_event');
   if (modalAddEvent != null) {
     modalAddEvent.on('hide.bs.modal', function () {
-      
+
       justRemoveOther = true;
       createCityInput();
       createCountryInput();
-      
-      
+
+
 
     });
     modalAddEvent.on('hidden.bs.modal', function () {
@@ -146,97 +146,99 @@ function addEventListeners() {
       //  createCountryInput();
     });
   }
-    btns_banUser = document.querySelectorAll('#btn_banUser');
-    for (let i = 0; i < btns_banUser.length; i++) {
-      btns_banUser[i].addEventListener('click', function () {
-        currentUser = i;
-        sendBanUserRequest();
-      });
-    }
-  
-    btns_remEvent = document.querySelectorAll('#btn_remEvent');
-    for (let i = 0; i < btns_remEvent.length; i++) {
-      btns_remEvent[i].addEventListener('click', function () {
-        currentEvent = i;
-        sendRemEventRequest();
-      });
-    }
-  
-    let cancelParticipation = document.querySelector('#btn_cancelParticipation');
-    if (cancelParticipation != null) {
-      cancelParticipation.addEventListener('click', sendCancelParticipationRequest);
-  
-    }
-  
-    btns_removeParticipant = document.querySelectorAll('#btn_removeParticipant');
-    for (let i = 0; i < btns_removeParticipant.length; i++) {
-      btns_removeParticipant[i].addEventListener('click', function () {
-        currentParticipant = i;
-        sendRemoveParticipantRequest();
-      });
-    }
-  
-    let addParticipation = document.querySelector('#btn_addParticipation');
-    if (addParticipation != null) {
-      addParticipation.addEventListener('click', sendAddParticipationRequest);
-  
-    }
-  
-  
-    let addFriend = document.querySelector('#btn_addFriend');
-    if (addFriend != null) {
-      addFriend.addEventListener('click', sendAddFriendRequest);
-    }
-  
-    let removeFriend = document.querySelector('#btn_removeFriend');
-    if (removeFriend != null) {
-      removeFriend.addEventListener('click', sendRemoveFriendRequest);
-    }
-  
-    let acceptEventInvite = document.querySelectorAll('#btn_acceptEventInvite');
-    for (let i = 0; i < acceptEventInvite.length; i++) {
-      acceptEventInvite[i].addEventListener('click', sendAcceptEventInviteRequest);
-    }
-  
-    let declineEventInvite = document.querySelectorAll('#btn_declineEventInvite');
-    for (let i = 0; i < declineEventInvite.length; i++) {
-      declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
-    }
-  
-      let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
-      for (let i = 0; i < acceptFriend.length; i++) {
-        acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
-      }
-  
-      let declineFriend = document.querySelectorAll('#btn_declineFriend');
-      for (let i = 0; i < declineFriend.length; i++) {
-        declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
-      }
-  
-    btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
-    for (let i = 0; i < btns_makeInvite.length; i++) {
-      makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
-      btns_makeInvite[i].addEventListener('click', makeInvite[i]);
-    }
-  
-    btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
-    for (let i = 0; i < btns_cancelInvite.length; i++) {
-      cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
-      btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
-    }
+  btns_banUser = document.querySelectorAll('#btn_banUser');
+  for (let i = 0; i < btns_banUser.length; i++) {
+    btns_banUser[i].addEventListener('click', function () {
+      currentUser = i;
+      sendBanUserRequest();
+    });
+  }
+
+  btns_remEvent = document.querySelectorAll('#btn_remEvent');
+  for (let i = 0; i < btns_remEvent.length; i++) {
+    btns_remEvent[i].addEventListener('click', function () {
+      currentEvent = i;
+      sendRemEventRequest();
+    });
+  }
+
+  let cancelParticipation = document.querySelector('#btn_cancelParticipation');
+  if (cancelParticipation != null) {
+    cancelParticipation.addEventListener('click', sendCancelParticipationRequest);
+
+  }
+
+  btns_removeParticipant = document.querySelectorAll('#btn_removeParticipant');
+  for (let i = 0; i < btns_removeParticipant.length; i++) {
+    btns_removeParticipant[i].addEventListener('click', function () {
+      currentParticipant = i;
+      sendRemoveParticipantRequest();
+    });
+  }
+
+  let addParticipation = document.querySelector('#btn_addParticipation');
+  if (addParticipation != null) {
+    addParticipation.addEventListener('click', sendAddParticipationRequest);
 
   }
 
 
+  let addFriend = document.querySelector('#btn_addFriend');
+  if (addFriend != null) {
+    addFriend.addEventListener('click', sendAddFriendRequest);
+  }
+
+  let removeFriend = document.querySelector('#btn_removeFriend');
+  if (removeFriend != null) {
+    removeFriend.addEventListener('click', sendRemoveFriendRequest);
+  }
+
+  let acceptEventInvite = document.querySelectorAll('#btn_acceptEventInvite');
+  for (let i = 0; i < acceptEventInvite.length; i++) {
+    acceptEventInvite[i].addEventListener('click', sendAcceptEventInviteRequest);
+  }
+
+  let declineEventInvite = document.querySelectorAll('#btn_declineEventInvite');
+  for (let i = 0; i < declineEventInvite.length; i++) {
+    declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
+  }
+
+  let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
+  for (let i = 0; i < acceptFriend.length; i++) {
+    acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
+  }
+
+  let declineFriend = document.querySelectorAll('#btn_declineFriend');
+  for (let i = 0; i < declineFriend.length; i++) {
+    declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
+  }
+
+  btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+  for (let i = 0; i < btns_makeInvite.length; i++) {
+    makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
+    btns_makeInvite[i].addEventListener('click', makeInvite[i]);
+  }
+
+  btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+  for (let i = 0; i < btns_cancelInvite.length; i++) {
+    cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
+    btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
+  }
+
+}
+
+
 let current_first_name, current_last_name, current_email;
 let current_city, current_country, current_city_default, current_country_default, current_img, current_description, current_date, current_time;
-let cities, cities_default, countries, isEvent, isDefault = true,
-  isSignUp;
-  isEditing = false;
+let cities, cities_default, countries, isEvent, isDefault = true, 
+  isSignUp, isEditing = false;
 let justRemoveOther;
 
+let current_category, current_category_id, current_public;
+
 let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
-let makeInvite = new Array(), cancelInvite = new Array();
+let makeInvite = new Array(),
+  cancelInvite = new Array();
 
 
 
@@ -264,12 +266,12 @@ function getCurCountry() {
 
   current_country = country;
 
-  
+
 }
 
 function createCityInput() {
   let select;
-  
+
   if (isEvent)
     select = document.querySelector('#select_city_event');
   else
@@ -283,7 +285,7 @@ function createCityInput() {
   input.required = true;
   input.name = "city";
 
-  if(justRemoveOther)
+  if (justRemoveOther)
     city = "";
 
   if (city == "Other") {
@@ -300,6 +302,7 @@ function createCityInput() {
   }
 
 }
+
 function createCountryInput() {
   let select;
   if (isEvent)
@@ -319,7 +322,7 @@ function createCountryInput() {
   if (justRemoveOther)
     country = current_country_default;
 
-  
+
 
   if (country == "Other") {
 
@@ -331,7 +334,7 @@ function createCountryInput() {
     changeCityOptions();
     select.name = "select_country";
   } else {
-    
+
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
       select.parentElement.removeChild(old_input);
@@ -369,15 +372,15 @@ function changeCityOptions() {
     thisCurCity = current_city;
   }
 
-  
-  
-  
+
+
+
   let cities_options = "";
   let i;
-  cities_options += "<option value = 'Other'>Other</option>" ;
-  if (use_cities.length!=0)
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (use_cities.length != 0)
     cities_options += "<option disabled>────────────────────</option>";
-  
+
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -385,7 +388,7 @@ function changeCityOptions() {
     else
       cities_options += "'>" + use_cities[i] + "</option>";
   }
-    //  cities_options += "<option value = 'Other'>Other</option>";
+  //  cities_options += "<option value = 'Other'>Other</option>";
 
   select_city.innerHTML = cities_options;
 
@@ -398,8 +401,8 @@ function putAddEventOptions() {
   let i;
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>";
-  if (countries.length!=0)
-  countries_options += "<option disabled>────────────────────</option>";
+  if (countries.length != 0)
+    countries_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -411,20 +414,20 @@ function putAddEventOptions() {
   //countries_options += "<option value = 'Other'>Other</option>";
   select_country.innerHTML = countries_options;
 
-  
+
 
   let cities_options = "";
-  cities_options += "<option value = 'Other'>Other</option>" ;
-  if (cities_default.length!=0)
-  cities_options += "<option disabled>────────────────────</option>";
-    for (i = 0; i < cities_default.length; i++) {
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (cities_default.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
+  for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
       cities_options += "' selected>" + cities_default[i] + "</option>";
     else
       cities_options += "'>" + cities_default[i] + "</option>";
   }
-    //cities_options += "<option value = 'Other'>Other</option>";
+  //cities_options += "<option value = 'Other'>Other</option>";
   select_city.innerHTML = cities_options;
 
 
@@ -456,11 +459,11 @@ function createEditProfileForm(event) {
 
   let btn_img =
     "<form action='myform.cgi' class='img_form' style='text-align:center'>" +
-    "<label class='fileContainer'>"+
-    "Upload"+
+    "<label class='fileContainer'>" +
+    "Upload" +
     "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
-    "</label>"+
+    "</label>" +
     "</form>"
 
   ;
@@ -489,13 +492,13 @@ function createEditProfileForm(event) {
 
     "</div>";
 
-  
+
   let cities_options = "";
   let i;
-  cities_options += "<option value = 'Other'>Other</option>" ;
-  if (cities.length!=0)
-  cities_options += "<option disabled>────────────────────</option>";
-    for (i = 0; i < cities.length; i++) {
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (cities.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
+  for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
       cities_options += "' selected>" + cities[i] + "</option>";
@@ -506,9 +509,9 @@ function createEditProfileForm(event) {
 
   let countries_options = "";
   countries_options += "<option value = 'Other'>Other</option>";
-  if (countries.length!=0)
-  countries_options += "<option disabled>────────────────────</option>";
-    for (i = 0; i < countries.length; i++) {
+  if (countries.length != 0)
+    countries_options += "<option disabled>────────────────────</option>";
+  for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
       countries_options += "' selected>" + countries[i] + "</option>";
@@ -540,10 +543,10 @@ function createEditProfileForm(event) {
     "<div class='mt-3 row'>" +
     "<div class='col-6 d-flex justify-content-end'>" +
     "<button type='submit' class='btn btn-success btn-block' id='btn_confirm_edit_profile'><span><i class='fas fa-check fa-fw'></i> Confirm</span> </button>" +
-    "</div>"+
+    "</div>" +
     "<div class='col-6 d-flex justify-content-start'>" +
     "<button type='button' class='btn btn-outline-danger btn-block' id='btn_cancel_edit_profile'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
-    "</div>"+
+    "</div>" +
     "</div>";
 
 
@@ -553,7 +556,7 @@ function createEditProfileForm(event) {
 
     "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
     btn_img +
-    "<form class='edit_profile'>" +
+    "<form class='edit_profile' method='POST'>" +
     div1 + div2 + div3 + btns +
     "</form>";
 
@@ -564,6 +567,8 @@ function createEditProfileForm(event) {
 }
 
 function createEditEventForm(event) {
+    let btn_edit = document.querySelector("#btn_editEvent");
+    btn_edit.disabled = true;
   let main_div = document.querySelector("#event_data");
 
   let name = main_div.querySelector("#event_name").innerText;
@@ -578,14 +583,22 @@ function createEditEventForm(event) {
   let index_first_comma = localization.indexOf(',');
   let index_second_comma = localization.indexOf(',', index_first_comma + 1);
 
-  
+
   let place = localization.substr(0, index_first_comma);
   let city = localization.substr(index_first_comma + 2, index_second_comma - index_first_comma - 2);
   let country = localization.substr(index_second_comma + 2, localization.size);
 
   let description = main_div.querySelector("#event_description").innerText;
 
+  let category_sel = document.querySelector("#category");
+  let event_category = document.querySelector("#event_category");
+  let public_sel = document.querySelector("#type");
+  let event_public = document.querySelector("#event_public");
+
   current_name = name;
+  current_category_id = event_category.getAttribute("data-id") - 1;
+  current_category = category_sel.options[current_category_id].value;
+  current_public = event_public.getAttribute("data-id");
   current_date = date;
   current_time = time;
   current_place = place;
@@ -596,6 +609,48 @@ function createEditEventForm(event) {
   let form_name =
     "<label for='name'>Name</label>" +
     "<input type='text' id='input_name' class='form-control' placeholder='Event name' value='" + name + "' required>";
+
+  let category_options = "";
+  let i;
+
+  for (i = 0; i < category_sel.options.length; i++) {
+    category_options += "<option value = '" + category_sel.options[i].value;
+    if (i == current_category_id)
+      category_options += "' selected>" + category_sel.options[i].value + "</option>";
+    else
+      category_options += "'>" + category_sel.options[i].value + "</option>";
+  }
+
+  let event_public_options = "";
+
+  for (i = 0; i < public_sel.options.length; i++) {
+    event_public_options += "<option value = '" + public_sel.options[i].value;
+    if ((current_public == "true" && i == 0) || (current_public != "true" && i == 1))
+      event_public_options += "' selected>" + public_sel.options[i].value + "</option>";
+    else
+      event_public_options += "'>" + public_sel.options[i].value + "</option>";
+  }
+
+  let form_category_type =
+    "<div class = 'row mt-3'>" +
+    "<div class='col-12 col-sm-6'>" +
+    "<div class='form-group mb-2 p-0 m-0' id='select_type'>" +
+    "<label for='type'>Type</label>" +
+    "<select class='custom-select' id='input_type' name='select_type'>" +
+    event_public_options +
+    "</select>" +
+    "</div>" +
+    "</div>" +
+    "<div class='col-12 col-sm-6'>" +
+    "<div class='form-group mb-2 p-0 m-0' id='select_category'>" +
+    "<label for='category'>Category</label>" +
+    "<select class='custom-select' id='input_category' name='select_category'>" +
+    category_options +
+    "</select>" +
+    "</div>" +
+    "</div>" +
+    "</div>";
+
   let form_date =
     "<div class='row mt-3'>" +
     "<div class='col-6'>" +
@@ -608,12 +663,12 @@ function createEditEventForm(event) {
     "</div>" +
     "</div>";
 
-  
+
   let cities_options = "";
-  let i;
-  cities_options += "<option value = 'Other'>Other</option>" ;
-  if (cities.length!=0)
-  cities_options += "<option disabled>────────────────────</option>";
+
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (cities.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -624,9 +679,9 @@ function createEditEventForm(event) {
   //cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
-  countries_options += "<option value = 'Other'>Other</option>" ;
-  if (countries.length!=0)
-  countries_options += "<option disabled>────────────────────</option>";  
+  countries_options += "<option value = 'Other'>Other</option>";
+  if (countries.length != 0)
+    countries_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -675,10 +730,10 @@ function createEditEventForm(event) {
 
   main_div.innerHTML =
 
-    "<form class='edit_event'>" +
+    "<form class='edit_event' method='POST'>" +
     "<div class='row'>" +
     "<div class='col-12 col-lg-6'>" +
-    form_name + form_date + form_localization +
+    form_name + form_category_type + form_date + form_localization +
     "</div>" +
     "<div class='col-12 col-lg-6'>" +
     form_description +
@@ -716,14 +771,20 @@ function cancelEditProfile(event) {
 
 function cancelEditEvent(event) {
   let main_div = document.querySelector("#event_data");
+  let cat = current_category_id + 1;
   main_div.innerHTML =
-    "<h1 class='display-4' id='event_name'>" + current_name + "</h1><br>" +
-    "<div class='row'>" +
+    "<span class='display-4' id='event_name'>" + current_name + "</span>"+
+    "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") +"</span"+
+    "<br>" +
+    "<div class='row mt-5'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
     "<i class='fas fa-clock fa-fw' ></i>" + current_date + " at " + current_time + "</h5>" +
     "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5><br>" +
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5>"+
+    "<h5 id='event_category' data-id=" + cat + ">" +
+    "Category: " + current_category + "</h5>" + 
+    "<br>" +
     "</div>" +
     "<div class='col - 12 col - lg - 7'>" +
     "<h1>Description</h1><br>" +
@@ -734,6 +795,8 @@ function cancelEditEvent(event) {
   addEventListeners();
 
   isEditing = false;
+      let btn_edit = document.querySelector("#btn_editEvent");
+      btn_edit.disabled = false;
 }
 
 
@@ -974,11 +1037,11 @@ function sendAddEventRequest(event) {
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
-    let is_public;
-    if (type == "Public")
-      is_public = true;
-    else
-      is_public = false;
+  let is_public;
+  if (type == "Public")
+    is_public = true;
+  else
+    is_public = false;
 
 
 
@@ -1006,7 +1069,7 @@ function sendCountriesRequest() {
 }
 
 function sendCitiesRequest(country) {
-  
+
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
 
@@ -1024,7 +1087,7 @@ function sendEditProfileRequest(event) {
 
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
-  
+
   let index;
   if (img_path == "") {
     img_path = current_img;
@@ -1055,6 +1118,8 @@ function sendEditProfileRequest(event) {
 function sendEditEventRequest(event) {
   let id = this.closest('div').getAttribute('data-id');
   let name = this.querySelector('input[id=input_name]').value;
+  let type = document.querySelector('#input_type').options[document.querySelector('#input_type').selectedIndex].value;
+  let category = document.querySelector('#input_category').selectedIndex + 1;
   let date = this.querySelector('input[id=input_date]').value;
   let time = this.querySelector('input[id=input_time]').value;
   let place = this.querySelector('input[id=input_place]').value;
@@ -1062,15 +1127,30 @@ function sendEditEventRequest(event) {
   let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
   let description = document.querySelector('textarea[id=input_description').value;
 
+  console.log(type);
+
+  
+
   if (city == "Other")
     city = this.querySelector('input[id=input_city]').value;
 
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
+    let is_public;
+    if (type == "Public")
+      is_public = true;
+    else
+      is_public = false;
+
+    console.log(is_public);
+
+
 
   sendAjaxRequest('post', '/api/event/' + id, {
     name: name,
+    is_public: is_public,
+    category: category,
     date: date,
     time: time,
     place: place,
@@ -1153,7 +1233,7 @@ function sendAcceptEventInviteRequest(event) {
 
   let answer = true;
 
-  
+
 
   sendAjaxRequest('post', '/api/invite/', {
     event_id: event_id,
@@ -1254,29 +1334,29 @@ function sendCancelInviteRequest(i) {
 
 
 function getCitiesHandler() {
-  
+
   let cit = JSON.parse(this.responseText)['cities'];
-  
+
   if (isDefault || isEvent || isSignUp) {
     cities_default = new Array();
     for (let i = 0; i < cit.length; i++) {
       cities_default.push(cit[i].name);
     }
     isDefault = false;
-   
+
   } else {
     cities = new Array();
     for (let i = 0; i < cit.length; i++) {
       cities.push(cit[i].name);
     }
-    
+
   }
   changeCityOptions();
   //changeCityOptions();
 }
 
 function getCountriesHandler() {
-  
+
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     let countr = JSON.parse(this.responseText)['countries'];
@@ -1287,7 +1367,7 @@ function getCountriesHandler() {
 
     current_country_default = countr[0].name;
     sendCitiesRequest(current_country_default);
-    
+
     addEventListeners();
 
   } else {
@@ -1317,7 +1397,7 @@ function profileEditedHandler() {
     profile = JSON.parse(this.responseText)['user'];
     city = JSON.parse(this.responseText)['city'];
     country = JSON.parse(this.responseText)['country'];
-    updateProfile(profile, city, country);    
+    updateProfile(profile, city, country);
     getCurCountry();
     sendCountriesRequest();
   } else {
@@ -1332,8 +1412,8 @@ function profileEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-      message['message'].forEach(element => {
-        errors.innerHTML += "<li>" + element + "</li>";
+    message['message'].forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
@@ -1345,6 +1425,7 @@ function profileEditedHandler() {
 }
 
 function eventEditedHandler() {
+  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   let event;
   if (message == 'success') {
@@ -1352,11 +1433,12 @@ function eventEditedHandler() {
     city = JSON.parse(this.responseText)['city'];
     country = JSON.parse(this.responseText)['country'];
     localization = JSON.parse(this.responseText)['localization'];
-    updateEvent(event, city, country, localization);
-     
-     getCurCountryEvent();
-     sendCountriesRequest();
-     
+    category = JSON.parse(this.responseText)['category'];
+    updateEvent(event, city, country, localization, category);
+
+    getCurCountryEvent();
+    sendCountriesRequest();
+
   } else {
     let content = document.querySelector("#content");
     let errors;
@@ -1369,8 +1451,8 @@ function eventEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-      message['message'].forEach(element => {
-        errors.innerHTML += "<li>" + element + "</li>";
+    message['message'].forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
@@ -1400,8 +1482,8 @@ function eventDeletedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-      message['message'].forEach(element => {
-        errors.innerHTML += "<li>" + element + "</li>";
+    message['message'].forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
     content.insertBefore(errors, content.firstChild);
@@ -1436,6 +1518,7 @@ function acceptedInviteHandler() {
 }
 
 function declinedInviteHandler() {
+  console.log(this.responseText);
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -1510,19 +1593,19 @@ function madeInviteHandler() {
 
     clone.id = "btn_cancelInvite";
 
-btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
-cancelInvite = new Array();
-for (let i = 0; i < btns_cancelInvite.length; i++) {
-  cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
-  btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
-}
+    btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+    cancelInvite = new Array();
+    for (let i = 0; i < btns_cancelInvite.length; i++) {
+      cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
+      btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
+    }
 
 
   }
 }
 
 function canceledInviteHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let curIn = response['currentInvite'];
@@ -1547,8 +1630,8 @@ function canceledInviteHandler() {
     clone.classList.add("btn-success");
 
     clone.id = "btn_inviteToEvent";
-btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
-makeInvite = new Array();
+    btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+    makeInvite = new Array();
     for (let i = 0; i < btns_makeInvite.length; i++) {
       makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
       btns_makeInvite[i].addEventListener('click', makeInvite[i]);
@@ -1584,7 +1667,7 @@ function updateProfile(profile, city, country) {
   addEventListeners();
 }
 
-function updateEvent(event, city, country, localization) {
+function updateEvent(event, city, country, localization, category) {
   let main_div = document.querySelector("#event_data");
   let parent = main_div.parentElement;
   let btn_edit = parent.querySelector("#btn_editEvent");
@@ -1592,15 +1675,20 @@ function updateEvent(event, city, country, localization) {
 
 
   main_div.innerHTML =
-    "<h1 class='display-4' id='event_name'>" + event.name + "</h1><br>" +
-    "<div class='row'>" +
+    "<span class='display-4' id='event_name'>" + event.name + "</span>" +
+      "<span id='event_public' data-id=" + event.is_public + ">" + (event.is_public == "1" ? "(Public)" : "(Private)") + "</span" +
+      "<br>" +
+    "<div class='row mt-5'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
     "<i class='fas fa-clock fa-fw' ></i>" + event.date + " at " + event.time + "</h5>" +
     "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5><br>" +
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5>"+
+    "<h5 id='event_category' data-id=" + event.category_id + ">" +
+      "Category: " + category + "</h5>" +
+      "<br>" +
     "</div>" +
-    "<div class='col - 12 col - lg - 7'>" +
+    "<div class='col-12 col-lg-7'>" +
     "<h1>Description</h1><br>" +
     "<p id='event_description'>" + event.description + "</p>" +
     "</div>" +
@@ -1669,7 +1757,7 @@ function cardAddedHandler() {
 }
 
 function eventAddedHandler() {
-  
+
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];

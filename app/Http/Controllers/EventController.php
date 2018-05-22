@@ -16,6 +16,8 @@ use App\Localization;
 use App\Post;
 use App\Category;
 
+use Gate;
+
 
 class EventController extends Controller
 {
@@ -42,7 +44,17 @@ class EventController extends Controller
     {
       $event = Event::find($id);
       
-      $this->authorize('show', $event);
+
+      if(!$event->is_public)
+        if(Auth::check()){
+          if(Gate::denies('see-event', $event))
+            return redirect('index');
+        }else {
+            return redirect('index');
+        }
+        
+
+      
       
       $loca = Localization::find($event->localization_id);
       $city = City::find($loca->city_id);
@@ -224,6 +236,8 @@ class EventController extends Controller
     $event->date = $request->input('date');
     $event->time = $request->input('time');
     $event->description = $request->input('description');
+    $event->is_public = $request->input('is_public');
+     $event->category_id = $request->input('category');
 
     
 
@@ -297,7 +311,7 @@ class EventController extends Controller
       return response()->json(['message' => 'Error updating event']);
     }
     
-    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name]);
+    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name, 'category' => $event->category->name]);
 
   }
 

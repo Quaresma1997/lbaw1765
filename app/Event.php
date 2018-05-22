@@ -38,6 +38,14 @@ class Event extends Model
 
       }
 
+      public function done(){
+        return $this->hasOne('App\Done');
+      }
+
+       public function not_done(){
+        return $this->hasOne('App\NotDone');
+      }
+
       public function participants() {
         return $this->hasMany('App\Participant');
       }
@@ -45,6 +53,10 @@ class Event extends Model
       public function event_invites(){
        return $this->hasMany('App\EventInvite');
       }
+
+      public function category() {
+        return $this->belongsTo('App\Category');
+    }
 
 
 

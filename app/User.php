@@ -115,7 +115,7 @@ class User extends Authenticatable
     if($friends != null){
       $friend_events = array();
       foreach($friends as $friend){
-          foreach($this->publicEvents($friend) as $event){
+          foreach($this->publicFriendEvents($friend) as $event){
             array_push($friend_events, $event);
           }
                 
@@ -128,16 +128,17 @@ class User extends Authenticatable
           return $friend_events;
   }
 
-  public function publicEvents($friend){
+  public function publicFriendEvents($friend){
     $participants = $friend->participants;
         $participating = [];
         if($participants != null){
             $participating = array();
             foreach($participants as $participant){
-              if($participant->event->is_public)
-              $new_event = $participant->event;
-              $new_event->participant = $participant;
+              if($participant->event->is_public){
+                $new_event = $participant->event;
+                $new_event->participant = $participant;
                 array_push($participating, $new_event);
+              }
             }
         }
         return $participating;
@@ -195,6 +196,82 @@ class User extends Authenticatable
       function cmp_notifications($a, $b)
 {
     return strcmp($a->created_at, $b->created_at);
+}
+
+public function eventsParticipating(){
+  $participants = $this->participants;
+        $participating = [];
+        if($participants != null){
+            $participating = array();
+            foreach($participants as $participant){
+                array_push($participating, $participant->event);
+            }
+        }
+
+        return $participating;
+}
+
+public function cmp_events_asc($a, $b)
+{
+  return strcmp($a->date, $b->date);
+}
+
+public function cmp_events_desc($a, $b)
+{
+  return strcmp($b->date, $a->date);
+}
+
+public function allEvents(){
+  $all_events = $this->eventsParticipating();
+
+  foreach($this->events as $e){
+    array_push($all_events, $e);
+  }
+
+  $dones = array();
+  $not_dones = array();
+
+  foreach($all_events as $e){
+    if($e->done == null){
+      array_push($not_dones, $e);
+    }else{
+      array_push($dones, $e);
+    }
+  }
+
+  usort($not_dones, array($this, "cmp_events_asc"));
+  usort($dones, array($this, "cmp_events_desc"));
+
+  $all_events = array_merge($not_dones, $dones);
+
+  return $all_events;
+}
+
+public function publicEvents(){
+  $public_events = array();
+
+  foreach($this->allEvents() as $e){
+    if($e->is_public)
+      array_push($public_events, $e);
+  }
+
+  $dones = array();
+  $not_dones = array();
+
+  foreach($public_events as $e){
+    if($e->done == null){
+      array_push($not_dones, $e);
+    }else{
+      array_push($dones, $e);
+    }
+  }
+
+  usort($not_dones, array($this, "cmp_events_asc"));
+  usort($dones, array($this, "cmp_events_desc"));
+
+  $public_events = array_merge($not_dones, $dones);
+
+  return $public_events;
 }
 
 }

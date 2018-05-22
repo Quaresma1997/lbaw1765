@@ -1,12 +1,22 @@
 @extends('layouts.app')
 
-@section('navbar')
-    @include('partials.navLoggedIn')
-@endsection
+@if (!Auth::check())
+  @section('navbar')
+    @include('partials.navNotLoggedIn')
+  @endsection
 
-@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
-@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-@include('partials.addEvent')
+  @include('partials.register')
+  @include('partials.login')
+
+@else
+  @section('navbar')
+    @include('partials.navLoggedIn')
+  @endsection
+  
+  @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+  @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+  @include('partials.addEvent');
+@endif
 
 @section('content')
 
@@ -23,12 +33,14 @@
             <label id="user_info_l2"><i class="fas fa-envelope fa-fw mr-1"></i>{{$user->email}}</label>
             <br>
             <label id="user_info_l3"><i class="fas fa-map-marker-alt fa-fw mr-1"></i>{{$city}}, {{$country}}</label>
-            @if(Auth::user()->id == $user->id)
-              @include('partials.userProfile')
-            @elseif(Auth::user()->friendWith($user->id) != null)
-              @include('partials.friendProfile')
-            @else
-              @include('partials.otherUserProfile')
+            @if(Auth::check())
+              @if(Auth::user()->id == $user->id)
+                @include('partials.userProfile')
+              @elseif(Auth::user()->friendWith($user->id) != null)
+                @include('partials.friendProfile')
+              @else
+                @include('partials.otherUserProfile')
+              @endif
             @endif
           </div>
         </div>
@@ -52,14 +64,26 @@
             <div class="tab-content">
               <div id="events" class="container tab-pane fade show active">
               <div class="row mt-3">
-              @if(sizeof($user->events) == 0 and sizeof($events_participating) == 0)
+                @if(Auth::check())
+                  @if(Auth::user()->id == $user->id)
+                     @if(sizeof($user->allEvents()) == 0)
+                      <h3>There are no events to show!</h3>
+                      @endif
+                     @each('partials.event', $user->allEvents(), 'event')
+                  @else
+                    @if(sizeof($user->publicEvents()) == 0)
+                      <h3>There are no events to show!</h3>
+                      @endif
+                     @each('partials.event', $user->publicEvents(), 'event')
+                  @endif
+                @else
+                  @if(sizeof($user->publicEvents()) == 0)
+                      <h3>There are no events to show!</h3>
+                      @endif
+                     @each('partials.event', $user->publicEvents(), 'event')
+                @endif
 
-              <h3>There are no events to show!</h3>
-
-              @endif
-
-                @each('partials.event', $user->events, 'event')
-                @each('partials.event', $events_participating, 'event')
+             
                 </div>
               </div>
 
@@ -81,5 +105,7 @@
         </div>
       </div>
     </div>
+
+  <?php print_r(date('Y-m-d')); print_r(date('H:i:s'));?>
 
 @endsection

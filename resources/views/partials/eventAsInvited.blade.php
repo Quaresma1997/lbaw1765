@@ -27,27 +27,43 @@
     </div>
 
     <div class="jumbotron" >
+    <div class="row" style="display:grid;">
+      <div class="flex">
       
-       
+       @if($event->done == null)
       <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_declineEventInvite" event-id="{{$event->id}}" receiver-id="{{Auth::user()->id}}">
             <i class="fas fa-times fa-fw"></i> Decline invite</button>
              <button type="button" class="btn btn-success mx-1 float-right" id="btn_acceptEventInvite" event-id="{{$event->id}}" receiver-id="{{Auth::user()->id}}">
             <i class="fas fa-check fa-fw"></i> Accept invite</button>
+            @endif
       <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">
         <i class="fas fa-clipboard-list fa-fw"></i> Participants </button>
 
       <br>
       <br>
+          </div>
+      </div>
       <hr>
       <div id="event_data" data-id="{{ $event->id }}">
-      <h1 class="display-4" id="event_name">{{$event->name}}</h1>
+       <span class="display-4" id="event_name">{{$event->name}}</span>
+      <span id="event_public" data-id="{{$event->is_public}}">
+      @if($event->is_public)
+       (Public) 
+      @else 
+      (Private) 
+      @endif</span>
+       @if($event->done != null)
+        <span class="display-4">Past event</span>
+      @endif
       <br>
-      <div class="row">
+      <div class="row mt-5">
         <div class="col-12 col-lg-5">
           <h5 id="event_date">
             <i class="fas fa-clock fa-fw mr-1" ></i>{{$event->date}} at {{$event->time}}</h5>
           <h5 id="event_localization">
             <i class="fas fa-map-marker-alt fa-fw mr-1"></i>{{$event->place}}, {{$event->city}}, {{$event->country}} </h5>
+          <h5 id="event_category" data-id="{{ $event->category_id }}">
+            Category: {{$event->category->name}}</h5>
           <br>
          <!--  <div class="map-responsive">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12012.041648923578!2d-8.5976876!3d41.1779401!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x405225b4b451f7d7!2sFEUP+-+Faculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1520958961221"

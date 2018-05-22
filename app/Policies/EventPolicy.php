@@ -15,7 +15,7 @@ class EventPolicy
     public function show(User $user, Event $event)
     {
       // Only a card owner can see it
-      return Auth::check();
+      return true;
     }
 
     public function list(User $user)

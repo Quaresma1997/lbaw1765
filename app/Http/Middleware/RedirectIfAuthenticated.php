@@ -21,6 +21,10 @@ class RedirectIfAuthenticated
             return redirect('/index');
         }
 
+        // if (!Auth::check()) {
+        //     return redirect('/index'); // redirect to your specific page which is public for all
+        // }
+
         return $next($request);
     }
 }
