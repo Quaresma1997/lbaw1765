@@ -1,3 +1,59 @@
+os eventos criados estarao no perfil CHECK
+
+os em k participa/participou estarao na homepage? Nao, no perfil tambem
+
+eventos publicos onde estarao?
+
+homepage
+
+-> filtros
+-> shortcuts
+
+imagens eventos em todo o lado
+passar username em vez de user_id para os metodos post, etc...
+
+expulsar convidados/membros de eventos
+
+homepage se nao houver eventos CHECK
+
+faltam tb os eventos passados
+
+mostrar mensagens de erro!!!
+
+Um user ver perfil do outro CHECK
+
+Convites para eventos CHECK
+
+Adicionar amigos CHECK
+
+Apagar amigos CHECK
+
+Admin pode fazer tudo e falta-lhe um botao para aceder a pagina de Admin
+
+CRIADO NOVO TRIGGER
+
+O que é k se pode ver nao sendo amigo? Apenas o perfil?
+
+Notificacoes de evento apagado ou updated faltam
+
+No perfil so estao os eventos criados, meter todos!!! CHECK
+
+botoes de convidar ficam disabled a dizer convidado CHECK
+
+Notificacoes meter data delas? para ordenar
+
+Qd nao ha notificacoes mostra mensagem CHECK
+
+Eventos publico/privado e categorias falta aparecer na pagina do evento
+
+Faltam friend_activities CHECK
+
+Qd no friend request clico no user, aparece botao accept friend request ou decline CHECK
+
+Só dá para entrar em eventos privados com convite, em publicos pode ser sem convite
+
+edit event com category e type
+
 imagens via multipart
 
 edit perfil via multipart
@@ -8,3 +64,61 @@ se um utilizador estiver a usar e o evento passou a realizado altera em tempo re
 https://laravel.com/docs/5.6/filesystem
 
 https://laravel.com/docs/5.6/scheduling
+
+imagens resize. barra de nacvegacao, homepage
+
+eventos no perfil meter css direito
+
+Permissoes nao autenticados ver perfis
+
+Adaptar esses perfis
+
+Pesquisa, mudar para separador users
+
+Homepage ordenar eventos por data, primeiro tentar junta-los CHECK
+
+Eventos privados
+
+No perfil identificar os eventos k criou e os k participou
+
+form-control em todo o lado
+
+remover friend_activities
+
+verificar notitifications ordenadas CHECK
+
+ver pk é k robin aparece no fim nos invite users CHECK (esta a fazer sort dos users por id agora)
+
+Meter validacoes por regex
+
+Meter palavras passe com minimo 8 carateres e mais outras cenas
+
+Mapa
+
+colocar botoes vermelho e verde doutra cor? (edit event)
+
+falta address no evento
+
+Privados aparecem na minha pagina de perfil para mim apenas.  CHECK
+
+Na homepage e no perfil doutros apenas os publicos. CHECK
+
+Ordenar eventos no perfil por data de realizacao mais recente
+
+Testar convidados entrar num evento privado CHECK
+
+Eventos realizados e por realizar CHECK
+
+Retirar convites ao passar evento a realizado CHECK ?
+
+Usar chron para passar eventos por realizar a realizados
+
+perfil espaço entre botoes
+
+notificate_event_delete
+
+voltar a colocar check dos eventos criados terem data posterior a hoje 
+
+tirar a data e hora do perfil :)
+
+https://codepen.io/jamesbarnett/pen/vlpkh
