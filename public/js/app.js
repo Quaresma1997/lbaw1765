@@ -569,6 +569,8 @@ function createEditProfileForm(event) {
 function createEditEventForm(event) {
     let btn_edit = document.querySelector("#btn_editEvent");
     btn_edit.disabled = true;
+    let deleteEvent = document.querySelector('#btn_deleteEvent');
+    deleteEvent.disabled = true;
   let main_div = document.querySelector("#event_data");
 
   let name = main_div.querySelector("#event_name").innerText;
@@ -625,7 +627,7 @@ function createEditEventForm(event) {
 
   for (i = 0; i < public_sel.options.length; i++) {
     event_public_options += "<option value = '" + public_sel.options[i].value;
-    if ((current_public == "true" && i == 0) || (current_public != "true" && i == 1))
+    if ((current_public == "1" && i == 0) || (current_public != "1" && i == 1))
       event_public_options += "' selected>" + public_sel.options[i].value + "</option>";
     else
       event_public_options += "'>" + public_sel.options[i].value + "</option>";
@@ -797,6 +799,8 @@ function cancelEditEvent(event) {
   isEditing = false;
       let btn_edit = document.querySelector("#btn_editEvent");
       btn_edit.disabled = false;
+      let deleteEvent = document.querySelector('#btn_deleteEvent');
+      deleteEvent.disabled = false;
 }
 
 
@@ -1672,7 +1676,8 @@ function updateEvent(event, city, country, localization, category) {
   let parent = main_div.parentElement;
   let btn_edit = parent.querySelector("#btn_editEvent");
   btn_edit.disabled = false;
-
+  let deleteEvent = document.querySelector('#btn_deleteEvent');
+  deleteEvent.disabled = false;
 
   main_div.innerHTML =
     "<span class='display-4' id='event_name'>" + event.name + "</span>" +
