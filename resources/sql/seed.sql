@@ -593,10 +593,6 @@ INSERT INTO ratings ( "value", event_id, user_id)
 INSERT INTO participants (user_id,event_id)
 			VALUES (1,2);
 INSERT INTO participants (user_id,event_id)
-			VALUES (2,1);
-INSERT INTO participants (user_id,event_id)
-			VALUES (2,3);
-INSERT INTO participants (user_id,event_id)
 			VALUES (7,1);			
 INSERT INTO participants (user_id,event_id)
 			VALUES (4,1);			
@@ -630,15 +626,15 @@ INSERT INTO participants (user_id,event_id)
 			VALUES (12,5);			
 INSERT INTO participants (user_id,event_id)
 			VALUES (10,4);
-            INSERT INTO participants (user_id,event_id)
+INSERT INTO participants (user_id,event_id)
 			VALUES (2,4);
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,5);
-            INSERT INTO participants (user_id,event_id)
+INSERT INTO participants (user_id,event_id)
 			VALUES (2,6);
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,7);
-            INSERT INTO participants (user_id,event_id)
+INSERT INTO participants (user_id,event_id)
 			VALUES (2,8);
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,9);
