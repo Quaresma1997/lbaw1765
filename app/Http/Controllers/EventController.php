@@ -62,6 +62,7 @@ class EventController extends Controller
       $event->city = $city->name;
       $event->country = $country->name;
       $event->place = $loca->name;
+      $event->address= $loca->address; 
       $categories = Category::all();   
       
       $participants_invited_ids = array();
@@ -105,7 +106,7 @@ class EventController extends Controller
         'country' => 'required|string|max:30',
         'city' => 'required|string|max:30',
         'place' => 'required|string|max:30',
-            // 'address' => 'required|string|max:30',
+       'address' => 'required|string|max:30',
         'description' => 'string|max:255',
       ]);
     }
@@ -297,7 +298,7 @@ class EventController extends Controller
 
     $localization->name = $request->input('place');
     $localization->city_id = $city_id->id;
-        // $localization->address = $request->input('address');
+    $localization->address = $request->input('address');
 
     try{
       $localization->save();

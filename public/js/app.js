@@ -580,11 +580,12 @@ function createEditEventForm(event) {
   let date = date_text.substr(0, index_at - 1);
   let time = date_text.substr(index_at + 3, date_text.size);
 
+  let address = main_div.querySelector('#address').innerText; 
+
   let localization = main_div.querySelector("#event_localization").innerText;
 
   let index_first_comma = localization.indexOf(',');
   let index_second_comma = localization.indexOf(',', index_first_comma + 1);
-
 
   let place = localization.substr(0, index_first_comma);
   let city = localization.substr(index_first_comma + 2, index_second_comma - index_first_comma - 2);
@@ -603,6 +604,7 @@ function createEditEventForm(event) {
   current_public = event_public.getAttribute("data-id");
   current_date = date;
   current_time = time;
+  current_address = address; 
   current_place = place;
   current_city = city;
   current_country = country;
@@ -697,7 +699,11 @@ function createEditEventForm(event) {
 
   let form_localization =
     "<div class='row mt-3'>" +
-    "<div class='col-sm-6 col-10'>" +
+    "<div class='col-12 pb-3'>" +
+    "<label for='address'>Address</label>" +
+    "<input type='text' id='input_address' class='form-control' placeholder='Event address' value='" + address + "' required>" +
+    "</div>" +
+    "<div class='col-sm-6 col-12'>" +
     "<label for='place'>Place</label>" +
     "<input type='text' id='input_place' class='form-control' placeholder='Event place' value='" + place + "' required>" +
     "</div>" +
@@ -784,6 +790,8 @@ function cancelEditEvent(event) {
     "<i class='fas fa-clock fa-fw' ></i>" + current_date + " at " + current_time + "</h5>" +
     "<h5 id='event_localization'>" +
     "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5>"+
+    "<h5 id='address'>" +
+     current_address + "</h5>" + 
     "<h5 id='event_category' data-id=" + cat + ">" +
     "Category: " + current_category + "</h5>" + 
     "<br>" +
@@ -1127,6 +1135,7 @@ function sendEditEventRequest(event) {
   let date = this.querySelector('input[id=input_date]').value;
   let time = this.querySelector('input[id=input_time]').value;
   let place = this.querySelector('input[id=input_place]').value;
+  let address = this.querySelector('input[id=input_address').value; 
   let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
   let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
   let description = document.querySelector('textarea[id=input_description').value;
@@ -1158,6 +1167,7 @@ function sendEditEventRequest(event) {
     date: date,
     time: time,
     place: place,
+    address: address,
     city: city,
     country: country,
     description: description
@@ -1689,7 +1699,9 @@ function updateEvent(event, city, country, localization, category) {
     "<i class='fas fa-clock fa-fw' ></i>" + event.date + " at " + event.time + "</h5>" +
     "<h5 id='event_localization'>" +
     "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5>"+
-    "<h5 id='event_category' data-id=" + event.category_id + ">" +
+    "<h5 id='address'>" +
+       localization.address + "</h5>" +
+      "<h5 id='event_category' data-id=" + event.category_id + ">" +
       "Category: " + category + "</h5>" +
       "<br>" +
     "</div>" +
