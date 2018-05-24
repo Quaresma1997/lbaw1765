@@ -6,13 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
-<<<<<<< HEAD
 //use Laravel\Scout\Searchable;
 //use Illuminate\Database\Eloquent\Model;
-=======
-use App\EventInvite;
-use App\FriendRequest;
->>>>>>> 87622aed4dc24faebec03cb818b4fde50ea07049
 
 class User extends Authenticatable
 {
