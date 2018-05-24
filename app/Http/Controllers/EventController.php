@@ -40,6 +40,14 @@ class EventController extends Controller
 
     public function show($id)
     {
+/**
+      $table =DB::table('events')->get();
+      $table->text('name')->unique();
+      $table->index('name');
+      $table->dropIndex('search');
+
+      DB::statement('ALTER TABLE events ADD FULLTEXT search (name)');
+*/
       $event = Event::find($id);
       
       $this->authorize('show', $event);
@@ -297,6 +305,28 @@ class EventController extends Controller
     return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name]);
 
   }
+
+  public function addPost(Request $request,$event){
+
+    $this->validate($request,[
+      'post' => 'required'
+  ]);
+  //$id=1;
+ // $event= Event::find($id);
+
+//dd($request);
+// create
+$post= new Post();
+$post->date = date('Y-m-d H:i:s'); // 2016-10-12 21:09:23
+$post->description = $request->input('post');
+$post->event_id = 1;
+$post->user_id = Auth::user()->id;
+$post->save();
+
+return redirect()->action(
+  'EventController@show', ['id' => $event->id]
+);
+}
 
 
 }
