@@ -16,6 +16,8 @@ use App\Localization;
 use App\Post;
 use App\Category;
 
+use Gate;
+
 
 class EventController extends Controller
 {
@@ -50,7 +52,17 @@ class EventController extends Controller
 */
       $event = Event::find($id);
       
-      $this->authorize('show', $event);
+
+      if(!$event->is_public)
+        if(Auth::check()){
+          if(Gate::denies('see-event', $event))
+            return redirect('index');
+        }else {
+            return redirect('index');
+        }
+        
+
+      
       
       $loca = Localization::find($event->localization_id);
       $city = City::find($loca->city_id);
@@ -58,6 +70,7 @@ class EventController extends Controller
       $event->city = $city->name;
       $event->country = $country->name;
       $event->place = $loca->name;
+      $event->address= $loca->address; 
       $categories = Category::all();   
       
       $participants_invited_ids = array();
@@ -72,14 +85,17 @@ class EventController extends Controller
       foreach($event->participants as $participant){
           array_push($participants_invited_ids, $participant->user_id);
       }
+
+      $admin_id = User::where('username', 'admin')->first()->id;
       
       array_push($participants_invited_ids, $event->owner->id);
+      array_push($participants_invited_ids, $admin_id);
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
       //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)]);
+      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)->sortBy('id')]);
     }
     
 
@@ -98,7 +114,7 @@ class EventController extends Controller
         'country' => 'required|string|max:30',
         'city' => 'required|string|max:30',
         'place' => 'required|string|max:30',
-            // 'address' => 'required|string|max:30',
+       'address' => 'required|string|max:30',
         'description' => 'string|max:255',
       ]);
     }
@@ -229,6 +245,8 @@ class EventController extends Controller
     $event->date = $request->input('date');
     $event->time = $request->input('time');
     $event->description = $request->input('description');
+    $event->is_public = $request->input('is_public');
+     $event->category_id = $request->input('category');
 
     
 
@@ -288,7 +306,7 @@ class EventController extends Controller
 
     $localization->name = $request->input('place');
     $localization->city_id = $city_id->id;
-        // $localization->address = $request->input('address');
+    $localization->address = $request->input('address');
 
     try{
       $localization->save();
@@ -302,7 +320,7 @@ class EventController extends Controller
       return response()->json(['message' => 'Error updating event']);
     }
     
-    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name]);
+    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name, 'category' => $event->category->name]);
 
   }
 

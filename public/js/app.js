@@ -29,9 +29,10 @@ function addEventListeners() {
   if (editProfile != null) {
     if (cities == null) {
       getCurCountry();
-      //   
+
       sendCitiesRequest(current_country);
     }
+
     editProfile.addEventListener('click', createEditProfileForm);
   }
 
@@ -72,6 +73,7 @@ function addEventListeners() {
 
       sendCitiesRequest(current_country);
     }
+
     editEvent.addEventListener('click', createEditEventForm);
   }
 
@@ -144,7 +146,6 @@ function addEventListeners() {
       //  createCountryInput();
     });
   }
-
   btns_banUser = document.querySelectorAll('#btn_banUser');
   for (let i = 0; i < btns_banUser.length; i++) {
     btns_banUser[i].addEventListener('click', function () {
@@ -202,15 +203,15 @@ function addEventListeners() {
     declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
   }
 
-    let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
-    for (let i = 0; i < acceptFriend.length; i++) {
-      acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
-    }
+  let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
+  for (let i = 0; i < acceptFriend.length; i++) {
+    acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
+  }
 
-    let declineFriend = document.querySelectorAll('#btn_declineFriend');
-    for (let i = 0; i < declineFriend.length; i++) {
-      declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
-    }
+  let declineFriend = document.querySelectorAll('#btn_declineFriend');
+  for (let i = 0; i < declineFriend.length; i++) {
+    declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
+  }
 
   btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
   for (let i = 0; i < btns_makeInvite.length; i++) {
@@ -224,18 +225,21 @@ function addEventListeners() {
     btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
   }
 
-
 }
+
 
 let current_first_name, current_last_name, current_email;
 let current_city, current_country, current_city_default, current_country_default, current_img, current_description, current_date, current_time;
-let cities, cities_default, countries, isEvent, isDefault = true,
-  isSignUp;
-isEditing = false;
+let cities, cities_default, countries, isEvent, isDefault = true, 
+  isSignUp, isEditing = false;
 let justRemoveOther;
 
+let current_category, current_category_id, current_public;
+
 let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
-let makeInvite = new Array(), cancelInvite = new Array();
+let makeInvite = new Array(),
+  cancelInvite = new Array();
+
 
 
 // $(document).ready(function(){
@@ -273,32 +277,25 @@ function createCityInput() {
   else
     select = document.querySelector('#select_city');
   let city = select.selectedOptions[0].value;
-  /*let input = document.createElement("input");
+  let input = document.createElement("input");
   input.type = "text";
   input.id = "input_city";
   input.classList.add("form-control");
   input.placeholder = "City";
   input.required = true;
-  input.name = "city";*/
-  $('#input_city').hide();
+  input.name = "city";
 
   if (justRemoveOther)
     city = "";
 
   if (city == "Other") {
-    if (select.parentElement.querySelector("input[id=input_city") == null) {
-      //select.parentElement.appendChild(input);
-      $('#input_city').removeAttr('disabled');;
-      $('#input_city').show();
-    }
-
+    if (select.parentElement.querySelector("input[id=input_city") == null)
+      select.parentElement.appendChild(input);
     select.name = "select_city";
   } else {
     let old_input = select.parentElement.querySelector("input[id=input_city");
     if (old_input != null) {
-      $('#input_city').hide();
-      $('#input_city').attr('disabled', 'disabled');
-      //select.parentElement.removeChild(old_input);
+      select.parentElement.removeChild(old_input);
       select.name = "city";
     }
 
@@ -314,15 +311,13 @@ function createCountryInput() {
     select = document.querySelector('#select_country');
 
   let country = select.selectedOptions[0].value;
-  /*let input = document.createElement("input");
+  let input = document.createElement("input");
   input.type = "text";
   input.id = "input_country";
   input.classList.add("form-control");
   input.placeholder = "Country";
   input.required = true;
-  input.name = "country";*/
-  $('#input_country').hide();
-
+  input.name = "country";
 
   if (justRemoveOther)
     country = current_country_default;
@@ -332,9 +327,6 @@ function createCountryInput() {
   if (country == "Other") {
 
     select.parentElement.appendChild(input);
-    $('#input_country').removeAttr('disabled');;
-    $('#input_country').show();
-
     if (isEvent || isSignUp)
       cities_default = new Array();
     else
@@ -345,9 +337,7 @@ function createCountryInput() {
 
     let old_input = select.parentElement.querySelector("input[id=input_country");
     if (old_input != null) {
-      //select.parentElement.removeChild(old_input);
-      $('#input_country').hide();
-      $('#input_country').attr('disabled', 'disabled');
+      select.parentElement.removeChild(old_input);
       select.name = "country";
     }
 
@@ -359,6 +349,7 @@ function createCountryInput() {
 
 
 }
+
 
 function changeCityOptions() {
   let main_div = document.querySelector("#user_info_container");
@@ -386,9 +377,10 @@ function changeCityOptions() {
 
   let cities_options = "";
   let i;
-  $('#input_city').hide();
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (use_cities.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
+
   for (i = 0; i < use_cities.length; i++) {
     cities_options += "<option value = '" + use_cities[i];
     if (use_cities[i] == thisCurCity)
@@ -407,10 +399,10 @@ function putAddEventOptions() {
   let select_country = document.querySelector("#select_country_event");
   let select_city = document.querySelector("#select_city_event");
   let i;
-  $('#input_country').hide();
   let countries_options = "";
-  countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  countries_options += "<option value = 'Other'>Other</option>";
+  if (countries.length != 0)
+    countries_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == current_country_default)
@@ -425,9 +417,9 @@ function putAddEventOptions() {
 
 
   let cities_options = "";
-  $('#input_city').hide();
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (cities_default.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < cities_default.length; i++) {
     cities_options += "<option value = '" + cities_default[i];
     if (i == 0)
@@ -466,9 +458,12 @@ function createEditProfileForm(event) {
   current_country = country;
 
   let btn_img =
-    "<form action='myform.cgi' class='img_form'>" +
+    "<form action='myform.cgi' class='img_form' style='text-align:center'>" +
+    "<label class='fileContainer'>" +
+    "Upload" +
     "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
+    "</label>" +
     "</form>"
 
   ;
@@ -478,10 +473,10 @@ function createEditProfileForm(event) {
     "<div class='col-2 my-auto'>" +
     "<i class='fas fa-user fa-fw '></i>" +
     "</div>" +
-    "<div class='col-4 px-0'>" +
+    "<div class='col-4 px-0 pr-3'>" +
     "<input type='text' id='input_first_name' class='form-control' placeholder='First name' value='" + first_name + "' required>" +
     "</div>" +
-    "<div class='col-6 pl-1'>" +
+    "<div class='col-5 pl-1'>" +
     "<input type='text' id='input_last_name' class='form-control' placeholder='Last name' value='" + last_name + "' required>" +
     "</div>" +
     "</div>";
@@ -491,20 +486,18 @@ function createEditProfileForm(event) {
     "<div class='col-2 my-auto'>" +
     "<i class='fas fa-envelope fa-fw '></i>" +
     "</div>" +
-    "<div class='col-10 pr-3 pl-0'>" +
+    "<div class='col-9 pr-3 pl-0'>" +
     "<input type='email' id='input_email' class='form-control' placeholder='First name' value='" + email + "' required>" +
     "</div>" +
 
     "</div>";
 
 
-
-
   let cities_options = "";
   let i;
-  $('#input_city').hide();
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (cities.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -515,9 +508,9 @@ function createEditProfileForm(event) {
   // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
-  $('#input_country').hide();
-  countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  countries_options += "<option value = 'Other'>Other</option>";
+  if (countries.length != 0)
+    countries_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -534,25 +527,26 @@ function createEditProfileForm(event) {
     "<div class='col-2 my-auto'>" +
     "<i class='fas fa-map-marker-alt fa-fw '></i>" +
     "</div>" +
-    "<div class='col-5 pl-0'>" +
+    "<div class='col-4 pl-0'>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >" +
     "</div>" +
     "<div class='col-5 pl-1'>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >" +
     "</div>" +
     "</div>";
 
   let btns =
-    "<div class='mt-3'>" +
+    "<div class='mt-3 row'>" +
+    "<div class='col-6 d-flex justify-content-end'>" +
     "<button type='submit' class='btn btn-success btn-block' id='btn_confirm_edit_profile'><span><i class='fas fa-check fa-fw'></i> Confirm</span> </button>" +
-
+    "</div>" +
+    "<div class='col-6 d-flex justify-content-start'>" +
     "<button type='button' class='btn btn-outline-danger btn-block' id='btn_cancel_edit_profile'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
+    "</div>" +
     "</div>";
 
 
@@ -562,7 +556,7 @@ function createEditProfileForm(event) {
 
     "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
     btn_img +
-    "<form class='edit_profile'>" +
+    "<form class='edit_profile' method='POST'>" +
     div1 + div2 + div3 + btns +
     "</form>";
 
@@ -573,6 +567,10 @@ function createEditProfileForm(event) {
 }
 
 function createEditEventForm(event) {
+    let btn_edit = document.querySelector("#btn_editEvent");
+    btn_edit.disabled = true;
+    let deleteEvent = document.querySelector('#btn_deleteEvent');
+    deleteEvent.disabled = true;
   let main_div = document.querySelector("#event_data");
 
   let name = main_div.querySelector("#event_name").innerText;
@@ -582,11 +580,12 @@ function createEditEventForm(event) {
   let date = date_text.substr(0, index_at - 1);
   let time = date_text.substr(index_at + 3, date_text.size);
 
+  let address = main_div.querySelector('#address').innerText; 
+
   let localization = main_div.querySelector("#event_localization").innerText;
 
   let index_first_comma = localization.indexOf(',');
   let index_second_comma = localization.indexOf(',', index_first_comma + 1);
-
 
   let place = localization.substr(0, index_first_comma);
   let city = localization.substr(index_first_comma + 2, index_second_comma - index_first_comma - 2);
@@ -594,9 +593,18 @@ function createEditEventForm(event) {
 
   let description = main_div.querySelector("#event_description").innerText;
 
+  let category_sel = document.querySelector("#category");
+  let event_category = document.querySelector("#event_category");
+  let public_sel = document.querySelector("#type");
+  let event_public = document.querySelector("#event_public");
+
   current_name = name;
+  current_category_id = event_category.getAttribute("data-id") - 1;
+  current_category = category_sel.options[current_category_id].value;
+  current_public = event_public.getAttribute("data-id");
   current_date = date;
   current_time = time;
+  current_address = address; 
   current_place = place;
   current_city = city;
   current_country = country;
@@ -605,16 +613,55 @@ function createEditEventForm(event) {
   let form_name =
     "<label for='name'>Name</label>" +
     "<input type='text' id='input_name' class='form-control' placeholder='Event name' value='" + name + "' required>";
+
+  let category_options = "";
+  let i;
+
+  for (i = 0; i < category_sel.options.length; i++) {
+    category_options += "<option value = '" + category_sel.options[i].value;
+    if (i == current_category_id)
+      category_options += "' selected>" + category_sel.options[i].value + "</option>";
+    else
+      category_options += "'>" + category_sel.options[i].value + "</option>";
+  }
+
+  let event_public_options = "";
+
+  for (i = 0; i < public_sel.options.length; i++) {
+    event_public_options += "<option value = '" + public_sel.options[i].value;
+    if ((current_public == "1" && i == 0) || (current_public != "1" && i == 1))
+      event_public_options += "' selected>" + public_sel.options[i].value + "</option>";
+    else
+      event_public_options += "'>" + public_sel.options[i].value + "</option>";
+  }
+
+  let form_category_type =
+    "<div class = 'row mt-3'>" +
+    "<div class='col-12 col-sm-6'>" +
+    "<div class='form-group mb-2 p-0 m-0' id='select_type'>" +
+    "<label for='type'>Type</label>" +
+    "<select class='custom-select' id='input_type' name='select_type'>" +
+    event_public_options +
+    "</select>" +
+    "</div>" +
+    "</div>" +
+    "<div class='col-12 col-sm-6'>" +
+    "<div class='form-group mb-2 p-0 m-0' id='select_category'>" +
+    "<label for='category'>Category</label>" +
+    "<select class='custom-select' id='input_category' name='select_category'>" +
+    category_options +
+    "</select>" +
+    "</div>" +
+    "</div>" +
+    "</div>";
+
   let form_date =
     "<div class='row mt-3'>" +
-    "<div class='col-1 pr-0'>" +
-    "<i class='fas fa-clock fa-fw' ></i>" +
-    "</div>" +
-    "<div class='col-5'>" +
+    "<div class='col-6'>" +
     "<label for='date'>Date</label>" +
     "<input type='date' id='input_date' class='form-control' value='" + date + "' required>" +
     "</div>" +
-    "<div class='col-5'>" +
+    "<div class='col-6'>" +
     "<label for='time'>Time</label>" +
     "<input type='time' id='input_time' class='form-control' value='" + time + "' required>" +
     "</div>" +
@@ -622,10 +669,10 @@ function createEditEventForm(event) {
 
 
   let cities_options = "";
-  let i;
-  $('#input_city').hide();
-  cities_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+
+  cities_options += "<option value = 'Other'>Other</option>";
+  if (cities.length != 0)
+    cities_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < cities.length; i++) {
     cities_options += "<option value = '" + cities[i];
     if (cities[i] == city)
@@ -636,8 +683,9 @@ function createEditEventForm(event) {
   //cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
-  countries_options += "<option value = 'Other'>Other</option>" +
-    "<option disabled>────────────────────</option>";
+  countries_options += "<option value = 'Other'>Other</option>";
+  if (countries.length != 0)
+    countries_options += "<option disabled>────────────────────</option>";
   for (i = 0; i < countries.length; i++) {
     countries_options += "<option value = '" + countries[i];
     if (countries[i] == country)
@@ -648,28 +696,28 @@ function createEditEventForm(event) {
   }
   //countries_options += "<option value = 'Other'>Other</option>";
 
+
   let form_localization =
     "<div class='row mt-3'>" +
-    "<div class='col-1 pr-0'>" +
-    "<i class='fas fa-map-marker-alt fa-fw' ></i>" +
+    "<div class='col-12 pb-3'>" +
+    "<label for='address'>Address</label>" +
+    "<input type='text' id='input_address' class='form-control' placeholder='Event address' value='" + address + "' required>" +
     "</div>" +
-    "<div class='col-5'>" +
+    "<div class='col-sm-6 col-12'>" +
     "<label for='place'>Place</label>" +
     "<input type='text' id='input_place' class='form-control' placeholder='Event place' value='" + place + "' required>" +
     "</div>" +
-    "<div class='col-3 px-0'>" +
+    "<div class='col-sm-3 col-6'>" +
     "<label for='country'>Country</label>" +
     "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
     countries_options +
     "</select>" +
-    "<input type='text' id='input_country' class='form-control' placeholder='Country' name='Country' disabled >" +
     "</div>" +
-    "<div class='col-3 pl-1 pr-0'>" +
+    "<div class='col-sm-3 col-6'>" +
     "<label for='city'>City</label>" +
     "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
     cities_options +
     "</select>" +
-    "<input type='text' id='input_city' class='form-control' placeholder='City' name='City' disabled >" +
     "</div>" +
     "</div>";
 
@@ -690,10 +738,10 @@ function createEditEventForm(event) {
 
   main_div.innerHTML =
 
-    "<form class='edit_event'>" +
+    "<form class='edit_event' method='POST'>" +
     "<div class='row'>" +
     "<div class='col-12 col-lg-6'>" +
-    form_name + form_date + form_localization +
+    form_name + form_category_type + form_date + form_localization +
     "</div>" +
     "<div class='col-12 col-lg-6'>" +
     form_description +
@@ -731,14 +779,22 @@ function cancelEditProfile(event) {
 
 function cancelEditEvent(event) {
   let main_div = document.querySelector("#event_data");
+  let cat = current_category_id + 1;
   main_div.innerHTML =
-    "<h1 class='display-4' id='event_name'>" + current_name + "</h1><br>" +
-    "<div class='row'>" +
+    "<span class='display-4' id='event_name'>" + current_name + "</span>"+
+    "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") +"</span"+
+    "<br>" +
+    "<div class='row mt-5'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
     "<i class='fas fa-clock fa-fw' ></i>" + current_date + " at " + current_time + "</h5>" +
     "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5><br>" +
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5>"+
+    "<h5 id='address'>" +
+     current_address + "</h5>" + 
+    "<h5 id='event_category' data-id=" + cat + ">" +
+    "Category: " + current_category + "</h5>" + 
+    "<br>" +
     "</div>" +
     "<div class='col - 12 col - lg - 7'>" +
     "<h1>Description</h1><br>" +
@@ -749,6 +805,10 @@ function cancelEditEvent(event) {
   addEventListeners();
 
   isEditing = false;
+      let btn_edit = document.querySelector("#btn_editEvent");
+      btn_edit.disabled = false;
+      let deleteEvent = document.querySelector('#btn_deleteEvent');
+      deleteEvent.disabled = false;
 }
 
 
@@ -1070,12 +1130,19 @@ function sendEditProfileRequest(event) {
 function sendEditEventRequest(event) {
   let id = this.closest('div').getAttribute('data-id');
   let name = this.querySelector('input[id=input_name]').value;
+  let type = document.querySelector('#input_type').options[document.querySelector('#input_type').selectedIndex].value;
+  let category = document.querySelector('#input_category').selectedIndex + 1;
   let date = this.querySelector('input[id=input_date]').value;
   let time = this.querySelector('input[id=input_time]').value;
   let place = this.querySelector('input[id=input_place]').value;
+  let address = this.querySelector('input[id=input_address').value; 
   let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
   let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
   let description = document.querySelector('textarea[id=input_description').value;
+
+  console.log(type);
+
+  
 
   if (city == "Other")
     city = this.querySelector('input[id=input_city]').value;
@@ -1083,12 +1150,24 @@ function sendEditEventRequest(event) {
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
+    let is_public;
+    if (type == "Public")
+      is_public = true;
+    else
+      is_public = false;
+
+    console.log(is_public);
+
+
 
   sendAjaxRequest('post', '/api/event/' + id, {
     name: name,
+    is_public: is_public,
+    category: category,
     date: date,
     time: time,
     place: place,
+    address: address,
     city: city,
     country: country,
     description: description
@@ -1120,7 +1199,7 @@ function sendCancelParticipationRequest(event) {
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
-  }, participationCanceledHandler);
+  }, participationHandler);
 
   event.preventDefault();
 
@@ -1133,7 +1212,7 @@ function sendAddParticipationRequest(event) {
   sendAjaxRequest('post', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
-  }, participationAddedHandler);
+  }, participationHandler);
 
   event.preventDefault();
 }
@@ -1168,7 +1247,7 @@ function sendAcceptEventInviteRequest(event) {
 
   let answer = true;
 
-  
+
 
   sendAjaxRequest('post', '/api/invite/', {
     event_id: event_id,
@@ -1229,7 +1308,7 @@ function sendRemoveParticipantRequest() {
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
-  }, participantRemovedHandler);
+  }, participationHandler);
 
 }
 
@@ -1360,6 +1439,7 @@ function profileEditedHandler() {
 }
 
 function eventEditedHandler() {
+  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   let event;
   if (message == 'success') {
@@ -1367,7 +1447,8 @@ function eventEditedHandler() {
     city = JSON.parse(this.responseText)['city'];
     country = JSON.parse(this.responseText)['country'];
     localization = JSON.parse(this.responseText)['localization'];
-    updateEvent(event, city, country, localization);
+    category = JSON.parse(this.responseText)['category'];
+    updateEvent(event, city, country, localization, category);
 
     getCurCountryEvent();
     sendCountriesRequest();
@@ -1423,21 +1504,7 @@ function eventDeletedHandler() {
   }
 }
 
-function participationCanceledHandler() {
-  let message = JSON.parse(this.responseText)['message'];
-  if (this.status == 200) window.location = '/';
-
-}
-
-function participantRemovedHandler() {
-  let message = JSON.parse(this.responseText)['message'];
-  if (message == "success") {
-    btns_removeParticipant[currentParticipant].parentNode.parentNode.remove();
-  }
-
-}
-
-function participationAddedHandler() {
+function participationHandler() {
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -1445,6 +1512,15 @@ function participationAddedHandler() {
   }
 
 }
+
+// function participantRemovedHandler() {
+//   let message = JSON.parse(this.responseText)['message'];
+//   if (message == "success") {
+//     btns_removeParticipant[currentParticipant].parentNode.parentNode.remove();
+//   }
+
+// }
+
 
 function acceptedInviteHandler() {
   let response = JSON.parse(this.responseText);
@@ -1456,6 +1532,7 @@ function acceptedInviteHandler() {
 }
 
 function declinedInviteHandler() {
+  console.log(this.responseText);
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -1530,19 +1607,19 @@ function madeInviteHandler() {
 
     clone.id = "btn_cancelInvite";
 
-btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
-cancelInvite = new Array();
-for (let i = 0; i < btns_cancelInvite.length; i++) {
-  cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
-  btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
-}
+    btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+    cancelInvite = new Array();
+    for (let i = 0; i < btns_cancelInvite.length; i++) {
+      cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
+      btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
+    }
 
 
   }
 }
 
 function canceledInviteHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let curIn = response['currentInvite'];
@@ -1567,8 +1644,8 @@ function canceledInviteHandler() {
     clone.classList.add("btn-success");
 
     clone.id = "btn_inviteToEvent";
-btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
-makeInvite = new Array();
+    btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+    makeInvite = new Array();
     for (let i = 0; i < btns_makeInvite.length; i++) {
       makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
       btns_makeInvite[i].addEventListener('click', makeInvite[i]);
@@ -1604,23 +1681,31 @@ function updateProfile(profile, city, country) {
   addEventListeners();
 }
 
-function updateEvent(event, city, country, localization) {
+function updateEvent(event, city, country, localization, category) {
   let main_div = document.querySelector("#event_data");
   let parent = main_div.parentElement;
   let btn_edit = parent.querySelector("#btn_editEvent");
   btn_edit.disabled = false;
-
+  let deleteEvent = document.querySelector('#btn_deleteEvent');
+  deleteEvent.disabled = false;
 
   main_div.innerHTML =
-    "<h1 class='display-4' id='event_name'>" + event.name + "</h1><br>" +
-    "<div class='row'>" +
+    "<span class='display-4' id='event_name'>" + event.name + "</span>" +
+      "<span id='event_public' data-id=" + event.is_public + ">" + (event.is_public == "1" ? "(Public)" : "(Private)") + "</span" +
+      "<br>" +
+    "<div class='row mt-5'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
     "<i class='fas fa-clock fa-fw' ></i>" + event.date + " at " + event.time + "</h5>" +
     "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5><br>" +
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5>"+
+    "<h5 id='address'>" +
+       localization.address + "</h5>" +
+      "<h5 id='event_category' data-id=" + event.category_id + ">" +
+      "Category: " + category + "</h5>" +
+      "<br>" +
     "</div>" +
-    "<div class='col - 12 col - lg - 7'>" +
+    "<div class='col-12 col-lg-7'>" +
     "<h1>Description</h1><br>" +
     "<p id='event_description'>" + event.description + "</p>" +
     "</div>" +

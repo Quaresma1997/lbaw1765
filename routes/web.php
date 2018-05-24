@@ -46,7 +46,6 @@ Route::delete('deletePost/{id}', 'PostController@delete')->name('postd');
 Route::delete('api/participant/', 'ParticipantController@delete');
 Route::post('api/participant/', 'ParticipantController@create');
 Route::delete('api/friendship/', 'FriendshipController@delete');
-// Route::post('api/friendship/', 'FriendshipController@create');
 Route::put('api/invite/', 'EventInviteController@create');
 Route::delete('api/invite/', 'EventInviteController@delete');
 Route::post('api/invite/', 'EventInviteController@update');

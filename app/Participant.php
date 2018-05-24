@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
-    public $timestamps  = false;
+    public $timestamps  = true;
     
     public function user() {
         return $this->belongsTo('App\User');

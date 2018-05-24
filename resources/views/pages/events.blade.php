@@ -1,12 +1,24 @@
 @extends('layouts.app')
 
-@section('navbar')
-    @include('partials.navLoggedIn')
-@endsection
+@if (!Auth::check())
+  @section('navbar')
+    @include('partials.navNotLoggedIn')
+  @endsection
 
-@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
-@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-@include('partials.addEvent')
+  @include('partials.register')
+  @include('partials.login')
+
+@else
+  @section('navbar')
+    @include('partials.navLoggedIn')
+  @endsection
+  
+  @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+  @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+  @include('partials.addEvent')
+@endif
+
+
 
 
 @section('content')
@@ -34,12 +46,14 @@
                   <h3 class="my-4">{{ $participant->user->username }}</h3>
                   </a>
               </div>
+              @if(Auth::check())
               @if(Auth::user()->id == $event->owner->id)
               <div class="col-md-3 col-3 d-flex align-items-center">
                   <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Remove" id="btn_removeParticipant" event-id="{{$event->id}}" user-id="{{$participant->user->id}}">
                     <i class="fas fa-times fa-fw"></i> Remove
                   </button>
                 </div>
+                @endif
                 @endif
             </div>
             
@@ -51,15 +65,19 @@
   </div>
 
 
+@if(Auth::check())
   @if($event->owner->id == Auth::user()->id)
     @include('partials.eventAsOwner')
   @elseif(Auth::user()->inEvent($event->id) != null)
     @include('partials.eventAsParticipant')
+  @elseif(Auth::user()->invite_to_event($event->id) != null)
+    @include('partials.eventAsInvited')
   @else
     @include('partials.eventAsVisitor')
   @endif
-
- 
+@else
+  @include('partials.eventAsVisitor')
+@endif
 
   
 

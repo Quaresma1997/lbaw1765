@@ -22,12 +22,6 @@ CREATE TABLE cities (
     CONSTRAINT cities_pk PRIMARY KEY (id)    
 );
 
-DROP TABLE IF EXISTS "current_date" CASCADE;
-CREATE TABLE "current_date" (
-    id SERIAL NOT NULL,
-    date TIMESTAMP WITH TIME zone NOT NULL,
-    CONSTRAINT current_date_pk PRIMARY KEY (id)
-);
 
 DROP TABLE IF EXISTS countries CASCADE;
 CREATE TABLE countries (
@@ -58,8 +52,8 @@ CREATE TABLE events (
     category_id INTEGER,
     CONSTRAINT events_pk PRIMARY KEY (id),
     CONSTRAINT event_category_fk FOREIGN KEY (category_id) REFERENCES 
-    categories(id) ON DELETE SET NULL,
-    CONSTRAINT date_ck CHECK ((date >current_date))
+    categories(id) ON DELETE SET NULL
+    -- CONSTRAINT date_ck CHECK ((date>current_date))
 );
 
 DROP TABLE IF EXISTS event_invites CASCADE;
@@ -69,6 +63,8 @@ CREATE TABLE event_invites (
     event_id INTEGER NOT NULL,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
+        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_invites_pk PRIMARY KEY (id),
     CONSTRAINT event_invites_uk UNIQUE (event_id, receiver_id)
 );
@@ -78,6 +74,8 @@ CREATE TABLE event_delete_warnings (
     id SERIAL NOT NULL,
     event_name text NOT NULL,
     receiver_id INTEGER NOT NULL,
+        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_delete_warnings_pk PRIMARY KEY (id)
 );
 
@@ -86,19 +84,10 @@ CREATE TABLE event_update_warnings (
     id SERIAL NOT NULL,
     event_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
+        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_update_warnings_pk PRIMARY KEY (id),
     CONSTRAINT event_update_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES 
-    events(id) ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS friend_activities CASCADE;
-CREATE TABLE friend_activities (
-    id SERIAL NOT NULL,
-    sender_id INTEGER NOT NULL,
-    receiver_id INTEGER NOT NULL,
-    event_id INTEGER NOT NULL,
-    CONSTRAINT friend_activities_pk PRIMARY KEY (id),
-    CONSTRAINT friend_activities_event_id_fk FOREIGN KEY (event_id) REFERENCES 
     events(id) ON DELETE CASCADE
 );
 
@@ -108,6 +97,8 @@ CREATE TABLE friend_requests (
     answer BOOLEAN,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT friend_requests_pk PRIMARY KEY (id),
     CONSTRAINT friend_requests_uk UNIQUE (sender_id, receiver_id)
 );
@@ -161,6 +152,8 @@ CREATE TABLE participants (
     id SERIAL NOT NULL,
     user_id INTEGER NOT NULL,
     event_id INTEGER NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT participants_pk PRIMARY KEY (id),
     CONSTRAINT participants_user_id_event_id_uk UNIQUE (user_id, event_id),
     CONSTRAINT participants_event_id_fk FOREIGN KEY (event_id) REFERENCES 
@@ -178,7 +171,7 @@ DROP TABLE IF EXISTS posts CASCADE;
 CREATE TABLE posts (
     id SERIAL NOT NULL,
     description text NOT NULL,
-    date TIMESTAMP WITH TIME zone NOT NULL,
+    date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     event_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     image_path text,
@@ -256,17 +249,9 @@ ALTER TABLE ONLY event_update_warnings
     ADD CONSTRAINT event_update_warnings_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
     "users"(id) ON DELETE CASCADE;
 
-ALTER TABLE ONLY friend_activities
-    ADD CONSTRAINT friend_activities_sender_id_fk FOREIGN KEY (sender_id) REFERENCES
-    "users"(id) ON DELETE CASCADE;
-
-ALTER TABLE ONLY friend_activities
-    ADD CONSTRAINT friend_activities_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
-    "users"(id) ON DELETE CASCADE;
-
 ALTER TABLE ONLY friend_requests
     ADD CONSTRAINT friend_requests_sender_id_fk FOREIGN KEY (sender_id) REFERENCES 
-    participants(id) ON DELETE CASCADE;
+    "users"(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY friend_requests   
     ADD CONSTRAINT friend_requests_receiver_id_fk FOREIGN KEY (receiver_id) REFERENCES 
@@ -301,25 +286,35 @@ ALTER TABLE ONLY ratings
     "users"(id) ON DELETE SET NULL;
 
 
--- CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
--- $BODY$
--- BEGIN
---   IF EXISTS (SELECT event_id FROM not_done WHERE NEW.event_id = id) 
---   THEN
---     INSERT INTO dones VALUES (NEW.event_id, NULL);
---     DELETE FROM not_dones WHERE id = NEW.event_id;
---   END IF;
---   RETURN NEW;
--- END
--- $BODY$
--- LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  INSERT INTO dones VALUES (OLD.event_id, NULL);
+  RETURN OLD;
+END
+$BODY$
+LANGUAGE plpgsql;
  
--- DROP TRIGGER IF EXISTS set_event_as_done ON "current_date";
--- CREATE TRIGGER set_event_as_done
---   BEFORE UPDATE OF date ON "current_date"
---   FOR EACH ROW
---   WHEN NEW.date = current_date()
---     EXECUTE PROCEDURE set_event_as_done(); 
+DROP TRIGGER IF EXISTS set_event_as_done ON "not_dones";
+CREATE TRIGGER set_event_as_done
+  BEFORE DELETE ON "not_dones"
+  FOR EACH ROW
+    EXECUTE PROCEDURE set_event_as_done(); 
+
+CREATE OR REPLACE FUNCTION set_event_as_not_done() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  INSERT INTO not_dones VALUES (NEW.id);
+  RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+DROP TRIGGER IF EXISTS set_event_as_not_done ON "events";
+CREATE TRIGGER set_event_as_done
+  AFTER INSERT ON "events"
+  FOR EACH ROW
+    EXECUTE PROCEDURE set_event_as_not_done(); 
  
 CREATE OR REPLACE FUNCTION notificate_event_delete() RETURNS TRIGGER AS
 $BODY$
@@ -559,7 +554,7 @@ INSERT INTO events (name,date, time,description,owner_id,localization_id,is_publ
 			VALUES ('ENEI','2019-04-24', '12:30:00','Nunc quis arcu vel quam',2,2,true,1);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('RockInRio','2019-06-04', '12:30:00','tempus eu, ligula. Aenean euismod',3,3,true,1);
+			VALUES ('RockInRio','2025-06-04', '12:30:00','tempus eu, ligula. Aenean euismod',3,3,true,1);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
 			VALUES ('Nos Alive','2019-08-04', '12:30:00','dignissim pharetra. Nam ac nulla.',4,4,true,1);
@@ -571,13 +566,13 @@ INSERT INTO events (name,date, time,description,owner_id,localization_id,is_publ
 			VALUES ('Mark Birthday Party','2019-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',6,1,true,2);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('WebSummit','2019-04-12', '12:30:00','lorem lorem, luctus ut, pellentesque',7,6,true,2);
+			VALUES ('WebSummit','2018-04-12', '12:30:00','lorem lorem, luctus ut, pellentesque',7,6,true,2);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('Ted Talk','2019-04-24', '12:30:00','sollicitudin orci sem eget massa.',8,2,true,2);
+			VALUES ('Ted Talk','2009-04-24', '12:30:00','sollicitudin orci sem eget massa.',8,2,true,2);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('Teaches Conference','2019-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',9,1,false,5);
+			VALUES ('Teaches Conference','2011-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',9,1,false,5);
 			
 
 
@@ -591,40 +586,12 @@ INSERT INTO images (event_id,path) VALUES (7,'/imgs/fa1.jpg');
 INSERT INTO images (event_id,path) VALUES (8,'/imgs/fa2.jpg');
 
 
-
-			
-
-INSERT INTO dones (event_id)
-			VALUES (7);
-			
-INSERT INTO not_dones (event_id)
-			VALUES (1);
-INSERT INTO not_dones (event_id)
-			VALUES (2);
-INSERT INTO not_dones (event_id)
-			VALUES (3);
-INSERT INTO not_dones (event_id)
-			VALUES (4);
-INSERT INTO not_dones (event_id)
-			VALUES (5);
-INSERT INTO not_dones (event_id)
-			VALUES (6);
-INSERT INTO not_dones (event_id)
-			VALUES (8);
-INSERT INTO not_dones (event_id)
-			VALUES (9);
-			
-
 INSERT INTO ratings ( "value", event_id, user_id)
             VALUES (4, 2, 2);
 			
 			
 INSERT INTO participants (user_id,event_id)
 			VALUES (1,2);
-INSERT INTO participants (user_id,event_id)
-			VALUES (2,1);
-INSERT INTO participants (user_id,event_id)
-			VALUES (2,3);
 INSERT INTO participants (user_id,event_id)
 			VALUES (7,1);			
 INSERT INTO participants (user_id,event_id)
@@ -659,6 +626,18 @@ INSERT INTO participants (user_id,event_id)
 			VALUES (12,5);			
 INSERT INTO participants (user_id,event_id)
 			VALUES (10,4);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,4);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,5);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,6);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,7);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,8);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,9);
 			
 INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,1,'/img/new.jpg');
 INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,3,'/img/new.jpg');

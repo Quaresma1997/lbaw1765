@@ -6,8 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
+<<<<<<< HEAD
 //use Laravel\Scout\Searchable;
 //use Illuminate\Database\Eloquent\Model;
+=======
+use App\EventInvite;
+use App\FriendRequest;
+>>>>>>> 87622aed4dc24faebec03cb818b4fde50ea07049
 
 class User extends Authenticatable
 {
@@ -76,6 +81,14 @@ public function searchableAs(){
 
   }
 
+  public function invite_to_event($event_id){
+    if(sizeof($this->event_invites) != 0)
+      return $this->event_invites->where('receiver_id', $this->id)->where('event_id', $event_id)->first();
+    else
+      return null;
+
+  }
+
   public function friend_requests_received(){
 
     return $this->hasMany('App\FriendRequest', 'receiver_id');
@@ -109,6 +122,47 @@ public function searchableAs(){
     // return $this->hasMany('App\Friendship', 'user_id_1')->hasMany('App\Friendship', 'user_id_2');
   }
 
+  public function getFriendsEvents(){
+    $friends = $this->getFriends();
+    $friend_events = [];
+    if($friends != null){
+      $friend_events = array();
+      foreach($friends as $friend){
+          foreach($this->publicFriendEvents($friend) as $event){
+            array_push($friend_events, $event);
+          }
+                
+            }
+          }
+
+    usort($friend_events, array($this, "cmp_participation"));
+          
+
+          return $friend_events;
+  }
+
+  public function publicFriendEvents($friend){
+    $participants = $friend->participants;
+        $participating = [];
+        if($participants != null){
+            $participating = array();
+            foreach($participants as $participant){
+              if($participant->event->is_public){
+                $new_event = $participant->event;
+                $new_event->participant = $participant;
+                array_push($participating, $new_event);
+              }
+            }
+        }
+        return $participating;
+  }
+
+  function cmp_participation($a, $b)
+{
+    return strcmp($a->participant->created_at, $b->participant->created_at);
+}
+
+
   
     public function friendWith($user_id){
         return (Friendship::where('user_id_1', $this->id)->where('user_id_2', $user_id)->first()
@@ -133,12 +187,108 @@ public function searchableAs(){
       return in_array($user_id, $users_ids);
     }
 
+    public function notifications(){
+      $notifications = $this->friend_requests_received->toBase()->merge($this->event_invites);
+
+      $not_array = array();
+
+      foreach($notifications as $notification){
+        if($notification instanceof EventInvite)
+          $notification->type = 1;
+        elseif($notification instanceof FriendRequest)
+          $notification->type = 2;
+        array_push($not_array, $notification);
+      }
+
+      usort($not_array, array($this, "cmp_notifications"));
 
 
-    // /**
-    //  * The cards this user owns.
-    //  */
-    //  public function cards() {
-    //   return $this->hasMany('App\Card');
-    // }
+      return $not_array;
+    }
+
+      function cmp_notifications($a, $b)
+{
+    return strcmp($a->created_at, $b->created_at);
 }
+
+public function eventsParticipating(){
+  $participants = $this->participants;
+        $participating = [];
+        if($participants != null){
+            $participating = array();
+            foreach($participants as $participant){
+                array_push($participating, $participant->event);
+            }
+        }
+
+        return $participating;
+}
+
+public function cmp_events_asc($a, $b)
+{
+  return strcmp($a->date, $b->date);
+}
+
+public function cmp_events_desc($a, $b)
+{
+  return strcmp($b->date, $a->date);
+}
+
+public function allEvents(){
+  $all_events = $this->eventsParticipating();
+
+  foreach($this->events as $e){
+    array_push($all_events, $e);
+  }
+
+  $dones = array();
+  $not_dones = array();
+
+  foreach($all_events as $e){
+    if($e->done == null){
+      array_push($not_dones, $e);
+    }else{
+      array_push($dones, $e);
+    }
+  }
+
+  usort($not_dones, array($this, "cmp_events_asc"));
+  usort($dones, array($this, "cmp_events_desc"));
+
+  $all_events = array_merge($not_dones, $dones);
+
+  return $all_events;
+}
+
+public function publicEvents(){
+  $public_events = array();
+
+  foreach($this->allEvents() as $e){
+    if($e->is_public)
+      array_push($public_events, $e);
+  }
+
+  $dones = array();
+  $not_dones = array();
+
+  foreach($public_events as $e){
+    if($e->done == null){
+      array_push($not_dones, $e);
+    }else{
+      array_push($dones, $e);
+    }
+  }
+
+  usort($not_dones, array($this, "cmp_events_asc"));
+  usort($dones, array($this, "cmp_events_desc"));
+
+  $public_events = array_merge($not_dones, $dones);
+
+  return $public_events;
+}
+
+}
+
+
+
+

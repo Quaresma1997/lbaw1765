@@ -41,9 +41,9 @@ class ProfileController extends Controller
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
       $categories = Category::all();
 
+      
 
-      $this->authorize('show', $user);
-
+      // $this->authorize('show', $user);
       
       return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country, 'categories' => $categories]);
     }

@@ -6,14 +6,14 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <a href="{{ url('event/' . $event_invite->event_id)}}" class="text-white">
-            <img src="./imgs/hp2.jpg" class="img-fluid rounded mx-auto d-block">
+          <a href="{{ url('events/' . $event_invite->event_id)}}" class="text-white">
+            <img src="{{url('/imgs/hp1.jpg')}}" class="img-fluid rounded mx-auto d-block">
           </a>
           <br>
           <br>
           <h3 class="text-center">
             <a href="{{ url('profile/' . $event_invite->sender_id)}}" class="text-white">{{$event_invite->sender->username}}</a> invited you to
-            <a href="{{ url('event/' . $event_invite->event_id)}}" class="text-white">{{$event_invite->event->name}}</a>.</h3>
+            <a href="{{ url('events/' . $event_invite->event_id)}}" class="text-white">{{$event_invite->event->name}}</a>.</h3>
           <br>
           <button type="button" class="btn btn-success btn-lg btn-block" id="btn_acceptEventInvite" event-id="{{$event_invite->event->id}}" receiver-id="{{$event_invite->receiver->id}}">
             <i class="fas fa-check fa-fw"></i> Accept </button>
