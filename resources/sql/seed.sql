@@ -367,7 +367,7 @@ $BODY$
 LANGUAGE plpgsql;
  
 CREATE TRIGGER rating_update
-  AFTER INSERT ON ratings
+  AFTER UPDATE ON ratings
   FOR EACH ROW
     EXECUTE PROCEDURE rating_update();
 

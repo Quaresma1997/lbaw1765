@@ -29,7 +29,7 @@ class SearchController extends Controller
 
         $users = User::where ('username', 'LIKE', "%$query%")->orWhere('email', 'LIKE', "%$query%")->get();
        //$users= User::search($query)->raw(); 
-       $events = $query::where('name', 'LIKE', "%$query%") -> where('is_public','=', 'true') ->get();
+       $events = Event::where('name', 'LIKE', "%$query%") -> where('is_public','=', 'true') ->get();
 
       //$events= Event::whereRaw("MATCH(name) AGAINST(? IN BOOLEAN MODE)",array($query))->get();
       

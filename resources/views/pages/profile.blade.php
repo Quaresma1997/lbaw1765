@@ -106,6 +106,4 @@
       </div>
     </div>
 
-  <?php print_r(date('Y-m-d')); print_r(date('H:i:s'));?>
-
 @endsection

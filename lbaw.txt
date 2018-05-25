@@ -121,4 +121,18 @@ voltar a colocar check dos eventos criados terem data posterior a hoje
 
 tirar a data e hora do perfil :)
 
+Edit event a funcionar ? Qd da erro ver
+
+Ordenar por hora tambem na homepage
+
+Qd está past Event, o k é k aparece a informar?
+
+Çusher para atualizacoes em tempo real ver na net e perguntar Diogo
+
+Cron para eventos realizados meter no moodle e mandar mail ao stor
+
+Notificacoes aparecerem as mais recentes por ordem, com scroll
+
+Ver os posts!!!
+
 https://codepen.io/jamesbarnett/pen/vlpkh
