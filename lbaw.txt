@@ -135,4 +135,6 @@ Notificacoes aparecerem as mais recentes por ordem, com scroll
 
 Ver os posts!!!
 
+Nos eventos aparecer a votacao media
+
 https://codepen.io/jamesbarnett/pen/vlpkh

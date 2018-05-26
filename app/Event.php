@@ -58,6 +58,10 @@ class Event extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function rating($user_id){
+      return Rating::where('event_id', $this->id)->where('user_id', $user_id)->first();
+    }
+
 
 
  

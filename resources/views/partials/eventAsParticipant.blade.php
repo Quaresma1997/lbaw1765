@@ -26,6 +26,8 @@
       </a>
     </div>
 
+    
+
     <div class="jumbotron" >
       <div class="row" style="display:grid;">
       <div class="flex">
@@ -37,19 +39,25 @@
         <i class="fas fa-clipboard-list fa-fw"></i> Participants </button>
         @if($event->done != null)
         <div class="float-right mr-3">
-        <fieldset class="rating float-right mr-3">
+        
+        @if($event->rating(Auth::user()->id) != null)
+          <fieldset id="star_rating" class="rating float-right mr-3" data-id="{{$event->rating(Auth::user()->id)->value}}" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
+        @else
+          <fieldset id="star_rating" class="rating float-right mr-3" data-id="null" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
+        @endif
+
     <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
     <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
     <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-    <input type="radio" id="star2" name="rating" value="2" checked/><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
     <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Terrible - 1 star"></label>
 </fieldset>
 <br>
-  <span>Avg rating is 
+  <span id = "avg_rating">Avg rating is 
     @if($event->done->rating == null)
     0.0/5
     @else
-    {{$event->done->ratin}}/5
+    {{$event->done->rating}}/5
   @endif</span>
   </div>
       @endif

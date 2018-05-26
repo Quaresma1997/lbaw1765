@@ -52,6 +52,8 @@ Route::post('api/invite/', 'EventInviteController@update');
 Route::put('api/friend_request/', 'FriendRequestController@create');
 Route::post('api/friend_request/', 'FriendRequestController@update');
 
+Route::put('api/rating/', 'RatingController@create');
+Route::post('api/rating/', 'RatingController@update');
 
 Route::delete('api/admin/{username}', 'AdminController@delete');
 

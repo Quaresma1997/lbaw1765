@@ -225,6 +225,20 @@ function addEventListeners() {
     btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
   }
 
+  let rate = document.querySelector("#star_rating");
+  if(rate != null){
+    
+  }
+
+  let starRatings = document.querySelectorAll('input[name=rating');
+  for (let i = 0; i < starRatings.length; i++) {
+    starRatings[i].addEventListener('click', sendStarRateRequest);
+    if (rate.getAttribute("data-id") != "null"){
+      if (rate.getAttribute("data-id") == 5 - i)
+        starRatings[i].checked = true;
+    }
+  }
+
 }
 
 
@@ -1297,6 +1311,28 @@ function sendDeclineFriendRequest(event) {
   }, declinedFriendHandler);
 }
 
+function sendStarRateRequest(event){
+   let event_id = this.parentNode.getAttribute('event-id');
+   let user = this.parentNode.getAttribute('user-id');
+   let value = this.parentNode.getAttribute('data-id');
+   let new_value = this.getAttribute('value');
+  
+
+   if(value == "null"){
+     sendAjaxRequest('put', '/api/rating/', {
+       event_id: event_id,
+       user_id: user,
+       new_value: new_value
+     }, starRatedHandler);
+   }else{
+     sendAjaxRequest('post', '/api/rating/', {
+      event_id: event_id,
+        user_id: user,
+        new_value: new_value
+     }, starRatedHandler);
+   }
+  
+}
 
 
 
@@ -1403,6 +1439,17 @@ function eventRemHandler() {
     btns_remEvent[currentEvent].parentNode.parentNode.remove();
   }
 }
+function starRatedHandler() {
+  console.log(this.responseText);
+  let message = JSON.parse(this.responseText)['message'];
+  if (message == "success") {
+    let avg = JSON.parse(this.responseText)['avg'];
+    let vote = JSON.parse(this.responseText)['vote'];
+    document.querySelector("#avg_rating").innerText = "Avg rating is " + avg + " / 5 ";
+    document.querySelector("#star_rating").setAttribute("data-id", avg);
+  }
+}
+
 
 function profileEditedHandler() {
   let message = JSON.parse(this.responseText)['message'];
