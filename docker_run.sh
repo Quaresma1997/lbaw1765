@@ -5,5 +5,5 @@ env >> /var/www/.env
 php-fpm7.1 -D
 cd /var/www
 php artisan db:seed --force
-* * * * * laradock php artisan schedule:run >> /dev/null 2>&1
+php artisan schedule:run
 nginx -g "daemon off;"
