@@ -67,6 +67,9 @@
       </div>
       </div>
       <hr>
+       @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
       <div id="event_data" data-id="{{ $event->id }}">
       <span class="display-4" id="event_name">{{$event->name}}</span>
       <span id="event_public" data-id="{{$event->is_public}}">

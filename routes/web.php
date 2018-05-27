@@ -28,10 +28,10 @@ Route::post('profile/{id}', 'ProfileController@update');
 Route::delete('api/profile/{id}', 'ProfileController@delete');
 Route::post('api/add_event', 'EventController@add');
 Route::delete('api/event/{id}', 'EventController@delete');
-Route::post('api/event/{id}', 'EventController@update');
+Route::post('events/{id}', 'EventController@update');
 
 //Route::post('api/add_post/', 'EventController@addPost');
-Route::post('events/{id}', 'PostController@add')->name('posta');
+Route::post('addPost/{id}', 'PostController@add')->name('posta');
 Route::delete('deletePost/{id}', 'PostController@delete')->name('postd');
 
 

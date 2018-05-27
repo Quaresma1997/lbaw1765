@@ -117,7 +117,7 @@ CREATE TABLE images (
     event_id INTEGER NOT NULL,
     path text NOT NULL,
     CONSTRAINT images_pk PRIMARY KEY (id),
-    CONSTRAINT images_path_uk UNIQUE (path)
+    CONSTRAINT images_event_id_path_uk UNIQUE (event_id, path)
 );
 
 DROP TABLE IF EXISTS localizations CASCADE;
@@ -344,7 +344,7 @@ $BODY$
 DECLARE
     idx int;
 BEGIN
-    FOR idx IN SELECT id FROM participants WHERE participants.event_id = New.id
+    FOR idx IN SELECT user_id FROM participants WHERE participants.event_id = New.id
     LOOP
         INSERT INTO event_update_warnings (event_id, receiver_id) VALUES (New.id, idx);
     END LOOP;
@@ -580,14 +580,14 @@ INSERT INTO events (name,date, time,description,owner_id,localization_id,is_publ
 			
 
 
-INSERT INTO images (event_id,path) VALUES (1,'/imgs/natur.jpg');			
-INSERT INTO images (event_id,path) VALUES (2,'/imgs/natu.jpg');			
-INSERT INTO images (event_id,path) VALUES (3,'/imgs/pyr.jpg');			
-INSERT INTO images (event_id,path) VALUES (4,'/imgs/november.jpg');			
-INSERT INTO images (event_id,path) VALUES (5,'/imgs/taj.jpg');			
-INSERT INTO images (event_id,path) VALUES (6,'/imgs/fer.jpg');			
-INSERT INTO images (event_id,path) VALUES (7,'/imgs/fa1.jpg');			
-INSERT INTO images (event_id,path) VALUES (8,'/imgs/fa2.jpg');
+INSERT INTO images (event_id,path) VALUES (1,'natur.jpg');			
+INSERT INTO images (event_id,path) VALUES (2,'natu.jpg');			
+INSERT INTO images (event_id,path) VALUES (3,'pyr.jpg');			
+INSERT INTO images (event_id,path) VALUES (4,'november.jpg');			
+INSERT INTO images (event_id,path) VALUES (5,'taj.jpg');			
+INSERT INTO images (event_id,path) VALUES (6,'fer.jpg');			
+INSERT INTO images (event_id,path) VALUES (7,'fa1.jpg');			
+INSERT INTO images (event_id,path) VALUES (8,'fa2.jpg');
 
 
 INSERT INTO ratings ( "value", event_id, user_id)

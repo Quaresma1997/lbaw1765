@@ -65,6 +65,15 @@ function addEventListeners() {
       imageProfile = document.querySelector("#user_info_img")
     });
 
+     let imagesUpload = document.querySelector('#images');
+     if (imagesUpload != null)
+      imagesUpload.addEventListener('change', function (e) {
+         let total_file = document.getElementById("images").files.length;
+         for (let i = 0; i < total_file; i++) {
+           console.log(e);
+           $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='" + URL.createObjectURL(e.target.files[i]) + "'></div>");
+         }
+      });
 
 
 
@@ -130,8 +139,10 @@ function addEventListeners() {
 
 
   let editEventConfirm = document.querySelector('form.edit_event');
-  if (editEventConfirm != null)
-    editEventConfirm.addEventListener('submit', sendEditEventRequest);
+  // if (editEventConfirm != null) 
+    // editEventConfirm.addEventListener('submit', sendEditEventRequest);
+
+  
 
   let editEventCancel = document.querySelector('form.edit_event #btn_cancel_edit_event');
   if (editEventCancel != null)
@@ -536,6 +547,8 @@ function createEditProfileForm(event) {
 
 
   let cities_options = "";
+  if(cities == null)
+    return;
   let i;
   cities_options += "<option value = 'Other'>Other</option>";
   if (cities.length != 0)
@@ -550,6 +563,8 @@ function createEditProfileForm(event) {
   // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
+  if (countries == null)
+    return;
   countries_options += "<option value = 'Other'>Other</option>";
   if (countries.length != 0)
     countries_options += "<option disabled>────────────────────</option>";
@@ -595,7 +610,7 @@ function createEditProfileForm(event) {
 
 
   main_div.innerHTML =
-    "<div style='text-align:center;'>"+
+    "<div style='text-align:center;'>" +
     "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
     "<form enctype='multipart/form-data' class='edit_profile' method='POST'>" +
     btn_img +
@@ -612,9 +627,8 @@ function createEditProfileForm(event) {
 
 function createEditEventForm(event) {
   let btn_edit = document.querySelector("#btn_editEvent");
-  btn_edit.disabled = true;
   let deleteEvent = document.querySelector('#btn_deleteEvent');
-  deleteEvent.disabled = true;
+  
   let main_div = document.querySelector("#event_data");
 
   let name = main_div.querySelector("#event_name").innerText;
@@ -642,6 +656,8 @@ function createEditEventForm(event) {
   let public_sel = document.querySelector("#type");
   let event_public = document.querySelector("#event_public");
 
+  let csrf = main_div.querySelector('input[name=_token');
+
   current_name = name;
   current_category_id = event_category.getAttribute("data-id") - 1;
   current_category = category_sel.options[current_category_id].value;
@@ -656,7 +672,7 @@ function createEditEventForm(event) {
 
   let form_name =
     "<label for='name'>Name</label>" +
-    "<input type='text' id='input_name' class='form-control' placeholder='Event name' value='" + name + "' required>";
+    "<input type='text' id='input_name' class='form-control' name='name' placeholder='Event name' value='" + name + "' required>";
 
   let category_options = "";
   let i;
@@ -684,7 +700,7 @@ function createEditEventForm(event) {
     "<div class='col-12 col-sm-6'>" +
     "<div class='form-group mb-2 p-0 m-0' id='select_type'>" +
     "<label for='type'>Type</label>" +
-    "<select class='custom-select' id='input_type' name='select_type'>" +
+    "<select class='custom-select' id='input_type' name='type'>" +
     event_public_options +
     "</select>" +
     "</div>" +
@@ -692,7 +708,7 @@ function createEditEventForm(event) {
     "<div class='col-12 col-sm-6'>" +
     "<div class='form-group mb-2 p-0 m-0' id='select_category'>" +
     "<label for='category'>Category</label>" +
-    "<select class='custom-select' id='input_category' name='select_category'>" +
+    "<select class='custom-select' id='input_category' name='category'>" +
     category_options +
     "</select>" +
     "</div>" +
@@ -703,16 +719,20 @@ function createEditEventForm(event) {
     "<div class='row mt-3'>" +
     "<div class='col-6'>" +
     "<label for='date'>Date</label>" +
-    "<input type='date' id='input_date' class='form-control' value='" + date + "' required>" +
+    "<input type='date' id='input_date' name='date' class='form-control' value='" + date + "' required>" +
     "</div>" +
     "<div class='col-6'>" +
     "<label for='time'>Time</label>" +
-    "<input type='time' id='input_time' class='form-control' value='" + time + "' required>" +
+    "<input type='time' id='input_time' name='time' class='form-control' value='" + time + "' required>" +
     "</div>" +
     "</div>";
 
 
   let cities_options = "";
+
+  if(cities == null){
+    return;
+  }
 
   cities_options += "<option value = 'Other'>Other</option>";
   if (cities.length != 0)
@@ -727,6 +747,8 @@ function createEditEventForm(event) {
   //cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
+  if (countries == null)
+    return;
   countries_options += "<option value = 'Other'>Other</option>";
   if (countries.length != 0)
     countries_options += "<option disabled>────────────────────</option>";
@@ -745,21 +767,21 @@ function createEditEventForm(event) {
     "<div class='row mt-3'>" +
     "<div class='col-12 pb-3'>" +
     "<label for='address'>Address</label>" +
-    "<input type='text' id='input_address' class='form-control' placeholder='Event address' value='" + address + "' required>" +
+    "<input type='text' id='input_address' class='form-control' name='address' placeholder='Event address' value='" + address + "' required>" +
     "</div>" +
     "<div class='col-sm-6 col-12'>" +
     "<label for='place'>Place</label>" +
-    "<input type='text' id='input_place' class='form-control' placeholder='Event place' value='" + place + "' required>" +
+    "<input type='text' id='input_place' class='form-control' name='place' placeholder='Event place' value='" + place + "' required>" +
     "</div>" +
     "<div class='col-sm-3 col-6'>" +
     "<label for='country'>Country</label>" +
-    "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
+    "<select class = 'custom-select' id = 'select_country' name = 'country'>" +
     countries_options +
     "</select>" +
     "</div>" +
     "<div class='col-sm-3 col-6'>" +
     "<label for='city'>City</label>" +
-    "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
+    "<select class = 'custom-select' id = 'select_city' name = 'city'>" +
     cities_options +
     "</select>" +
     "</div>" +
@@ -767,16 +789,14 @@ function createEditEventForm(event) {
 
   let form_description =
     "<label for='description'>Description</label>" +
-    "<textarea id='input_description' class='form-control' rows='4' cols='1' placeholder='Event description'>" + description + "</textarea>";
+    "<textarea id='input_description' class='form-control' rows='4' cols='1' name='description' placeholder='Event description'>" + description + "</textarea>";
 
   let form_images =
-    "<form action='myform.cgi' class='img_form'>" +
     "<label class='imageContainer mt-3'>" +
     "Upload Images" +
-    "<input type='file' name='images[]' value='Browse' id='images' onchange='preview_images();' multiple class='custom-file-input'>" +
+    "<input type='file' name='images[]' value='Browse' id='images' multiple class='custom-file-input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
-    "</label>" +
-    "</form>";
+    "</label>";
 
   let btns =
     "<div class='row mt-5'>" +
@@ -790,7 +810,8 @@ function createEditEventForm(event) {
 
   main_div.innerHTML =
 
-    "<form class='edit_event' method='POST'>" +
+    "<form enctype='multipart/form-data' class='edit_event' method='POST'>" +
+    csrf.outerHTML +
     "<div class='row'>" +
     "<div class='col-12 col-lg-6'>" +
     form_name + form_category_type + form_date + form_localization +
@@ -799,7 +820,7 @@ function createEditEventForm(event) {
     form_description +
     "<div>" +
     form_images +
-    "<div class='jumbotron jumbotron_image p-2 mt-2'>" +
+    "<div class='jumbotron jumbotron_image'>" +
     "<div class='row' id='image_preview'></div>" +
     "</div>" +
     "</div>" +
@@ -809,33 +830,22 @@ function createEditEventForm(event) {
     "</form>";
 
   isEditing = true;
+btn_edit.disabled = true;
+deleteEvent.disabled = true;
 
   addEventListeners();
 }
-function preview_images() 
-{
-  let total_file=document.getElementById("images").files.length;
-    for(let i=0;i<total_file;i++){
-    $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='"+URL.createObjectURL(event.target.files[i])+"'></div>");
-    }
-}
 
-function preview_images() {
-  let total_file = document.getElementById("images").files.length;
-  for (let i = 0; i < total_file; i++) {
-    $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='" + URL.createObjectURL(event.target.files[i]) + "'></div>");
-  }
-}
 
 //Quando faço cancel tem de ir para os valores antes de clicar em edit
 //Ou seja, ao clicar em edit, guarda os valores nas variaveis que terao de ser globais
 function cancelEditProfile(event) {
   let main_div = document.querySelector("#user_info_container");
   main_div.innerHTML =
-  "<div style='text-align:center;'>" +
+    "<div style='text-align:center;'>" +
     "<img src='" + current_img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
     document.querySelector('input[name=_token').outerHTML +
-    "</div><br>"+
+    "</div><br>" +
     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + current_first_name + " " + current_last_name + "</label> <br>" +
     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + current_email + "</label> <br>" +
     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + current_city + ", " + current_country + "</label>" +
@@ -859,6 +869,7 @@ function cancelEditEvent(event) {
   let main_div = document.querySelector("#event_data");
   let cat = current_category_id + 1;
   main_div.innerHTML =
+  document.querySelector('input[name=_token').outerHTML +
     "<span class='display-4' id='event_name'>" + current_name + "</span>" +
     "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") + "</span" +
     "<br>" +
@@ -1206,6 +1217,7 @@ function sendCitiesRequest(country) {
 // }
 
 function sendEditEventRequest(event) {
+  console.log("AAAA");
   let id = this.closest('div').getAttribute('data-id');
   let name = this.querySelector('input[id=input_name]').value;
   let type = document.querySelector('#input_type').options[document.querySelector('#input_type').selectedIndex].value;

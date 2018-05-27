@@ -110,10 +110,10 @@ class ProfileController extends Controller
       $user->email = $request->input('email');
       if($request->hasFile("fileupload")){
         if($request->file("fileupload")->isValid()){
-        $avatar = $request->file("fileupload");
-        $filename = $avatar->getClientOriginalName();
-        $avatar->move(public_path('/imgs'), $filename);
-        $user->image_path = $filename;
+          $avatar = $request->file("fileupload");
+          $filename = $avatar->getClientOriginalName();
+          $avatar->move(public_path('/imgs'), $filename);
+          $user->image_path = $filename;
         }
       }
       
