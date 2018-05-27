@@ -1,16 +1,3 @@
-<!-- <div class="col-12 col-lg-6">
-              <div class="jumbotron content-lg p-0 mx-auto">
-                <a href="/events/{{$event->id}}" class="text-white">
-                  <div class="content-overlay"></div>
-                  <img class="content-image rounded" src="{{url('/imgs/hp1.jpg')}}">
-                  <div class="content-details">
-                    <h3>{{$event->name}}</h3>
-                    <p>{{$event->date}}
-                      <br> {{$event->localization->city->name}}, {{$event->localization->city->country->name}}</p>
-                  </div>
-                </a>
-              </div>
-            </div> -->
 <div class="col-12 col-lg-6">
               <div class="jumbotron list content-lg p-0 mx-auto">
                 <div class="row p-2">
@@ -27,7 +14,7 @@
                   </div>
                   <div class="col-12 mt-2">
                     <a href="/events/{{$event->id}}" class="text-white">
-                      <img src="{{url('/imgs/hp1.jpg')}}" class="img-fluid rounded">
+                      <img src="{{url('/imgs/' .  $event->images->last()->path)}}" class="img-fluid rounded">
                     </a>
                   </div>
                 </div>

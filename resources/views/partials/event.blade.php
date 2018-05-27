@@ -2,7 +2,7 @@
     <a href="/events/{{$event->id}}" class="text-white">
         <div class="row">
                         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="img-fluid rounded" src="{{url('/imgs/pyra.jpg')}}">
+                          <img class="img-fluid rounded" src="{{url('/imgs/' .  $event->images->last()->path)}}">
                           @if($event->done == null)
                             Future
                           @else

@@ -1,20 +1,28 @@
 <div class="container" style="margin-top:10em">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <?php $i = 0; ?>
+          @foreach($event->images as $image)
+            @if($i == 0)
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="active"></li>
+            @else
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"></li>
+            @endif            
+            <?php $i++; ?>
+          @endforeach
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Third slide">
-        </div>
+      <?php $i = 0; ?>
+        @foreach($event->images as $image)
+          @if($i == 0)
+            <div class="carousel-item active">
+          @else
+            <div class="carousel-item">
+          @endif
+          <?php $i++; ?>
+            <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          </div>
+        @endforeach
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

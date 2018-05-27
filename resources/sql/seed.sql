@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS images CASCADE;
 CREATE TABLE images (
     id SERIAL NOT NULL,
     event_id INTEGER NOT NULL,
-    path text NOT NULL,
+    path text NOT NULL DEFAULT 'event.jpg',
     CONSTRAINT images_pk PRIMARY KEY (id),
     CONSTRAINT images_event_id_path_uk UNIQUE (event_id, path)
 );
@@ -415,6 +415,22 @@ CREATE TRIGGER accept_event_invite
   AFTER UPDATE ON event_invites
   FOR EACH ROW
     EXECUTE PROCEDURE accept_event_invite();
+
+
+CREATE OR REPLACE FUNCTION set_event_default_image() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  INSERT INTO images (event_id) VALUES (NEW.id);
+  RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+DROP TRIGGER IF EXISTS set_event_default_image ON "events";
+CREATE TRIGGER set_event_default_image
+  AFTER INSERT ON "events"
+  FOR EACH ROW
+    EXECUTE PROCEDURE set_event_default_image(); 
 
 
 CREATE OR REPLACE FUNCTION avoid_reverse_friendships() RETURNS TRIGGER AS

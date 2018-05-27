@@ -27,16 +27,16 @@
       <div class="col-12 col-xl-6">
         <div class="row">
           
-            @foreach($most as $ev)
+            @foreach($most as $event)
             <div class="col-12 col-md-6 col-xl-6">
             <div class="mx-auto content">
-              <a href="/events/{{$ev->id}}" class="text-white">
+              <a href="/events/{{$event->id}}" class="text-white">
                 <div class="content-overlay"></div>
-                <img class="content-image rounded" src="{{url('/imgs/november.jpg')}}">
+                <img class="content-image rounded" src="{{url('/imgs/' . $event->images->last()->path)}}" height="230" width="270">
                 <div class="content-details">
-                  <h3>{{$ev->name}}</h3>
-                  <p>{{$ev->date}}
-                    <br> {{$ev->localization->city->name}}, {{$ev->localization->city->country->name}}</p>
+                  <h3>{{$event->name}}</h3>
+                  <p>{{$event->date}}
+                    <br> {{$event->localization->city->name}}, {{$event->localization->city->country->name}}</p>
                 </div>
               </a>
             </div>
