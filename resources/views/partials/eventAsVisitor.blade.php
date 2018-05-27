@@ -1,20 +1,28 @@
 <div class="container" style="margin-top:10em">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <?php $i = 0; ?>
+          @foreach($event->images as $image)
+            @if($i == 0)
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="active"></li>
+            @else
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"></li>
+            @endif            
+            <?php $i++; ?>
+          @endforeach
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Third slide">
-        </div>
+      <?php $i = 0; ?>
+        @foreach($event->images as $image)
+          @if($i == 0)
+            <div class="carousel-item active">
+          @else
+            <div class="carousel-item">
+          @endif
+          <?php $i++; ?>
+            <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          </div>
+        @endforeach
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -25,7 +33,7 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-
+    
     <div class="jumbotron" >
       <div class="row" style="display:grid;">
       <div class="flex">
@@ -35,27 +43,36 @@
       <button type="button" class="btn btn-success mx-1 float-right" id="btn_addParticipation" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
         <i class="fas fa-check fa-fw"></i> Join Event </button>
       @endif
+      @endif
       <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">
         <i class="fas fa-clipboard-list fa-fw"></i> Participants </button>
       @if($event->done != null)
-        <fieldset class="rating">
-            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-          </fieldset>
+         <div class="float-right mr-3">
+        
+        <fieldset id="star_rating" class="rating float-right mr-3" data-id="{{$event->done->rating}}" disabled>
+    <input type="radio" id="star5" name="rating" value="5" disabled/><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Terrible - 1 star"></label>
+</fieldset>
+<br>
+  <span id = "avg_rating"> 
+    @if($event->done->rating == null)
+    This event has no rating!
+    @else
+    Avg rating is {{$event->done->rating}}/5
+  @endif</span>
+  </div>
       @endif
       <br>
       <br>
       </div>
       </div>
       <hr>
+       @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
       <div id="event_data" data-id="{{ $event->id }}">
        <span class="display-4" id="event_name">{{$event->name}}</span>
       <span id="event_public" data-id="{{$event->is_public}}">
@@ -94,3 +111,15 @@
       </div>
     </div>
     </div>
+
+<div class="jumbotron" >
+      <h2 class="display-4">Discussion</h2>
+      <br>
+      <hr>
+
+         @each('partials.post', $event->posts, 'post')
+     
+        </div>
+      </div>
+    </div>
+  </div>

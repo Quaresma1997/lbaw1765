@@ -79,7 +79,7 @@
   @include('partials.eventAsVisitor')
 @endif
 
-  
+  <!--
 
     <div class="jumbotron" >
       <h2 class="display-4">Discussion</h2>
@@ -123,4 +123,6 @@
       </div>
     </div>
   </div>
+
+  -->
   @endsection

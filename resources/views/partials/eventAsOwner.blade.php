@@ -1,6 +1,6 @@
 @if($event->done == null)
  <div class="modal fade" id="invite">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="inviteModal">Invite Users</h5>
@@ -10,8 +10,10 @@
         </div>
         <div class="modal-body">
           <div class="jumbotron p-1 mb-1 mt-1">
+            <div class="row">
           @foreach($event->event_invites as $invite)
-              <div class="row mb-4">
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="row">
                 <div class="col-md-3  col-3">
                   <a href="{{ url('profile/' . $invite->receiver->id)}}" class="text-white">
                     <img src="/imgs/{{ $invite->receiver->image_path }}" class="img-fluid mx-auto rounded">
@@ -28,10 +30,34 @@
                     <i class="fas fa-times" ></i><span> Cancel</span>
                   </button>
                 </div>
+                </div>
+              </div>
+            @endforeach
+            @foreach($friends as $friend)
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="row">
+                <div class="col-md-3  col-3">
+                  <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
+                    <img src="/imgs/{{ $friend->image_path }}" class="img-fluid mx-auto rounded">
+                  </a>
+                </div>
+                <div class="col-md-6 col-6">
+                  <h3 class="my-4">
+                    <a href="{{ url('profile/' . $friend->id)}}" class="text-white">{{ $friend->username }}</a>
+                  </h3>
+                </div>
+                <div class="col-md-3 col-3 d-flex align-items-center">
+                  <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" id="btn_inviteToEvent"
+                    event-id="{{$event->id}}" sender-id="{{Auth::user()->id}}" receiver-id="{{$friend->id}}">
+                    <i class="fas fa-plus" ></i><span> Invite</span>
+                  </button>
+                </div>
+                </div>
               </div>
             @endforeach
             @foreach($users as $user)
-              <div class="row mb-4">
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="row">
                 <div class="col-md-3  col-3">
                   <a href="{{ url('profile/' . $user->id)}}" class="text-white">
                     <img src="/imgs/{{ $user->image_path }}" class="img-fluid mx-auto rounded">
@@ -48,8 +74,10 @@
                     <i class="fas fa-plus" ></i><span> Invite</span>
                   </button>
                 </div>
+                </div>
               </div>
             @endforeach
+            </div>
           </div>
         </div>
       </div>
@@ -61,20 +89,28 @@
   <div class="container" style="margin-top:10em">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <?php $i = 0; ?>
+          @foreach($event->images as $image)
+            @if($i == 0)
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="active"></li>
+            @else
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"></li>
+            @endif            
+            <?php $i++; ?>
+          @endforeach
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Third slide">
-        </div>
+      <?php $i = 0; ?>
+        @foreach($event->images as $image)
+          @if($i == 0)
+            <div class="carousel-item active">
+          @else
+            <div class="carousel-item">
+          @endif
+          <?php $i++; ?>
+            <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          </div>
+        @endforeach
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -101,22 +137,36 @@
       <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#invite">
         <i class="fas fa-plus fa-fw"></i> Invite Users </button>
         @else
-          <fieldset class="rating">
-    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+          <div class="float-right mr-3">
+        
+        <fieldset id="star_rating" class="rating float-right mr-3" data-id="{{$event->done->rating}}" disabled>
+    <input type="radio" id="star5" name="rating" value="5" disabled/><label class = "full" for="star5" title="Awesome - 5 stars"></label>
     <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
     <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
     <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Terrible - 1 star"></label>
 </fieldset>
+<br>
+  <span id = "avg_rating"> 
+    @if($event->done->rating == null)
+    This event has no rating!
+    @else
+    Avg rating is {{$event->done->rating}}/5
+  @endif</span>
+  </div>
         @endif
       <br>
       <br>
       </div>
       </div>
       <hr>
+       @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
 
       <div id="event_data" data-id="{{ $event->id }}">
-       <span class="display-4" id="event_name">{{$event->name}}</span>
+        {{ csrf_field() }}
+      <span class="display-4" id="event_name">{{$event->name}}</span>
       <span id="event_public" data-id="{{$event->is_public}}">
       @if($event->is_public)
        (Public) 
@@ -153,3 +203,47 @@
       </div>
     </div>
     </div>
+
+<div class="jumbotron" >
+      <h2 class="display-4">Discussion</h2>
+      <br>
+ 
+      <form action ="{{route('posta', $event->id )}}" method="post" enctype="multipart/form-data"  >
+      {{ csrf_field() }}
+            <textarea id="post" type="text"  class="form-control" rows="4" cols="1"
+             name="post" placeholder="Write something here..." required > </textarea>
+             <input type="file" name="file" id="file">   
+             <br>
+
+        <button type="submit" class="btn btn-primary float-right">
+          <i class="fas fa-comment fa-fw"></i> Post </button>
+              <!--
+                  <form route =" {{ route('about') }}" method="post"  >
+                    {{ csrf_field() }}
+                  <button type="button" class="btn btn-secondary float-right">
+                  <i class="fas fa-plus fa-fw"></i> Poll </button>
+              
+              </form>
+              -->
+
+      </form>
+      <br>
+<!--
+       <div class="mt-1">
+
+       <button type="button" class="btn btn-secondary float-right">
+          <i class="fas fa-plus fa-fw"></i> Poll </button>
+          </div>
+-->
+       
+      <br>
+      <br>
+      <br>
+      <hr>
+
+         @each('partials.post', $event->posts, 'post')
+     
+        </div>
+      </div>
+    </div>
+  </div>

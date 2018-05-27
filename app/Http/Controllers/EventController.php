@@ -15,6 +15,7 @@ use App\Event;
 use App\Localization;
 use App\Post;
 use App\Category;
+use App\Image;
 
 use Gate;
 
@@ -42,14 +43,7 @@ class EventController extends Controller
 
     public function show($id)
     {
-/**
-      $table =DB::table('events')->get();
-      $table->text('name')->unique();
-      $table->index('name');
-      $table->dropIndex('search');
 
-      DB::statement('ALTER TABLE events ADD FULLTEXT search (name)');
-*/
       $event = Event::find($id);
       
 
@@ -60,10 +54,30 @@ class EventController extends Controller
         }else {
             return redirect('index');
         }
-        
+     
+      // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
+      //$this->authorize('show', $user);
+
+      return view('pages.events', $this->getFieldsTosend($event));
+    }
+
+      function cmp_users($a, $b)
+{
+    return strcmp($a->username, $b->username);
+}
+    
+private function getFieldsTosend($event){
       
-      
+
+      if(!$event->is_public)
+        if(Auth::check()){
+          if(Gate::denies('see-event', $event))
+            return redirect('index');
+        }else {
+            return redirect('index');
+        }
+
       $loca = Localization::find($event->localization_id);
       $city = City::find($loca->city_id);
       $country = Country ::find($city->country_id);
@@ -74,11 +88,9 @@ class EventController extends Controller
       $categories = Category::all();   
       
       $participants_invited_ids = array();
-
-      $users_invited_ids = array();
+      $friends_to_invite = array();
 
       foreach($event->event_invites as $invite){
-        array_push($users_invited_ids, $invite->receiver_id);
         array_push($participants_invited_ids, $invite->receiver_id);
       }
 
@@ -86,18 +98,28 @@ class EventController extends Controller
           array_push($participants_invited_ids, $participant->user_id);
       }
 
+      if(Auth::check()){
+        $user = Auth::user();
+
+        foreach($user->getFriends() as $friend){
+          if(!in_array($friend->id,$participants_invited_ids))
+            array_push($friends_to_invite, $friend);
+          array_push($participants_invited_ids, $friend->id);
+        }
+
+        usort($friends_to_invite, array($this, "cmp_users"));
+      }
+
+      
+
       $admin_id = User::where('username', 'admin')->first()->id;
       
       array_push($participants_invited_ids, $event->owner->id);
       array_push($participants_invited_ids, $admin_id);
-      
-      // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
-      //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)->sortBy('id')]);
-    }
-    
+      return ['event' => $event, 'categories' => $categories, 'friends' => $friends_to_invite, 'users' => User::all()->except($participants_invited_ids)->sortBy('username', SORT_NATURAL|SORT_FLAG_CASE)];
+}
 
     /**
      * Get a validator for an incoming registration request.
@@ -239,14 +261,26 @@ class EventController extends Controller
     $validator = $this->valid($request);
     
     if(!$validator->passes())
-      return response()->json(['message' => $validator->errors()->all()]);
+      return view('pages.events', $this->getFieldsTosend($event), ['errors' => $validator->errors()]);
 
     $event->name = $request->input('name');
     $event->date = $request->input('date');
     $event->time = $request->input('time');
     $event->description = $request->input('description');
-    $event->is_public = $request->input('is_public');
-     $event->category_id = $request->input('category');
+    
+     
+    
+    $type = $request->input('type');
+    if($type == "Public")
+      $is_public = true;
+    else
+      $is_public = false;
+
+    $event->is_public = $is_public;
+
+     $category = $request->input('category');
+
+     $event->category_id = DB::table('categories')->select('id')->where('name', $category)->first()->id;
 
     
 
@@ -308,19 +342,41 @@ class EventController extends Controller
     $localization->city_id = $city_id->id;
     $localization->address = $request->input('address');
 
+    if($request->hasFile("images")){
+          $images = $request->file("images");
+          foreach($images as $image){
+            if($image->isValid()){
+              $filename = $image->getClientOriginalName();
+              $image->move(public_path('/imgs'), $image);
+              $old_img = Image::where('event_id', $event->id)->where('path', $filename);
+              if($old_img == null){
+                $newImg = new Image();
+                $newImg->path = $filename;
+                $newImg->event_id = $event->id;
+                $newImg->save();
+              }
+            }
+            
+          }
+          
+        
+      }
+
     try{
       $localization->save();
     }catch (QueryException $e){
-      return response()->json(['message' => 'Error updating localization']);
+      return view('pages.events', $this->getFieldsTosend($event), ['errors' => $validator->errors()]);
     }
 
     try{
       $event->save();
     }catch (QueryException $e){
-      return response()->json(['message' => 'Error updating event']);
+      return view('pages.events', $this->getFieldsTosend($event), ['errors' => $validator->errors()]);
     }
+
+    return redirect('events/' . $event->id);
     
-    return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name, 'category' => $event->category->name]);
+    // return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name, 'category' => $event->category->name]);
 
   }
 

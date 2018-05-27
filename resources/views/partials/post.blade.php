@@ -32,10 +32,10 @@
                 <i class="fas fa-trash-alt fa-fw"></i> Delete </button>
             @endif
 
-            @if($post->user->id == Auth::user()->id)
-            <button type="button" class="btn btn-primary mx-1 float-right" id="btn_editPost">
-        <i class="far fa-edit fa-fw"></i> Edit </button>
-              @endif
+              @if($post->user->id == Auth::user()->id)
+              <button type="button" class="btn btn-primary mx-1 float-right" id="btn_editPost">
+          <i class="far fa-edit fa-fw"></i> Edit </button>
+                @endif
 
              
           </div>

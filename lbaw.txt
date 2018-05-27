@@ -129,12 +129,14 @@ Qd está past Event, o k é k aparece a informar?
 
 Çusher para atualizacoes em tempo real ver na net e perguntar Diogo
 
-Cron para eventos realizados meter no moodle e mandar mail ao stor
+Cron para eventos realizados meter no moodle e mandar mail ao stor CHECK funciona
 
 Notificacoes aparecerem as mais recentes por ordem, com scroll
 
 Ver os posts!!!
 
 Nos eventos aparecer a votacao media
+
+Só dá pra votar nos participants nos outros aparecem as estrelas mas n da pra votar CHECK
 
 https://codepen.io/jamesbarnett/pen/vlpkh

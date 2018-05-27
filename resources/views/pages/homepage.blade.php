@@ -6,7 +6,7 @@
 
 @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
 @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-@include('partials.addEvent');
+@include('partials.addEvent')
 
 @section('content')
 

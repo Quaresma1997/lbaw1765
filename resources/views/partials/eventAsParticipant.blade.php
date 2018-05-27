@@ -1,20 +1,28 @@
 <div class="container" style="margin-top:10em">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <?php $i = 0; ?>
+          @foreach($event->images as $image)
+            @if($i == 0)
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="active"></li>
+            @else
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"></li>
+            @endif            
+            <?php $i++; ?>
+          @endforeach
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block img-fluid" src="{{url('/imgs/natu.jpg')}}" alt="Third slide">
-        </div>
+      <?php $i = 0; ?>
+        @foreach($event->images as $image)
+          @if($i == 0)
+            <div class="carousel-item active">
+          @else
+            <div class="carousel-item">
+          @endif
+          <?php $i++; ?>
+            <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          </div>
+        @endforeach
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -53,11 +61,11 @@
     <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Terrible - 1 star"></label>
 </fieldset>
 <br>
-  <span id = "avg_rating">Avg rating is 
+  <span id = "avg_rating"> 
     @if($event->done->rating == null)
-    0.0/5
+    This event has no rating!
     @else
-    {{$event->done->rating}}/5
+    Avg rating is {{$event->done->rating}}/5
   @endif</span>
   </div>
       @endif
@@ -67,6 +75,9 @@
       </div>
       </div>
       <hr>
+       @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
       <div id="event_data" data-id="{{ $event->id }}">
       <span class="display-4" id="event_name">{{$event->name}}</span>
       <span id="event_public" data-id="{{$event->is_public}}">
@@ -105,3 +116,47 @@
       </div>
     </div>
     </div>
+
+  <div class="jumbotron" >
+      <h2 class="display-4">Discussion</h2>
+      <br>
+ 
+      <form action ="{{route('posta', $event->id )}}" method="post" enctype="multipart/form-data"  >
+      {{ csrf_field() }}
+            <textarea id="post" type="text"  class="form-control" rows="4" cols="1"
+             name="post" placeholder="Write something here..." required > </textarea>
+             <input type="file" name="file" id="file">   
+             <br>
+
+        <button type="submit" class="btn btn-primary float-right">
+          <i class="fas fa-comment fa-fw"></i> Post </button>
+              <!--
+                  <form route =" {{ route('about') }}" method="post"  >
+                    {{ csrf_field() }}
+                  <button type="button" class="btn btn-secondary float-right">
+                  <i class="fas fa-plus fa-fw"></i> Poll </button>
+              
+              </form>
+              -->
+
+      </form>
+      <br>
+<!--
+       <div class="mt-1">
+
+       <button type="button" class="btn btn-secondary float-right">
+          <i class="fas fa-plus fa-fw"></i> Poll </button>
+          </div>
+-->
+       
+      <br>
+      <br>
+      <br>
+      <hr>
+
+         @each('partials.post', $event->posts, 'post')
+     
+        </div>
+      </div>
+    </div>
+  </div>

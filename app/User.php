@@ -91,9 +91,15 @@ public function searchableAs(){
   }
 
   public function friend_requests_sent(){
-
     return $this->hasMany('App\FriendRequest', 'sender_id');
+  }
 
+  public function event_delete_warnings(){
+    return $this->hasMany('App\EventDeleteWarning', 'receiver_id');
+  }
+
+  public function event_update_warnings(){
+    return $this->hasMany('App\EventUpdateWarning', 'receiver_id');
   }
 
   public function inEvent($event_id){
@@ -183,7 +189,9 @@ public function searchableAs(){
     }
 
     public function notifications(){
-      $notifications = $this->friend_requests_received->toBase()->merge($this->event_invites);
+      $notifications3 = $this->friend_requests_received->toBase()->merge($this->event_invites);
+      $notifications2 = $this->event_delete_warnings->toBase()->merge($notifications3);
+      $notifications = $this->event_update_warnings->toBase()->merge($notifications2);
 
       $not_array = array();
 
@@ -192,6 +200,10 @@ public function searchableAs(){
           $notification->type = 1;
         elseif($notification instanceof FriendRequest)
           $notification->type = 2;
+        elseif($notification instanceof EventDeleteWarning)
+          $notification->type = 3;
+        elseif($notification instanceof EventUpdateWarning)
+          $notification->type = 4;
         array_push($not_array, $notification);
       }
 
