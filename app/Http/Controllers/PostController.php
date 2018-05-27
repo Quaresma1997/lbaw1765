@@ -38,8 +38,32 @@ class PostController extends Controller
        
 //dd($request);
       $this->validate($request,[
-          'post' => 'required'
+          'post' => 'required',
+          'file' => 'image|nullable'
       ]);
+
+     // 
+
+      //handle file upload
+
+      if($request->hasFile('file')){
+          //get filename with extenstion
+          $filenameWithExt = $request->file('file')->getClientOriginalName();
+
+          //get just filename
+          $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+          $extension = $request->file('file')->getClientOriginalExtension();
+
+          $filenameToStore = $filename.'_'.time().'.'.$extension;
+          $path = $request ->file('file')->storeAs('public/post_images', $filenameToStore);
+
+
+      }
+      else{
+        $filenameToStore = null;
+
+      }
+
 
     // create
     $post= new Post();
@@ -48,6 +72,7 @@ $post->date = date('Y-m-d H:i:s'); // 2016-10-12 21:09:23
 $post->description = $request->input('post');
 $post->event_id = $id;
 $post->user_id = Auth::user()->id;
+$post->image_path = $filenameToStore;
 $post->save();
 
 return redirect()->action(

@@ -16,18 +16,14 @@
           <div class="col-8 offset-3">
           {{$post->description}}
             <p>
-            <!--
-              <a class="text-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <i class="ion-reply"></i>
-                <strong> Comments </strong>
-              </a>
+            <div class="col-8 offset-1">
+            @if(is_null($post->image_path ))
+            @else
+            <img src="/storage/post_images/{{$post->image_path}}" height="200" width="300">
+            @endif
 
-<button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_deletePost">
-        <i class="fas fa-trash-alt fa-fw"></i> Delete </button>
-              <a href="{{route('postd',$post->event_id)}}" > DELETE </a>
+          </div>
 
-              -->
-              
               @if($post->user->id == Auth::user()->id || $post->event->owner_id ==Auth::user()->id)
                 <form action ="{{route('postd', $post->id )}}" method ="post" >
                 {{ csrf_field() }}
@@ -42,7 +38,6 @@
               @endif
 
              
-            </p>
           </div>
         </div>
         <hr>

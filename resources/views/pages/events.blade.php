@@ -84,20 +84,33 @@
     <div class="jumbotron" >
       <h2 class="display-4">Discussion</h2>
       <br>
-
-      <form action ="{{route('posta', $event->id )}}" method="post"  >
+ 
+      <form action ="{{route('posta', $event->id )}}" method="post" enctype="multipart/form-data"  >
       {{ csrf_field() }}
             <textarea id="post" type="text"  class="form-control" rows="4" cols="1"
-             name="post" placeholder="Write something here..." ></textarea>
-      <div class="mt-1">
+             name="post" placeholder="Write something here..." required > </textarea>
+             <input type="file" name="file" id="file">   
+             <br>
+
         <button type="submit" class="btn btn-primary float-right">
           <i class="fas fa-comment fa-fw"></i> Post </button>
-        <button type="button" class="btn btn-secondary mx-1 float-right">
-          <i class="fas fa-plus fa-fw"></i> Image </button>
-        <button type="button" class="btn btn-secondary float-right">
+       
+                  <form route =" {{ route('about') }}" method="post"  >
+                    {{ csrf_field() }}
+                  <button type="button" class="btn btn-secondary float-right">
+                  <i class="fas fa-plus fa-fw"></i> Poll </button>
+              
+              </form>
+
+      </form>
+      <br>
+
+       <div class="mt-1">
+
+       <button type="button" class="btn btn-secondary float-right">
           <i class="fas fa-plus fa-fw"></i> Poll </button>
-      </div>
-       </form>
+          </div>
+
        
       <br>
       <br>
