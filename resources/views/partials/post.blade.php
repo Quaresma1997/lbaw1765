@@ -27,18 +27,19 @@
               <a href="{{route('postd',$post->event_id)}}" > DELETE </a>
 
               -->
-              
-              @if($post->user->id == Auth::user()->id || $post->event->owner_id ==Auth::user()->id)
-                <form action ="{{route('postd', $post->id )}}" method ="post" >
-                {{ csrf_field() }}
-                <input type="hidden" name="_method" value ="DELETE" > </input>
-                <button type="submit" class="btn btn-outline-danger mx-1 float-right" id="btn_deletePost">
-                <i class="fas fa-trash-alt fa-fw"></i> Delete </button>
-            @endif
+              @if(Auth::check())
+                @if($post->user->id == Auth::user()->id || $post->event->owner_id ==Auth::user()->id)
+                  <form action ="{{route('postd', $post->id )}}" method ="post" >
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value ="DELETE" > </input>
+                  <button type="submit" class="btn btn-outline-danger mx-1 float-right" id="btn_deletePost">
+                  <i class="fas fa-trash-alt fa-fw"></i> Delete </button>
+              @endif
 
-            @if($post->user->id == Auth::user()->id)
-            <button type="button" class="btn btn-primary mx-1 float-right" id="btn_editPost">
-        <i class="far fa-edit fa-fw"></i> Edit </button>
+              @if($post->user->id == Auth::user()->id)
+              <button type="button" class="btn btn-primary mx-1 float-right" id="btn_editPost">
+          <i class="far fa-edit fa-fw"></i> Edit </button>
+                @endif
               @endif
 
              

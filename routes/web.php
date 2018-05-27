@@ -21,17 +21,10 @@ Route::get('/', function () {
         return redirect('index');
 });
 
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
+
 
 // API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
-Route::post('api/profile/{id}', 'ProfileController@update');
+Route::post('profile/{id}', 'ProfileController@update');
 Route::delete('api/profile/{id}', 'ProfileController@delete');
 Route::post('api/add_event', 'EventController@add');
 Route::delete('api/event/{id}', 'EventController@delete');
@@ -92,7 +85,18 @@ Route::get('cities/{country}', 'CityController@list');
 //Countries
 Route::get('countries', 'CountryController@list');
 
+//400
+Route::get('400', 'IndexController@show400error');
 
+//401
+Route::get('401', 'IndexController@show401error');
 
+//403
+Route::get('403', 'IndexController@show403error');
 
+//404
+Route::get('404', 'IndexController@show404error');
+
+//500
+Route::get('500', 'IndexController@show500error');
 

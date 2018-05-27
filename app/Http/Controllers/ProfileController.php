@@ -36,12 +36,12 @@ class ProfileController extends Controller
     public function show($id)
     {
       $user = User::find($id);
+      if($user == null)
+        return redirect('404');
       $city_id = DB::table('users')->select('city_id')->where('id', $id)->first()->city_id;
       $city = DB::table('cities')->select('*')->where('id', $city_id)->first();
       $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
       $categories = Category::all();
-
-      
 
       // $this->authorize('show', $user);
       
@@ -76,7 +76,8 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
       $user = User::find($id);
-
+      if($user == null)
+        return redirect('404');
       $this->authorize('update', $user);
 
 
@@ -88,13 +89,34 @@ class ProfileController extends Controller
       }
       $validator = $this->valid($request, $check_email);
 
-      if(!$validator->passes())
-        return response()->json(['message' => $validator->errors()->all()]);
+      
+
+      // $this->authorize('show', $user);
+      
+      
+
+      if(!$validator->passes()){
+        $city_id = DB::table('users')->select('city_id')->where('id', $id)->first()->city_id;
+      $city = DB::table('cities')->select('*')->where('id', $city_id)->first();
+      $country = DB::table('countries')->select('name')->where('id', $city->country_id)->first()->name;
+      $categories = Category::all();
+
+        return view('pages.profile', ['user' => $user, 'city' => $city->name, 'country' => $country, 'categories' => $categories, 'errors' => $validator->errors()]);
+
+      }
 
       $user->first_name = $request->input('first_name');
       $user->last_name = $request->input('last_name');
       $user->email = $request->input('email');
-      $user->image_path = $request->input('img');;
+      if($request->hasFile("fileupload")){
+        if($request->file("fileupload")->isValid()){
+        $avatar = $request->file("fileupload");
+        $filename = $avatar->getClientOriginalName();
+        $avatar->move(public_path('/imgs'), $filename);
+        $user->image_path = $filename;
+        }
+      }
+      
       
 /*
       $filename = $request->input('img');
@@ -161,20 +183,21 @@ class ProfileController extends Controller
       $user->save();
       
       
-
-      return response()->json(['message' => 'success', 'user' => $user, 'city' => $user->city->name, 'country' => $user->city->country->name]);
+      return redirect('profile/' . $user->id);
+      // return response()->json(['message' => 'success', 'user' => $user, 'city' => $user->city->name, 'country' => $user->city->country->name]);
     }
 
     public function delete(Request $request, $id)
     {
       $user = User::find($id);
-
+if($user == null)
+        return redirect('404');
       $this->authorize('delete', $user);
 
       
       if($user->delete()){
         Auth::logout();
-        return redirect('/');
+        return response()->json(['message' => 'success']);
       }else
         return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
     }

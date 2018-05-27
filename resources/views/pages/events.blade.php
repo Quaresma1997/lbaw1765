@@ -81,33 +81,5 @@
 
   
 
-    <div class="jumbotron" >
-      <h2 class="display-4">Discussion</h2>
-      <br>
-
-      <form action ="{{route('posta', $event->id )}}" method="post"  >
-      {{ csrf_field() }}
-            <textarea id="post" type="text"  class="form-control" rows="4" cols="1"
-             name="post" placeholder="Write something here..." ></textarea>
-      <div class="mt-1">
-        <button type="submit" class="btn btn-primary float-right">
-          <i class="fas fa-comment fa-fw"></i> Post </button>
-        <button type="button" class="btn btn-secondary mx-1 float-right">
-          <i class="fas fa-plus fa-fw"></i> Image </button>
-        <button type="button" class="btn btn-secondary float-right">
-          <i class="fas fa-plus fa-fw"></i> Poll </button>
-      </div>
-       </form>
-       
-      <br>
-      <br>
-      <br>
-      <hr>
-
-         @each('partials.post', $event->posts, 'post')
-     
-        </div>
-      </div>
-    </div>
-  </div>
+    
   @endsection

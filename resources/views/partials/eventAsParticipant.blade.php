@@ -53,11 +53,11 @@
     <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Terrible - 1 star"></label>
 </fieldset>
 <br>
-  <span id = "avg_rating">Avg rating is 
+  <span id = "avg_rating"> 
     @if($event->done->rating == null)
-    0.0/5
+    This event has no rating!
     @else
-    {{$event->done->rating}}/5
+    Avg rating is {{$event->done->rating}}/5
   @endif</span>
   </div>
       @endif
@@ -105,3 +105,29 @@
       </div>
     </div>
     </div>
+
+  <div class="jumbotron" >
+      <h2 class="display-4">Discussion</h2>
+      <br>
+      <form action ="{{route('posta', $event->id )}}" method="post" class="mb-4" >
+      {{ csrf_field() }}
+            <textarea id="post" type="text"  class="form-control" rows="4" cols="1"
+             name="post" placeholder="Write something here..." ></textarea>
+      <div class="mt-1">
+        <button type="submit" class="btn btn-primary float-right">
+          <i class="fas fa-comment fa-fw"></i> Post </button>
+        <button type="button" class="btn btn-secondary mx-1 float-right">
+          <i class="fas fa-plus fa-fw"></i> Image </button>
+        <button type="button" class="btn btn-secondary float-right">
+          <i class="fas fa-plus fa-fw"></i> Poll </button>
+      </div>
+       </form>
+
+      <hr>
+
+         @each('partials.post', $event->posts, 'post')
+     
+        </div>
+      </div>
+    </div>
+  </div>

@@ -63,7 +63,7 @@ CREATE TABLE event_invites (
     event_id INTEGER NOT NULL,
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
     updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_invites_pk PRIMARY KEY (id),
     CONSTRAINT event_invites_uk UNIQUE (event_id, receiver_id)
@@ -74,7 +74,7 @@ CREATE TABLE event_delete_warnings (
     id SERIAL NOT NULL,
     event_name text NOT NULL,
     receiver_id INTEGER NOT NULL,
-        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
     updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_delete_warnings_pk PRIMARY KEY (id)
 );
@@ -84,7 +84,7 @@ CREATE TABLE event_update_warnings (
     id SERIAL NOT NULL,
     event_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-        created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
     updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     CONSTRAINT event_update_warnings_pk PRIMARY KEY (id),
     CONSTRAINT event_update_warnings_event_id_fk FOREIGN KEY (event_id) REFERENCES 
@@ -171,7 +171,7 @@ DROP TABLE IF EXISTS posts CASCADE;
 CREATE TABLE posts (
     id SERIAL NOT NULL,
     description text NOT NULL,
-    date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    date TIMESTAMP(0) DEFAULT now() NOT NULL, 
     event_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     image_path text,
@@ -288,8 +288,11 @@ ALTER TABLE ONLY ratings
 
 CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
 $BODY$
-BEGIN
+BEGIN 
+  IF OLD.event_id != null
+  THEN
   INSERT INTO dones VALUES (OLD.event_id, NULL);
+  END IF;
   RETURN OLD;
 END
 $BODY$
@@ -457,11 +460,12 @@ CREATE TRIGGER avoid_reverse_friendships
 
 -- Here goes the SQL code - INSERTS
 
+INSERT INTO categories (name) VALUES ('Business');
+INSERT INTO categories (name) VALUES ('Educational');
+INSERT INTO categories (name) VALUES ('Entertainment');
 INSERT INTO categories (name) VALUES ('Music');
 INSERT INTO categories (name) VALUES ('Sports');
-INSERT INTO categories (name) VALUES ('Entertainment');
-INSERT INTO categories (name) VALUES ('Educational');
-INSERT INTO categories (name) VALUES ('Business');
+INSERT INTO categories (name) VALUES ('Other');
  
 INSERT INTO countries (name) VALUES ('Portugal');
 INSERT INTO countries (name) VALUES ('Espanha');
@@ -551,19 +555,19 @@ INSERT INTO events (name,date, time,description,owner_id,localization_id,is_publ
 			VALUES ('Antonys Birthday Party', '2019-04-25', '12:30:00', 'nunc ac mattis ornare, lectus',1,1,true,1);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('ENEI','2019-04-24', '12:30:00','Nunc quis arcu vel quam',2,2,true,1);
+			VALUES ('ENEI','2019-04-24', '12:30:00','Nunc quis arcu vel quam',2,2,true,2);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('RockInRio','2025-06-04', '12:30:00','tempus eu, ligula. Aenean euismod',3,3,true,1);
+			VALUES ('RockInRio','2025-06-04', '12:30:00','tempus eu, ligula. Aenean euismod',3,3,true,3);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('Nos Alive','2019-08-04', '12:30:00','dignissim pharetra. Nam ac nulla.',4,4,true,1);
+			VALUES ('Nos Alive','2019-08-04', '12:30:00','dignissim pharetra. Nam ac nulla.',4,4,true,4);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('Christmas Dinner','2019-10-04', '12:30:00','dignissim pharetra. Nam ac nulla.',5,5,true,2);
+			VALUES ('Christmas Dinner','2019-10-04', '12:30:00','dignissim pharetra. Nam ac nulla.',5,5,true,5);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('Mark Birthday Party','2019-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',6,1,true,2);
+			VALUES ('Mark Birthday Party','2019-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',6,1,true,6);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
 			VALUES ('WebSummit','2018-04-12', '12:30:00','lorem lorem, luctus ut, pellentesque',7,6,true,2);
@@ -625,7 +629,7 @@ INSERT INTO participants (user_id,event_id)
 INSERT INTO participants (user_id,event_id)
 			VALUES (12,5);			
 INSERT INTO participants (user_id,event_id)
-			VALUES (10,4);
+			VALUES (10,8);
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,4);
 INSERT INTO participants (user_id,event_id)

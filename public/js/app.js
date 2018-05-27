@@ -42,14 +42,39 @@ function addEventListeners() {
   if (deleteProfile != null)
     deleteProfile.addEventListener('click', deleteProfileRequest);
 
+  let imageProfile = document.querySelector("#user_info_img");
+
+  let imageProfileUpload = document.querySelector('#fileupload');
+  if (imageProfileUpload != null)
+    imageProfileUpload.addEventListener('change', function () {
+      var reader = new FileReader();
+      var name = imageProfileUpload.value;
+      var img = document.createElement("img");
+      img.classList.add('img');
+      img.classList.add('img-fluid');
+      img.classList.add('rounded');
+      img.classList.add('mb-3');
+      img.id = 'user_info_img';
+
+      reader.onload = function (e) {
+        img.src = e.target.result;
+        imageProfile.parentNode.replaceChild(img, imageProfile);
+      };
+      reader.readAsDataURL(imageProfileUpload.files[0]);
+      // imageProfile.src = imageProfileUpload.value;
+      imageProfile = document.querySelector("#user_info_img")
+    });
 
 
-  let editProfileConfirm = document.querySelector('form.edit_profile');
-  if (editProfileConfirm != null) {
 
-    editProfileConfirm.addEventListener('submit', sendEditProfileRequest);
 
-  }
+
+  let editProfileConfirm = document.querySelector('#btn_confirm_edit_profile');
+  // if (editProfileConfirm != null) {
+
+  //   editProfileConfirm.addEventListener('submit', sendEditProfileRequest);
+
+  // }
 
   let editProfileCancel = document.querySelector('form.edit_profile #btn_cancel_edit_profile');
   if (editProfileCancel != null)
@@ -68,7 +93,7 @@ function addEventListeners() {
 
   let editEvent = document.querySelector('#btn_editEvent');
   if (editEvent != null) {
-    if (cities == null) {
+    if (cities == null && editEvent.disabled == false) {
       getCurCountryEvent();
 
       sendCitiesRequest(current_country);
@@ -226,15 +251,13 @@ function addEventListeners() {
   }
 
   let rate = document.querySelector("#star_rating");
-  if(rate != null){
-    
-  }
+
 
   let starRatings = document.querySelectorAll('input[name=rating');
   for (let i = 0; i < starRatings.length; i++) {
     starRatings[i].addEventListener('click', sendStarRateRequest);
-    if (rate.getAttribute("data-id") != "null"){
-      if (rate.getAttribute("data-id") == 5 - i)
+    if (rate.getAttribute("data-id") != "null") {
+      if (Math.round(rate.getAttribute("data-id")) == 5 - i)
         starRatings[i].checked = true;
     }
   }
@@ -244,7 +267,7 @@ function addEventListeners() {
 
 let current_first_name, current_last_name, current_email;
 let current_city, current_country, current_city_default, current_country_default, current_img, current_description, current_date, current_time;
-let cities, cities_default, countries, isEvent, isDefault = true, 
+let cities, cities_default, countries, isEvent, isDefault = true,
   isSignUp, isEditing = false;
 let justRemoveOther;
 
@@ -450,6 +473,8 @@ function putAddEventOptions() {
 function createEditProfileForm(event) {
   let main_div = document.querySelector("#user_info_container");
 
+  let user_id = main_div.getAttribute("data-id");
+
   let img = main_div.querySelector("#user_info_img").getAttribute('src');
 
   let name = main_div.querySelector("#user_info_l1").innerText;
@@ -464,7 +489,10 @@ function createEditProfileForm(event) {
   let city = location.substr(0, location.indexOf(','));
   let country = location.substr(location.indexOf(',') + 2, location.size);
 
+  let csrf = main_div.querySelector('input[name=_token');
+
   current_img = img;
+
   current_first_name = first_name;
   current_last_name = last_name;
   current_email = email;
@@ -472,13 +500,13 @@ function createEditProfileForm(event) {
   current_country = country;
 
   let btn_img =
-    "<form action='myform.cgi' class='img_form' style='text-align:center'>" +
+
     "<label class='fileContainer'>" +
     "Upload" +
     "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
-    "</label>" +
-    "</form>"
+
+    "</label>"
 
   ;
 
@@ -488,10 +516,10 @@ function createEditProfileForm(event) {
     "<i class='fas fa-user fa-fw '></i>" +
     "</div>" +
     "<div class='col-4 px-0 pr-3'>" +
-    "<input type='text' id='input_first_name' class='form-control' placeholder='First name' value='" + first_name + "' required>" +
+    "<input type='text' id='input_first_name' class='form-control' name='first_name' placeholder='First name' value='" + first_name + "' required>" +
     "</div>" +
     "<div class='col-5 pl-1'>" +
-    "<input type='text' id='input_last_name' class='form-control' placeholder='Last name' value='" + last_name + "' required>" +
+    "<input type='text' id='input_last_name' class='form-control' name='last_name' placeholder='Last name' value='" + last_name + "' required>" +
     "</div>" +
     "</div>";
 
@@ -501,7 +529,7 @@ function createEditProfileForm(event) {
     "<i class='fas fa-envelope fa-fw '></i>" +
     "</div>" +
     "<div class='col-9 pr-3 pl-0'>" +
-    "<input type='email' id='input_email' class='form-control' placeholder='First name' value='" + email + "' required>" +
+    "<input type='email' id='input_email' class='form-control' name='email' placeholder='Email' value='" + email + "' required>" +
     "</div>" +
 
     "</div>";
@@ -542,12 +570,12 @@ function createEditProfileForm(event) {
     "<i class='fas fa-map-marker-alt fa-fw '></i>" +
     "</div>" +
     "<div class='col-4 pl-0'>" +
-    "<select class = 'custom-select' id = 'select_city' name = 'select_city'>" +
+    "<select class = 'custom-select' id = 'select_city' name = 'city'>" +
     cities_options +
     "</select>" +
     "</div>" +
     "<div class='col-5 pl-1'>" +
-    "<select class = 'custom-select' id = 'select_country' name = 'select_country'>" +
+    "<select class = 'custom-select' id = 'select_country' name = 'country'>" +
     countries_options +
     "</select>" +
     "</div>" +
@@ -569,8 +597,10 @@ function createEditProfileForm(event) {
   main_div.innerHTML =
 
     "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
+    "<form enctype='multipart/form-data' class='edit_profile' method='POST'>" +
     btn_img +
-    "<form class='edit_profile' method='POST'>" +
+
+    csrf.outerHTML +
     div1 + div2 + div3 + btns +
     "</form>";
 
@@ -581,10 +611,10 @@ function createEditProfileForm(event) {
 }
 
 function createEditEventForm(event) {
-    let btn_edit = document.querySelector("#btn_editEvent");
-    btn_edit.disabled = true;
-    let deleteEvent = document.querySelector('#btn_deleteEvent');
-    deleteEvent.disabled = true;
+  let btn_edit = document.querySelector("#btn_editEvent");
+  btn_edit.disabled = true;
+  let deleteEvent = document.querySelector('#btn_deleteEvent');
+  deleteEvent.disabled = true;
   let main_div = document.querySelector("#event_data");
 
   let name = main_div.querySelector("#event_name").innerText;
@@ -594,7 +624,7 @@ function createEditEventForm(event) {
   let date = date_text.substr(0, index_at - 1);
   let time = date_text.substr(index_at + 3, date_text.size);
 
-  let address = main_div.querySelector('#address').innerText; 
+  let address = main_div.querySelector('#address').innerText;
 
   let localization = main_div.querySelector("#event_localization").innerText;
 
@@ -618,7 +648,7 @@ function createEditEventForm(event) {
   current_public = event_public.getAttribute("data-id");
   current_date = date;
   current_time = time;
-  current_address = address; 
+  current_address = address;
   current_place = place;
   current_city = city;
   current_country = country;
@@ -739,13 +769,22 @@ function createEditEventForm(event) {
     "<label for='description'>Description</label>" +
     "<textarea id='input_description' class='form-control' rows='4' cols='1' placeholder='Event description'>" + description + "</textarea>";
 
+  let form_images =
+    "<form action='myform.cgi' class='img_form'>" +
+    "<label class='imageContainer mt-3'>" +
+    "Upload Images" +
+    "<input type='file' name='images[]' value='Browse' id='images' onchange='preview_images();' multiple class='custom-file-input'>" +
+    "<span class='custom-file-control form-control-file'></span>" +
+    "</label>" +
+    "</form>";
+
   let btns =
     "<div class='row mt-5'>" +
     "<div class='col-4 offset-2'>" +
     "<button type='submit' class='btn btn-success btn-block' id='btn_confirm_edit_event'><span><i class='fas fa-check fa-fw'></i> Confirm</span> </button>" +
     "</div>" +
     "<div class='col-4'>" +
-    "<button type='button' class='btn btn-danger btn-block' id='btn_cancel_edit_event'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
+    "<button type='button' class='btn btn-outline-danger btn-block' id='btn_cancel_edit_event'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
     "</div>" +
     "</div>";
 
@@ -759,6 +798,12 @@ function createEditEventForm(event) {
     "</div>" +
     "<div class='col-12 col-lg-6'>" +
     form_description +
+    "<div>" +
+    form_images +
+    "<div class='jumbotron jumbotron_image p-2 mt-2'>" +
+    "<div class='row' id='image_preview'></div>" +
+    "</div>" +
+    "</div>" +
     "</div>" +
     "</div>" +
     btns +
@@ -770,21 +815,35 @@ function createEditEventForm(event) {
 
 }
 
+function preview_images() {
+  let total_file = document.getElementById("images").files.length;
+  for (let i = 0; i < total_file; i++) {
+    $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='" + URL.createObjectURL(event.target.files[i]) + "'></div>");
+  }
+}
+
 //Quando faço cancel tem de ir para os valores antes de clicar em edit
 //Ou seja, ao clicar em edit, guarda os valores nas variaveis que terao de ser globais
 function cancelEditProfile(event) {
   let main_div = document.querySelector("#user_info_container");
-
   main_div.innerHTML =
-    "<img src='/imgs/profile.jpg' id='user_info_img' class='img img-fluid rounded mb-3'> <br>" +
+  "<div style='text-align:center;'>" +
+    "<img src='" + current_img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
+    document.querySelector('input[name=_token').outerHTML +
+    "</div><br>"+
     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + current_first_name + " " + current_last_name + "</label> <br>" +
     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + current_email + "</label> <br>" +
     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + current_city + ", " + current_country + "</label>" +
 
+    "<div class='row mt-2'>" +
+    "<div class='col-12 col-sm-6 col-lg-12' >" +
     "<button type='button' class='btn btn-primary btn-lg btn-block mt-3' id='btn_editprofile'>" +
     "<i class='far fa-edit fa-fw'></i> Edit Profile </button>" +
+    "</div>" +
+    "<div class='col-12 col-sm-6 col-lg-12 mt-2' >" +
     "<button type='button' class='btn btn-outline-danger btn-lg btn-block'>" +
-    "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>";
+    "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>" +
+    "</div>";
 
   isEditing = false;
 
@@ -795,19 +854,19 @@ function cancelEditEvent(event) {
   let main_div = document.querySelector("#event_data");
   let cat = current_category_id + 1;
   main_div.innerHTML =
-    "<span class='display-4' id='event_name'>" + current_name + "</span>"+
-    "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") +"</span"+
+    "<span class='display-4' id='event_name'>" + current_name + "</span>" +
+    "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") + "</span" +
     "<br>" +
     "<div class='row mt-5'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
     "<i class='fas fa-clock fa-fw' ></i>" + current_date + " at " + current_time + "</h5>" +
     "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5>"+
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + current_place + ", " + current_city + ", " + current_country + "</h5>" +
     "<h5 id='address'>" +
-     current_address + "</h5>" + 
+    current_address + "</h5>" +
     "<h5 id='event_category' data-id=" + cat + ">" +
-    "Category: " + current_category + "</h5>" + 
+    "Category: " + current_category + "</h5>" +
     "<br>" +
     "</div>" +
     "<div class='col - 12 col - lg - 7'>" +
@@ -819,10 +878,10 @@ function cancelEditEvent(event) {
   addEventListeners();
 
   isEditing = false;
-      let btn_edit = document.querySelector("#btn_editEvent");
-      btn_edit.disabled = false;
-      let deleteEvent = document.querySelector('#btn_deleteEvent');
-      deleteEvent.disabled = false;
+  let btn_edit = document.querySelector("#btn_editEvent");
+  btn_edit.disabled = false;
+  let deleteEvent = document.querySelector('#btn_deleteEvent');
+  deleteEvent.disabled = false;
 }
 
 
@@ -1099,47 +1158,47 @@ function sendCitiesRequest(country) {
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
 
-function sendEditProfileRequest(event) {
-  let id = this.closest('div').getAttribute('data-id');
-  let first_name = this.querySelector('input[id=input_first_name]').value;
-  let last_name = this.querySelector('input[id=input_last_name]').value;
-  let email = this.querySelector('input[id=input_email]').value;
-  let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
-  let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
-  let img_path = document.querySelector('input[id=fileupload').value;
+// function sendEditProfileRequest(event) {
+//   let id = this.closest('div').getAttribute('data-id');
+//   let first_name = this.querySelector('input[id=input_first_name]').value;
+//   let last_name = this.querySelector('input[id=input_last_name]').value;
+//   let email = this.querySelector('input[id=input_email]').value;
+//   let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
+//   let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
+//   let img_path = document.querySelector('input[id=fileupload').value;
 
-  if (city == "Other")
-    city = this.querySelector('input[id=input_city]').value;
+//   if (city == "Other")
+//     city = this.querySelector('input[id=input_city]').value;
 
-  if (country == "Other")
-    country = this.querySelector('input[id=input_country]').value;
+//   if (country == "Other")
+//     country = this.querySelector('input[id=input_country]').value;
 
-  let index;
-  if (img_path == "") {
-    img_path = current_img;
-    if (img_path.indexOf('http') == -1)
-      index = img_path.indexOf('/', 2);
-    else
-      index = img_path.indexOf('/', 23);
+//   let index;
+//   if (img_path == "") {
+//     img_path = current_img;
+//     if (img_path.indexOf('http') == -1)
+//       index = img_path.indexOf('/', 2);
+//     else
+//       index = img_path.indexOf('/', 23);
 
 
-  } else {
-    index = img_path.indexOf('\\', 3);
-  }
+//   } else {
+//     index = img_path.indexOf('\\', 3);
+//   }
 
-  let img = img_path.substr(index + 1, img_path.size);
+//   let img = img_path.substr(index + 1, img_path.size);
 
-  sendAjaxRequest('post', '/api/profile/' + id, {
-    first_name: first_name,
-    last_name: last_name,
-    email: email,
-    city: city,
-    country: country,
-    img: img
-  }, profileEditedHandler);
+//   sendAjaxRequest('post', '/api/profile/' + id, {
+//     first_name: first_name,
+//     last_name: last_name,
+//     email: email,
+//     city: city,
+//     country: country,
+//     img: img
+//   }, profileEditedHandler);
 
-  event.preventDefault();
-}
+//   event.preventDefault();
+// }
 
 function sendEditEventRequest(event) {
   let id = this.closest('div').getAttribute('data-id');
@@ -1149,14 +1208,14 @@ function sendEditEventRequest(event) {
   let date = this.querySelector('input[id=input_date]').value;
   let time = this.querySelector('input[id=input_time]').value;
   let place = this.querySelector('input[id=input_place]').value;
-  let address = this.querySelector('input[id=input_address').value; 
+  let address = this.querySelector('input[id=input_address').value;
   let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
   let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
   let description = document.querySelector('textarea[id=input_description').value;
 
   console.log(type);
 
-  
+
 
   if (city == "Other")
     city = this.querySelector('input[id=input_city]').value;
@@ -1164,13 +1223,13 @@ function sendEditEventRequest(event) {
   if (country == "Other")
     country = this.querySelector('input[id=input_country]').value;
 
-    let is_public;
-    if (type == "Public")
-      is_public = true;
-    else
-      is_public = false;
+  let is_public;
+  if (type == "Public")
+    is_public = true;
+  else
+    is_public = false;
 
-    console.log(is_public);
+  console.log(is_public);
 
 
 
@@ -1193,7 +1252,8 @@ function sendEditEventRequest(event) {
 
 
 function deleteProfileRequest(event) {
-  let id = this.closest('div').getAttribute('data-id');
+  let id = this.closest('div').parentNode.parentNode.getAttribute('data-id');
+  console.log(id);
 
   sendAjaxRequest('delete', '/api/profile/' + id, null, profileDeletedHandler);
   event.preventDefault();
@@ -1311,27 +1371,27 @@ function sendDeclineFriendRequest(event) {
   }, declinedFriendHandler);
 }
 
-function sendStarRateRequest(event){
-   let event_id = this.parentNode.getAttribute('event-id');
-   let user = this.parentNode.getAttribute('user-id');
-   let value = this.parentNode.getAttribute('data-id');
-   let new_value = this.getAttribute('value');
-  
+function sendStarRateRequest(event) {
+  let event_id = this.parentNode.getAttribute('event-id');
+  let user = this.parentNode.getAttribute('user-id');
+  let value = this.parentNode.getAttribute('data-id');
+  let new_value = this.getAttribute('value');
 
-   if(value == "null"){
-     sendAjaxRequest('put', '/api/rating/', {
-       event_id: event_id,
-       user_id: user,
-       new_value: new_value
-     }, starRatedHandler);
-   }else{
-     sendAjaxRequest('post', '/api/rating/', {
+
+  if (value == "null") {
+    sendAjaxRequest('put', '/api/rating/', {
       event_id: event_id,
-        user_id: user,
-        new_value: new_value
-     }, starRatedHandler);
-   }
-  
+      user_id: user,
+      new_value: new_value
+    }, starRatedHandler);
+  } else {
+    sendAjaxRequest('post', '/api/rating/', {
+      event_id: event_id,
+      user_id: user,
+      new_value: new_value
+    }, starRatedHandler);
+  }
+
 }
 
 
@@ -1439,6 +1499,7 @@ function eventRemHandler() {
     btns_remEvent[currentEvent].parentNode.parentNode.remove();
   }
 }
+
 function starRatedHandler() {
   console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
@@ -1451,39 +1512,39 @@ function starRatedHandler() {
 }
 
 
-function profileEditedHandler() {
-  let message = JSON.parse(this.responseText)['message'];
-  let profile;
-  if (message == 'success') {
-    profile = JSON.parse(this.responseText)['user'];
-    city = JSON.parse(this.responseText)['city'];
-    country = JSON.parse(this.responseText)['country'];
-    updateProfile(profile, city, country);
-    getCurCountry();
-    sendCountriesRequest();
-  } else {
-    let content = document.querySelector("#content");
-    let errors;
-    errors = content.querySelector("#errors");
-    if (errors == null) {
-      errors = document.createElement("div");
-      errors.id = "errors";
-      errors.classList.add("alert");
-      errors.classList.add("alert-danger");
-    }
-    errors.innerHTML =
-      "<ul>";
-    message['message'].forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
-    });
-    errors.innerHTML += "</ul>";
-    content.insertBefore(errors, content.firstChild);
+// function profileEditedHandler() {
+//   let message = JSON.parse(this.responseText)['message'];
+//   let profile;
+//   if (message == 'success') {
+//     profile = JSON.parse(this.responseText)['user'];
+//     city = JSON.parse(this.responseText)['city'];
+//     country = JSON.parse(this.responseText)['country'];
+//     updateProfile(profile, city, country);
+//     getCurCountry();
+//     sendCountriesRequest();
+//   } else {
+//     let content = document.querySelector("#content");
+//     let errors;
+//     errors = content.querySelector("#errors");
+//     if (errors == null) {
+//       errors = document.createElement("div");
+//       errors.id = "errors";
+//       errors.classList.add("alert");
+//       errors.classList.add("alert-danger");
+//     }
+//     errors.innerHTML =
+//       "<ul>";
+//     message['message'].forEach(element => {
+//       errors.innerHTML += "<li>" + element + "</li>";
+//     });
+//     errors.innerHTML += "</ul>";
+//     content.insertBefore(errors, content.firstChild);
 
-  }
-  cities = null;
-  addEventListeners();
+//   }
+//   cities = null;
+//   addEventListeners();
 
-}
+// }
 
 function eventEditedHandler() {
   console.log(this.responseText);
@@ -1512,7 +1573,7 @@ function eventEditedHandler() {
     }
     errors.innerHTML =
       "<ul>";
-    message['message'].forEach(element => {
+    message.forEach(element => {
       errors.innerHTML += "<li>" + element + "</li>";
     });
     errors.innerHTML += "</ul>";
@@ -1524,8 +1585,8 @@ function eventEditedHandler() {
 }
 
 function profileDeletedHandler() {
-
-  if (this.status != 200) window.location = '/';
+  console.log(this.responseText);
+  if (this.status == 200) window.location = '/';
 }
 
 function eventDeletedHandler() {
@@ -1666,7 +1727,7 @@ function madeInviteHandler() {
 }
 
 function canceledInviteHandler() {
-  
+
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let curIn = response['currentInvite'];
@@ -1704,29 +1765,35 @@ function canceledInviteHandler() {
 }
 
 
-function updateProfile(profile, city, country) {
-  let main_div = document.querySelector("#user_info_container");
+// function updateProfile(profile, city, country) {
+//   let main_div = document.querySelector("#user_info_container");
 
-  let img = document.querySelector("#img_nav_profile");
+//   let img = document.querySelector("#img_nav_profile");
 
-  img.src = "/imgs/" + profile.image_path;
+//   img.src = "/imgs/" + profile.image_path;
 
-  main_div.innerHTML =
+//   main_div.innerHTML =
+//     "<div style='text-align:center;'>"+
+//     "<img src='/imgs/" + profile.image_path + "' id='user_info_img' class='img img-fluid rounded mb-3'>"+
+//     "</div><br>" +
+//     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + profile.first_name + " " + profile.last_name + "</label><br>" +
+//     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + profile.email + "</label><br>" +
+//     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + city + ", " + country + "</label>" +
 
-    "<img src='/imgs/" + profile.image_path + "' id='user_info_img' class='img img-fluid rounded mb-3'><br>" +
-    "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + profile.first_name + " " + profile.last_name + "</label><br>" +
-    "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + profile.email + "</label><br>" +
-    "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + city + ", " + country + "</label>" +
+//     "<div class='row mt-2'>"+
+//     "<div class='col-12 col-sm-6 col-lg-12' >"+
+//     "<button type='button' class='btn btn-primary btn-lg btn-block mt-3' id='btn_editprofile'>" +
+//     "<i class='far fa-edit fa-fw'></i> Edit Profile </button>" +
+//     "</div>"+
+//     "<div class='col-12 col-sm-6 col-lg-12 mt-2' >" +
+//     "<button type='button' class='btn btn-outline-danger btn-lg btn-block'>" +
+//     "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>"+
+//     "</div>";
 
-    "<button type='button' class='btn btn-primary btn-lg btn-block mt-3' id='btn_editprofile'>" +
-    "<i class='far fa-edit fa-fw'></i> Edit Profile </button>" +
-    "<button type='button' class='btn btn-outline-danger btn-lg btn-block'>" +
-    "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>";
+//   isEditing = false;
 
-  isEditing = false;
-
-  addEventListeners();
-}
+//   addEventListeners();
+// }
 
 function updateEvent(event, city, country, localization, category) {
   let main_div = document.querySelector("#event_data");
@@ -1736,21 +1803,23 @@ function updateEvent(event, city, country, localization, category) {
   let deleteEvent = document.querySelector('#btn_deleteEvent');
   deleteEvent.disabled = false;
 
+  console.log(event.is_public);
+
   main_div.innerHTML =
     "<span class='display-4' id='event_name'>" + event.name + "</span>" +
-      "<span id='event_public' data-id=" + event.is_public + ">" + (event.is_public == "1" ? "(Public)" : "(Private)") + "</span" +
-      "<br>" +
+    "<span id='event_public' data-id=" + event.is_public + ">" + (event.is_public == "true" ? "(Public)" : "(Private)") + "</span" +
+    "<br>" +
     "<div class='row mt-5'>" +
     "<div class='col-12 col-lg-5'>" +
     "<h5 id='event_date'>" +
     "<i class='fas fa-clock fa-fw' ></i>" + event.date + " at " + event.time + "</h5>" +
     "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5>"+
+    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5>" +
     "<h5 id='address'>" +
-       localization.address + "</h5>" +
-      "<h5 id='event_category' data-id=" + event.category_id + ">" +
-      "Category: " + category + "</h5>" +
-      "<br>" +
+    localization.address + "</h5>" +
+    "<h5 id='event_category' data-id=" + event.category_id + ">" +
+    "Category: " + category + "</h5>" +
+    "<br>" +
     "</div>" +
     "<div class='col-12 col-lg-7'>" +
     "<h1>Description</h1><br>" +

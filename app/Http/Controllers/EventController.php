@@ -42,14 +42,7 @@ class EventController extends Controller
 
     public function show($id)
     {
-/**
-      $table =DB::table('events')->get();
-      $table->text('name')->unique();
-      $table->index('name');
-      $table->dropIndex('search');
 
-      DB::statement('ALTER TABLE events ADD FULLTEXT search (name)');
-*/
       $event = Event::find($id);
       
 
@@ -74,11 +67,9 @@ class EventController extends Controller
       $categories = Category::all();   
       
       $participants_invited_ids = array();
-
-      $users_invited_ids = array();
+      $friends_to_invite = array();
 
       foreach($event->event_invites as $invite){
-        array_push($users_invited_ids, $invite->receiver_id);
         array_push($participants_invited_ids, $invite->receiver_id);
       }
 
@@ -86,17 +77,40 @@ class EventController extends Controller
           array_push($participants_invited_ids, $participant->user_id);
       }
 
+      if(Auth::check()){
+        $user = Auth::user();
+
+        foreach($user->getFriends() as $friend){
+          if(!in_array($friend->id,$participants_invited_ids))
+            array_push($friends_to_invite, $friend);
+          array_push($participants_invited_ids, $friend->id);
+        }
+
+        usort($friends_to_invite, array($this, "cmp_users"));
+      }
+
+      
+
       $admin_id = User::where('username', 'admin')->first()->id;
       
       array_push($participants_invited_ids, $event->owner->id);
       array_push($participants_invited_ids, $admin_id);
+
+      
+
+
       
       // $city = DB::select('SELECT city_id FROM users WHERE id = ?', [$id]);
 
       //$this->authorize('show', $user);
 
-      return view('pages.events', ['event' => $event, 'categories' => $categories, 'users' => User::all()->except($participants_invited_ids)->sortBy('id')]);
+      return view('pages.events', ['event' => $event, 'categories' => $categories, 'friends' => $friends_to_invite, 'users' => User::all()->except($participants_invited_ids)->sortBy('username', SORT_NATURAL|SORT_FLAG_CASE)]);
     }
+
+      function cmp_users($a, $b)
+{
+    return strcmp($a->username, $b->username);
+}
     
 
     /**

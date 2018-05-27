@@ -15,7 +15,7 @@
   
   @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
   @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-  @include('partials.addEvent');
+  @include('partials.addEvent')
 @endif
 
 @section('content')
@@ -25,8 +25,15 @@
         <div class="container mx-auto sticky-top" id="container_user">
           <h1>{{$user->username}}</h1>
           <hr>
+          @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
           <div id="user_info_container" data-id="{{ $user->id }}">
+          <div style="text-align:center;">
+            
             <img src="/imgs/{{ $user->image_path }}" id="user_info_img" class="img img-fluid rounded mb-3">
+            {{ csrf_field() }}
+            </div>
             <br>
             <label id="user_info_l1"><i class="fas fa-user fa-fw mr-1"></i>{{$user->first_name}} {{$user->last_name}}</label>
             <br>
