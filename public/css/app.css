@@ -132,6 +132,7 @@ div#jumbotron_admin{
   padding: .2em;
 }
 
+
 .fileContainer [type=file] {
   cursor: inherit;
   display: block;
@@ -152,12 +153,11 @@ div#jumbotron_admin{
   width: 127px !important;
   height: 36px !important;
   background: #444;
-  border-color: #444;
+  border-color: #444; 
   text-align: center;
-  border-radius: 5px;
+  border-radius:5px;
   padding: .4em;
 }
-
 .imageContainer [type=file] {
   cursor: inherit;
   display: block;
@@ -171,15 +171,15 @@ div#jumbotron_admin{
   cursor: pointer;
 }
 
-.images_uploaded {
+.images_uploaded{
   width: 100px;
   border: none;
-  margin: 5px 5px;
+  margin: 5px 5px; 
 }
 
-.jumbotron_image {
+.jumbotron_image{
   max-height: 210px;
-  background: #303030;
+  background: #303030; 
   overflow-y: scroll;
 }
 

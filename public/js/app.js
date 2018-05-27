@@ -595,7 +595,7 @@ function createEditProfileForm(event) {
 
 
   main_div.innerHTML =
-
+    "<div style='text-align:center;'>"+
     "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
     "<form enctype='multipart/form-data' class='edit_profile' method='POST'>" +
     btn_img +
@@ -788,7 +788,6 @@ function createEditEventForm(event) {
     "</div>" +
     "</div>";
 
-
   main_div.innerHTML =
 
     "<form class='edit_event' method='POST'>" +
@@ -812,7 +811,13 @@ function createEditEventForm(event) {
   isEditing = true;
 
   addEventListeners();
-
+}
+function preview_images() 
+{
+  let total_file=document.getElementById("images").files.length;
+    for(let i=0;i<total_file;i++){
+    $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='"+URL.createObjectURL(event.target.files[i])+"'></div>");
+    }
 }
 
 function preview_images() {
