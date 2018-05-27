@@ -124,7 +124,7 @@
                   </div>
                </div>
                <div class="row">
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12">
                      <label for="place">Place</label>
                      <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -140,7 +140,7 @@
                         @endif -->
                      </div>
                   </div>
-                  <div class="col-12 col-sm-6">
+                  <div class="col-12">
                      <label for="address">Address</label>
                      <div class="input-group mb-2">
                         <div class="input-group-prepend">

@@ -567,9 +567,10 @@ function createEditProfileForm(event) {
 
 
   main_div.innerHTML =
-
+    "<div style='text-align:center;'>"+
     "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
     btn_img +
+    "</div>"+
     "<form class='edit_profile' method='POST'>" +
     div1 + div2 + div3 + btns +
     "</form>";
@@ -739,16 +740,24 @@ function createEditEventForm(event) {
     "<label for='description'>Description</label>" +
     "<textarea id='input_description' class='form-control' rows='4' cols='1' placeholder='Event description'>" + description + "</textarea>";
 
+  let form_images = 
+  "<form action='myform.cgi' class='img_form'>"+
+    "<label class='imageContainer mt-3'>"+
+      "Upload Images"+
+      "<input type='file' name='images[]' value='Browse' id='images' onchange='preview_images();' multiple class='custom-file-input'>" +
+        "<span class='custom-file-control form-control-file'></span>" +
+    "</label>"+
+  "</form>";
+
   let btns =
     "<div class='row mt-5'>" +
     "<div class='col-4 offset-2'>" +
     "<button type='submit' class='btn btn-success btn-block' id='btn_confirm_edit_event'><span><i class='fas fa-check fa-fw'></i> Confirm</span> </button>" +
     "</div>" +
     "<div class='col-4'>" +
-    "<button type='button' class='btn btn-danger btn-block' id='btn_cancel_edit_event'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
+    "<button type='button' class='btn btn-outline-danger btn-block' id='btn_cancel_edit_event'><span><i class='fas fa-times fa-fw'></i> Cancel</span> </button>" +
     "</div>" +
     "</div>";
-
 
   main_div.innerHTML =
 
@@ -759,6 +768,12 @@ function createEditEventForm(event) {
     "</div>" +
     "<div class='col-12 col-lg-6'>" +
     form_description +
+    "<div>" + 
+    form_images +
+    "<div class='jumbotron jumbotron_image p-2 mt-2'>"+
+    "<div class='row' id='image_preview'></div>"+
+    "</div>" +
+    "</div>" +
     "</div>" +
     "</div>" +
     btns +
@@ -767,7 +782,13 @@ function createEditEventForm(event) {
   isEditing = true;
 
   addEventListeners();
-
+}
+function preview_images() 
+{
+  let total_file=document.getElementById("images").files.length;
+    for(let i=0;i<total_file;i++){
+    $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='"+URL.createObjectURL(event.target.files[i])+"'></div>");
+    }
 }
 
 //Quando faço cancel tem de ir para os valores antes de clicar em edit
