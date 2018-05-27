@@ -1,30 +1,5 @@
 function addEventListeners() {
-  // if(countries == null)
-  // getAddEventCitiesCountries();  
-  let itemCheckers = document.querySelectorAll('article.card li.item input[type=checkbox]');
-  [].forEach.call(itemCheckers, function (checker) {
-    checker.addEventListener('change', sendItemUpdateRequest);
-  });
-
-  let itemCreators = document.querySelectorAll('article.card form.new_item');
-  [].forEach.call(itemCreators, function (creator) {
-    creator.addEventListener('submit', sendCreateItemRequest);
-  });
-
-  let itemDeleters = document.querySelectorAll('article.card li a.delete');
-  [].forEach.call(itemDeleters, function (deleter) {
-    deleter.addEventListener('click', sendDeleteItemRequest);
-  });
-
-  let cardDeleters = document.querySelectorAll('article.card header a.delete');
-  [].forEach.call(cardDeleters, function (deleter) {
-    deleter.addEventListener('click', sendDeleteCardRequest);
-  });
-
-  let cardCreator = document.querySelector('article.card form.new_card');
-  if (cardCreator != null)
-    cardCreator.addEventListener('submit', sendCreateCardRequest);
-
+ 
   let editProfile = document.querySelector('#btn_editprofile');
   if (editProfile != null) {
     if (cities == null) {
@@ -273,6 +248,18 @@ function addEventListeners() {
     }
   }
 
+   btns_markAsSeen_notDel = document.querySelectorAll('#btn_markAsSeen_notDel');
+   for (let i = 0; i < btns_markAsSeen_notDel.length; i++) {
+     markNotdelete.push(sendMarkNotDelAsSeenRequest.bind(sendMarkNotDelAsSeenRequest, i));
+     btns_markAsSeen_notDel[i].addEventListener('click', markNotdelete[i]);
+   }
+
+   btns_markAsSeen_notUpd = document.querySelectorAll('#btn_markAsSeen_notUpd');
+   for (let i = 0; i < btns_markAsSeen_notUpd.length; i++) {
+     markNotupdate.push(sendMarkNotUpdAsSeenRequest.bind(sendMarkNotUpdAsSeenRequest, i));
+     btns_markAsSeen_notUpd[i].addEventListener('click', markNotupdate[i]);
+   }
+
 }
 
 
@@ -281,12 +268,15 @@ let current_city, current_country, current_city_default, current_country_default
 let cities, cities_default, countries, isEvent, isDefault = true,
   isSignUp, isEditing = false;
 let justRemoveOther;
+let current_not;
 
 let current_category, current_category_id, current_public;
 
 let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
 let makeInvite = new Array(),
-  cancelInvite = new Array();
+  cancelInvite = new Array(),
+  markNotupdate = new Array(),
+  markNotdelete = new Array();
 
 
 
@@ -1217,7 +1207,6 @@ function sendCitiesRequest(country) {
 // }
 
 function sendEditEventRequest(event) {
-  console.log("AAAA");
   let id = this.closest('div').getAttribute('data-id');
   let name = this.querySelector('input[id=input_name]').value;
   let type = document.querySelector('#input_type').options[document.querySelector('#input_type').selectedIndex].value;
@@ -1411,7 +1400,23 @@ function sendStarRateRequest(event) {
 
 }
 
+function sendMarkNotUpdAsSeenRequest(i) {
+  let id = btns_markAsSeen_notUpd[i].parentNode.getAttribute('data-id');
+  current_not = i;
 
+  sendAjaxRequest('delete', '/api/event_update_warning/' + id, {
+      current_not: current_not
+  }, notificationEventUpdateDeleted);
+}
+
+function sendMarkNotDelAsSeenRequest(i) {
+  let id = btns_markAsSeen_notDel[i].parentNode.getAttribute('data-id');
+  current_not = i;
+
+  sendAjaxRequest('delete', '/api/event_delete_warning/' + id, {
+    current_not: current_not
+  }, notificationEventDeleteDeleted);
+}
 
 function sendRemoveParticipantRequest() {
 
@@ -1562,6 +1567,46 @@ function starRatedHandler() {
 //   addEventListeners();
 
 // }
+
+  
+function notificationEventUpdateDeleted(){
+  let message = JSON.parse(this.responseText)['message'];
+  if (message == 'success') {
+    let cur = JSON.parse(this.responseText)['current_not']
+    let par = btns_markAsSeen_notUpd[cur].parentNode.parentNode;
+    btns_markAsSeen_notUpd[cur].parentNode.remove();
+    
+    if(btns_markAsSeen_notUpd.length == 1){
+      let span = document.createElement("span");
+
+      span.classList.add("dropdown-item");
+      span.innerHTML = "No notifications";
+      par.appendChild(span);
+    }
+  }
+
+  addEventListeners();
+}
+
+function notificationEventDeleteDeleted() {
+  let message = JSON.parse(this.responseText)['message'];
+  if (message == 'success') {
+    let cur = JSON.parse(this.responseText)['current_not']
+    let par = btns_markAsSeen_notDel[cur].parentNode.parentNode;
+    btns_markAsSeen_notDel[cur].parentNode.remove();
+
+    if (btns_markAsSeen_notDel.length == 1) {
+      let span = document.createElement("span");
+
+      span.classList.add("dropdown-item");
+      span.innerHTML = "No notifications";
+      par.appendChild(span);
+    }
+  }
+
+  addEventListeners();
+}
+
 
 function eventEditedHandler() {
   console.log(this.responseText);

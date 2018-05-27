@@ -50,6 +50,9 @@ Route::post('api/rating/', 'RatingController@update');
 
 Route::delete('api/admin/{username}', 'AdminController@delete');
 
+Route::delete('api/event_update_warning/{id}', 'EventUpdateWarningController@delete');
+Route::delete('api/event_delete_warning/{id}', 'EventDeleteWarningController@delete');
+
 // Authentication
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
