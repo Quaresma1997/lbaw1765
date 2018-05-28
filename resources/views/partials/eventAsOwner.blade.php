@@ -16,7 +16,7 @@
               <div class="row">
                 <div class="col-md-3  col-3">
                   <a href="{{ url('profile/' . $invite->receiver->id)}}" class="text-white">
-                    <img src="/imgs/{{ $invite->receiver->image_path }}" class="img-fluid mx-auto rounded">
+                    <img src="/imgs/{{ $invite->receiver->image_path }}" class="userSearchImg mx-auto rounded">
                   </a>
                 </div>
                 <div class="col-md-6 col-6">
@@ -38,7 +38,7 @@
             <div class="row">
               <div class="col-md-3  col-3">
                 <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
-                  <img src="/imgs/{{ $friend->image_path }}" class="img-fluid mx-auto rounded">
+                  <img src="/imgs/{{ $friend->image_path }}" class="userSearchImg mx-auto rounded">
                 </a>
               </div>
               <div class="col-md-6 col-6">
@@ -60,7 +60,7 @@
           <div class="row">
             <div class="col-md-3  col-3">
               <a href="{{ url('profile/' . $user->id)}}" class="text-white">
-                <img src="/imgs/{{ $user->image_path }}" class="img-fluid mx-auto rounded">
+                <img src="/imgs/{{ $user->image_path }}" class="userSearchImg mx-auto rounded">
               </a>
             </div>
             <div class="col-md-6 col-6">
@@ -108,7 +108,7 @@
         <div class="carousel-item">
           @endif
           <?php $i++; ?>
-          <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          <img class="d-block eventCarrousselImg" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
         </div>
         @endforeach
       </div>
@@ -235,7 +235,7 @@
         <div class="row">
           <div class="col-3 offset-2 col-md-2 col-lg-1">
             <a href="/profile/{{$event->owner_id}}" class="text-white" >
-              <img src="{{url('/imgs/' . $event->owner->image_path)}}" height="42" width="42" class="rounded-circle">
+              <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle">
             </a>
           </div>
           <div class="col-7">

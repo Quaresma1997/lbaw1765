@@ -32,7 +32,7 @@
       <div id="user_info_container" data-id="{{ $user->id }}">
         <div style="text-align:center;">
           
-          <img src="/imgs/{{ $user->image_path }}" id="user_info_img" class="img img-fluid rounded mb-3">
+          <img src="/imgs/{{ $user->image_path }}" id="user_info_img" class="rounded mb-3 userProfileImg">
           {{ csrf_field() }}
         </div>
         <br>

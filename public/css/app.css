@@ -598,3 +598,52 @@ h1 {
     opacity: 1;
   }
 }
+
+
+/* Image Sizes */
+
+.eventCarrousselImg {
+  width: 1080px;
+  height: 460px;
+}
+
+.eventIndexImg {
+  width: 270px;
+  height: 230px;
+}
+
+.eventSearchImg {
+  width: 100px;
+  height: 100px;
+}
+
+.eventHomepageImg {
+  width: 380px;
+  height: 170px;
+}
+
+.eventPostImg{
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.userMiniImg {
+  width: 15px;
+  height: 15px;
+}
+
+.userProfileImg {
+  width: 256px;
+  height: 256px;
+}
+
+.userFeedImg {
+  width: 42px;
+  height: 42px;
+}
+
+.userSearchImg {
+  width: 100px;
+  height: 100px;
+}
+

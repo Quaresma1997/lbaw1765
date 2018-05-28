@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <a href="{{ url('profile/' . $friend_request->sender_id)}}" class="text-white">
-          <img src="/imgs/{{ $friend_request->sender->image_path }}" class="img-fluid rounded mx-auto d-block">
+          <img src="/imgs/{{ $friend_request->sender->image_path }}" class="rounded mx-auto d-block userProfileImg">
         </a>
         <br>
         <br>

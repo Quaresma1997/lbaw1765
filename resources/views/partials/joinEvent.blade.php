@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <a href="{{ url('events/' . $event_invite->event_id)}}" class="text-white">
-          <img src="{{url('/imgs/' . $event_invite->event->images->last()->path)}}" class="img-fluid rounded mx-auto d-block">
+          <img src="{{url('/imgs/' . $event_invite->event->images->last()->path)}}" class="eventHomepageImg rounded mx-auto d-block">
         </a>
         <br>
         <br>
