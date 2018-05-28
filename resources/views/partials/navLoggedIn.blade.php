@@ -38,9 +38,20 @@
            @elseif($notification->type == 2 )
               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addFriend{{$notification->id}}">{{$notification->sender->username}} wants to be your friend</a>
             @elseif($notification->type == 3 )
-              <span class="dropdown-item">{{$notification->event_name}} was deleted!</span>
+            <div class="dropdown-item" id="notification_event_delete" data-id="{{$notification->id}}">
+              <span>{{$notification->event_name}} was deleted!</span><button type="button" id="btn_markAsSeen_notDel" class="btn btn-secondary btn-sm ml-2" title="Mark as seen">
+                  <i class="fas fa-check"></i>
+                </button>
+                </div>
+              
             @elseif($notification->type == 4 )
-               <a href="{{ url('events/' . $notification->event_id)}}" class="dropdown-item">{{$notification->event->name}} was updated!</a>
+            <div class="dropdown-item" id="notification_event_update" data-id="{{$notification->id}}">
+              <a href="{{ url('events/' . $notification->event_id)}}" class="text-white">{{$notification->event->name}} was updated!
+               </a><button type="button" id="btn_markAsSeen_notUpd" class="btn btn-secondary btn-sm ml-2" title="Mark as seen">
+                  <i class="fas fa-check"></i>
+                </button>
+                </div>
+               
             @endif
             @endforeach
 

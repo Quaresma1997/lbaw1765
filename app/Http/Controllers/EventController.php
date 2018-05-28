@@ -48,7 +48,9 @@ class EventController extends Controller
 
       $event = Event::find($id);
       
-
+      if($event == null)
+        return redirect('404');
+        
       if(!$event->is_public)
         if(Auth::check()){
           if(Gate::denies('see-event', $event))
