@@ -25,11 +25,6 @@
 @if (count($events) === 0  and count($users) === 0 )
 
     <h2>No results found!</h2> 
-
-@else
-{{$events}}
-
-{{$users}}
 @endif
 
 
@@ -57,30 +52,13 @@
               <div class="tab-pane active" id="tab_events">
                 <br>
                 <h4>Category</h4>
+                @foreach($categories as $category)
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" class="custom-control-input" id="music">
-                  <label class="custom-control-label" for="music">Business</label>
+                  <label class="custom-control-label" for="{{$category->name}}">{{$category->name}}</label>
                 </div>
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="music">
-                  <label class="custom-control-label" for="music">Educational</label>
-                </div>
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="sports">
-                  <label class="custom-control-label" for="sports">Entertainment</label>
-                </div>
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="entertainment">
-                  <label class="custom-control-label" for="entertainment">Music</label>
-                </div>
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="educational">
-                  <label class="custom-control-label" for="educational">Sports</label>
-                </div>
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="other">
-                  <label class="custom-control-label" for="other">Other</label>
-                </div>
+                @endforeach
+              
                 <hr>
                 <h2>Sort</h2>
                 <div class="form-group">
