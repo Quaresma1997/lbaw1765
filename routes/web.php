@@ -34,6 +34,9 @@ Route::post('events/{id}', 'EventController@update');
 Route::post('addPost/{id}', 'PostController@add')->name('posta');
 Route::delete('deletePost/{id}', 'PostController@delete')->name('postd');
 
+Route::post('addPoll/{id}', 'PollController@add')->name('polla');
+
+
 
 
 Route::delete('api/participant/', 'ParticipantController@delete');

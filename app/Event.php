@@ -37,6 +37,11 @@ class Event extends Model
         return $this->hasMany('App\Post');
 
       }
+      public function polls(){
+
+        return $this->hasMany('App\Poll');
+    
+      }
 
       public function done(){
         return $this->hasOne('App\Done');
@@ -70,6 +75,7 @@ class Event extends Model
       return Rating::where('event_id', $this->id)->where('user_id', $user_id)->first();
     }
 
+    
 
 
  

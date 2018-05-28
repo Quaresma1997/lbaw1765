@@ -163,7 +163,9 @@ CREATE TABLE participants (
 DROP TABLE IF EXISTS polls CASCADE;
 CREATE TABLE polls (
     id SERIAL NOT NULL,
-    post_id INTEGER NOT NULL,
+    question text,
+    date TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    event_id INTEGER NOT NULL,
     CONSTRAINT polls_pk PRIMARY KEY (id)    
 );
 
@@ -274,8 +276,8 @@ ALTER TABLE ONLY participants
     "users"(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY polls
-    ADD CONSTRAINT polls_post_id_fk FOREIGN KEY (post_id) REFERENCES 
-    posts(id) ON DELETE CASCADE;
+    ADD CONSTRAINT polls_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY posts
     ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
@@ -673,10 +675,10 @@ INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolo
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,15);
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),5,12);
 
-INSERT INTO polls (post_id) VALUES (1);
-INSERT INTO polls (post_id) VALUES (2);
-INSERT INTO polls (post_id) VALUES (3);
-INSERT INTO polls (post_id) VALUES (4);
+INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1);
+INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),2);
+INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),3);
+INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),4);
 
 INSERT INTO options (description,poll_id) VALUES ('Bar',1);
 INSERT INTO options (description,poll_id) VALUES ('Cafe',1);

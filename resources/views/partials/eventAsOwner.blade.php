@@ -198,6 +198,7 @@
           <br>
           <p id="event_description">
           {{$event->description}}
+
           </p>
         </div>
       </div>
@@ -217,33 +218,34 @@
 
         <button type="submit" class="btn btn-primary float-right">
           <i class="fas fa-comment fa-fw"></i> Post </button>
-              <!--
-                  <form route =" {{ route('about') }}" method="post"  >
-                    {{ csrf_field() }}
-                  <button type="button" class="btn btn-secondary float-right">
-                  <i class="fas fa-plus fa-fw"></i> Poll </button>
-              
-              </form>
-              -->
+
+          <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#add_poll">
+        <i class="fas fa-plus fa-fw"></i>Poll</button>
 
       </form>
+      
       <br>
-<!--
-       <div class="mt-1">
-
-       <button type="button" class="btn btn-secondary float-right">
-          <i class="fas fa-plus fa-fw"></i> Poll </button>
-          </div>
--->
-       
-      <br>
-      <br>
+      
       <br>
       <hr>
+      <!-- seria para mostrar o owner -->
+      <div class="row">
+          <div class="col-3 offset-2 col-md-2 col-lg-1">
+            <a href="/profile/{{$event->owner_id}}" class="text-white" >
+              <img src="{{url('/imgs/' . $event->owner->image_path)}}" height="42" width="42" class="rounded-circle">
+            </a>
+          </div>
+          <div class="col-7">
+            <h5>
+              <a href="/profile/{{$event->owner_id}}" class="text-white"> {{$event->owner->username}} (owner) </a>
+              <br>
+            </h5>
+          </div>
+          </div>
+
+      @each('partials.poll', $event->polls, 'poll')
+
 
          @each('partials.post', $event->posts, 'post')
      
-        </div>
-      </div>
-    </div>
   </div>

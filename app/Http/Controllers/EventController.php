@@ -14,6 +14,8 @@ use App\Country;
 use App\Event;
 use App\Localization;
 use App\Post;
+use App\Poll;
+use App\Option;
 use App\Category;
 use App\Image;
 
@@ -380,27 +382,7 @@ private function getFieldsTosend($event){
 
   }
 
-  public function addPost(Request $request,$event){
-
-    $this->validate($request,[
-      'post' => 'required'
-  ]);
-  //$id=1;
- // $event= Event::find($id);
-
-//dd($request);
-// create
-$post= new Post();
-$post->date = date('Y-m-d H:i:s'); // 2016-10-12 21:09:23
-$post->description = $request->input('post');
-$post->event_id = 1;
-$post->user_id = Auth::user()->id;
-$post->save();
-
-return redirect()->action(
-  'EventController@show', ['id' => $event->id]
-);
-}
+ 
 
 
 }
