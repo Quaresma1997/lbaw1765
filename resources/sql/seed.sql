@@ -661,11 +661,11 @@ INSERT INTO participants (user_id,event_id)
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,9);
 			
-INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,1,'/img/new.jpg');
-INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,3,'/img/new.jpg');
-INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,4,'/img/new.jpg');
-INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,16,'/img/new.jpg');
-INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),2,18,'/img/new.jpg');
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,1,'new.jpg');
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,3,'new.jpg');
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,4,'new.jpg');
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,16,'new.jpg');
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),2,18,'new.jpg');
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),4,10);
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),3,17);
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),3,14);

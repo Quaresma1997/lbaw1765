@@ -1,35 +1,35 @@
 <div class="modal fade" id="login">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+  <div class="modal-dialog modal-dialog-centered modal-md">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Login</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Login</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
 
-        <div class="modal-body ">
+      <div class="modal-body ">
 
-            <form method="POST" action="{{ route('login') }}">
-    {{ csrf_field() }}
-    
-    <label for="username">Username</label>
-    <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus>
-            @if ($errors->has('username'))
-                <span class="error">
-                    {{ $errors->first('username') }}
-                </span>
-            @endif
+        <form method="POST" action="{{ route('login') }}">
+          {{ csrf_field() }}
+
+          <label for="username">Username</label>
+          <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+          @if ($errors->has('username'))
+          <span class="error">
+            {{ $errors->first('username') }}
+          </span>
+          @endif
           
 
-      <label for="password" >Password</label>
-    <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
-    @if ($errors->has('password'))
-        <span class="error">
+          <label for="password" >Password</label>
+          <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
+          @if ($errors->has('password'))
+          <span class="error">
             {{ $errors->first('password') }}
-        </span>
-    @endif
-         
+          </span>
+          @endif
+
 
           <label>
             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
@@ -39,10 +39,10 @@
 
           <hr>
 
-           <div class="btn-group d-flex mb-2" role="group">
-          <button class="btn btn-success w-100" type="submit">Login</button>
-          <button type="button" class="btn w-100" type="submit">Register</button>
-            </div>
+          <div class="btn-group d-flex mb-2" role="group">
+            <button class="btn btn-success w-100" type="submit">Login</button>
+            <button type="button" class="btn w-100" type="submit">Register</button>
+          </div>
 
           <div class="btn-group d-flex" role="group">
             <button type="button" class="btn btn-primary w-100" onclick="window.location.href='./admin.html'">
@@ -58,9 +58,8 @@
         </div>
 
 
-    
-</form>
-        </div>
-      </div>
+
+      </form>
     </div>
   </div>
+</div>

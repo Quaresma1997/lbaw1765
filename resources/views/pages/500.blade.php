@@ -1,27 +1,29 @@
 @extends('layouts.app')
 
-@if (!Auth::check())
-  @section('navbar')
-    @include('partials.navNotLoggedIn')
-  @endsection
+@section('navbar')
 
-  @include('partials.register')
-  @include('partials.login')
+@if (!Auth::check())
+@include('partials.navNotLoggedIn')
 
 @else
-  @section('navbar')
-    @include('partials.navLoggedIn')
-  @endsection
-  
-  @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
-  @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-  @include('partials.addEvent')
+@include('partials.navLoggedIn')
 @endif
 
+@endsection
+
 @section('content')
- <div id="error_page">
-    <h1>500 Error Page</h1>
-    <p class="zoom-area">SERVER ERROR</p>
+@if (!Auth::check())
+@include('partials.register')
+@include('partials.login')
+@else
+@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+@include('partials.addEvent')
+@endif
+
+<div id="error_page">
+  <h1>500 Error Page</h1>
+  <p class="zoom-area">SERVER ERROR</p>
   <section class="error-container">
     <span>5</span>
     <span><span class="screen-reader-text">0</span></span>

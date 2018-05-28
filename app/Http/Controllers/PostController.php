@@ -47,20 +47,14 @@ class PostController extends Controller
       //handle file upload
 
       if($request->hasFile('file')){
-          //get filename with extenstion
-          $filenameWithExt = $request->file('file')->getClientOriginalName();
-
-          //get just filename
-          $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-          $extension = $request->file('file')->getClientOriginalExtension();
-
-          $filenameToStore = $filename.'_'.time().'.'.$extension;
-          $path = $request ->file('file')->storeAs('public/post_images', $filenameToStore);
-
-
+          if($request->file('file')->isValid()){
+            $file = $request->file("file");
+          $filename = $file->getClientOriginalName();
+          $file->move(public_path('/post_images'), $filename);
+          }
       }
       else{
-        $filenameToStore = null;
+        $filename = null;
 
       }
 
@@ -72,7 +66,7 @@ $post->date = date('Y-m-d H:i:s'); // 2016-10-12 21:09:23
 $post->description = $request->input('post');
 $post->event_id = $id;
 $post->user_id = Auth::user()->id;
-$post->image_path = $filenameToStore;
+$post->image_path = $filename;
 $post->save();
 
 return redirect()->action(
@@ -94,9 +88,43 @@ return redirect()->action(
 
     }
     
-    public function edit()
+    public function update(Request $request,$id)
     {
+
+         $this->validate($request,[
+          'post' => 'required',
+          'file' => 'image|nullable'
+      ]);
+
+      $post = Post::find($id);
+
+        if($request->hasFile('file')){
+          if($request->file('file')->isValid()){
+            $file = $request->file("file");
+          $filename = $file->getClientOriginalName();
+          $file->move(public_path('/post_images'), $filename);
+          $post->image_path = $filename;
+          }
+      }
+      else{
+        $filename = null;
+
+      }
+
+
       
+
+      $event_id = $post->event_id;
+
+      $post->date = date('Y-m-d H:i:s'); // 2016-10-12 21:09:23
+$post->description = $request->input('post');
+
+
+       // dd($request);
+          $post->save();
+          return redirect()->action(
+            'EventController@show', ['id' => $event_id]
+          );    
 
     }
     

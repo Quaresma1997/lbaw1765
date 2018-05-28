@@ -70,7 +70,7 @@ class PollController extends Controller
     $option2->save();
 
 
-
+    
 return redirect()->action(
     'EventController@show', ['id' => $poll->event_id]
   );

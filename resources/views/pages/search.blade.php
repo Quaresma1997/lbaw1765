@@ -2,24 +2,24 @@
 
 @section('navbar')
 
-  @if(Auth::user())
-        @include('partials.navLoggedIn')
-        @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
-        @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-        @include('partials.addEvent')
-  @else
-        @include('partials.navNotLoggedIn')
-       @include('partials.register')
-        @include('partials.login')
-  @endif
+@if (!Auth::check())
+@include('partials.navNotLoggedIn')
 
-       
+@else
+@include('partials.navLoggedIn')
+@endif
 
-           
 @endsection
 
-
 @section('content')
+@if (!Auth::check())
+@include('partials.register')
+@include('partials.login')
+@else
+@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+@include('partials.addEvent')
+@endif
 
 
 @if (count($events) === 0  and count($users) === 0 )

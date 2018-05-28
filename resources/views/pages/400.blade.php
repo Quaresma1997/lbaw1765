@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
-@if (!Auth::check())
-  @section('navbar')
-    @include('partials.navNotLoggedIn')
-  @endsection
+@section('navbar')
 
-  @include('partials.register')
-  @include('partials.login')
+@if (!Auth::check())
+@include('partials.navNotLoggedIn')
 
 @else
-  @section('navbar')
-    @include('partials.navLoggedIn')
-  @endsection
-  
-  @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
-  @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
-  @include('partials.addEvent')
+@include('partials.navLoggedIn')
 @endif
 
+@endsection
+
 @section('content')
+@if (!Auth::check())
+@include('partials.register')
+@include('partials.login')
+@else
+@each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
+@each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
+@include('partials.addEvent')
+@endif
 
-
-      <div id="error_page">
-    <h1>400 Error Page</h1>
-    <p class="zoom-area">BAD REQUEST</p>
+<div id="error_page">
+  <h1>400 Error Page</h1>
+  <p class="zoom-area">BAD REQUEST</p>
   <section class="error-container">
     <span>4</span>
     <span><span class="screen-reader-text">0</span></span>

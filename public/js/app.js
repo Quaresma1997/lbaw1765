@@ -51,14 +51,48 @@ function addEventListeners() {
       });
 
 
+    
 
+    let imagePostUploads = document.querySelectorAll('#filePost');
+      for (let i = 0; i < imagePostUploads.length; i++) {
+        imagePostUploads[i].addEventListener('change', function () {
+        let par = imagePostUploads[i].parentNode.parentNode;
+        
+        let imagePost = par.querySelector("#post_image");
+        let imgPost = imagePost.querySelector("#img");
+        console.log(imgPost);
+        var reader = new FileReader();
+        var name = imagePostUploads[i].value;
+        var img = document.createElement("img");
+
+        img.height = 200;
+        img.width = 300;
+
+        img.id = 'img';
+
+        reader.onload = function (e) {
+          img.src = e.target.result;
+          img.setAttribute("img-name", e.target.result);
+          imgPost.parentNode.replaceChild(img, imgPost);          
+          console.log(img);
+        };
+        reader.readAsDataURL(imagePostUploads[i].files[0]);
+        // imageProfile.src = imageProfileUpload.value;
+
+        });
+      }
+
+
+      let btn_addEventHelps = document.querySelectorAll("#btn_addEventHelp");
+    for (let i = 0; i < btn_addEventHelps.length; i++) {
+      btn_addEventHelps[i].addEventListener('click', function(){
+        let help = btn_addEventHelps[i].querySelector("#help");
+        help.classList.toggle('show');
+      });
+    }
 
   let editProfileConfirm = document.querySelector('#btn_confirm_edit_profile');
-  // if (editProfileConfirm != null) {
 
-  //   editProfileConfirm.addEventListener('submit', sendEditProfileRequest);
-
-  // }
 
   let editProfileCancel = document.querySelector('form.edit_profile #btn_cancel_edit_profile');
   if (editProfileCancel != null)
@@ -140,7 +174,7 @@ function addEventListeners() {
       isEvent = false;
       isDefault = true;
       justRemoveOther = false;
-      putAddEventOptions();
+      setTimeout(putAddEventOptions, 1000);
 
     });
     modalAddEvent.on('show.bs.modal', function () {
@@ -153,7 +187,9 @@ function addEventListeners() {
 
     });
     modalAddEvent.on('shown.bs.modal', function () {
-      putAddEventOptions();
+      console.log("AAA");
+      setTimeout(putAddEventOptions, 1000);
+
       //  createCountryInput();
     });
   }
@@ -258,6 +294,11 @@ function addEventListeners() {
    for (let i = 0; i < btns_markAsSeen_notUpd.length; i++) {
      markNotupdate.push(sendMarkNotUpdAsSeenRequest.bind(sendMarkNotUpdAsSeenRequest, i));
      btns_markAsSeen_notUpd[i].addEventListener('click', markNotupdate[i]);
+   }
+
+   let btns_editPost = document.querySelectorAll('#btn_editPost');
+   for (let i = 0; i < btns_editPost.length; i++) {
+     btns_editPost[i].addEventListener('click', createEditPostForm);
    }
 
 }
@@ -438,6 +479,7 @@ function putAddEventOptions() {
   let select_city = document.querySelector("#select_city_event");
   let i;
   let countries_options = "";
+
   countries_options += "<option value = 'Other'>Other</option>";
   if (countries.length != 0)
     countries_options += "<option disabled>────────────────────</option>";
@@ -469,6 +511,54 @@ function putAddEventOptions() {
   select_city.innerHTML = cities_options;
 
 
+}
+
+function createEditPostForm(event){
+  console.log(this.parentNode);
+  let post_div = this.parentNode;
+
+  // let ev_id = post_div.getAttribute("data-id");
+  let route = post_div.getAttribute("data-route");
+
+  let post_image = post_div.querySelector("#post_image");
+  let post_name = post_div.querySelector("#post_name").innerText;
+  let csrf = post_div.querySelector('input[name=_token');
+
+  let textarea = 
+    "<textarea id='post' type='text'  class='form-control' rows='4' cols='1'"+
+        "name='post' placeholder='Write something here...' required >" + post_name + "</textarea>";
+
+  let file =
+     "<label class='fileContainer mt-2'>" +
+     "Upload Image" +
+     "<input type='file' name='file' value='Browse' id='filePost' class='custom-file-input mt-2'>" +
+     "<span class='custom-file-control form-control-file'></span>" +
+     "</label>";
+
+    let btn = 
+      "<button type='submit' class='btn btn-primary float-right'>"+
+        "<i class='fas fa-comment fa-fw'></i> Post </button>";
+
+  let img = "";
+
+  if(post_image != null){
+    let image = post_image.querySelector("#img");
+    img = "<div class='col-8 offset-1 mt-2' id='post_image'>"+
+              "<img src='/post_images/" + image.getAttribute('img-name') + "' id='img' img-name='" + image.getAttribute('img-name')
+              + "' height='200' width='300'>" +
+            "</div>";
+  }
+
+  post_div.innerHTML = 
+    "<form action ='" + route + "' method='post' enctype='multipart/form-data'>" +
+      csrf.outerHTML+
+      textarea + 
+      img +
+      file +
+      btn+
+      "</form>";
+
+      addEventListeners();
 }
 
 function createEditProfileForm(event) {
