@@ -1550,7 +1550,7 @@ function shortcutAddedHandler(){
     let list_shortcuts = document.querySelector("#homepage_list_shortcuts");
     let a = document.createElement("a");
     a.innerHTML = 
-      "<a href='/events/'" + event_id + "' class='text-white mb-5' data-id='" + shortcut_id +"'>" + event_name + "</a>";
+      "<a href='/events/'" + event_id + "' class='text-white mb-2' data-id='" + shortcut_id +"'>" + event_name + "</a>";
 
     list_shortcuts.appendChild(a);
 

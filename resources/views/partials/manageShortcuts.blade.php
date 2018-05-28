@@ -32,23 +32,20 @@
           @endforeach
           </div>
           <div class="row">
-          <div class="col-12 col-lg-12 mb-4">
             <div class="col-md-6 col-6">
               <div class="form-group mb-2 p-0 m-0" id="div_select_event">
-                <label for="eventsShortcuts">Event</label>
                 <select class="custom-select" id="eventsShortcuts" name="event" user-id="{{Auth::user()->id}}">
                  @foreach(Auth::user()->eventsNotShortcuts() as $event)
                  <option value="{{ $event->name }}" data-id="{{$event->id}}">{{ $event->name }}</option>
                  @endforeach
                 
                </select>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 col-6">
-            <button type="button" class="btn btn-success btn-sm"  data-placement="left" title="Add shortcut" id="btn_addShortcut">
-              <i class="fas fa-plus" ></i><span> Add shortcut</span>
-            </div>
-            </div>
+            <div class="col-md-6 col-6">
+              <button type="button" class="btn btn-success btn-md"  data-placement="left" title="Add shortcut" id="btn_addShortcut">
+                <i class="fas fa-plus" ></i><span> Add shortcut</span>
+              </div>
           </div>
           </div>
         </div>

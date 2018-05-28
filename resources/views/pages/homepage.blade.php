@@ -42,7 +42,7 @@
             @endif
         <div id="homepage_list_shortcuts" class="d-md-flex flex-lg-column justify-content-md-between">
           @foreach(Auth::user()->shortcuts as $shortcut)
-          <a href="{{ url('events/' . $shortcut->event->id)}}" class="text-white mb-5" data-id="{{$shortcut->id}}">{{$shortcut->event->name}}</a>
+          <a href="{{ url('events/' . $shortcut->event->id)}}" class="text-white mb-2" data-id="{{$shortcut->id}}">{{$shortcut->event->name}}</a>
           @endforeach
           
             </div>
