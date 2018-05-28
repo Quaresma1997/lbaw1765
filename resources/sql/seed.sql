@@ -291,9 +291,10 @@ ALTER TABLE ONLY ratings
 CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
 $BODY$
 BEGIN 
-  IF OLD.event_id != null
+  IF (OLD.event_id = NULL)
   THEN
-  INSERT INTO dones VALUES (OLD.event_id, NULL);
+  ELSE
+    INSERT INTO dones VALUES (OLD.event_id, NULL);
   END IF;
   RETURN OLD;
 END
@@ -316,7 +317,7 @@ $BODY$
 LANGUAGE plpgsql;
  
 DROP TRIGGER IF EXISTS set_event_as_not_done ON "events";
-CREATE TRIGGER set_event_as_done
+CREATE TRIGGER set_event_as_not_done
   AFTER INSERT ON "events"
   FOR EACH ROW
     EXECUTE PROCEDURE set_event_as_not_done(); 
