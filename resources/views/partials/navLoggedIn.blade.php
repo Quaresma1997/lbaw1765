@@ -10,7 +10,7 @@
     <form action ="{{route('search')}}" method="get" class="form-inline">
       <li class="nav-item">
         <div class="input-group">
-          <input type="text" class="form-control" name="query" placeholder="Search" required>
+          <input type="text" class="form-control" name="query" placeholder="Search">
           <span class="input-group-append"> 
             <button type="submit" class="btn btn-secondary" >
               <i class="fas fa-search fa-fw"></i>
@@ -63,7 +63,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/profile/{{ Auth::user()->id }}">
-        <img src="/imgs/{{ Auth::user()->image_path }}" style="max-height: 30px; max-width: 30px;" id="img_nav_profile">
+        <img src="/imgs/{{ Auth::user()->image_path }}" class="userMiniImg" id="img_nav_profile">
         {{ Auth::user()->username }} </a>
       </li>
       <li class="navbar-item">

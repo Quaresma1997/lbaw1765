@@ -60,14 +60,13 @@ class Poll_votesController extends Controller
             //dump($old[0]->option_id);
             //update vote
             $vote_id=$old[0]->id;
-            dump($vote_id);
+            //dump($vote_id);
             $new_vote = Poll_votes::find($vote_id);
             if($new_vote == null)
                 return redirect('404');
             $new_vote->option_id = $request->input('option');
             $poll = Poll::find($id);
-            dump($poll);
-            dump($new_vote);
+           
             $new_vote->save();
             return redirect()->action(
                 'EventController@show', ['id' => $poll->event_id]

@@ -26,6 +26,7 @@ class Poll_votes extends Model
   public function countVotes($option_id){
 
     $votes = count(Poll_votes::where('option_id',$option_id )->get());
+  
     return $votes;
 
   }

@@ -37,7 +37,7 @@
             <div class="row mb-4">
               <div class="col-md-3 col-3">
                 <a href="{{ url('profile/' . $participant->user_id)}}" class="text-white">
-                  <img src="/imgs/{{ $participant->user->image_path }}" class="img-fluid rounded">
+                  <img src="/imgs/{{ $participant->user->image_path }}" class="rounded userSearchImg">
                 </a>
               </div>
               <div class="col-md-6 col-6">

@@ -26,6 +26,7 @@ class HomePageController extends Controller
             return redirect('admin');
         
         $categories = Category::all();
+
       return view('pages.homepage', ['categories' => $categories]);
     }
     

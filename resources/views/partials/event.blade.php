@@ -1,8 +1,9 @@
-<div class="jumbotron jumbotron-fluid p-1 my-1 list col-6">
+<div class="col-12 col-lg-6 px-1">
+<div class="jumbotron jumbotron-fluid p-1 my-1 list">
   <a href="/events/{{$event->id}}" class="text-white">
     <div class="row">
       <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-        <img class="img-fluid rounded" src="{{url('/imgs/' .  $event->images->last()->path)}}">
+        <img class="rounded eventSearchImg" src="{{url('/imgs/' .  $event->images->last()->path)}}">
         @if($event->done == null)
         Future
         @else
@@ -23,4 +24,5 @@
         </div>
       </div>
     </a>
+  </div>
   </div>

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3 offset-2 col-md-2 col-lg-1">
         <a href="/profile/{{$post->user_id}}" class="text-white" >
-          <img src="{{url('/imgs/' . $post->user->image_path)}}" height="42" width="42" class="rounded-circle">
+          <img src="{{url('/imgs/' . $post->user->image_path)}}" class="rounded-circle userFeedImg">
         </a>
       </div>
       <div class="col-7">
@@ -19,7 +19,7 @@
         
         @if(!is_null($post->image_path ))
         <div class="col-8 offset-1" id="post_image">
-          <img src="/post_images/{{$post->image_path}}" id="img" img-name="{{$post->image_path}}" height="200" width="300">
+          <img src="/post_images/{{$post->image_path}}" id="img" img-name="{{$post->image_path}}" class="eventPostImg">
         </div>
         @endif
 

@@ -9,7 +9,7 @@
     <form action ="{{route('search')}}" method="get" class="form-inline">
       <li class="nav-item">
         <div class="input-group">
-          <input type="text" class="form-control" name="query" placeholder="Search" required>
+          <input type="text" class="form-control" name="query" placeholder="Search">
           <span class="input-group-append"> 
             <button type="submit" class="btn btn-secondary" >
               <i class="fas fa-search fa-fw"></i>

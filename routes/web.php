@@ -39,6 +39,9 @@ Route::post('addPoll/{id}', 'PollController@add')->name('polla');
 Route::post('addPoll_vote/{id}', 'Poll_votesController@add')->name('votea');
 
 
+Route::put('api/shortcut', 'ShortcutController@add');
+Route::delete('api/shortcut/{id}', 'ShortcutController@delete');
+
 
 
 

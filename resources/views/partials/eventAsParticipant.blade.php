@@ -20,7 +20,7 @@
         <div class="carousel-item">
           @endif
           <?php $i++; ?>
-          <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          <img class="d-block eventCarrousselImg" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
         </div>
         @endforeach
       </div>
@@ -139,8 +139,21 @@
       <br>
       <br>
       <hr>
-      
-
+      <!--
+      <div class="row">
+        <div class="col-3 offset-2 col-md-2 col-lg-1">
+          <a href="/profile/{{$event->owner_id}}" class="text-white" >
+            <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle">
+          </a>
+        </div>
+        <div class="col-7">
+          <h5>
+            <a href="/profile/{{$event->owner_id}}" class="text-white"> {{$event->owner->username}} (owner) </a>
+            <br>
+          </h5>
+        </div>
+      </div>
+-->
       @each('partials.poll', $event->polls, 'poll')
 
       @each('partials.post', $event->posts, 'post')

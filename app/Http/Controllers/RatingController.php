@@ -62,4 +62,6 @@ class RatingController extends Controller
 
         return response()->json(['message' => 'success', 'avg' => round($avg,1), 'vote' => $request->input('new_value')]);
     }
+
+      
 }

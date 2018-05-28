@@ -32,7 +32,7 @@
       <div id="user_info_container" data-id="{{ $user->id }}">
         <div style="text-align:center;">
           
-          <img src="/imgs/{{ $user->image_path }}" id="user_info_img" class="img img-fluid rounded mb-3">
+          <img src="/imgs/{{ $user->image_path }}" id="user_info_img" class="rounded mb-3 userProfileImg">
           {{ csrf_field() }}
         </div>
         <br>
@@ -73,22 +73,22 @@
           <div id="events" class="container tab-pane fade show active">
             <div class="row mt-3">
               @if(Auth::check())
-              @if(Auth::user()->id == $user->id)
-              @if(sizeof($user->allEvents()) == 0)
-              <h3>There are no events to show!</h3>
-              @endif
-              @each('partials.event', $user->allEvents(), 'event')
+                @if(Auth::user()->id == $user->id)
+                  @if(sizeof($user->allEvents()) == 0)
+                  <h3>There are no events to show!</h3>
+                  @endif
+                  @each('partials.event', $user->allEvents(), 'event')
+                @else
+                  @if(sizeof($user->publicEvents()) == 0)
+                  <h3>There are no events to show!</h3>
+                  @endif
+                @each('partials.event', $user->publicEvents(), 'event')
+                @endif
               @else
-              @if(sizeof($user->publicEvents()) == 0)
-              <h3>There are no events to show!</h3>
-              @endif
-              @each('partials.event', $user->publicEvents(), 'event')
-              @endif
-              @else
-              @if(sizeof($user->publicEvents()) == 0)
-              <h3>There are no events to show!</h3>
-              @endif
-              @each('partials.event', $user->publicEvents(), 'event')
+                @if(sizeof($user->publicEvents()) == 0)
+                <h3>There are no events to show!</h3>
+                @endif
+                @each('partials.event', $user->publicEvents(), 'event')
               @endif
 
               

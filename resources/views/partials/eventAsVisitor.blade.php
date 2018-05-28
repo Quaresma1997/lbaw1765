@@ -20,7 +20,7 @@
         <div class="carousel-item">
           @endif
           <?php $i++; ?>
-          <img class="d-block img-fluid" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
+          <img class="d-block eventCarrousselImg" src="{{url('/imgs/'.$image->path)}}" alt="Image {{$image->path}}">
         </div>
         @endforeach
       </div>
