@@ -36,6 +36,8 @@ Route::delete('deletePost/{id}', 'PostController@delete')->name('postd');
 Route::post('updatePost/{id}', 'PostController@update')->name('postupdate');
 
 Route::post('addPoll/{id}', 'PollController@add')->name('polla');
+Route::post('addPoll_vote/{id}', 'Poll_votesController@add')->name('votea');
+
 
 
 

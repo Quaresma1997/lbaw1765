@@ -16,13 +16,6 @@ class User extends Authenticatable
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-/** 
-public function searchableAs(){
-  return 'username';
-
-}
-*/
-
 
     /**
      * The attributes that are mass assignable.
@@ -62,6 +55,24 @@ public function searchableAs(){
 
     return $this->hasMany('App\Event', 'owner_id');
 
+  }
+  public function poll_votes(){
+
+    return $this->hasMany('App\Poll_votes');
+
+  }
+
+  public function getOption($poll_id){
+
+    $vote = Poll_votes::where('poll_id',$poll_id)->where('user_id',$this->id)->get();
+    if($vote->isEmpty()){
+      return null;
+    }else{
+      $option = $vote[0]->option_id;
+      return $option;
+      //returns option  id;
+    }
+     
   }
 
   public function participants(){

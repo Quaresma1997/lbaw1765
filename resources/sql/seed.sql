@@ -147,6 +147,20 @@ CREATE TABLE options (
     CONSTRAINT options_pk PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS poll_votes CASCADE;
+CREATE TABLE poll_votes (
+    id SERIAL NOT NULL,
+    poll_id INTEGER NOT NULL,
+    option_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    CONSTRAINT poll_votes_pk PRIMARY KEY (id),
+    CONSTRAINT poll_id_user_id_uk UNIQUE (poll_id, user_id),
+    CONSTRAINT poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
+    polls(id) ON DELETE CASCADE,
+    CONSTRAINT option_id_fk FOREIGN KEY (user_id) REFERENCES 
+    "users"(id) ON DELETE CASCADE
+);
+
 DROP TABLE IF EXISTS participants CASCADE;
 CREATE TABLE participants (
     id SERIAL NOT NULL,
@@ -270,6 +284,11 @@ ALTER TABLE ONLY friendships
 ALTER TABLE ONLY options
     ADD CONSTRAINT options_poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
     polls(id) ON DELETE CASCADE;
+    
+ALTER TABLE ONLY poll_votes
+    ADD CONSTRAINT poll_votes_id_fk FOREIGN KEY (poll_id) REFERENCES 
+    polls(id) ON DELETE CASCADE;
+
 
 ALTER TABLE ONLY participants
     ADD CONSTRAINT participants_user_id_fk FOREIGN KEY (user_id) REFERENCES 
@@ -691,6 +710,11 @@ INSERT INTO options (description,poll_id) VALUES ('Great',3);
 INSERT INTO options (description,poll_id) VALUES ('Good',3);
 INSERT INTO options (description,poll_id) VALUES ('Available',4);
 INSERT INTO options (description,poll_id) VALUES ('Not Available',4);
+
+
+INSERT INTO poll_votes (poll_id,option_id,user_id) VALUES (4,9,2);
+
+
 
 INSERT INTO friend_requests (sender_id, receiver_id) VALUES (1, 2);
 INSERT INTO friend_requests (sender_id, receiver_id) VALUES (4, 3);

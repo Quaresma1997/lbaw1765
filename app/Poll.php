@@ -21,4 +21,10 @@ public function options(){
 
   }
 
+  public function poll_votes(){
+
+    return $this->hasMany('App\Poll_votes');
+
+  }
+
 }
