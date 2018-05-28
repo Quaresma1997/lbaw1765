@@ -1,5 +1,5 @@
 function addEventListeners() {
- 
+
   let editProfile = document.querySelector('#btn_editprofile');
   if (editProfile != null) {
     if (cities == null) {
@@ -40,56 +40,56 @@ function addEventListeners() {
       imageProfile = document.querySelector("#user_info_img")
     });
 
-     let imagesUpload = document.querySelector('#images');
-     if (imagesUpload != null)
-      imagesUpload.addEventListener('change', function (e) {
-         let total_file = document.getElementById("images").files.length;
-         for (let i = 0; i < total_file; i++) {
-           console.log(e);
-           $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='" + URL.createObjectURL(e.target.files[i]) + "'></div>");
-         }
-      });
-
-
-    
-
-    let imagePostUploads = document.querySelectorAll('#filePost');
-      for (let i = 0; i < imagePostUploads.length; i++) {
-        imagePostUploads[i].addEventListener('change', function () {
-        let par = imagePostUploads[i].parentNode.parentNode;
-        
-        let imagePost = par.querySelector("#post_image");
-        let imgPost = imagePost.querySelector("#img");
-        console.log(imgPost);
-        var reader = new FileReader();
-        var name = imagePostUploads[i].value;
-        var img = document.createElement("img");
-
-        img.height = 200;
-        img.width = 300;
-
-        img.id = 'img';
-
-        reader.onload = function (e) {
-          img.src = e.target.result;
-          img.setAttribute("img-name", e.target.result);
-          imgPost.parentNode.replaceChild(img, imgPost);          
-          console.log(img);
-        };
-        reader.readAsDataURL(imagePostUploads[i].files[0]);
-        // imageProfile.src = imageProfileUpload.value;
-
-        });
+  let imagesUpload = document.querySelector('#images');
+  if (imagesUpload != null)
+    imagesUpload.addEventListener('change', function (e) {
+      let total_file = document.getElementById("images").files.length;
+      for (let i = 0; i < total_file; i++) {
+        console.log(e);
+        $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='" + URL.createObjectURL(e.target.files[i]) + "'></div>");
       }
+    });
 
 
-      let btn_addEventHelps = document.querySelectorAll("#btn_addEventHelp");
-    for (let i = 0; i < btn_addEventHelps.length; i++) {
-      btn_addEventHelps[i].addEventListener('click', function(){
-        let help = btn_addEventHelps[i].querySelector("#help");
-        help.classList.toggle('show');
-      });
-    }
+
+
+  let imagePostUploads = document.querySelectorAll('#filePost');
+  for (let i = 0; i < imagePostUploads.length; i++) {
+    imagePostUploads[i].addEventListener('change', function () {
+      let par = imagePostUploads[i].parentNode.parentNode;
+
+      let imagePost = par.querySelector("#post_image");
+      let imgPost = imagePost.querySelector("#img");
+      console.log(imgPost);
+      var reader = new FileReader();
+      var name = imagePostUploads[i].value;
+      var img = document.createElement("img");
+
+      img.height = 200;
+      img.width = 300;
+
+      img.id = 'img';
+
+      reader.onload = function (e) {
+        img.src = e.target.result;
+        img.setAttribute("img-name", e.target.result);
+        imgPost.parentNode.replaceChild(img, imgPost);
+        console.log(img);
+      };
+      reader.readAsDataURL(imagePostUploads[i].files[0]);
+      // imageProfile.src = imageProfileUpload.value;
+
+    });
+  }
+
+
+  let btn_addEventHelps = document.querySelectorAll("#btn_addEventHelp");
+  for (let i = 0; i < btn_addEventHelps.length; i++) {
+    btn_addEventHelps[i].addEventListener('click', function () {
+      let help = btn_addEventHelps[i].querySelector("#help");
+      help.classList.toggle('show');
+    });
+  }
 
   let editProfileConfirm = document.querySelector('#btn_confirm_edit_profile');
 
@@ -149,9 +149,9 @@ function addEventListeners() {
 
   let editEventConfirm = document.querySelector('form.edit_event');
   // if (editEventConfirm != null) 
-    // editEventConfirm.addEventListener('submit', sendEditEventRequest);
+  // editEventConfirm.addEventListener('submit', sendEditEventRequest);
 
-  
+
 
   let editEventCancel = document.querySelector('form.edit_event #btn_cancel_edit_event');
   if (editEventCancel != null)
@@ -284,22 +284,37 @@ function addEventListeners() {
     }
   }
 
-   btns_markAsSeen_notDel = document.querySelectorAll('#btn_markAsSeen_notDel');
-   for (let i = 0; i < btns_markAsSeen_notDel.length; i++) {
-     markNotdelete.push(sendMarkNotDelAsSeenRequest.bind(sendMarkNotDelAsSeenRequest, i));
-     btns_markAsSeen_notDel[i].addEventListener('click', markNotdelete[i]);
-   }
+  btns_markAsSeen_notDel = document.querySelectorAll('#btn_markAsSeen_notDel');
+  for (let i = 0; i < btns_markAsSeen_notDel.length; i++) {
+    markNotdelete.push(sendMarkNotDelAsSeenRequest.bind(sendMarkNotDelAsSeenRequest, i));
+    btns_markAsSeen_notDel[i].addEventListener('click', markNotdelete[i]);
+  }
 
-   btns_markAsSeen_notUpd = document.querySelectorAll('#btn_markAsSeen_notUpd');
-   for (let i = 0; i < btns_markAsSeen_notUpd.length; i++) {
-     markNotupdate.push(sendMarkNotUpdAsSeenRequest.bind(sendMarkNotUpdAsSeenRequest, i));
-     btns_markAsSeen_notUpd[i].addEventListener('click', markNotupdate[i]);
-   }
+  btns_markAsSeen_notUpd = document.querySelectorAll('#btn_markAsSeen_notUpd');
+  for (let i = 0; i < btns_markAsSeen_notUpd.length; i++) {
+    markNotupdate.push(sendMarkNotUpdAsSeenRequest.bind(sendMarkNotUpdAsSeenRequest, i));
+    btns_markAsSeen_notUpd[i].addEventListener('click', markNotupdate[i]);
+  }
 
-   let btns_editPost = document.querySelectorAll('#btn_editPost');
-   for (let i = 0; i < btns_editPost.length; i++) {
-     btns_editPost[i].addEventListener('click', createEditPostForm);
-   }
+  let btns_editPost = document.querySelectorAll('#btn_editPost');
+  for (let i = 0; i < btns_editPost.length; i++) {
+    btns_editPost[i].addEventListener('click', createEditPostForm);
+  }
+
+  let btn_addShortcut = document.querySelector("#btn_addShortcut");
+  if (btn_addShortcut != null){
+    btn_addShortcut.addEventListener('click', sendAddShortcutRequest);
+    let sel_short = document.querySelector("#eventsShortcuts");
+    if (sel_short.length == 0)
+      btn_addShortcut.disabled = true;
+  }
+
+  btn_deleteShortcuts = document.querySelectorAll('#btn_deleteShortcut');
+  for (let i = 0; i < btn_deleteShortcuts.length; i++) {
+    console.log(i);
+     deleteShortctus.push(sendDeleteShortcutRequest.bind(sendDeleteShortcutRequest, i));
+     btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
+  }
 
 }
 
@@ -309,15 +324,16 @@ let current_city, current_country, current_city_default, current_country_default
 let cities, cities_default, countries, isEvent, isDefault = true,
   isSignUp, isEditing = false;
 let justRemoveOther;
-let current_not;
+let current_not, current_shortcut;
 
 let current_category, current_category_id, current_public;
-
+let btn_deleteShortcuts;
 let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
 let makeInvite = new Array(),
   cancelInvite = new Array(),
   markNotupdate = new Array(),
-  markNotdelete = new Array();
+  markNotdelete = new Array(),
+  deleteShortctus = new Array();
 
 
 
@@ -346,6 +362,11 @@ function getCurCountry() {
   current_country = country;
 
 
+}
+
+function showPopup() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
 }
 
 function createCityInput() {
@@ -513,7 +534,7 @@ function putAddEventOptions() {
 
 }
 
-function createEditPostForm(event){
+function createEditPostForm(event) {
   console.log(this.parentNode);
   let post_div = this.parentNode;
 
@@ -524,41 +545,41 @@ function createEditPostForm(event){
   let post_name = post_div.querySelector("#post_name").innerText;
   let csrf = post_div.querySelector('input[name=_token');
 
-  let textarea = 
-    "<textarea id='post' type='text'  class='form-control' rows='4' cols='1'"+
-        "name='post' placeholder='Write something here...' required >" + post_name + "</textarea>";
+  let textarea =
+    "<textarea id='post' type='text'  class='form-control' rows='4' cols='1'" +
+    "name='post' placeholder='Write something here...' required >" + post_name + "</textarea>";
 
   let file =
-     "<label class='fileContainer mt-2'>" +
-     "Upload Image" +
-     "<input type='file' name='file' value='Browse' id='filePost' class='custom-file-input mt-2'>" +
-     "<span class='custom-file-control form-control-file'></span>" +
-     "</label>";
+    "<label class='fileContainer mt-2'>" +
+    "Upload Image" +
+    "<input type='file' name='file' value='Browse' id='filePost' class='custom-file-input mt-2'>" +
+    "<span class='custom-file-control form-control-file'></span>" +
+    "</label>";
 
-    let btn = 
-      "<button type='submit' class='btn btn-primary float-right'>"+
-        "<i class='fas fa-comment fa-fw'></i> Post </button>";
+  let btn =
+    "<button type='submit' class='btn btn-primary float-right'>" +
+    "<i class='fas fa-comment fa-fw'></i> Post </button>";
 
   let img = "";
 
-  if(post_image != null){
+  if (post_image != null) {
     let image = post_image.querySelector("#img");
-    img = "<div class='col-8 offset-1 mt-2' id='post_image'>"+
-              "<img src='/post_images/" + image.getAttribute('img-name') + "' id='img' img-name='" + image.getAttribute('img-name')
-              + "' height='200' width='300'>" +
-            "</div>";
+    img = "<div class='col-8 offset-1 mt-2' id='post_image'>" +
+      "<img src='/post_images/" + image.getAttribute('img-name') + "' id='img' img-name='" + image.getAttribute('img-name') +
+      "' height='200' width='300'>" +
+      "</div>";
   }
 
-  post_div.innerHTML = 
+  post_div.innerHTML =
     "<form action ='" + route + "' method='post' enctype='multipart/form-data'>" +
-      csrf.outerHTML+
-      textarea + 
-      img +
-      file +
-      btn+
-      "</form>";
+    csrf.outerHTML +
+    textarea +
+    img +
+    file +
+    btn +
+    "</form>";
 
-      addEventListeners();
+  addEventListeners();
 }
 
 function createEditProfileForm(event) {
@@ -627,7 +648,7 @@ function createEditProfileForm(event) {
 
 
   let cities_options = "";
-  if(cities == null)
+  if (cities == null)
     return;
   let i;
   cities_options += "<option value = 'Other'>Other</option>";
@@ -708,7 +729,7 @@ function createEditProfileForm(event) {
 function createEditEventForm(event) {
   let btn_edit = document.querySelector("#btn_editEvent");
   let deleteEvent = document.querySelector('#btn_deleteEvent');
-  
+
   let main_div = document.querySelector("#event_data");
 
   let name = main_div.querySelector("#event_name").innerText;
@@ -810,7 +831,7 @@ function createEditEventForm(event) {
 
   let cities_options = "";
 
-  if(cities == null){
+  if (cities == null) {
     return;
   }
 
@@ -910,8 +931,8 @@ function createEditEventForm(event) {
     "</form>";
 
   isEditing = true;
-btn_edit.disabled = true;
-deleteEvent.disabled = true;
+  btn_edit.disabled = true;
+  deleteEvent.disabled = true;
 
   addEventListeners();
 }
@@ -949,7 +970,7 @@ function cancelEditEvent(event) {
   let main_div = document.querySelector("#event_data");
   let cat = current_category_id + 1;
   main_div.innerHTML =
-  document.querySelector('input[name=_token').outerHTML +
+    document.querySelector('input[name=_token').outerHTML +
     "<span class='display-4' id='event_name'>" + current_name + "</span>" +
     "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") + "</span" +
     "<br>" +
@@ -1155,50 +1176,30 @@ function sendRemEventRequest() {
 
 }
 
-function sendItemUpdateRequest() {
-  let item = this.closest('li.item');
-  let id = item.getAttribute('data-id');
-  let checked = item.querySelector('input[type=checkbox]').checked;
+function sendAddShortcutRequest(event){
+  let select_events = document.querySelector('#eventsShortcuts');
+  let event_short = select_events[select_events.selectedIndex];
+  let ev_id = event_short.getAttribute('data-id');
+  let user_id = select_events.getAttribute('user-id');
 
-  sendAjaxRequest('post', '/api/item/' + id, {
-    done: checked
-  }, itemUpdatedHandler);
+  sendAjaxRequest('put', '/api/shortcut/', {
+    event_id: ev_id,
+    user_id: user_id
+  }, shortcutAddedHandler);
 }
 
-function sendDeleteItemRequest() {
-  let id = this.closest('li.item').getAttribute('data-id');
+function sendDeleteShortcutRequest(i) {
+  console.log(i);
+  console.log(btn_deleteShortcuts[i].parentNode);
+  let id = btn_deleteShortcuts[i].getAttribute('shortcut-id');
+  current_shortcut = i;
 
-  sendAjaxRequest('delete', '/api/item/' + id, null, itemDeletedHandler);
+  sendAjaxRequest('delete', '/api/shortcut/' + id, {
+
+    current_shortcut: current_shortcut
+  }, shortcutDeletedHandler);
 }
 
-function sendCreateItemRequest(event) {
-  let id = this.closest('article').getAttribute('data-id');
-  let description = this.querySelector('input[name=description]').value;
-
-  if (description != '')
-    sendAjaxRequest('put', '/api/cards/' + id, {
-      description: description
-    }, itemAddedHandler);
-
-  event.preventDefault();
-}
-
-function sendDeleteCardRequest(event) {
-  let id = this.closest('article').getAttribute('data-id');
-
-  sendAjaxRequest('delete', '/api/cards/' + id, null, cardDeletedHandler);
-}
-
-function sendCreateCardRequest(event) {
-  let name = this.querySelector('input[name=name]').value;
-
-  if (name != '')
-    sendAjaxRequest('put', '/api/cards/', {
-      name: name
-    }, cardAddedHandler);
-
-  event.preventDefault();
-}
 
 function sendAddEventRequest(event) {
   let name = document.querySelector('input[id=name]').value;
@@ -1253,48 +1254,6 @@ function sendCitiesRequest(country) {
 
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
-
-// function sendEditProfileRequest(event) {
-//   let id = this.closest('div').getAttribute('data-id');
-//   let first_name = this.querySelector('input[id=input_first_name]').value;
-//   let last_name = this.querySelector('input[id=input_last_name]').value;
-//   let email = this.querySelector('input[id=input_email]').value;
-//   let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
-//   let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
-//   let img_path = document.querySelector('input[id=fileupload').value;
-
-//   if (city == "Other")
-//     city = this.querySelector('input[id=input_city]').value;
-
-//   if (country == "Other")
-//     country = this.querySelector('input[id=input_country]').value;
-
-//   let index;
-//   if (img_path == "") {
-//     img_path = current_img;
-//     if (img_path.indexOf('http') == -1)
-//       index = img_path.indexOf('/', 2);
-//     else
-//       index = img_path.indexOf('/', 23);
-
-
-//   } else {
-//     index = img_path.indexOf('\\', 3);
-//   }
-
-//   let img = img_path.substr(index + 1, img_path.size);
-
-//   sendAjaxRequest('post', '/api/profile/' + id, {
-//     first_name: first_name,
-//     last_name: last_name,
-//     email: email,
-//     city: city,
-//     country: country,
-//     img: img
-//   }, profileEditedHandler);
-
-//   event.preventDefault();
-// }
 
 function sendEditEventRequest(event) {
   let id = this.closest('div').getAttribute('data-id');
@@ -1495,7 +1454,7 @@ function sendMarkNotUpdAsSeenRequest(i) {
   current_not = i;
 
   sendAjaxRequest('delete', '/api/event_update_warning/' + id, {
-      current_not: current_not
+    current_not: current_not
   }, notificationEventUpdateDeleted);
 }
 
@@ -1550,6 +1509,123 @@ function sendCancelInviteRequest(i) {
     sender: sender,
     currentInvite: currentInvite
   }, canceledInviteHandler);
+
+}
+
+function shortcutAddedHandler(){
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  let message = response['message'];
+  if (message == "success") {
+    for (let i = 0; i < btn_deleteShortcuts.length; i++) {
+      btn_deleteShortcuts[i].removeEventListener('click', deleteShortctus[i]);
+    }
+    let event_name = response['event_name'];
+    let event_id = response['event_id'];
+    let shortcut_id = response['id'];
+    let row = document.querySelector("#list_shortcuts");
+    let div = document.createElement("div");
+    let select_events = document.querySelector('#eventsShortcuts');
+    select_events.remove(select_events.selectedIndex);
+    div.classList.add("col-12");
+    div.classList.add("col-lg-6");
+    div.classList.add("mb-4");
+
+    div.innerHTML =
+      "<div class='row'>"+
+                "<div class='col-md-6 col-6'>"+
+                  "<a href='/events/'" + event_id + "' class='text-white'>" +
+                    "<span>" + event_name + "</span>"+
+                  "</a>"+
+                "</div>"+
+                
+                "<div class='col-md-6 col-6 d-flex align-items-center'>"+
+                  "<button type='button' class='btn btn-outline-danger btn-sm' title='Delete Shortcut' id='btn_deleteShortcut'" +
+                  "shortcut-id='" + shortcut_id + "'>"+
+                  "<i class='fas fa-times' ></i><span> Delete</span>"+
+                "</button>"+
+              "</div>";
+    row.appendChild(div);
+
+    let list_shortcuts = document.querySelector("#homepage_list_shortcuts");
+    let a = document.createElement("a");
+    a.innerHTML = 
+      "<a href='/events/'" + event_id + "' class='text-white mb-5' data-id='" + shortcut_id +"'>" + event_name + "</a>";
+
+    list_shortcuts.appendChild(a);
+
+    btn_deleteShortcuts = document.querySelectorAll('#btn_deleteShortcut');
+    deleteShortctus = new Array();
+    for (let i = 0; i < btn_deleteShortcuts.length; i++) {
+      deleteShortctus.push(sendDeleteShortcutRequest.bind(sendDeleteShortcutRequest, i));
+      btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
+    }
+
+    let no_short = list_shortcuts.parentNode.querySelector("#no_shortcuts");
+
+    if (no_short != null)
+      no_short.remove();
+        
+  }else{
+    let content = document.querySelector("#content");
+    let errors;
+    errors = content.querySelector("#errors");
+    if (errors == null) {
+      errors = document.createElement("div");
+      errors.id = "errors";
+      errors.classList.add("alert");
+      errors.classList.add("alert-danger");
+    }
+    errors.innerHTML =
+      "<ul>";
+    message.forEach(element => {
+      errors.innerHTML += "<li>" + element + "</li>";
+    });
+    errors.innerHTML += "</ul>";
+    content.insertBefore(errors, content.firstChild);
+  }
+
+}
+
+function shortcutDeletedHandler(){
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    for (let i = 0; i < btn_deleteShortcuts.length; i++) {
+      btn_deleteShortcuts[i].removeEventListener('click', deleteShortctus[i]);
+    }
+    let cur = response['current_shortcut'];
+    btn_deleteShortcuts[cur].parentNode.parentNode.parentNode.remove();
+    let event_name = response['event_name'];
+    let event_id = response['event_id'];
+    let shortcut_id = response['id'];
+   let select_events = document.querySelector('#eventsShortcuts');
+   let option = document.createElement("option");
+   option.value = event_name;
+   option.setAttribute('data-id', event_id);
+   option.innerHTML = event_name;
+   select_events.appendChild(option);
+    btn_deleteShortcuts = document.querySelectorAll('#btn_deleteShortcut');
+    deleteShortctus = new Array();
+    for (let i = 0; i < btn_deleteShortcuts.length; i++) {
+      deleteShortctus.push(sendDeleteShortcutRequest.bind(sendDeleteShortcutRequest, i));
+      btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
+    }
+
+    let list_shortcuts = document.querySelector("#homepage_list_shortcuts");
+    
+    let a = list_shortcuts.querySelector('a[data-id="'+shortcut_id+'"]');
+    a.remove();
+
+   
+    if (btn_deleteShortcuts.length == 0){
+       let span = document.createElement("span");
+       span.id = "no_shortcuts";
+       span.innerHTML = "No shortcuts";
+       list_shortcuts.parentNode.insertBefore(span, list_shortcuts.parentNode.firstChild);
+    }
+
+    
+  }
 
 }
 
@@ -1624,49 +1700,16 @@ function starRatedHandler() {
 }
 
 
-// function profileEditedHandler() {
-//   let message = JSON.parse(this.responseText)['message'];
-//   let profile;
-//   if (message == 'success') {
-//     profile = JSON.parse(this.responseText)['user'];
-//     city = JSON.parse(this.responseText)['city'];
-//     country = JSON.parse(this.responseText)['country'];
-//     updateProfile(profile, city, country);
-//     getCurCountry();
-//     sendCountriesRequest();
-//   } else {
-//     let content = document.querySelector("#content");
-//     let errors;
-//     errors = content.querySelector("#errors");
-//     if (errors == null) {
-//       errors = document.createElement("div");
-//       errors.id = "errors";
-//       errors.classList.add("alert");
-//       errors.classList.add("alert-danger");
-//     }
-//     errors.innerHTML =
-//       "<ul>";
-//     message['message'].forEach(element => {
-//       errors.innerHTML += "<li>" + element + "</li>";
-//     });
-//     errors.innerHTML += "</ul>";
-//     content.insertBefore(errors, content.firstChild);
 
-//   }
-//   cities = null;
-//   addEventListeners();
 
-// }
-
-  
-function notificationEventUpdateDeleted(){
+function notificationEventUpdateDeleted() {
   let message = JSON.parse(this.responseText)['message'];
   if (message == 'success') {
     let cur = JSON.parse(this.responseText)['current_not']
     let par = btns_markAsSeen_notUpd[cur].parentNode.parentNode;
     btns_markAsSeen_notUpd[cur].parentNode.remove();
-    
-    if(btns_markAsSeen_notUpd.length == 1){
+
+    if (btns_markAsSeen_notUpd.length == 1) {
       let span = document.createElement("span");
 
       span.classList.add("dropdown-item");
@@ -1772,15 +1815,6 @@ function participationHandler() {
   }
 
 }
-
-// function participantRemovedHandler() {
-//   let message = JSON.parse(this.responseText)['message'];
-//   if (message == "success") {
-//     btns_removeParticipant[currentParticipant].parentNode.parentNode.remove();
-//   }
-
-// }
-
 
 function acceptedInviteHandler() {
   let response = JSON.parse(this.responseText);

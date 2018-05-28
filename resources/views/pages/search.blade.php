@@ -59,19 +59,23 @@
                 <h4>Category</h4>
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" class="custom-control-input" id="music">
-                  <label class="custom-control-label" for="music">Music</label>
+                  <label class="custom-control-label" for="music">Business</label>
+                </div>
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" class="custom-control-input" id="music">
+                  <label class="custom-control-label" for="music">Educational</label>
                 </div>
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" class="custom-control-input" id="sports">
-                  <label class="custom-control-label" for="sports">Sports</label>
+                  <label class="custom-control-label" for="sports">Entertainment</label>
                 </div>
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" class="custom-control-input" id="entertainment">
-                  <label class="custom-control-label" for="entertainment">Entertainment</label>
+                  <label class="custom-control-label" for="entertainment">Music</label>
                 </div>
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" class="custom-control-input" id="educational">
-                  <label class="custom-control-label" for="educational">Educational</label>
+                  <label class="custom-control-label" for="educational">Sports</label>
                 </div>
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" class="custom-control-input" id="other">

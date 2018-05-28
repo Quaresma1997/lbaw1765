@@ -11,6 +11,7 @@
 @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
 @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
 @include('partials.addEvent')
+@include('partials.manageShortcuts')
 
 <div class="row">
   <div class="col-12 col-lg-3">
@@ -35,18 +36,18 @@
       <hr>
       <div>
         <h2>Shortcuts</h2>
-        <div class="d-md-flex flex-lg-column justify-content-md-between ">
-          <a href="./eventPart.html" class="text-white">Apresentação LBAW</a>
-          <br>
-          <a href="./eventPart.html" class="text-white">Mini Teste PPIN</a>
-          <br>
-          <a href="./eventPart.html" class="text-white">Queima das Fitas</a>
-          <br>
-          <a href="./eventPart.html" class="text-white">Web Summit 2018</a>
-          <br>
-          <a href="./eventPart.html" class="text-white">Apresentação LBAW</a>
-          <br>
-          <a href="./eventPart.html" class="text-white">Mini Teste PPIN</a>
+        <div class="d-md-flex flex-lg-column justify-content-md-between" >
+        @if(sizeof(Auth::user()->shortcuts) == 0)
+            <span id="no_shortcuts">No shortcuts</span>
+            @endif
+        <div id="homepage_list_shortcuts" class="d-md-flex flex-lg-column justify-content-md-between">
+          @foreach(Auth::user()->shortcuts as $shortcut)
+          <a href="{{ url('events/' . $shortcut->event->id)}}" class="text-white mb-5" data-id="{{$shortcut->id}}">{{$shortcut->event->name}}</a>
+          @endforeach
+          
+            </div>
+          <button type="button" class="btn btn-secondary btn-md btn-block mt-2" id="btn_manageShortcuts" data-toggle="modal" data-target="#manageShortcuts">
+                <i class="fa fa-plus fa-fw"></i> Manage Shortcuts </button>
         </div>
       </div>
       <hr>

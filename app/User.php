@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
+use App\Shortcut;
 
 //use Laravel\Scout\Searchable;
 //use Illuminate\Database\Eloquent\Model;
@@ -16,12 +17,7 @@ class User extends Authenticatable
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-/** 
-public function searchableAs(){
-  return 'username';
 
-}
-*/
 
 
     /**
@@ -61,6 +57,12 @@ public function searchableAs(){
   public function events(){
 
     return $this->hasMany('App\Event', 'owner_id');
+
+  }
+
+   public function shortcuts(){
+
+    return $this->hasMany('App\Shortcut', 'user_id');
 
   }
 
@@ -265,6 +267,16 @@ public function allEvents(){
   $all_events = array_merge($not_dones, $dones);
 
   return $all_events;
+}
+
+public function eventsNotShortcuts(){
+  $all_events = $this->allEvents();
+  $notShortcuts = array();
+  foreach($all_events as $ev){
+    if(Shortcut::where('event_id', $ev->id)->where('user_id', $this->id)->first() == null)
+      array_push($notShortcuts, $ev);
+  }
+  return $notShortcuts;
 }
 
 public function publicEvents(){

@@ -194,6 +194,17 @@ CREATE TABLE ratings (
     events(id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS shortcuts CASCADE;
+CREATE TABLE shortcuts (
+    id SERIAL NOT NULL,
+    event_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    CONSTRAINT shortcuts_pk PRIMARY KEY (id),
+    CONSTRAINT shortcuts_user_id_event_id_uk UNIQUE (user_id, event_id),
+    CONSTRAINT shortcuts_event_id_fk FOREIGN KEY (event_id) REFERENCES 
+    events(id) ON DELETE CASCADE
+);
+
 DROP TABLE IF EXISTS "users" CASCADE;
 CREATE TABLE "users" (
     id SERIAL NOT NULL,
@@ -285,6 +296,10 @@ ALTER TABLE ONLY posts
 
 ALTER TABLE ONLY ratings
     ADD CONSTRAINT ratings_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    "users"(id) ON DELETE SET NULL;
+    
+ALTER TABLE ONLY shortcuts
+    ADD CONSTRAINT shortcuts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
     "users"(id) ON DELETE SET NULL;
 
 
