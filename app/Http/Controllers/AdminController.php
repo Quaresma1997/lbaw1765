@@ -38,5 +38,26 @@ class AdminController extends Controller
             return response()->json(['message' => 'Error banning user!']);
 
     }
+
+    public function searchUsers(Request $request){
+
+        $query=$request -> get('query');
+        $users = User::where ('username', 'LIKE', "%$query%")->orWhere('email', 'LIKE', "%$query%")->get();
+      // dd($query);
+        return view('pages.admin', ['users' => $users,'events' => Event::all()]);
+
+        
+
+    }
+    public function searchEvents(Request $request){
+
+        $query=$request -> get('query');
+        $events = Event::where('name', 'LIKE', "%$query%")-> where('is_public','=', 'true') ->get();
+        // dd($query);
+        return view('pages.admin', ['users' => User::all()->except(Auth::id()),'events' => $events]);
+
+        
+
+    }
     
 }

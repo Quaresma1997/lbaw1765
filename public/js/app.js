@@ -204,6 +204,14 @@ function addEventListeners() {
     });
   }
 
+  let searchBTN = document.querySelector('#btn_ss');
+    if (searchBTN != null){
+      searchBTN.addEventListener('click', sendSearch);
+    }
+
+      
+  
+
   let cancelParticipation = document.querySelector('#btn_cancelParticipation');
   if (cancelParticipation != null) {
     cancelParticipation.addEventListener('click', sendCancelParticipationRequest);
@@ -337,9 +345,31 @@ let makeInvite = new Array(),
   markNotupdate = new Array(),
   markNotdelete = new Array(),
   deleteShortctus = new Array();
+/**
+  
+ $(document).ready(function () {
+  $("#search1").on('keyup'),function() {
+    $value =$(this).val();
+    sendAjaxRequest('get', 'proc', {search : $value}, handle);
+  
+  }
+});
 
+function sendSearch(event){
 
+  let searchable = document.querySelector("#search").value;
+  console.log(searchable);
+  sendAjaxRequest('get','admin/search', {search : searchable}, handle);
+  event.preventDefault();
+console.log(searchable)
 
+}
+  function handle() {
+    $('tbody').html(data);
+     console.log("aa");
+    }
+  
+*/
 $(document).ready(function () {
   $("input[name='optionsRadiosType']").click(function (e) {
     let this_size = $(this).attr("id").length;

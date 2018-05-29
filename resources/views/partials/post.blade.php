@@ -24,7 +24,7 @@
         @endif
 
         
-
+@if(Auth::check())
         @if($post->user->id == Auth::user()->id || $post->event->owner_id ==Auth::user()->id)
         <form action ="{{route('postd', $post->id )}}" method ="post" >
           {{ csrf_field() }}
@@ -37,7 +37,7 @@
           <button type="button" class="btn btn-primary mx-1 float-right" id="btn_editPost">
            <i class="far fa-edit fa-fw"></i> Edit </button>
            @endif
-
+@endif
            
          </div>
        </div>

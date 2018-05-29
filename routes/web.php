@@ -21,6 +21,8 @@ Route::get('/', function () {
         return redirect('index');
 });
 
+Route::get('admin/search/users','AdminController@searchUsers')->name('proc');
+Route::get('admin/search/events','AdminController@searchEvents')->name('procE');
 
 
 // API
