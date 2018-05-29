@@ -70,9 +70,7 @@
             </div>
           </div>
           <hr>
-          @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-          @endforeach
+         
           <div id="event_data" data-id="{{ $event->id }}">
            <span class="display-4" id="event_name">{{$event->name}}</span>
            <span id="event_public" data-id="{{$event->is_public}}">
@@ -81,9 +79,7 @@
             @else 
             (Private) 
           @endif</span>
-          @if($event->done != null)
-          <span class="display-4">Past event</span>
-          @endif
+         
           <br>
           <div class="row mt-5">
             <div class="col-12 col-lg-5">

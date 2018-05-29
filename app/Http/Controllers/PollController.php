@@ -53,8 +53,10 @@ class PollController extends Controller
     $option2 = new Option();
     $option2->description=$request->input('option2'); 
     $option2->poll_id=$poll->id;
-    $option3 = new Option();
+    $option1->save();
+    $option2->save();
     if($request->input('option3')!=null){
+        $option3 = new Option();            
         $option3->description=$request->input('option3');
         $option3->poll_id=$poll->id;
         $option3->save();
@@ -66,8 +68,7 @@ class PollController extends Controller
         $option4->save();
 
     }
-    $option1->save();
-    $option2->save();
+    
 
 
     

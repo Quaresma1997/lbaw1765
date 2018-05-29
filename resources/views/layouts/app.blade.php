@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 
     <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -23,6 +23,8 @@
     crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <script type="text/javascript" src={{ asset('js/app.js') }} defer>
 </script>
   </head>
@@ -33,7 +35,7 @@
       @yield('navbar')
     </nav>
     
-    <div class="container" id="content" class="row">
+    <div class="container" id="content">
         @yield('content')
     </div>
     </main>

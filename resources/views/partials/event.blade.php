@@ -4,11 +4,6 @@
     <div class="row">
       <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
         <img class="rounded eventSearchImg" src="{{url('/imgs/' .  $event->images->last()->path)}}">
-        @if($event->done == null)
-        Future
-        @else
-        Past
-        @endif
       </div>
       <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
         <div class="my-1">

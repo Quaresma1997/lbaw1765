@@ -148,10 +148,6 @@ function addEventListeners() {
 
 
   let editEventConfirm = document.querySelector('form.edit_event');
-  // if (editEventConfirm != null) 
-  // editEventConfirm.addEventListener('submit', sendEditEventRequest);
-
-
 
   let editEventCancel = document.querySelector('form.edit_event #btn_cancel_edit_event');
   if (editEventCancel != null)
@@ -187,10 +183,9 @@ function addEventListeners() {
 
     });
     modalAddEvent.on('shown.bs.modal', function () {
-      console.log("AAA");
+
       setTimeout(putAddEventOptions, 1000);
 
-      //  createCountryInput();
     });
   }
   btns_banUser = document.querySelectorAll('#btn_banUser');
@@ -311,9 +306,16 @@ function addEventListeners() {
 
   btn_deleteShortcuts = document.querySelectorAll('#btn_deleteShortcut');
   for (let i = 0; i < btn_deleteShortcuts.length; i++) {
-    console.log(i);
     deleteShortctus.push(sendDeleteShortcutRequest.bind(sendDeleteShortcutRequest, i));
     btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
+  }
+
+  let alert = document.querySelector("#alert");
+  if (alert != null) {
+    alert.style.display = "block";
+    setTimeout(function () {
+      alert.style.display = "none";
+    }, 5000);
   }
 
 }
@@ -349,6 +351,13 @@ $(document).ready(function () {
     $("div.tab-content[name='content']>div.tab-pane").eq(index).addClass("active");
   });
 });
+
+function myAlertBottom() {
+  $(".myAlert-bottom").show();
+  setTimeout(function () {
+    $(".myAlert-bottom").hide();
+  }, 2000);
+}
 
 function getCurCountryEvent() {
   let main_div = document.querySelector("#event_data");
@@ -480,9 +489,9 @@ function changeCityOptions() {
   } else {
     use_cities = cities;
     if (current_city == "City" || current_city == null)
-      current_city = use_cities[0];
-
-    thisCurCity = current_city;
+      thisCurCity = use_cities[0];
+    else
+      thisCurCity = current_city;
   }
 
 
@@ -966,13 +975,13 @@ function cancelEditProfile(event) {
     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + current_email + "</label> <br>" +
     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + current_city + ", " + current_country + "</label>" +
 
-    "<div class='row mt-2'>" +
-    "<div class='col-12 col-sm-6 col-lg-12' >" +
-    "<button type='button' class='btn btn-primary btn-lg btn-block mt-3' id='btn_editprofile'>" +
+    "<div class='row'>" +
+    "<div class='col-12 col-sm-6 col-lg-12 mt-2' >" +
+    "<button type='button' class='btn btn-primary btn-lg btn-block' id='btn_editprofile'>" +
     "<i class='far fa-edit fa-fw'></i> Edit Profile </button>" +
     "</div>" +
     "<div class='col-12 col-sm-6 col-lg-12 mt-2' >" +
-    "<button type='button' class='btn btn-outline-danger btn-lg btn-block'>" +
+    "<button type='button' class='btn btn-outline-danger btn-lg btn-block' id='btn_deleteprofile'>" +
     "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>" +
     "</div>";
 
@@ -1272,60 +1281,8 @@ function sendCitiesRequest(country) {
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
 
-function sendEditEventRequest(event) {
-  let id = this.closest('div').getAttribute('data-id');
-  let name = this.querySelector('input[id=input_name]').value;
-  let type = document.querySelector('#input_type').options[document.querySelector('#input_type').selectedIndex].value;
-  let category = document.querySelector('#input_category').selectedIndex + 1;
-  let date = this.querySelector('input[id=input_date]').value;
-  let time = this.querySelector('input[id=input_time]').value;
-  let place = this.querySelector('input[id=input_place]').value;
-  let address = this.querySelector('input[id=input_address').value;
-  let city = this.querySelector('select[id=select_city]').selectedOptions[0].value;
-  let country = this.querySelector('select[id=select_country]').selectedOptions[0].value;
-  let description = document.querySelector('textarea[id=input_description').value;
-
-  console.log(type);
-
-
-
-  if (city == "Other")
-    city = this.querySelector('input[id=input_city]').value;
-
-  if (country == "Other")
-    country = this.querySelector('input[id=input_country]').value;
-
-  let is_public;
-  if (type == "Public")
-    is_public = true;
-  else
-    is_public = false;
-
-  console.log(is_public);
-
-
-
-  sendAjaxRequest('post', '/api/event/' + id, {
-    name: name,
-    is_public: is_public,
-    category: category,
-    date: date,
-    time: time,
-    place: place,
-    address: address,
-    city: city,
-    country: country,
-    description: description
-  }, eventEditedHandler);
-
-  event.preventDefault();
-}
-
-
-
 function deleteProfileRequest(event) {
   let id = this.closest('div').parentNode.parentNode.getAttribute('data-id');
-  console.log(id);
 
   sendAjaxRequest('delete', '/api/profile/' + id, null, profileDeletedHandler);
   event.preventDefault();
@@ -1529,8 +1486,52 @@ function sendCancelInviteRequest(i) {
 
 }
 
+function createError(is_string, message) {
+  let content = document.querySelector("#content");
+  let alerts;
+  alerts = content.querySelector("#alert");
+  if (alerts == null) {
+    alerts = document.createElement("div");
+    alerts.id = "alert";
+    alerts.classList.add("myAlert-bottom");
+    alerts.classList.add("alert");
+    alerts.classList.add("alert-danger");
+
+  }
+  alerts.innerHTML =
+    "<button type='button' class='close' data-dismiss='alert'>&times;</button>";
+
+  if (is_string)
+    alerts.innerHTML += "<strong>Error!</strong>" + message + "<br>";
+  else
+    message.forEach(element => {
+      alerts.innerHTML += "<strong>Error!</strong>" + element + "<br>";
+    });
+
+  content.appendChild(alerts, content);
+}
+
+function createSuccess(message) {
+  let content = document.querySelector("#content");
+  let alerts;
+  alerts = content.querySelector("#alert");
+  if (alerts == null) {
+    alerts = document.createElement("div");
+    alerts.id = "alert";
+    alerts.classList.add("myAlert-bottom");
+    alerts.classList.add("alert");
+    alerts.classList.add("alert-success");
+
+  }
+  alerts.innerHTML =
+    "<button type='button' class='close' data-dismiss='alert'>&times;</button>";
+
+  alerts.innerHTML += "<strong>Error!</strong>" + message + "<br>";
+
+  content.appendChild(alerts, content);
+}
+
 function shortcutAddedHandler() {
-  console.log(this.responseText);
   let response = JSON.parse(this.responseText);
   let message = response['message'];
   if (message == "success") {
@@ -1551,7 +1552,7 @@ function shortcutAddedHandler() {
     div.innerHTML =
       "<div class='row'>" +
       "<div class='col-md-6 col-6'>" +
-      "<a href='/events/'" + event_id + "' class='text-white'>" +
+      "<a href='/events/" + event_id + "' class='text-white'>" +
       "<span>" + event_name + "</span>" +
       "</a>" +
       "</div>" +
@@ -1567,7 +1568,8 @@ function shortcutAddedHandler() {
     let list_shortcuts = document.querySelector("#homepage_list_shortcuts");
     let a = document.createElement("a");
     a.innerHTML =
-      "<a href='/events/'" + event_id + "' class='text-white mb-2' data-id='" + shortcut_id + "'>" + event_name + "</a>";
+      "<a href='/events/" + event_id + "' class='text-white mb-2' data-id='" + shortcut_id + "'>" + event_name + "</a>";
+
 
     list_shortcuts.appendChild(a);
 
@@ -1583,25 +1585,13 @@ function shortcutAddedHandler() {
     if (no_short != null)
       no_short.remove();
 
-  } else {
-    let content = document.querySelector("#content");
-    let errors;
-    errors = content.querySelector("#errors");
-    if (errors == null) {
-      errors = document.createElement("div");
-      errors.id = "errors";
-      errors.classList.add("alert");
-      errors.classList.add("alert-danger");
-    }
-    errors.innerHTML =
-      "<ul>";
-    message.forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
-    });
-    errors.innerHTML += "</ul>";
-    content.insertBefore(errors, content.firstChild);
-  }
+    createSuccess('Shortcut added!');
 
+
+  } else {
+    createError(false, message);
+  }
+  addEventListeners();
 }
 
 function shortcutDeletedHandler() {
@@ -1641,7 +1631,10 @@ function shortcutDeletedHandler() {
       list_shortcuts.parentNode.insertBefore(span, list_shortcuts.parentNode.firstChild);
     }
 
+    createSuccess('Shortcut deleted!');
 
+  }else{
+    createError(true, response['message']);
   }
 
 }
@@ -1649,7 +1642,6 @@ function shortcutDeletedHandler() {
 
 
 function getCitiesHandler() {
-  console.log(this.responseText);
   let cit = JSON.parse(this.responseText)['cities'];
 
   if (isDefault || isEvent || isSignUp) {
@@ -1685,7 +1677,8 @@ function getCountriesHandler() {
     addEventListeners();
 
   } else {
-    alert("ERROR getting countries!");
+    createError(true, message);
+    
   }
   //addEventListeners();
 }
@@ -1694,6 +1687,9 @@ function userBanedHandler() {
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     btns_banUser[currentUser].parentNode.parentNode.remove();
+    createSuccess("User banned");
+  } else {
+    createError(true, message);
   }
 }
 
@@ -1705,13 +1701,15 @@ function eventRemHandler() {
 }
 
 function starRatedHandler() {
-  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     let avg = JSON.parse(this.responseText)['avg'];
     let vote = JSON.parse(this.responseText)['vote'];
     document.querySelector("#avg_rating").innerText = "Avg rating is " + avg + " / 5 ";
     document.querySelector("#star_rating").setAttribute("data-id", avg);
+    createSuccess("Rated event");
+  } else {
+    createError(false, message);
   }
 }
 
@@ -1719,9 +1717,9 @@ function starRatedHandler() {
 
 
 function notificationEventUpdateDeleted() {
-  let message = JSON.parse(this.responseText)['message'];
-  if (message == 'success') {
-    let cur = JSON.parse(this.responseText)['current_not']
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let cur = response['current_not']
     let par = btns_markAsSeen_notUpd[cur].parentNode.parentNode;
     btns_markAsSeen_notUpd[cur].parentNode.remove();
 
@@ -1732,14 +1730,18 @@ function notificationEventUpdateDeleted() {
       span.innerHTML = "No notifications";
       par.appendChild(span);
     }
+    createSuccess("Notification marked as seen");
+  } else {
+
+    createError(true, response['message']);
   }
 
   addEventListeners();
 }
 
 function notificationEventDeleteDeleted() {
-  let message = JSON.parse(this.responseText)['message'];
-  if (message == 'success') {
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
     let cur = JSON.parse(this.responseText)['current_not']
     let par = btns_markAsSeen_notDel[cur].parentNode.parentNode;
     btns_markAsSeen_notDel[cur].parentNode.remove();
@@ -1751,75 +1753,29 @@ function notificationEventDeleteDeleted() {
       span.innerHTML = "No notifications";
       par.appendChild(span);
     }
-  }
-
-  addEventListeners();
-}
-
-
-function eventEditedHandler() {
-  console.log(this.responseText);
-  let message = JSON.parse(this.responseText)['message'];
-  let event;
-  if (message == 'success') {
-    event = JSON.parse(this.responseText)['event'];
-    city = JSON.parse(this.responseText)['city'];
-    country = JSON.parse(this.responseText)['country'];
-    localization = JSON.parse(this.responseText)['localization'];
-    category = JSON.parse(this.responseText)['category'];
-    updateEvent(event, city, country, localization, category);
-
-    getCurCountryEvent();
-    sendCountriesRequest();
-
+    createSuccess("Notification marked as seen");
   } else {
-    let content = document.querySelector("#content");
-    let errors;
-    errors = content.querySelector("#errors");
-    if (errors == null) {
-      errors = document.createElement("div");
-      errors.id = "errors";
-      errors.classList.add("alert");
-      errors.classList.add("alert-danger");
-    }
-    errors.innerHTML =
-      "<ul>";
-    message.forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
-    });
-    errors.innerHTML += "</ul>";
-    content.insertBefore(errors, content.firstChild);
+    createError(true, response['message']);
   }
-  cities = null;
-  addEventListeners();
 
+  addEventListeners();
 }
+
 
 function profileDeletedHandler() {
   console.log(this.responseText);
   if (this.status == 200) window.location = '/';
+  let message = JSON.parse(this.responseText)['message'];
+  if (message != "sucess") {
+    createError(true, message);
+  }
 }
 
 function eventDeletedHandler() {
   if (this.status == 200) window.location = '/';
   let message = JSON.parse(this.responseText)['message'];
-  if (message == "error") {
-    let content = document.querySelector("#content");
-    let errors;
-    errors = content.querySelector("#errors");
-    if (errors == null) {
-      errors = document.createElement("div");
-      errors.id = "errors";
-      errors.classList.add("alert");
-      errors.classList.add("alert-danger");
-    }
-    errors.innerHTML =
-      "<ul>";
-    message['message'].forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
-    });
-    errors.innerHTML += "</ul>";
-    content.insertBefore(errors, content.firstChild);
+  if (message != "success") {
+    createError(true, message);
   }
 }
 
@@ -1828,6 +1784,12 @@ function participationHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/events/' + id;
+    createSuccess(response['success']);
+  } else {
+    if(response['message'] == 'error')
+      createError(true, response['error']);
+    else
+      createError(false, response['error']);
   }
 
 }
@@ -1837,16 +1799,22 @@ function acceptedInviteHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/events/' + id;
+    createSuccess('Accepted event invite');
+  } else {
+    createError(false, response['message']);
   }
 
 }
 
 function declinedInviteHandler() {
   console.log(this.responseText);
-  let response = JSON.parse(this.responseText);
-  if (response['message'] == 'success') {
+  let message = JSON.parse(this.responseText)['message'];
+  if (message == 'success') {
     let id = response['id'];
     window.location = '/events/' + id;
+    createSuccess('Declined event invite');
+  } else {
+    createError(true, message);
   }
 
 }
@@ -1857,6 +1825,7 @@ function acceptedFriendHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/profile/' + id;
+    createSuccess('Accepted friend request');
   }
 
 }
@@ -1867,7 +1836,8 @@ function declinedFriendHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/profile/' + id;
-  }
+    createSuccess('Declined friend request');
+  } 
 
 }
 
@@ -1878,6 +1848,9 @@ function friendRequestedHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/profile/' + id;
+    createSuccess('Friend request sent');
+  } else {
+    createError(true, response['message']);
   }
 
 }
@@ -1888,6 +1861,9 @@ function friendRemovedHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/profile/' + id;
+    createSuccess('Friend removed');
+  } else {
+    createError(true, response['message']);
   }
 }
 
@@ -1924,7 +1900,10 @@ function madeInviteHandler() {
       btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
     }
 
+    createSuccess('Event invite sent');
 
+  }else{
+    createError(false, response['message']);
   }
 }
 
@@ -1961,104 +1940,14 @@ function canceledInviteHandler() {
       btns_makeInvite[i].addEventListener('click', makeInvite[i]);
     }
 
-
+    createSuccess('Event invite removed');
+  }else{
+    createError(true, response['message']);
   }
 
 }
 
-function updateEvent(event, city, country, localization, category) {
-  let main_div = document.querySelector("#event_data");
-  let parent = main_div.parentElement;
-  let btn_edit = parent.querySelector("#btn_editEvent");
-  btn_edit.disabled = false;
-  let deleteEvent = document.querySelector('#btn_deleteEvent');
-  deleteEvent.disabled = false;
 
-  console.log(event.is_public);
-
-  main_div.innerHTML =
-    "<span class='display-4' id='event_name'>" + event.name + "</span>" +
-    "<span id='event_public' data-id=" + event.is_public + ">" + (event.is_public == "true" ? "(Public)" : "(Private)") + "</span" +
-    "<br>" +
-    "<div class='row mt-5'>" +
-    "<div class='col-12 col-lg-5'>" +
-    "<h5 id='event_date'>" +
-    "<i class='fas fa-clock fa-fw' ></i>" + event.date + " at " + event.time + "</h5>" +
-    "<h5 id='event_localization'>" +
-    "<i class='fas fa-map-marker-alt fa-fw'></i>" + localization.name + ", " + city + ", " + country + "</h5>" +
-    "<h5 id='address'>" +
-    localization.address + "</h5>" +
-    "<h5 id='event_category' data-id=" + event.category_id + ">" +
-    "Category: " + category + "</h5>" +
-    "<br>" +
-    "</div>" +
-    "<div class='col-12 col-lg-7'>" +
-    "<h1>Description</h1><br>" +
-    "<p id='event_description'>" + event.description + "</p>" +
-    "</div>" +
-    "</div>";
-
-  isEditing = false;
-
-  addEventListeners();
-}
-
-function itemUpdatedHandler() {
-  let item = JSON.parse(this.responseText);
-  let element = document.querySelector('li.item[data-id="' + item.id + '"]');
-  let input = element.querySelector('input[type=checkbox]');
-  element.checked = item.done == "true";
-}
-
-function itemAddedHandler() {
-  if (this.status != 200) window.location = '/';
-  let item = JSON.parse(this.responseText);
-
-  // Create the new item
-  let new_item = createItem(item);
-
-  // Insert the new item
-  let card = document.querySelector('article.card[data-id="' + item.card_id + '"]');
-  let form = card.querySelector('form.new_item');
-  form.previousElementSibling.append(new_item);
-
-  // Reset the new item form
-  form.querySelector('[type=text]').value = "";
-}
-
-function itemDeletedHandler() {
-  if (this.status != 200) window.location = '/';
-  let item = JSON.parse(this.responseText);
-  let element = document.querySelector('li.item[data-id="' + item.id + '"]');
-  element.remove();
-}
-
-function cardDeletedHandler() {
-  if (this.status != 200) window.location = '/';
-  let card = JSON.parse(this.responseText);
-  let article = document.querySelector('article.card[data-id="' + card.id + '"]');
-  article.remove();
-}
-
-function cardAddedHandler() {
-  if (this.status != 200) window.location = '/';
-  let card = JSON.parse(this.responseText);
-
-  // Create the new card
-  let new_card = createCard(card);
-
-  // Reset the new card input
-  let form = document.querySelector('article.card form.new_card');
-  form.querySelector('[type=text]').value = "";
-
-  // Insert the new card
-  let article = form.parentElement;
-  let section = article.parentElement;
-  section.insertBefore(new_card, article);
-
-  // Focus on adding an item to the new card
-  new_card.querySelector('[type=text]').focus();
-}
 
 function eventAddedHandler() {
 
@@ -2067,22 +1956,27 @@ function eventAddedHandler() {
     let id = response['id'];
     window.location = '/events/' + id;
   } else {
-    let form = document.querySelector("#form_add_event");
-    let errors;
-    errors = form.querySelector("#errors");
-    if (errors == null) {
-      errors = document.createElement("div");
-      errors.id = "errors";
-      errors.classList.add("alert");
-      errors.classList.add("alert-danger");
+    let content = document.querySelector("#content");
+    let alerts;
+    alerts = content.querySelector("#alert");
+    if (alerts == null) {
+      alerts = document.createElement("div");
+      alerts.id = "alert";
+      alerts.classList.add("myAlert-bottom");
+      alerts.classList.add("alert");
+      alerts.classList.add("alert-danger");
+
     }
-    errors.innerHTML =
-      "<ul>";
+    alerts.innerHTML =
+      "<button type='button' class='close' data-dismiss='alert'>&times;</button>";
+
     response['message'].forEach(element => {
-      errors.innerHTML += "<li>" + element + "</li>";
+      alerts.innerHTML += "<strong>Error!</strong>" + element + "<br>";
     });
-    errors.innerHTML += "</ul>";
-    form.insertBefore(errors, form.firstChild);
+    alerts.innerHTML += "</ul>";
+    content.appendChild(alerts, content);
+
+    createError(false, response['message']);
   }
 }
 

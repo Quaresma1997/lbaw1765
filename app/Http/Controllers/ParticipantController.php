@@ -32,7 +32,7 @@ class ParticipantController extends Controller
 
 
         if($participant->delete()){        
-            return response()->json(['message' => 'success', 'id' => $request->input('event_id')]);
+            return response()->json(['message' => 'success', 'success' => 'Participation removed', 'id' => $request->input('event_id')]);
         }
         else
             return response()->json(['message' => 'error', 'error' => 'Error deleting participation!']);  
@@ -42,7 +42,7 @@ class ParticipantController extends Controller
     public function create(Request $request){
         $validated = $this->valid($request);
         if(!$validated->passes())
-            return response()->json(['message' => $validated->errors()->all()]);
+            return response()->json(['message' => 'errors', 'error' => $validated->errors()->all()]);
 
         $participant = new Participant();
 
@@ -53,6 +53,6 @@ class ParticipantController extends Controller
 
         $participant->save();
 
-        return response()->json(['message' => 'success', 'id' => $request->input('event_id')]);
+        return response()->json(['message' => 'success', 'success' => 'Participation added', 'id' => $request->input('event_id')]);
     }
 }

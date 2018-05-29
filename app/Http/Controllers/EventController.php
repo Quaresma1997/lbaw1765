@@ -245,13 +245,8 @@ private function getFieldsTosend($event){
       $event->delete();
       return response()->json(['message' => 'success']);
     }catch (QueryException $e){
-      return response()->json(['message' => 'error']);
+      return response()->json(['message' => 'Error deleting event']);
     }
-    
-      // if($event->delete())
-      //   return response()->json(['message' => 'success']);
-      // else
-      //   return response()->json(['message' => 'error']);
     
   }
 

@@ -31,5 +31,15 @@
       </div>
     </div>
   </div>
+
+  @if ($errors->any())
+        <div class="myAlert-bottom alert alert-danger" id="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           @foreach ($errors->all() as $error)              
+              <strong>Error!</strong> {{ $error }}
+              <br>
+            @endforeach
+            </div>
+@endif
  
 @endsection

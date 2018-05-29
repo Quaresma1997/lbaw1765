@@ -24,13 +24,9 @@
     <h2>No results found!</h2> 
 @endif
 
-
-
-
-  <div class="container">
     <div class="row">
       <div class="col-12 col-lg-3">
-        <div class="container mx-auto sticky-top" style="padding-top:10em">
+        <div class="container mx-auto sticky-top">
           <div>
             <h1 class="display-4">Search</h1>
             <hr>
@@ -89,7 +85,7 @@
       </div>
 
       <div class="col-12 col-lg-9">
-        <div class="container mx-auto" style="padding-top:10em">
+        <div class="container mx-auto">
           <div class="tab-content" name="content">
             <div class="tab-pane active">
               <div class="row mt-3">
@@ -123,7 +119,15 @@
             </div>        
       </div>
     </div>
-  </div>
 
+@if ($errors->any())
+        <div class="myAlert-bottom alert alert-danger" id="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           @foreach ($errors->all() as $error)              
+              <strong>Error!</strong> {{ $error }}
+              <br>
+            @endforeach
+            </div>
+@endif
 
 @endsection

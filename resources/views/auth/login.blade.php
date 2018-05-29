@@ -21,15 +21,6 @@
 
 @section('content')
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 <div class="jumbotron container" id="jumbotron_login" >
   <h3 class="title">Login</h3> 
   <hr>
@@ -44,11 +35,7 @@
                     </span>
                   </div>
                   <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus>
-                  <!-- @if ($errors->has('username'))
-                      <span class="error">
-                          {{ $errors->first('username') }}
-                      </span>
-                  @endif -->
+     
                 </div>
                 
 
@@ -60,11 +47,7 @@
                     </span>
                   </div>
                   <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
-          <!-- @if ($errors->has('password'))
-              <span class="error">
-                  {{ $errors->first('password') }}
-              </span>
-          @endif -->
+
                 </div>
               
 
@@ -79,20 +62,30 @@
                 <button type="submit" class="btn btn-block btn-success mb-2">Login</button>
 
                 
-
+            
                 <div class="btn-group d-flex" role="group">
-                  <a href="/auth/twitter"><button type="button" class="btn btn-primary w-100">
-          <i class="fab fa-twitter fa-fw"></i>
-        </button></a>
-                  <a href="/auth/google"><button type="button" class="btn btn-danger w-100">
+                  <button type="button" onclick="location.href='/auth/twitter'" class="btn btn-primary w-100">
+                    <i class="fab fa-twitter fa-fw"></i>
+                  </button>
+                  <button type="button" onclick="location.href='/auth/google'" class="btn btn-danger w-100">
                     <i class="fab fa-google fa-fw"></i>
-                  </button></a>
-                  <a href="/auth/github"><button type="button" class="btn btn-secondary w-100">
+                  </button>
+                  <button type="button" onclick="location.href='/auth/github'" class="btn btn-secondary w-100">
                     <i class="fab fa-github fa-fw"></i>
-                  </button></a>
+                  </button>
                 </div>
               </div>
 
       </form>
 </div>
+
+@if ($errors->any())
+        <div class="myAlert-bottom alert alert-danger" id="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           @foreach ($errors->all() as $error)              
+              <strong>Error!</strong> {{ $error }}
+              <br>
+            @endforeach
+            </div>
+@endif
 @endsection

@@ -22,15 +22,7 @@
 
 @section('content')
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 <div class="jumbotron container" id="jumbotron_register">
   <h3 class="title">Sign Up</h3> 
   <hr>
@@ -44,11 +36,7 @@
                     </span>
                   </div>
                   <input id="username" class="form-control" type="text" name="username" placeholder="Username" required autofocus>
-                  <!-- @if ($errors->has('username'))
-                    <div class="error alert alert-danger ml-3">
-                      <li>{{ $errors->first('username') }} </li>
-                    </div>
-                  @endif -->
+
           </div>
 
         
@@ -61,11 +49,7 @@
                     </span>
                   </div>
                   <input id="email" class="form-control" type="email" name="email" placeholder="Email" required>
-          <!-- @if ($errors->has('email'))
-            <span class="error">
-                {{ $errors->first('email') }}
-            </span>
-          @endif -->
+
                 </div>
 
                 <div class="row">
@@ -78,11 +62,7 @@
                         </span>
                       </div>
                       <input id="first_name" type="text" class="form-control" name="first_name" placeholder="Enter first name" required>
-          <!-- @if ($errors->has('first_name'))
-            <span class="error">
-                {{ $errors->first('first_name') }}
-            </span>
-          @endif -->
+
                     </div>
                   </div>
                 
@@ -95,11 +75,7 @@
                         </span>
                       </div>
                       <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Enter last name" required>
-          <!-- @if ($errors->has('last_name'))
-            <span class="error">
-                {{ $errors->first('last_name') }}
-            </span>
-          @endif -->
+
                     </div>
                   </div>
                 </div>
@@ -125,11 +101,7 @@
                       
                       @endforeach
                       </select>
-          <!-- @if ($errors->has('country'))
-            <span class="error">
-                {{ $errors->first('country') }}
-            </span>
-          @endif -->
+
                     </div>
                                       </div>
 
@@ -154,11 +126,7 @@
                       }
                       @endforeach
                       </select>
-          <!-- @if ($errors->has('city'))
-            <span class="error">
-                {{ $errors->first('city') }}
-            </span>
-          @endif -->
+
                     </div>
                 
                   </div>
@@ -174,11 +142,7 @@
                         </span>
                       </div>
                       <input id="password" type="password" class="form-control" name="password" placeholder="Enter password" required>
-          <!-- @if ($errors->has('password'))
-            <span class="error">
-                {{ $errors->first('password') }}
-            </span>
-          @endif -->
+         
                     </div>
                   </div>
 
@@ -199,16 +163,27 @@
 
       <button type="submit" class="btn btn-block btn-success mb-2" id="btn_signUp">Sign Up</button>
       <div class="btn-group d-flex" role="group">
-        <a href="/auth/twitter"><button type="button" class="btn btn-primary w-100">
-          <i class="fab fa-twitter fa-fw"></i>
-        </button></a>
-        <a href="/auth/google"><button type="button" class="btn btn-danger w-100">
-          <i class="fab fa-google fa-fw"></i>
-        </button></a>
-        <a href="/auth/github"><button type="button" class="btn btn-secondary w-100">
-          <i class="fab fa-github fa-fw"></i>
-        </button></a>
+        <button type="button" onclick="location.href='/auth/twitter'" class="btn btn-primary w-100">
+                    <i class="fab fa-twitter fa-fw"></i>
+                  </button>
+                  <button type="button" onclick="location.href='/auth/google'" class="btn btn-danger w-100">
+                    <i class="fab fa-google fa-fw"></i>
+                  </button>
+                  <button type="button" onclick="location.href='/auth/github'" class="btn btn-secondary w-100">
+                    <i class="fab fa-github fa-fw"></i>
+                  </button>
       </div> 
       </form>
 </div>
+
+@if ($errors->any())
+        <div class="myAlert-bottom alert alert-danger" id="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           @foreach ($errors->all() as $error)              
+              <strong>Error!</strong> {{ $error }}
+              <br>
+            @endforeach
+            </div>
+@endif
+
 @endsection

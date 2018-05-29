@@ -35,7 +35,7 @@ class CountryController extends Controller
             // $countries = Country::all();
             return response()->json(['message'=>"success", 'countries' => $countries]);
         }catch (QueryException $e){
-            return response()->json(['message'=>"Error"]);
+            return response()->json(['message'=>"Error getting countries!"]);
         }
         
     }

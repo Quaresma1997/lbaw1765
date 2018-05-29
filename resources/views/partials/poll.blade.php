@@ -9,26 +9,27 @@
     </div>
 
   
+  
 
    <form action ="{{route('votea', $poll->id )}}" method="post"  >
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @foreach($poll->options as $option)
             @if(Auth::user()->getOption($poll->id)== $option->id)
-              <input type="radio" name="option" id="{{$option->id}}" value="{{$option->id}}"> {{$option->description}}
-                  <i class="fas fa-check-square"></i> 
-                  @forelse($poll->poll_votes as $vote)
-                  <strong class="text-muted"> {{$vote->countVotes($option->id)}} Votes</strong>
-                  @empty
-                  @endforelse
+            <div class="custom-control custom-radio">
+              <input type="radio" name="option" id="{{$option->id}}" value="{{$option->id}}" class="custom-control-input" checked>
+               <label class="custom-control-label" for="{{$option->id}}">{{$option->description}}</label>
+                  <strong class="text-muted"> {{$poll->countVotes($option->id)}} Votes</strong>
+                  </div>
+                  
 
             @else
-            <input type="radio" name="option" id="{{$option->id}}" value="{{$option->id}}"> {{$option->description}}
-            @forelse($poll->poll_votes as $vote)
-            <strong class="text-muted"> {{$vote->countVotes($option->id)}} Votes</strong>
+            <div class="custom-control custom-radio">
+              <input type="radio" name="option" id="{{$option->id}}" value="{{$option->id}}" class="custom-control-input">
+               <label class="custom-control-label" for="{{$option->id}}">{{$option->description}}</label>
+                  <strong class="text-muted"> {{$poll->countVotes($option->id)}} Votes</strong>
+                  </div>
 
-                  @empty
 
-                  @endforelse
 
             @endif
             

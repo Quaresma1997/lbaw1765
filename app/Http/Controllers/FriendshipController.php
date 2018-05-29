@@ -40,24 +40,24 @@ class FriendshipController extends Controller
             return response()->json(['message' => 'success', 'id' => $redirect_id]);
         }
         else
-            return response()->json(['message' => 'error', 'error' => 'Error deleting friendship!']);  
+            return response()->json(['message' => 'Error deleting friendship!']);  
 
     }
 
-    public function create(Request $request){
-        $validated = $this->valid($request);
-        if(!$validated->passes())
-            return response()->json(['message' => $validated->errors()->all()]);
+    // public function create(Request $request){
+    //     $validated = $this->valid($request);
+    //     if(!$validated->passes())
+    //         return response()->json(['message' => $validated->errors()->all()]);
 
-        $friendship = new Friendship();
+    //     $friendship = new Friendship();
 
-        $this->authorize('create', $friendship);
+    //     $this->authorize('create', $friendship);
 
-        $friendship->user_id_1 = $request->input('user1');
-        $friendship->user_id_2 = $request->input('user2');
+    //     $friendship->user_id_1 = $request->input('user1');
+    //     $friendship->user_id_2 = $request->input('user2');
 
-        $friendship->save();
+    //     $friendship->save();
 
-        return response()->json(['message' => 'success', 'id' => $request->input('user2')]);
-    }
+    //     return response()->json(['message' => 'success', 'id' => $request->input('user2')]);
+    // }
 }

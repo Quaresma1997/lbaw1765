@@ -23,9 +23,6 @@
     <div class="container mx-auto sticky-top" id="container_user">
       <h1>{{$user->username}}</h1>
       <hr>
-      @foreach ($errors->all() as $error)
-      <li>{{ $error }}</li>
-      @endforeach
       <div id="user_info_container" data-id="{{ $user->id }}">
         <div style="text-align:center;">
           
@@ -110,5 +107,13 @@
       </div>
     </div>
   </div>
-
+@if ($errors->any())
+        <div class="myAlert-bottom alert alert-danger" id="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           @foreach ($errors->all() as $error)              
+              <strong>Error!</strong> {{ $error }}
+              <br>
+            @endforeach
+            </div>
+@endif
   @endsection

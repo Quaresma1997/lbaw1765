@@ -1,7 +1,7 @@
 
-
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 #content{
-  margin-top: 10em; 
+  padding-top: 10em; 
 }
 @media(max-width:576px){
   #content{
@@ -647,3 +647,15 @@ h1 {
   height: 100px;
 }
 
+
+
+.myAlert-bottom {
+  position: fixed;
+  bottom: 20px;
+  left: 35%;
+  width: 30%;
+}
+
+.alert {
+  display: none;
+}

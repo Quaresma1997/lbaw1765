@@ -160,10 +160,7 @@
                 </div>
               </div>
               <hr>
-              @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
-
+             
               <div id="event_data" data-id="{{ $event->id }}">
                 {{ csrf_field() }}
                 <span class="display-4" id="event_name">{{$event->name}}</span>
@@ -173,9 +170,7 @@
                   @else 
                   (Private) 
                 @endif</span>
-                @if($event->done != null)
-                <span class="display-4">Past event</span>
-                @endif
+               
                 <br>
                 <div class="row mt-5">
                   <div class="col-12 col-lg-5">
@@ -232,19 +227,21 @@
         <br>
         <hr>
 
-        <div class="row">
-          <div class="col-3 offset-2 col-md-2 col-lg-1">
-            <a href="/profile/{{$event->owner_id}}" class="text-white" >
-              <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle">
-            </a>
-          </div>
-          <div class="col-7">
-            <h5>
-              <a href="/profile/{{$event->owner_id}}" class="text-white"> {{$event->owner->username}} (owner) </a>
-              <br>
-            </h5>
-          </div>
+       @if(sizeof($event->polls) > 0)
+      <div class="row">
+        <div class="col-3 offset-2 col-md-2 col-lg-1">
+          <a href="/profile/{{$event->owner_id}}" class="text-white" >
+            <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle">
+          </a>
         </div>
+        <div class="col-7">
+          <h5>
+            <a href="/profile/{{$event->owner_id}}" class="text-white"> {{$event->owner->username}} (owner) </a>
+            <br>
+          </h5>
+        </div>
+      </div>
+      @endif
 
         @each('partials.poll', $event->polls, 'poll')
         @each('partials.post', $event->posts, 'post')

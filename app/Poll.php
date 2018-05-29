@@ -27,4 +27,12 @@ public function options(){
 
   }
 
+  public function countVotes($option_id){
+
+    $votes = count(Poll_votes::where('option_id',$option_id )->get());
+  
+    return $votes;
+
+  }
+
 }

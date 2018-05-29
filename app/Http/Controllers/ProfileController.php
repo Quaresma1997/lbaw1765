@@ -198,7 +198,7 @@ class ProfileController extends Controller
     public function delete(Request $request, $id)
     {
       $user = User::find($id);
-if($user == null)
+      if($user == null)
         return redirect('404');
       $this->authorize('delete', $user);
 
@@ -207,6 +207,6 @@ if($user == null)
         Auth::logout();
         return response()->json(['message' => 'success']);
       }else
-        return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
+        return response()->json(['message' => 'Error deleting profile!']);
     }
   }

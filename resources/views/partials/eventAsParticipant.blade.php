@@ -75,9 +75,7 @@
               </div>
             </div>
             <hr>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
+           
             <div id="event_data" data-id="{{ $event->id }}">
               <span class="display-4" id="event_name">{{$event->name}}</span>
               <span id="event_public" data-id="{{$event->is_public}}">
@@ -86,9 +84,7 @@
                 @else 
                 (Private) 
               @endif</span>
-              @if($event->done != null)
-              <span class="display-4">Past event</span>
-              @endif
+            
               <br>
               <div class="row mt-5">
                 <div class="col-12 col-lg-5">
@@ -101,10 +97,10 @@
                         <h5 id="event_category" data-id="{{ $event->category_id }}">
                           Category: {{$event->category->name}}</h5>
                           <br>
-         <!--  <div class="map-responsive">
+           <div class="map-responsive">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12012.041648923578!2d-8.5976876!3d41.1779401!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x405225b4b451f7d7!2sFEUP+-+Faculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1520958961221"
               frameborder="0" allowfullscreen></iframe>
-            </div> -->
+            </div> 
           </div>
           <div class="col-12 col-lg-7">
             <h1>Description</h1>
@@ -139,6 +135,7 @@
       <br>
       <br>
       <hr>
+      @if(sizeof($event->polls) > 0)
       <div class="row">
         <div class="col-3 offset-2 col-md-2 col-lg-1">
           <a href="/profile/{{$event->owner_id}}" class="text-white" >
@@ -152,6 +149,7 @@
           </h5>
         </div>
       </div>
+      @endif
       @each('partials.poll', $event->polls, 'poll')
 
       @each('partials.post', $event->posts, 'post')

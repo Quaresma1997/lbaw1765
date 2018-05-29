@@ -28,7 +28,7 @@ class EventInviteController extends Controller
         $event_invite = EventInvite::where('event_id', $event)->where('receiver_id', $receiver)->first();
 
         if($event_invite == null)
-            return response()->json(['message' => 'error', 'error' => 'Error deleting event invite!']);
+            return response()->json(['message' => 'Error deleting event invite!']);  
 
         $owner = $event_invite->event->owner;
 
@@ -39,7 +39,7 @@ class EventInviteController extends Controller
             return response()->json(['message' => 'success', 'currentInvite' => $request->input('currentInvite')]);
         }
         else
-            return response()->json(['message' => 'error', 'error' => 'Error deleting event invite!']);  
+            return response()->json(['message' => 'Error deleting event invite!']);  
 
     }
 

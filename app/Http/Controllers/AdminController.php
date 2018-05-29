@@ -35,7 +35,7 @@ class AdminController extends Controller
 
         }
         else
-            return response()->json(['message' => 'error', 'error' => 'Error deleting profile!']);
+            return response()->json(['message' => 'Error banning user!']);
 
     }
     
