@@ -9,11 +9,10 @@ use DB;
 class Event extends Model
 {
     use Notifiable;
-
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
-
+    
     // public function getTypes(){
     //     $types = DB::select(DB::raw('SHOW COLUMNS FROM events WHERE Field = 'types_of_events '))
     //     return DB::table('cities')->select('name')->where('id', $city_id)->first()->name;
@@ -23,7 +22,19 @@ class Event extends Model
     //     $country_id = DB::table('cities')->select('country_id')->where('id', $city_id)->first()->country_id;
     //     return DB::table('countries')->select('name')->where('id', $country_id)->first()->name;
     //   }
+    /**
+  
+    public function scopeSearch($query, $search)
+    {
+        if (!$search) {
+            return $query;
+        }
+        return $query->whereRaw('name @@ to_tsquery(\'english\', ?)', [$search]);
+           // ->orderByRaw('ts_rank(name, to_tsquery(\'english\', ?)) DESC', [$search]);
 
+    }
+    */
+     
       public function owner() {
         return $this->belongsTo('App\User', 'owner_id');
       }

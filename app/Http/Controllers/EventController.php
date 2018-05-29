@@ -43,6 +43,11 @@ class EventController extends Controller
     //METER PARA O EVENTO
     // protected $redirectTo = '/homepage';
 
+
+    // Full Text Index
+   
+
+
     public function show($id)
     {
 

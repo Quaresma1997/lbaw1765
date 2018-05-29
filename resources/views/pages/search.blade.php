@@ -54,7 +54,7 @@
                 <h4>Category</h4>
                 @foreach($categories as $category)
                 <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="music">
+                  <input type="checkbox" class="custom-control-input" id="{{$category->id}}">
                   <label class="custom-control-label" for="{{$category->name}}">{{$category->name}}</label>
                 </div>
                 @endforeach
@@ -62,8 +62,8 @@
                 <hr>
                 <h2>Sort</h2>
                 <div class="form-group">
-                  <label for="itemCategory">Sort options</label>
-                  <select class="custom-select" id="itemCategory">
+                  <label for="sort_events">Sort options</label>
+                  <select class="custom-select" id="sort_events">
                     <option value="A-Z" selected>A-Z</option>
                     <option value="Z-A">Z-A</option>
                     <option value="Most recent">Most recent</option>
@@ -77,10 +77,10 @@
                 <hr>
                 <h3>Sort</h3>
                 <div class="form-group">
-                  <label for="itemCategory">Sort options</label>
-                  <select class="custom-select" id="itemCategory">
-                    <option value="A-Z" selected="">A-Z</option>
-                    <option value="Z-A"> Z-A</option>
+                  <label for="sort_users">Sort options</label>
+                  <select class="custom-select" id="sort_users">
+                    <option value="1" selected="">A-Z</option>
+                    <option value="2"> Z-A</option>
                     <option value="Most events"> Most events</option>
                     <option value="Least events"> Least events</option>
                   </select>
@@ -96,8 +96,9 @@
           <div class="tab-content" name="content">
             <div class="tab-pane active">
               <div class="row mt-3">
-
               @each('partials.event', $events, 'event')
+                          
+              
               </div>
             </div>
 

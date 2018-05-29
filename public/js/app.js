@@ -349,6 +349,22 @@ $(document).ready(function(){
   });
 });
 
+$(document).ready(function(){
+  $("input[name='optionsRadiosType']").click(function (e) {
+
+
+  var x = document.getElementById("sort_users");
+  var opt = x.options[x.selectedIndex].value;
+
+  console.log(opt);
+});
+
+
+
+  
+});
+
+
 function getCurCountryEvent() {
   let main_div = document.querySelector("#event_data");
   let localization = main_div.querySelector("#event_localization").innerText;
