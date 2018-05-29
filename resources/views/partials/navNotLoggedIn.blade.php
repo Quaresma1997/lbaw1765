@@ -22,12 +22,10 @@
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
       <a class="nav-link" href="{{route('register')}}">
-        <!-- <a class="nav-link" href="#" data-toggle="modal" data-target="#sign_up"> -->
           <i class="fas fa-user fa-fw"></i> Sign Up </a>
         </li>
         <li class="navbar-item">
           <a class="nav-link" href="{{route('login')}}">
-            <!-- <a class="nav-link" href="#" data-toggle="modal" data-target="#login"> -->
               <i class="fas fa-sign-in-alt fa-fw"></i> Login </a>
             </li>
           </ul>

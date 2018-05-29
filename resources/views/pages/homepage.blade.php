@@ -16,23 +16,6 @@
 <div class="row">
   <div class="col-12 col-lg-3">
     <div class="container mx-auto sticky-top" >
-      <div>
-        <h2>Filter</h2>
-        <div class="d-md-flex d-sm-flex flex-lg-column justify-content-md-between justify-content-sm-between">
-          <div class="custom-control custom-radio mb-1">
-            <input type="radio" id="all" name="customRadio" class="custom-control-input" checked="checked">
-            <label class="custom-control-label" for="all">Show All</label>
-          </div>
-          <div class="custom-control custom-radio mb-1">
-            <input type="radio" id="friend" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label" for="friend">Friend Activity</label>
-          </div>
-          <div class="custom-control custom-radio mb-1">
-            <input type="radio" id="recom" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label" for="recom">Recommendations</label>
-          </div>
-        </div>
-      </div>
       <hr>
       <div>
         <h2>Shortcuts</h2>
