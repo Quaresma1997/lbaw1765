@@ -326,6 +326,7 @@ let cities, cities_default, countries, isEvent, isDefault = true,
 let justRemoveOther;
 let current_not, current_shortcut;
 
+
 let current_category, current_category_id, current_public;
 let btn_deleteShortcuts;
 let btns_banUser, currentUser, currentEvent, currentInvite, currentParticipant;
@@ -467,6 +468,7 @@ function changeCityOptions() {
   else
     select_city = document.querySelector('#select_city');
 
+
   if (select_city == null)
     return;
 
@@ -477,11 +479,11 @@ function changeCityOptions() {
     thisCurCity = use_cities[0];
   } else {
     use_cities = cities;
-    thisCurCity = current_city;
+    if (current_city == "City" || current_city == null)
+      current_city = use_cities[0];
+    else
+      thisCurCity = current_city;
   }
-
-
-
 
   let cities_options = "";
   let i;
@@ -617,7 +619,9 @@ function createEditProfileForm(event) {
   current_last_name = last_name;
   current_email = email;
   current_city = city;
-  current_country = country;
+  current_country = country; 
+
+  
 
   let btn_img =
 
@@ -669,7 +673,6 @@ function createEditProfileForm(event) {
     else
       cities_options += "'>" + cities[i] + "</option>";
   }
-  // cities_options += "<option value = 'Other'>Other</option>";
 
   let countries_options = "";
   if (countries == null)
@@ -685,7 +688,8 @@ function createEditProfileForm(event) {
       countries_options += "'>" + countries[i] + "</option>";
 
   }
-  //  countries_options += "<option value = 'Other'>Other</option>";
+
+  
 
 
   let div3 =
@@ -732,6 +736,9 @@ function createEditProfileForm(event) {
 
   addEventListeners();
 
+  createCountryInput();
+  createCityInput();
+
 }
 
 function createEditEventForm(event) {
@@ -777,9 +784,7 @@ function createEditEventForm(event) {
   current_place = place;
   current_city = city;
   current_country = country;
-  current_description = description;
-
-  let form_name =
+  current_description = description; let form_name =
     "<label for='name'>Name</label>" +
     "<input type='text' id='input_name' class='form-control' name='name' placeholder='Event name' value='" + name + "' required>";
 
@@ -1259,6 +1264,8 @@ function sendCountriesRequest() {
 }
 
 function sendCitiesRequest(country) {
+  if(country == "Country")
+    country = "Other";
 
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
 }
@@ -1640,7 +1647,7 @@ function shortcutDeletedHandler(){
 
 
 function getCitiesHandler() {
-
+  console.log(this.responseText);
   let cit = JSON.parse(this.responseText)['cities'];
 
   if (isDefault || isEvent || isSignUp) {
@@ -1658,11 +1665,10 @@ function getCitiesHandler() {
 
   }
   changeCityOptions();
-  //changeCityOptions();
 }
 
 function getCountriesHandler() {
-
+  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     let countr = JSON.parse(this.responseText)['countries'];

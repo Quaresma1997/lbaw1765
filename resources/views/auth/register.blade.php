@@ -199,15 +199,15 @@
 
       <button type="submit" class="btn btn-block btn-success mb-2" id="btn_signUp">Sign Up</button>
       <div class="btn-group d-flex" role="group">
-        <button type="button" class="btn btn-primary w-100">
-          <i class="fab fa-facebook-f fa-fw"></i>
-        </button>
-        <button type="button" class="btn btn-danger w-100">
+        <a href="/auth/twitter"><button type="button" class="btn btn-primary w-100">
+          <i class="fab fa-twitter fa-fw"></i>
+        </button></a>
+        <a href="/auth/google"><button type="button" class="btn btn-danger w-100">
           <i class="fab fa-google fa-fw"></i>
-        </button>
-        <button type="button" class="btn btn-secondary w-100">
+        </button></a>
+        <a href="/auth/github"><button type="button" class="btn btn-secondary w-100">
           <i class="fab fa-github fa-fw"></i>
-        </button>
+        </button></a>
       </div> 
       </form>
 </div>

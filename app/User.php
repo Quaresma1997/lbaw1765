@@ -16,7 +16,7 @@ class User extends Authenticatable
     //use Searchable;
 
     // Don't add create and update timestamps in database.
-    public $timestamps  = false;
+    public $timestamps  = true;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'first_name', 'last_name', 'city_id', 'password'
+        'username', 'email', 'first_name', 'last_name', 'city_id', 'password', 'provider', 'provider_id'
     ];
 
     /**
@@ -35,6 +35,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
 
     // public function getData($id){
     //     // $user_id = DB::select('SELECT id FROM users WHERE username = ?', [$username]);
