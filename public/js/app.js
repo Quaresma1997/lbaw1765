@@ -1284,6 +1284,8 @@ function sendCitiesRequest(country) {
 function deleteProfileRequest(event) {
   let id = this.closest('div').parentNode.parentNode.getAttribute('data-id');
 
+  console.log(id);
+
   sendAjaxRequest('delete', '/api/profile/' + id, null, profileDeletedHandler);
   event.preventDefault();
 }
@@ -1505,7 +1507,7 @@ function createError(is_string, message) {
     alerts.innerHTML += "<strong>Error!</strong>" + message + "<br>";
   else
     message.forEach(element => {
-      alerts.innerHTML += "<strong>Error!</strong>" + element + "<br>";
+      alerts.innerHTML += "<strong>Error!</strong> " + element + "<br>";
     });
 
   content.appendChild(alerts, content);
@@ -1526,7 +1528,7 @@ function createSuccess(message) {
   alerts.innerHTML =
     "<button type='button' class='close' data-dismiss='alert'>&times;</button>";
 
-  alerts.innerHTML += "<strong>Error!</strong>" + message + "<br>";
+  alerts.innerHTML += "<strong>Success!</strong> " + message + "<br>";
 
   content.appendChild(alerts, content);
 }
@@ -1955,69 +1957,10 @@ function eventAddedHandler() {
   if (response['message'] == 'success') {
     let id = response['id'];
     window.location = '/events/' + id;
+    createSuccess('Event added');
   } else {
-    let content = document.querySelector("#content");
-    let alerts;
-    alerts = content.querySelector("#alert");
-    if (alerts == null) {
-      alerts = document.createElement("div");
-      alerts.id = "alert";
-      alerts.classList.add("myAlert-bottom");
-      alerts.classList.add("alert");
-      alerts.classList.add("alert-danger");
-
-    }
-    alerts.innerHTML =
-      "<button type='button' class='close' data-dismiss='alert'>&times;</button>";
-
-    response['message'].forEach(element => {
-      alerts.innerHTML += "<strong>Error!</strong>" + element + "<br>";
-    });
-    alerts.innerHTML += "</ul>";
-    content.appendChild(alerts, content);
-
+   
     createError(false, response['message']);
   }
 }
-
-function createCard(card) {
-  let new_card = document.createElement('article');
-  new_card.classList.add('card');
-  new_card.setAttribute('data-id', card.id);
-  new_card.innerHTML = `
-
-  <header>
-    <h2><a href="cards/${card.id}">${card.name}</a></h2>
-    <a href="#" class="delete">&#10761;</a>
-  </header>
-  <ul></ul>
-  <form class="new_item">
-    <input name="description" type="text">
-  </form>`;
-
-  let creator = new_card.querySelector('form.new_item');
-  creator.addEventListener('submit', sendCreateItemRequest);
-
-  let deleter = new_card.querySelector('header a.delete');
-  deleter.addEventListener('click', sendDeleteCardRequest);
-
-  return new_card;
-}
-
-function createItem(item) {
-  let new_item = document.createElement('li');
-  new_item.classList.add('item');
-  new_item.setAttribute('data-id', item.id);
-  new_item.innerHTML = `
-  <label>
-    <input type="checkbox"> <span>${item.description}</span><a href="#" class="delete">&#10761;</a>
-  </label>
-  `;
-
-  new_item.querySelector('input').addEventListener('change', sendItemUpdateRequest);
-  new_item.querySelector('a.delete').addEventListener('click', sendDeleteItemRequest);
-
-  return new_item;
-}
-
 sendCountriesRequest();

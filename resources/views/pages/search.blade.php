@@ -47,7 +47,7 @@
                 <h4>Category</h4>
                 @foreach($categories as $category)
                 <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="music">
+                  <input type="checkbox" class="custom-control-input" id="{{$category->name}}">
                   <label class="custom-control-label" for="{{$category->name}}">{{$category->name}}</label>
                 </div>
                 @endforeach

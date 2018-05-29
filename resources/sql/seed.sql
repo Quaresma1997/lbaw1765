@@ -322,7 +322,7 @@ ALTER TABLE ONLY ratings
     
 ALTER TABLE ONLY shortcuts
     ADD CONSTRAINT shortcuts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
-    "users"(id) ON DELETE SET NULL;
+    "users"(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY poll_votes
     ADD CONSTRAINT poll_votes_user_id_fk FOREIGN KEY (user_id) REFERENCES 
