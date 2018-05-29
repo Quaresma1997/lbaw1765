@@ -8,8 +8,7 @@
 
 @section('content')
 
-@include('partials.register')
-@include('partials.login')
+
 <div class="row">
   <div class="col-12 col-xl-6">
     <div class="jumbotron">

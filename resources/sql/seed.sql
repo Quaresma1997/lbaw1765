@@ -156,9 +156,8 @@ CREATE TABLE poll_votes (
     CONSTRAINT poll_votes_pk PRIMARY KEY (id),
     CONSTRAINT poll_id_user_id_uk UNIQUE (poll_id, user_id),
     CONSTRAINT poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
-    polls(id) ON DELETE CASCADE,
-    CONSTRAINT option_id_fk FOREIGN KEY (user_id) REFERENCES 
-    "users"(id) ON DELETE CASCADE
+    polls(id) ON DELETE CASCADE
+    
 );
 
 DROP TABLE IF EXISTS participants CASCADE;
@@ -223,9 +222,12 @@ DROP TABLE IF EXISTS "users" CASCADE;
 CREATE TABLE "users" (
     id SERIAL NOT NULL,
     username text NOT NULL,
-    password text NOT NULL,
+    password text,
+    provider text,
+    provider_id text,
     email text NOT NULL,
-    regist_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    created_at TIMESTAMP(0) DEFAULT now() NOT NULL, 
+    updated_at TIMESTAMP(0) DEFAULT now() NOT NULL,
     first_name text NOT NULL,
     last_name text NOT NULL,
     image_path text DEFAULT 'profile.jpg' NOT NULL,
@@ -235,6 +237,7 @@ CREATE TABLE "users" (
     CONSTRAINT users_pk PRIMARY KEY (id),
     CONSTRAINT users_name_uk UNIQUE (username),
     CONSTRAINT users_email_uk UNIQUE (email),
+    CONSTRAINT users_provider_id_uk UNIQUE (provider_id),
     CONSTRAINT users_city_id_fk FOREIGN KEY (city_id) REFERENCES 
     cities(id) ON DELETE SET NULL
 );
@@ -320,6 +323,10 @@ ALTER TABLE ONLY ratings
 ALTER TABLE ONLY shortcuts
     ADD CONSTRAINT shortcuts_user_id_fk FOREIGN KEY (user_id) REFERENCES 
     "users"(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY poll_votes
+    ADD CONSTRAINT poll_votes_user_id_fk FOREIGN KEY (user_id) REFERENCES 
+    "users"(id) ON DELETE CASCADE;
 
 
 CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
@@ -536,72 +543,72 @@ INSERT INTO localizations (name,address,city_id) VALUES ('Passeio Maritimo de Al
 INSERT INTO localizations (name,address,city_id) VALUES ('Hotel Douro','Rua de Agramonte',2);
 INSERT INTO localizations (name,address,city_id) VALUES ('Norte shopping','Matosinhos',2);
 
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('sodales','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','sodales.at@curae.co.uk',NOW(),'Zeph','Griffin','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('sodales','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','sodales.at@curae.co.uk','Zeph','Griffin','profile.jpg',2);
 			
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('uso1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquam.iaculis.lacus@amet.co.uk',NOW(),'Ben','Warren','profile.jpg',1);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('uso1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquam.iaculis.lacus@amet.co.uk','Ben','Warren','profile.jpg',1);
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('robin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet.ante@faucibusleo.net',NOW(),'Robin','Wright','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('robin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet.ante@faucibusleo.net','Robin','Wright','profile.jpg',2);
 			
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('bar123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ut.dolor@gmail.com',NOW(),'Barry','Allen','profile.jpg',3);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('bar123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ut.dolor@gmail.com','Barry','Allen','profile.jpg',3);
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('reddevil','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','Nulla@et.net',NOW(),'Andrew','Irons','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('reddevil','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','Nulla@et.net','Andrew','Irons','profile.jpg',2);
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('rpedro10','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','rpedro10@iol.pt',NOW(),'Rui','Araujo','profile.jpg',3);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('rpedro10','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','rpedro10@iol.pt','Rui','Araujo','profile.jpg',3);
 			
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('joss123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ante@fleo.com',NOW(),'Joss','Stone','profile.jpg',1);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('joss123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','ante@fleo.com','Joss','Stone','profile.jpg',1);
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('top123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','cursus.et@orciUt.co.uk',NOW(),'Chris','Harris','profile.jpg',1);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('top123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','cursus.et@orciUt.co.uk','Chris','Harris','profile.jpg',1);
 			
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('roland1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','eget.dictum@orciDonec.edu',NOW(),'Roland','Schitt','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('roland1','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','eget.dictum@orciDonec.edu','Roland','Schitt','profile.jpg',2);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('david123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@faucibusleo.net',NOW(),'David','Rose','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('david123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@faucibusleo.net','David','Rose','profile.jpg',2);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('catones', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amec.donec@faucibusleo.net',NOW(),'Carlos','Antonio','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('catones', '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amec.donec@faucibusleo.net','Carlos','Antonio','profile.jpg',2);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('emanem','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','donex@sapo.net',NOW(),'Raheem','Sterling','profile.jpg',3);			
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('emanem','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','donex@sapo.net','Raheem','Sterling','profile.jpg',3);			
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('ufoExtis','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@iol.net',NOW(),'Delle','Alli','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('ufoExtis','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','amet@iol.net','Delle','Alli','profile.jpg',2);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('ragnar','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','risus.In.mi@egestas.com',NOW(),'Thor','Ragnarok','profile.jpg',1);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('ragnar','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','risus.In.mi@egestas.com','Thor','Ragnarok','profile.jpg',1);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('seth','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquet.diam.Sed@tinciduntnibh.co.uk',NOW(),'Seth','Byers','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('seth','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','aliquet.diam.Sed@tinciduntnibh.co.uk','Seth','Byers','profile.jpg',2);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('edNorton','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','scelerisque.scelerisque.dui@arcuiaculisenim.ca',NOW(),'Ed','Norton','profile.jpg',1);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('edNorton','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','scelerisque.scelerisque.dui@arcuiaculisenim.ca','Ed','Norton','profile.jpg',1);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('Pacquiao','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','magnis@cursuset.edu',NOW(),'Paky','Barret','profile.jpg',3);	
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('Pacquiao','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','magnis@cursuset.edu','Paky','Barret','profile.jpg',3);	
 			
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('steven','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','arcu.Vestibulum@amet.org',NOW(),'Donovan','Stevenson','profile.jpg',1);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('steven','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','arcu.Vestibulum@amet.org','Donovan','Stevenson','profile.jpg',1);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('porter123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','dui.nec@ultriciesadipiscing.co.uk',NOW(),'Porter','Osborn','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('porter123','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','dui.nec@ultriciesadipiscing.co.uk','Porter','Osborn','profile.jpg',2);
 						
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id)
-			VALUES ('human','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','facilisis.magna.tellus@sociis.net',NOW(),'Hu','Randolphe','profile.jpg',2);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
+			VALUES ('human','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','facilisis.magna.tellus@sociis.net','Hu','Randolphe','profile.jpg',2);
 					
-INSERT INTO "users" (username,password,email,regist_date,first_name,last_name, image_path,city_id, is_admin)
-			VALUES ('admin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','admin@gmail.com',NOW(),'Super','User','profile.jpg',2, true);
+INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id, is_admin)
+			VALUES ('admin','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','admin@gmail.com','Super','User','profile.jpg',2, true);
 					
 
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)

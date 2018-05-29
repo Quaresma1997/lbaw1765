@@ -112,3 +112,6 @@ Route::get('404', 'IndexController@show404error');
 //500
 Route::get('500', 'IndexController@show500error');
 
+// OAuth Routes
+Route::get('auth/{provider}', 'Auth\SocialController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\SocialController@handleProviderCallback');

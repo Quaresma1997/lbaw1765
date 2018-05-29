@@ -3,7 +3,7 @@
 
 
     <div class="col-8 ">
-      <small class="text-muted"> {{$poll->date}}</small>
+      <h5><small class="text-muted">{{$poll->date}}</small></h5>
 
       <p><h5>{{$poll->question}}</p></h5>
     </div>

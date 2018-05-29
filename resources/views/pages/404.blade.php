@@ -12,14 +12,12 @@
 @endsection
 
 @section('content')
-@if (!Auth::check())
-@include('partials.register')
-@include('partials.login')
-@else
+@if (Auth::check())
 @each('partials.addFriend', Auth::user()->friend_requests_received, 'friend_request')
 @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
 @include('partials.addEvent')
 @endif
+
  <div id="error_page">
     <h1>404 Error Page</h1>
     <p class="zoom-area">PAGE NOT FOUND</p>
