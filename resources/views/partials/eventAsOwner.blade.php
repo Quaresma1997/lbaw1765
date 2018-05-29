@@ -231,7 +231,7 @@
 
         <br>
         <hr>
-        <!-- seria para mostrar o owner 
+
         <div class="row">
           <div class="col-3 offset-2 col-md-2 col-lg-1">
             <a href="/profile/{{$event->owner_id}}" class="text-white" >
@@ -245,7 +245,7 @@
             </h5>
           </div>
         </div>
--->
+
         @each('partials.poll', $event->polls, 'poll')
         @each('partials.post', $event->posts, 'post')
 

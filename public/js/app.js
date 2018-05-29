@@ -26,7 +26,7 @@ function addEventListeners() {
       var name = imageProfileUpload.value;
       var img = document.createElement("img");
       img.classList.add('img');
-      img.classList.add('img-fluid');
+      img.classList.add('userProfileImg');
       img.classList.add('rounded');
       img.classList.add('mb-3');
       img.id = 'user_info_img';
@@ -46,7 +46,7 @@ function addEventListeners() {
       let total_file = document.getElementById("images").files.length;
       for (let i = 0; i < total_file; i++) {
         console.log(e);
-        $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded' src='" + URL.createObjectURL(e.target.files[i]) + "'></div>");
+        $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded eventSearchImg' src='" + URL.createObjectURL(e.target.files[i]) + "'></div>");
       }
     });
 
@@ -302,7 +302,7 @@ function addEventListeners() {
   }
 
   let btn_addShortcut = document.querySelector("#btn_addShortcut");
-  if (btn_addShortcut != null){
+  if (btn_addShortcut != null) {
     btn_addShortcut.addEventListener('click', sendAddShortcutRequest);
     let sel_short = document.querySelector("#eventsShortcuts");
     if (sel_short.length == 0)
@@ -312,8 +312,8 @@ function addEventListeners() {
   btn_deleteShortcuts = document.querySelectorAll('#btn_deleteShortcut');
   for (let i = 0; i < btn_deleteShortcuts.length; i++) {
     console.log(i);
-     deleteShortctus.push(sendDeleteShortcutRequest.bind(sendDeleteShortcutRequest, i));
-     btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
+    deleteShortctus.push(sendDeleteShortcutRequest.bind(sendDeleteShortcutRequest, i));
+    btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
   }
 
 }
@@ -338,7 +338,7 @@ let makeInvite = new Array(),
 
 
 
-$(document).ready(function(){
+$(document).ready(function () {
   $("input[name='optionsRadiosType']").click(function (e) {
     let this_size = $(this).attr("id").length;
     var index = $(this).attr("id").substring(this_size - 1, this_size);
@@ -481,9 +481,10 @@ function changeCityOptions() {
     use_cities = cities;
     if (current_city == "City" || current_city == null)
       current_city = use_cities[0];
-    else
-      thisCurCity = current_city;
+
+    thisCurCity = current_city;
   }
+
 
   let cities_options = "";
   let i;
@@ -576,7 +577,7 @@ function createEditPostForm(event) {
     let image = post_image.querySelector("#img");
     img = "<div class='col-8 offset-1 mt-2' id='post_image'>" +
       "<img src='/post_images/" + image.getAttribute('img-name') + "' id='img' img-name='" + image.getAttribute('img-name') +
-      "' height='200' width='300'>" +
+      "' class='eventPostImg'>" +
       "</div>";
   }
 
@@ -619,9 +620,9 @@ function createEditProfileForm(event) {
   current_last_name = last_name;
   current_email = email;
   current_city = city;
-  current_country = country; 
+  current_country = country;
 
-  
+
 
   let btn_img =
 
@@ -689,7 +690,7 @@ function createEditProfileForm(event) {
 
   }
 
-  
+
 
 
   let div3 =
@@ -724,7 +725,7 @@ function createEditProfileForm(event) {
 
   main_div.innerHTML =
     "<div style='text-align:center;'>" +
-    "<img src='" + img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
+    "<img src='" + img + "' id='user_info_img' class='img rounded mb-3 userProfileImg'>" +
     "<form enctype='multipart/form-data' class='edit_profile' method='POST'>" +
     btn_img +
 
@@ -784,7 +785,8 @@ function createEditEventForm(event) {
   current_place = place;
   current_city = city;
   current_country = country;
-  current_description = description; let form_name =
+  current_description = description;
+  let form_name =
     "<label for='name'>Name</label>" +
     "<input type='text' id='input_name' class='form-control' name='name' placeholder='Event name' value='" + name + "' required>";
 
@@ -957,7 +959,7 @@ function cancelEditProfile(event) {
   let main_div = document.querySelector("#user_info_container");
   main_div.innerHTML =
     "<div style='text-align:center;'>" +
-    "<img src='" + current_img + "' id='user_info_img' class='img img-fluid rounded mb-3'>" +
+    "<img src='" + current_img + "' id='user_info_img' class='img rounded mb-3 userProfileImg'>" +
     document.querySelector('input[name=_token').outerHTML +
     "</div><br>" +
     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + current_first_name + " " + current_last_name + "</label> <br>" +
@@ -1189,7 +1191,7 @@ function sendRemEventRequest() {
 
 }
 
-function sendAddShortcutRequest(event){
+function sendAddShortcutRequest(event) {
   let select_events = document.querySelector('#eventsShortcuts');
   let event_short = select_events[select_events.selectedIndex];
   let ev_id = event_short.getAttribute('data-id');
@@ -1264,7 +1266,7 @@ function sendCountriesRequest() {
 }
 
 function sendCitiesRequest(country) {
-  if(country == "Country")
+  if (country == "Country")
     country = "Other";
 
   sendAjaxRequest('get', '/cities/' + country, null, getCitiesHandler);
@@ -1527,7 +1529,7 @@ function sendCancelInviteRequest(i) {
 
 }
 
-function shortcutAddedHandler(){
+function shortcutAddedHandler() {
   console.log(this.responseText);
   let response = JSON.parse(this.responseText);
   let message = response['message'];
@@ -1547,25 +1549,25 @@ function shortcutAddedHandler(){
     div.classList.add("mb-4");
 
     div.innerHTML =
-      "<div class='row'>"+
-                "<div class='col-md-6 col-6'>"+
-                  "<a href='/events/'" + event_id + "' class='text-white'>" +
-                    "<span>" + event_name + "</span>"+
-                  "</a>"+
-                "</div>"+
-                
-                "<div class='col-md-6 col-6 d-flex align-items-center'>"+
-                  "<button type='button' class='btn btn-outline-danger btn-sm' title='Delete Shortcut' id='btn_deleteShortcut'" +
-                  "shortcut-id='" + shortcut_id + "'>"+
-                  "<i class='fas fa-times' ></i><span> Delete</span>"+
-                "</button>"+
-              "</div>";
+      "<div class='row'>" +
+      "<div class='col-md-6 col-6'>" +
+      "<a href='/events/'" + event_id + "' class='text-white'>" +
+      "<span>" + event_name + "</span>" +
+      "</a>" +
+      "</div>" +
+
+      "<div class='col-md-6 col-6 d-flex align-items-center'>" +
+      "<button type='button' class='btn btn-outline-danger btn-sm' title='Delete Shortcut' id='btn_deleteShortcut'" +
+      "shortcut-id='" + shortcut_id + "'>" +
+      "<i class='fas fa-times' ></i><span> Delete</span>" +
+      "</button>" +
+      "</div>";
     row.appendChild(div);
 
     let list_shortcuts = document.querySelector("#homepage_list_shortcuts");
     let a = document.createElement("a");
-    a.innerHTML = 
-      "<a href='/events/'" + event_id + "' class='text-white mb-2' data-id='" + shortcut_id +"'>" + event_name + "</a>";
+    a.innerHTML =
+      "<a href='/events/'" + event_id + "' class='text-white mb-2' data-id='" + shortcut_id + "'>" + event_name + "</a>";
 
     list_shortcuts.appendChild(a);
 
@@ -1580,8 +1582,8 @@ function shortcutAddedHandler(){
 
     if (no_short != null)
       no_short.remove();
-        
-  }else{
+
+  } else {
     let content = document.querySelector("#content");
     let errors;
     errors = content.querySelector("#errors");
@@ -1602,7 +1604,7 @@ function shortcutAddedHandler(){
 
 }
 
-function shortcutDeletedHandler(){
+function shortcutDeletedHandler() {
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     for (let i = 0; i < btn_deleteShortcuts.length; i++) {
@@ -1613,12 +1615,12 @@ function shortcutDeletedHandler(){
     let event_name = response['event_name'];
     let event_id = response['event_id'];
     let shortcut_id = response['id'];
-   let select_events = document.querySelector('#eventsShortcuts');
-   let option = document.createElement("option");
-   option.value = event_name;
-   option.setAttribute('data-id', event_id);
-   option.innerHTML = event_name;
-   select_events.appendChild(option);
+    let select_events = document.querySelector('#eventsShortcuts');
+    let option = document.createElement("option");
+    option.value = event_name;
+    option.setAttribute('data-id', event_id);
+    option.innerHTML = event_name;
+    select_events.appendChild(option);
     btn_deleteShortcuts = document.querySelectorAll('#btn_deleteShortcut');
     deleteShortctus = new Array();
     for (let i = 0; i < btn_deleteShortcuts.length; i++) {
@@ -1627,19 +1629,19 @@ function shortcutDeletedHandler(){
     }
 
     let list_shortcuts = document.querySelector("#homepage_list_shortcuts");
-    
-    let a = list_shortcuts.querySelector('a[data-id="'+shortcut_id+'"]');
+
+    let a = list_shortcuts.querySelector('a[data-id="' + shortcut_id + '"]');
     a.remove();
 
-   
-    if (btn_deleteShortcuts.length == 0){
-       let span = document.createElement("span");
-       span.id = "no_shortcuts";
-       span.innerHTML = "No shortcuts";
-       list_shortcuts.parentNode.insertBefore(span, list_shortcuts.parentNode.firstChild);
+
+    if (btn_deleteShortcuts.length == 0) {
+      let span = document.createElement("span");
+      span.id = "no_shortcuts";
+      span.innerHTML = "No shortcuts";
+      list_shortcuts.parentNode.insertBefore(span, list_shortcuts.parentNode.firstChild);
     }
 
-    
+
   }
 
 }
@@ -1963,37 +1965,6 @@ function canceledInviteHandler() {
   }
 
 }
-
-
-// function updateProfile(profile, city, country) {
-//   let main_div = document.querySelector("#user_info_container");
-
-//   let img = document.querySelector("#img_nav_profile");
-
-//   img.src = "/imgs/" + profile.image_path;
-
-//   main_div.innerHTML =
-//     "<div style='text-align:center;'>"+
-//     "<img src='/imgs/" + profile.image_path + "' id='user_info_img' class='img img-fluid rounded mb-3'>"+
-//     "</div><br>" +
-//     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + profile.first_name + " " + profile.last_name + "</label><br>" +
-//     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + profile.email + "</label><br>" +
-//     "<label id='user_info_l3'><i class='fas fa-map-marker-alt fa-fw mr-1'></i>" + city + ", " + country + "</label>" +
-
-//     "<div class='row mt-2'>"+
-//     "<div class='col-12 col-sm-6 col-lg-12' >"+
-//     "<button type='button' class='btn btn-primary btn-lg btn-block mt-3' id='btn_editprofile'>" +
-//     "<i class='far fa-edit fa-fw'></i> Edit Profile </button>" +
-//     "</div>"+
-//     "<div class='col-12 col-sm-6 col-lg-12 mt-2' >" +
-//     "<button type='button' class='btn btn-outline-danger btn-lg btn-block'>" +
-//     "<i class='far fa-trash-alt fa-fw'></i> Delete Profile </button>"+
-//     "</div>";
-
-//   isEditing = false;
-
-//   addEventListeners();
-// }
 
 function updateEvent(event, city, country, localization, category) {
   let main_div = document.querySelector("#event_data");
