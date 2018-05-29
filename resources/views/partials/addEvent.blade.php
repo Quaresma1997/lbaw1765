@@ -99,7 +99,7 @@
 
 <div class="row">
   <div class="col-12 col-sm-6">
-   <label for="country">Country</label>
+   <label for="select_country_event">Country</label>
    <div class="input-group mb-2 p-0 m-0">
     <div class="input-group-prepend">
      <span class="input-group-text">
@@ -113,7 +113,7 @@
 
 </div>
 <div class="col-12 col-sm-6">
- <label for="city">City</label>
+ <label for="select_city_event">City</label>
  <div class="input-group mb-2">
   <div class="input-group-prepend">
    <span class="input-group-text">

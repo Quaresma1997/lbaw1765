@@ -4,19 +4,20 @@
 </button>
 <div class="collapse navbar-collapse" id="collapsibleNavbar">
   <br>
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
-        <span class="input-group-append">
-          <button type="button" class="btn btn-secondary" onclick="window.location.href='./searchLogged.html'">
-            <i class="fas fa-search fa-fw"></i>
-          </button>
-        </span>
-      </div>
-
-    </li>
-  </ul>
+  <form action ="{{route('search')}}" id="search_form" method="get" class="form-inline">
+      <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="input-group">
+          <input type="text" class="form-control" name="query" placeholder="Search" id="search_field">
+          <span class="input-group-append"> 
+            <button type="submit" class="btn btn-secondary" id="btn_search">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </span>
+        </div>
+      </li>
+      </ul>
+    </form>
 
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">

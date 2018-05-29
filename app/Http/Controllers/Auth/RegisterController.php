@@ -68,7 +68,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new BannedEmail],
             'first_name' => 'required|string|max:30',
             'last_name' => 'required|string|max:30',
-            'password' => 'required|string|min:4|confirmed',
+            'password' => 'required|string|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9]).*$/|confirmed',
         ]);
     }
 
@@ -82,6 +82,12 @@ class RegisterController extends Controller
     {
        $city = $data['city'];
        $country = $data['country'];
+
+        $country = ucfirst(strtolower($country)); 
+        $country = str_replace(' ', '', $country);
+
+        $city = ucfirst(strtolower($city)); 
+        $city = str_replace(' ', '', $city);
 
         $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
 

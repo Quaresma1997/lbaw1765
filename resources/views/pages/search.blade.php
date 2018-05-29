@@ -28,7 +28,7 @@
       <div class="col-12 col-lg-3">
         <div class="container mx-auto sticky-top">
           <div>
-            <h1 class="display-4">Search</h1>
+            <h1 class="display-4" id="search_title">Search</h1>
             <hr>
             <h2>Filter</h2>
             <h4>Type</h4>
@@ -47,8 +47,8 @@
                 <h4>Category</h4>
                 @foreach($categories as $category)
                 <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="{{$category->name}}">
-                  <label class="custom-control-label" for="{{$category->name}}">{{$category->name}}</label>
+                  <input type="checkbox" class="custom-control-input" id="{{$category->id}}" name="search_cat">
+                  <label class="custom-control-label" for="{{$category->id}}">{{$category->name}}</label>
                 </div>
                 @endforeach
               
@@ -59,8 +59,8 @@
                   <select class="custom-select" id="sort_events">
                     <option value="A-Z" selected>A-Z</option>
                     <option value="Z-A">Z-A</option>
-                    <option value="Most recent">Most recent</option>
-                    <option value="Older">Older</option>
+                    <option value="Upword Date">Upword Date</option>
+                    <option value="Downword Date">Downword Date</option>
                   </select>
                 </div>
 
@@ -72,10 +72,10 @@
                 <div class="form-group">
                   <label for="sort_users">Sort options</label>
                   <select class="custom-select" id="sort_users">
-                    <option value="1" selected="">A-Z</option>
-                    <option value="2"> Z-A</option>
-                    <option value="Most events"> Most events</option>
-                    <option value="Least events"> Least events</option>
+                    <option value="A-Z" selected="">A-Z</option>
+                    <option value="Z-A"> Z-A</option>
+                    <option value="Most events">Most events</option>
+                    <option value="Least events">Least events</option>
                   </select>
                 </div>
               </div>
@@ -88,17 +88,18 @@
         <div class="container mx-auto">
           <div class="tab-content" name="content">
             <div class="tab-pane active">
-              <div class="row mt-3">
-              @each('partials.event', $events, 'event')
+              <div class="row mt-3" id="search_list_of_events">
+                
+                @each('partials.event', $events, 'event')
                           
               
               </div>
             </div>
 
           <div class="tab-pane">
-              <div class="row mt-3">
+              <div class="row mt-3" id="search_list_of_users" >
               @foreach($users as  $user)
-                    <div class="col-12 col-lg-6 px-1">
+                    <div class="col-12 col-lg-6 px-1" name="search_user" data-number-events="{{$user->numEvents()}}" data-name="{{$user->username}}">
                     <div class="jumbotron jumbotron-fluid p-1 my-1 list">
                       <a href="{{ url('profile/' . $user->id)}}" class="text-white">
                       <div class="row">

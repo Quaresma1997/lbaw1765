@@ -182,6 +182,10 @@ class User extends Authenticatable
     return strcmp($a->participant->created_at, $b->participant->created_at);
 }
 
+public function numEvents(){
+  return sizeof($this->allEvents());
+}
+
 
   
     public function friendWith($user_id){

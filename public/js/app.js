@@ -326,7 +326,237 @@ function addEventListeners() {
     }, 5000);
   }
 
+  search_cats = document.querySelectorAll("input[name=search_cat");
+  for (let i = 0; i < search_cats.length; i++) {
+    search_cats[i].addEventListener('change', function () {
+      list_search = [search_evs1, search_evs2, search_evs3, search_evs4, search_evs5, search_evs6];
+
+      orderEvents();
+    });
+  }
+
+  let search_list_of_events = document.querySelector("#search_list_of_events");
+  if(search_list_of_events != null){
+    search_evs1 = document.querySelectorAll('div[data-id="1"]');
+    search_evs2 = document.querySelectorAll('div[data-id="2"]');
+    search_evs3 = document.querySelectorAll('div[data-id="3"]');
+    search_evs4 = document.querySelectorAll('div[data-id="4"]');
+    search_evs5 = document.querySelectorAll('div[data-id="5"]');
+    search_evs6 = document.querySelectorAll('div[data-id="6"]');
+    search_evs = document.querySelectorAll('div[name="search_event"]');
+
+    orderEvents();
+  }
+
+  let sort_events = document.querySelector("#sort_events");
+  if(sort_events != null){
+    option_sort_events = sort_events[sort_events.selectedIndex].value;
+    sort_events.addEventListener('change', function(){
+      option_sort_events = sort_events[sort_events.selectedIndex].value;
+      orderEvents();
+    });
+  }
+
+  let search_list_of_users = document.querySelector("#search_list_of_users");
+  if(search_list_of_users != null){
+    search_users = document.querySelectorAll('div[name="search_user"]');
+    orderUsers();
+  }
+
+  let sort_users = document.querySelector("#sort_users");
+  if (sort_users != null) {
+    option_sort_users = sort_users[sort_users.selectedIndex].value;
+    sort_users.addEventListener('change', function () {
+      option_sort_users = sort_users[sort_users.selectedIndex].value;
+      orderUsers();
+    });
+  }
+
+
+  // let search_form = document.querySelector("#search_form");
+  // if (btn_search != null)
+  //   btn_search.addEventListener('submit', sendSearchRequest);
+  
 }
+
+function orderEvents(){
+  list_search = [search_evs1, search_evs2, search_evs3, search_evs4, search_evs5, search_evs6];
+
+  let cats = getCats();
+
+  if (cats.length == 0) {
+
+    let evs = [];
+    for (let k = 0; k < search_evs.length; k++) {
+      evs.push(search_evs[k]);
+    }
+
+    switch (option_sort_events) {
+      case 'A-Z':
+        evs.sort(compareName);
+        break;
+      case 'Z-A':
+        evs.sort(compareNameDesc);
+        break;
+      case 'Upword Date':
+        evs.sort(compareDateDesc);
+        break;
+      case 'Downword Date':
+        evs.sort(compareDate);
+        break;
+      default:
+        break;
+    }
+
+
+    while (search_list_of_events.firstChild) {
+      search_list_of_events.removeChild(search_list_of_events.firstChild);
+    }
+
+    for (let j = 0; j < evs.length; j++) {
+      search_list_of_events.appendChild(evs[j]);
+    }
+
+
+    //TODO:verificar qual o sort!!!!!!!!!!!
+  } else {
+    let evs = [];
+
+    let dom_evs = [];
+
+    for (let i = 0; i < cats.length; i++) {
+      for (let j = 0; j < list_search[cats[i]].length; j++) {
+        dom_evs = dom_evs.concat(list_search[cats[i]][j]);
+      }
+
+    }
+    for (let k = 0; k < dom_evs.length; k++) {
+      evs.push(dom_evs[k]);
+    }
+
+
+    switch (option_sort_events) {
+      case 'A-Z':
+        evs.sort(compareName);
+        break;
+      case 'Z-A':
+        evs.sort(compareNameDesc);
+        break;
+      case 'Upword Date':
+        evs.sort(compareDate);
+        break;
+      case 'Downword Date':
+        evs.sort(compareDateDesc);
+        break;
+      default:
+        break;
+    }
+
+    while (search_list_of_events.firstChild) {
+      search_list_of_events.removeChild(search_list_of_events.firstChild);
+    }
+
+    for (let j = 0; j < evs.length; j++) {
+      search_list_of_events.appendChild(evs[j]);
+    }
+  }
+}
+
+function orderUsers() {
+  let users = [];
+  for (let k = 0; k < search_users.length; k++) {
+    users.push(search_users[k]);
+  }
+
+  switch (option_sort_users) {
+    case 'A-Z':
+      users.sort(compareName);
+      break;
+    case 'Z-A':
+      users.sort(compareNameDesc);
+      break;
+    case 'Most events':
+      users.sort(compareNumEventsDesc);
+      break;
+    case 'Least events':
+      users.sort(compareNumEvents);
+      break;
+    default:
+      break;
+  }
+
+
+  while (search_list_of_users.firstChild) {
+    search_list_of_users.removeChild(search_list_of_users.firstChild);
+  }
+
+  for (let j = 0; j < users.length; j++) {
+    search_list_of_users.appendChild(users[j]);
+  }
+
+}
+
+function compareDate(a,b){
+  if (a.getAttribute("data-date") < b.getAttribute("data-date"))
+    return -1;
+  if (a.getAttribute("data-date") > b.getAttribute("data-date"))
+    return 1;
+  return 0;
+}
+
+function compareName(a, b) {
+  if (a.getAttribute("data-name").toLowerCase() < b.getAttribute("data-name").toLowerCase())
+    return -1;
+  if (a.getAttribute("data-name").toLowerCase() > b.getAttribute("data-name").toLowerCase())
+    return 1;
+  return 0;
+}
+
+function compareDateDesc(a, b) {
+  if (a.getAttribute("data-date") > b.getAttribute("data-date"))
+    return -1;
+  if (a.getAttribute("data-date") < b.getAttribute("data-date"))
+    return 1;
+  return 0;
+}
+
+function compareNameDesc(a, b) {
+  if (a.getAttribute("data-name").toLowerCase() > b.getAttribute("data-name").toLowerCase())
+    return -1;
+  if (a.getAttribute("data-name").toLowerCase() < b.getAttribute("data-name").toLowerCase())
+    return 1;
+  return 0;
+}
+
+function compareNumEvents(a, b) {
+  if (a.getAttribute("data-number-events") < b.getAttribute("data-number-events"))
+    return -1;
+  if (a.getAttribute("data-number-events") > b.getAttribute("data-number-events"))
+    return 1;
+  return 0;
+}
+
+function compareNumEventsDesc(a, b) {
+  if (a.getAttribute("data-number-events") > b.getAttribute("data-number-events"))
+    return -1;
+  if (a.getAttribute("data-number-events") < b.getAttribute("data-number-events"))
+    return 1;
+  return 0;
+}
+
+let search_cats;
+
+function getCats(){
+  let cats = [];
+  for (let i = 0; i < search_cats.length; i++) {
+    if(search_cats[i].checked){
+      cats.push(search_cats[i].id - 1);
+    }
+  }
+
+  return cats;
+}
+
 
 
 let current_first_name, current_last_name, current_email;
@@ -335,6 +565,12 @@ let cities, cities_default, countries, isEvent, isDefault = true,
   isSignUp, isEditing = false;
 let justRemoveOther;
 let current_not, current_shortcut;
+
+let option_sort_events, option_sort_users;
+
+
+let search_evs1, search_evs2, search_evs3, search_evs4, search_evs5, search_evs6, search_evs_all;
+let search_users;
 
 
 let current_category, current_category_id, current_public;
@@ -379,16 +615,19 @@ $(document).ready(function () {
 
     $("div.tab-content[name='content']>div.tab-pane").removeClass("active");
     $("div.tab-content[name='content']>div.tab-pane").eq(index).addClass("active");
+
+    if(index == 0){
+      option_sort_events = sort_events[0].value;
+      orderEvents();
+    }
+    else{
+      option_sort_users = sort_users[0].value;
+      console.log(sort_users[0].value, sort_users.selectedIndex);
+      orderUsers();
+    }
+      
   });
 
-  $("input[name='optionsRadiosType']").click(function (e) {
-
-
-    var x = document.getElementById("sort_users");
-    var opt = x.options[x.selectedIndex].value;
-
-    console.log(opt);
-  });
 });
 
 function myAlertBottom() {
@@ -1010,7 +1249,7 @@ function cancelEditProfile(event) {
   main_div.innerHTML =
     "<div style='text-align:center;'>" +
     "<img src='" + current_img + "' id='user_info_img' class='img rounded mb-3 userProfileImg'>" +
-    document.querySelector('input[name=_token').outerHTML +
+    document.querySelector('input[name=_token]').outerHTML +
     "</div><br>" +
     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + current_first_name + " " + current_last_name + "</label> <br>" +
     "<label id='user_info_l2'><i class='fas fa-envelope fa-fw mr-1'></i>" + current_email + "</label> <br>" +
@@ -1035,7 +1274,7 @@ function cancelEditEvent(event) {
   let main_div = document.querySelector("#event_data");
   let cat = current_category_id + 1;
   main_div.innerHTML =
-    document.querySelector('input[name=_token').outerHTML +
+    document.querySelector('input[name=_token]').outerHTML +
     "<span class='display-4' id='event_name'>" + current_name + "</span>" +
     "<span id='event_public' data-id=" + current_public + ">" + (current_public == "1" ? "(Public)" : "(Private)") + "</span" +
     "<br>" +
@@ -1225,6 +1464,12 @@ function sendAjaxRequest(method, url, data, handler) {
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.addEventListener('load', handler);
   request.send(encodeForAjax(data));
+}
+
+function sendSearchRequest(){
+  let search_field = document.querySelector("#search_field");
+
+  sendAjaxRequest('get', 'search', {query: search_field}, searchHandler);
 }
 
 function sendBanUserRequest() {
@@ -1573,6 +1818,11 @@ function createSuccess(message) {
 
   content.appendChild(alerts, content);
 }
+
+// function searchHandler(){
+//   if (this.status == 200) window.location = '/';
+
+// }
 
 function shortcutAddedHandler() {
   let response = JSON.parse(this.responseText);
