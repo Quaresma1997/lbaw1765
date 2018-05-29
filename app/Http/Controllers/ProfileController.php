@@ -137,6 +137,12 @@ class ProfileController extends Controller
       $city = $request->input('city');
       $country = $request->input('country');
 
+      $country = ucfirst(strtolower($country)); 
+        $country = str_replace(' ', '', $country);
+
+        $city = ucfirst(strtolower($city)); 
+        $city = str_replace(' ', '', $city);
+
       $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
 
       if($country_id == null){

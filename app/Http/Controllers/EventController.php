@@ -172,7 +172,11 @@ private function getFieldsTosend($event){
      $city = $data->input('city');
      $country = $data->input('country');
 
-     
+     $country = ucfirst(strtolower($country)); 
+        $country = str_replace(' ', '', $country);
+
+        $city = ucfirst(strtolower($city)); 
+        $city = str_replace(' ', '', $city);
 
      $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
 
@@ -284,7 +288,11 @@ private function getFieldsTosend($event){
     $city = $request->input('city');
     $country = $request->input('country');
 
-    
+    $country = ucfirst(strtolower($country)); 
+        $country = str_replace(' ', '', $country);
+
+        $city = ucfirst(strtolower($city)); 
+        $city = str_replace(' ', '', $city);
 
     $country_id = DB::table('countries')->select('id')->where('name', $country)->first();
     

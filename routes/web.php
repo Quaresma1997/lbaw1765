@@ -74,7 +74,7 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::get('about', 'AboutController@show')->name('about');
 
 //Search
-Route::get('search', ['uses'=> 'SearchController@index', 'as' => 'search']);
+Route::get('api/search', ['uses'=> 'SearchController@index', 'as' => 'search']);
 
 //Index
 Route::get('index', 'IndexController@show')->name('index');

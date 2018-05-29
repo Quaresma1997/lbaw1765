@@ -29,7 +29,7 @@ class SearchController extends Controller
      // $users = User::search('"$query"')->get();
 
         $users = User::where ('username', 'LIKE', "%$query%")->orWhere('username', 'LIKE', "%$query2%")->orWhere('email', 'LIKE', "%$query%")->orderBy('username','asc')->get();
-        $users = User::where ('username', 'LIKE', "%$query%")->orWhere('username', 'LIKE', "%$query2%")->orWhere('email', 'LIKE', "%$query%")->orderBy('username','desc')->get();
+        // $users = User::where ('username', 'LIKE', "%$query%")->orWhere('username', 'LIKE', "%$query2%")->orWhere('email', 'LIKE', "%$query%")->orderBy('username','desc')->get();
 
        $events = Event::where('name', 'LIKE', "%$query%")->orWhere('name', 'LIKE', "%$query2%")-> where('is_public','=', 'true') ->get();
 

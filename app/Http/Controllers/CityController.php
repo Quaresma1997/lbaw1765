@@ -29,6 +29,9 @@ class CityController extends Controller
 
     public function list(Request $data, $country)
     {
+        $country = ucfirst(strtolower($country)); 
+        $country = str_replace(' ', '', $country);
+
         if($country == "Other")
             $country_id = DB::table('countries')->select('id')->first()->id;
         else

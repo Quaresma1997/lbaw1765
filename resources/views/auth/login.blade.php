@@ -64,7 +64,7 @@
                 
             
                 <div class="btn-group d-flex" role="group">
-                  <button type="button" onclick="location.href='/auth/twitter'" class="btn btn-primary w-100">
+                  <button type="button" onclick="location.href='/auth/twitter'" class="btn btn-info w-100">
                     <i class="fab fa-twitter fa-fw"></i>
                   </button>
                   <button type="button" onclick="location.href='/auth/google'" class="btn btn-danger w-100">

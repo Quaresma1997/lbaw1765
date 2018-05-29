@@ -1,4 +1,4 @@
-<div class="col-12 col-lg-6 px-1">
+<div class="col-12 col-lg-6 px-1" name="search_event" data-id="{{$event->category_id}}" data-date="{{$event->date}}" data-name="{{$event->name}}" >
 <div class="jumbotron jumbotron-fluid p-1 my-1 list">
   <a href="/events/{{$event->id}}" class="text-white">
     <div class="row">

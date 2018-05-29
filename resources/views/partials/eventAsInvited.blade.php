@@ -92,10 +92,7 @@
                   <h5 id="event_category" data-id="{{ $event->category_id }}">
                     Category: {{$event->category->name}}</h5>
                     <br>
-         <!--  <div class="map-responsive">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12012.041648923578!2d-8.5976876!3d41.1779401!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x405225b4b451f7d7!2sFEUP+-+Faculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1520958961221"
-              frameborder="0" allowfullscreen></iframe>
-            </div> -->
+        
           </div>
           <div class="col-12 col-lg-7">
             <h1>Description</h1>
