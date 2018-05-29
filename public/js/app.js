@@ -350,6 +350,15 @@ $(document).ready(function () {
     $("div.tab-content[name='content']>div.tab-pane").removeClass("active");
     $("div.tab-content[name='content']>div.tab-pane").eq(index).addClass("active");
   });
+
+  $("input[name='optionsRadiosType']").click(function (e) {
+
+
+    var x = document.getElementById("sort_users");
+    var opt = x.options[x.selectedIndex].value;
+
+    console.log(opt);
+  });
 });
 
 function myAlertBottom() {
@@ -358,6 +367,8 @@ function myAlertBottom() {
     $(".myAlert-bottom").hide();
   }, 2000);
 }
+
+
 
 function getCurCountryEvent() {
   let main_div = document.querySelector("#event_data");
@@ -1635,7 +1646,7 @@ function shortcutDeletedHandler() {
 
     createSuccess('Shortcut deleted!');
 
-  }else{
+  } else {
     createError(true, response['message']);
   }
 
@@ -1680,7 +1691,7 @@ function getCountriesHandler() {
 
   } else {
     createError(true, message);
-    
+
   }
   //addEventListeners();
 }
@@ -1788,7 +1799,7 @@ function participationHandler() {
     window.location = '/events/' + id;
     createSuccess(response['success']);
   } else {
-    if(response['message'] == 'error')
+    if (response['message'] == 'error')
       createError(true, response['error']);
     else
       createError(false, response['error']);
@@ -1839,7 +1850,7 @@ function declinedFriendHandler() {
     let id = response['id'];
     window.location = '/profile/' + id;
     createSuccess('Declined friend request');
-  } 
+  }
 
 }
 
@@ -1904,7 +1915,7 @@ function madeInviteHandler() {
 
     createSuccess('Event invite sent');
 
-  }else{
+  } else {
     createError(false, response['message']);
   }
 }
@@ -1943,7 +1954,7 @@ function canceledInviteHandler() {
     }
 
     createSuccess('Event invite removed');
-  }else{
+  } else {
     createError(true, response['message']);
   }
 
@@ -1959,7 +1970,7 @@ function eventAddedHandler() {
     window.location = '/events/' + id;
     createSuccess('Event added');
   } else {
-   
+
     createError(false, response['message']);
   }
 }

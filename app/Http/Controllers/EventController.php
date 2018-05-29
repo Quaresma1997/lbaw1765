@@ -40,8 +40,6 @@ class EventController extends Controller
      *
      * @var string
      */
-    //METER PARA O EVENTO
-    // protected $redirectTo = '/homepage';
 
     public function show($id)
     {
