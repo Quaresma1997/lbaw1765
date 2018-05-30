@@ -42,7 +42,7 @@
          <i class="fas fa-pencil-alt fa-fw"></i>
        </span>
      </div>
-     <input id="name" type="text" name="name" placeholder="Event Name" class="form-control" required autofocus>
+     <input id="name" type="text" name="name" placeholder="Event Name" class="form-control" value="{{ old('name') }}" required autofocus>
      
     
     
@@ -135,7 +135,7 @@
        <i class="fas fa-map-marker-alt fa-fw"></i>
      </span>
    </div>
-   <input class="form-control" id="place" type="text" name="place" placeholder="Enter place" required>
+   <input class="form-control" id="place" type="text" name="place" placeholder="Enter place" value="{{ old('place') }}" required>
 
 </div>
 </div>
@@ -147,13 +147,13 @@
      <i class="fas fa-map-marker-alt fa-fw"></i>
    </span>
  </div>
- <input class="form-control" id="address_inp" type="text" name="address" placeholder="Enter address" required>
+ <input class="form-control" id="address_inp" type="text" name="address" placeholder="Enter address" value="{{ old('address') }}" required>
 </div>
 </div>
 </div>
 <label for="description">Description</label>
 <div class="input-group mb-2">
-  <textarea id="description" class="form-control" rows="4" cols="1" name="description" placeholder="Enter Description" required></textarea>
+  <textarea id="description" class="form-control" rows="4" cols="1" name="description" placeholder="Enter Description" value="{{ old('description') }}" required></textarea>
 </div>
 <hr>
 <button type="submit" class="btn btn-block btn-success mb-1" >Add Event</button>

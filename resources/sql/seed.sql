@@ -147,19 +147,6 @@ CREATE TABLE options (
     CONSTRAINT options_pk PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS poll_votes CASCADE;
-CREATE TABLE poll_votes (
-    id SERIAL NOT NULL,
-    poll_id INTEGER NOT NULL,
-    option_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    CONSTRAINT poll_votes_pk PRIMARY KEY (id),
-    CONSTRAINT poll_id_user_id_uk UNIQUE (poll_id, user_id),
-    CONSTRAINT poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
-    polls(id) ON DELETE CASCADE
-    
-);
-
 DROP TABLE IF EXISTS participants CASCADE;
 CREATE TABLE participants (
     id SERIAL NOT NULL,
@@ -180,6 +167,19 @@ CREATE TABLE polls (
     date TIMESTAMP(0) DEFAULT now() NOT NULL, 
     event_id INTEGER NOT NULL,
     CONSTRAINT polls_pk PRIMARY KEY (id)    
+);
+
+DROP TABLE IF EXISTS poll_votes CASCADE;
+CREATE TABLE poll_votes (
+    id SERIAL NOT NULL,
+    poll_id INTEGER NOT NULL,
+    option_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    CONSTRAINT poll_votes_pk PRIMARY KEY (id),
+    CONSTRAINT poll_id_user_id_uk UNIQUE (poll_id, user_id),
+    CONSTRAINT poll_id_fk FOREIGN KEY (poll_id) REFERENCES 
+    polls(id) ON DELETE CASCADE
+    
 );
 
 DROP TABLE IF EXISTS posts CASCADE;

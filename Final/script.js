@@ -33,7 +33,7 @@ $(document).on('click', "#btn_editprofile", function (e) {
 
   let btn_img =
     "<form action='myform.cgi'>" +
-    "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>" +
+    "<input type='file' name='fileupload' id='fileupload' class='custom-file - input'>" +
     "<span class='custom-file-control form-control-file'></span>"
   "</form>"
 

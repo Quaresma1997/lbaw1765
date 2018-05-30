@@ -850,7 +850,7 @@ function createEditPostForm(event) {
   let file =
     "<label class='fileContainer mt-2'>" +
     "Upload Image" +
-    "<input type='file' name='file' value='Browse' id='filePost' class='custom-file-input mt-2'>" +
+    "<input type='file' name='file' id='filePost' class='custom-file-input mt-2'>" +
     "<span class='custom-file-control form-control-file'></span>" +
     "</label>";
 
@@ -915,7 +915,7 @@ function createEditProfileForm(event) {
 
     "<label class='fileContainer'>" +
     "Upload" +
-    "<input type='file' name='fileupload' value='Browse' id='fileupload' class='custom-file - input'>" +
+    "<input type='file' name='fileupload' id='fileupload' class='custom-file - input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
 
     "</label>"
@@ -1197,7 +1197,7 @@ function createEditEventForm(event) {
   let form_images =
     "<label class='imageContainer mt-3'>" +
     "Upload Images" +
-    "<input type='file' name='images[]' value='Browse' id='images' multiple class='custom-file-input'>" +
+    "<input type='file' name='images[]' id='images' multiple class='custom-file-input'>" +
     "<span class='custom-file-control form-control-file'></span>" +
     "</label>";
 
@@ -1520,7 +1520,7 @@ function sendAddEventRequest(event) {
   let city = this.querySelector('select[id=select_city_event]').selectedOptions[0].value;
   let country = this.querySelector('select[id=select_country_event]').selectedOptions[0].value;
   let place = this.querySelector('input[id=place]').value;
-  let address = this.querySelector('input[id=address]').value;
+  let address = this.querySelector('input[id=address_inp]').value;
   let description = this.querySelector('#description').value;
 
   if (city == "Other")

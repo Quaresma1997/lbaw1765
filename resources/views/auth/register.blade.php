@@ -49,7 +49,7 @@
                       <i class="fas fa-user fa-fw"></i>
                     </span>
                   </div>
-                  <input id="username" class="form-control" type="text" name="username" placeholder="Username" required autofocus>
+                  <input id="username" class="form-control" type="text" name="username" placeholder="Username" value="{{ old('username') }}" required autofocus>
 
           </div>
 
@@ -62,7 +62,7 @@
                       <i class="fas fa-envelope fa-fw"></i>
                     </span>
                   </div>
-                  <input id="email" class="form-control" type="email" name="email" placeholder="Email" required>
+                  <input id="email" class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
 
                 </div>
 
@@ -75,7 +75,7 @@
                           <i class="fas fa-id-card fa-fw"></i>
                         </span>
                       </div>
-                      <input id="first_name" type="text" class="form-control" name="first_name" placeholder="Enter first name" required>
+                      <input id="first_name" type="text" class="form-control" name="first_name" placeholder="Enter first name" value="{{ old('first_name') }}" required>
 
                     </div>
                   </div>
@@ -88,7 +88,7 @@
                           <i class="fas fa-id-card fa-fw"></i>
                         </span>
                       </div>
-                      <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Enter last name" required>
+                      <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Enter last name" value="{{ old('last_name') }}" required>
 
                     </div>
                   </div>

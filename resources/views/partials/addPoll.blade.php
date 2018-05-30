@@ -21,7 +21,7 @@
                         <i class="fas fa-pencil-alt fa-fw"></i>
                      </span>
                   </div>
-                  <input id="option1" type="text" name="option1" placeholder="Option" class="form-control" required autofocus>
+                  <input id="option1" type="text" name="option1" placeholder="Option" class="form-control" required>
                   
                </div>
                <label for="option2">Option2</label>
@@ -32,7 +32,7 @@
                         <i class="fas fa-pencil-alt fa-fw"></i>
                      </span>
                   </div>
-                  <input id="option2" type="text" name="option2" placeholder="Option" class="form-control" required autofocus>
+                  <input id="option2" type="text" name="option2" placeholder="Option" class="form-control" required>
                   
                </div>
                <label for="option1">Option3</label>

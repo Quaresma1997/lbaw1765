@@ -116,10 +116,10 @@
       
       <form action ="{{route('posta', $event->id )}}" method="post" enctype="multipart/form-data"  >
         {{ csrf_field() }}
-        <textarea id="post" type="text"  class="form-control" rows="4" cols="1"
+        <textarea id="post" class="form-control" rows="4" cols="1"
         name="post" placeholder="Write something here..." required > </textarea>
         <label class='fileContainer mt-2'>Upload Image
-         <input type="file" name="file" id="file" value='Browse' class='custom-file-input'>   
+         <input type="file" name="file" id="file" class='custom-file-input'>   
          <span class='custom-file-control form-control-file'></span>
        </label>
        <br>
