@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3 offset-2 col-md-2 col-lg-1">
         <a href="/profile/{{$post->user_id}}" class="text-white" >
-          <img src="{{url('/imgs/' . $post->user->image_path)}}" class="rounded-circle userFeedImg">
+          <img src="{{url('/imgs/' . $post->user->image_path)}}" class="rounded-circle userPostImg">
         </a>
       </div>
       <div class="col-7">

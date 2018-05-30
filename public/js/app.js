@@ -1523,16 +1523,6 @@ function sendAddEventRequest(event) {
   let address = this.querySelector('input[id=address]').value;
   let description = this.querySelector('#description').value;
 
-  if(name.length > 25){
-      let span = document.createElement("span");
-      span.id = "myPopup";
-      span.classList.add("popupregist");
-      span.innerHTML = "Name must be between 1 and 25 chars!";
-      span.classList.toggle("show");
-  }
-
-    name.appendChild()
-
   if (city == "Other")
     city = this.querySelector('input[id=input_city]').value;
 

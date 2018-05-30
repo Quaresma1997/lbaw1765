@@ -14,8 +14,8 @@
 @include('partials.manageShortcuts')
 
 <div class="row">
-  <div class="col-12 col-lg-3">
-    <div class="container mx-auto sticky-top offset" >
+  <div class="col-12 col-lg-3" style="margin-left: -50px;">
+    <div class="container mx-auto sticky-top offset">
         <h2>Shortcuts</h2>
         <div class="d-md-flex flex-lg-column justify-content-md-between" >
         @if(sizeof(Auth::user()->shortcuts) == 0)
