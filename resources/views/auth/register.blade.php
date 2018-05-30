@@ -22,9 +22,23 @@
 
 @section('content')
 
-
+<div class="offset">
 <div class="jumbotron container" id="jumbotron_register">
-  <h3 class="title">Sign Up</h3> 
+  <h3 class="title" style="display: inline;">Sign Up</h3> 
+  <div class="popup float-right" onclick="showPopup()">
+    <i class="fas fa-info-circle fa-lg"></i>
+      <span class="popupregist" id="myPopup">
+      Username: Length between 1 and 30
+      <br>
+      Email: Email will be used to contact if needed
+      <br>
+      Country: Select "Other" if your option isn't in the list
+      <br>
+      City: Select "Other" if your option isn't in the list
+      <br>
+      Password: At least 6 chars, 3 letters and 1 number
+      </span>
+    </div>
   <hr>
       <form method="POST" action="{{ route('register') }}">
           {{ csrf_field() }}
@@ -175,6 +189,8 @@
       </div> 
       </form>
 </div>
+</div>
+
 
 @if ($errors->any())
         <div class="myAlert-bottom alert alert-danger" id="alert">

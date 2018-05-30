@@ -20,7 +20,7 @@
 
 <div class="row">
   <div class="col-12 col-lg-4">
-    <div class="container mx-auto sticky-top" id="container_user">
+    <div class="container mx-auto sticky-top offset" id="container_user">
       <h1>{{$user->username}}</h1>
       <hr>
       <div id="user_info_container" data-id="{{ $user->id }}">
@@ -48,7 +48,7 @@
     </div>
   </div>
   <div class="col-12 col-lg-8 mt-3">
-    <div class="container" id="event_friend_tabs">
+    <div class="container offset" id="event_friend_tabs">
       <ul class="nav nav-tabs nav-justified" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#events">

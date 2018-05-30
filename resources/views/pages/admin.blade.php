@@ -6,7 +6,7 @@
 
 @section('content')
 
-  <div class="jumbotron container" id="jumbotron_admin">
+  <div class="jumbotron container offset" id="jumbotron_admin">
     <h1 >Administration</h1>
     <hr>
     <ul class="nav nav-tabs nav-justified" role="tablist">

@@ -1,10 +1,12 @@
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
-#content{
+
+.offset{
   padding-top: 10em; 
 }
+
 @media(max-width:576px){
-  #content{
+  .offset{
     margin-top: 75px;
     padding: 0px;
   }
@@ -186,7 +188,7 @@ div#jumbotron_admin{
 figure {
   display: block;
   height: 150px;
-  width: 270px;
+  width: 316px;
   overflow: hidden;
   margin: 0;
 }
@@ -215,7 +217,7 @@ figure::after {
 figure-details {
   display: block;
   height: 80px;
-  width: 270px;
+  width: 316px;
   overflow: hidden;
   background-color: #375a7f;
 }
@@ -224,7 +226,7 @@ figure-details {
   display: block;
   position: relative;
   height: 230px;
-  width: 270px;
+  width: 316px;
   margin-bottom: 18px;
   overflow: hidden;
 }
@@ -311,14 +313,6 @@ label {
   padding: 0;
 }
 
-body {
-  margin: 20px;
-}
-
-h1 {
-  font-size: 1.5em;
-  margin: 10px;
-}
 
 /****** Style Star Rating Widget *****/
 
@@ -571,6 +565,21 @@ h1 {
   margin-left: -80px;
 }
 
+.popup .popupregist {
+  visibility: hidden;
+  width: 360px;
+  height: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 4px 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: -150%;
+  right: 120%;
+}
+
 /* Toggle this class - hide and show the popup */
 
 .popup .show {
@@ -608,7 +617,7 @@ h1 {
 }
 
 .eventIndexImg {
-  width: 270px;
+  width: 316px;
   height: 230px;
 }
 

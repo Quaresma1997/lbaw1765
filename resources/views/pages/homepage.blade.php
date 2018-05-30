@@ -15,9 +15,7 @@
 
 <div class="row">
   <div class="col-12 col-lg-3">
-    <div class="container mx-auto sticky-top" >
-      <hr>
-      <div>
+    <div class="container mx-auto sticky-top offset" >
         <h2>Shortcuts</h2>
         <div class="d-md-flex flex-lg-column justify-content-md-between" >
         @if(sizeof(Auth::user()->shortcuts) == 0)
@@ -32,7 +30,6 @@
           <button type="button" class="btn btn-secondary btn-md btn-block mt-2" id="btn_manageShortcuts" data-toggle="modal" data-target="#manageShortcuts">
                 <i class="fa fa-plus fa-fw"></i> Manage Shortcuts </button>
         </div>
-      </div>
       <hr>
       <div class="pb-3">
         <h2>LBAW1765</h2>
@@ -41,7 +38,7 @@
     </div>
   </div>
   <div class="col-12 col-lg-9">
-    <div class="container" >
+    <div class="container offset" >
       <div class="row">
         @if(sizeof(Auth::user()->getFriendsEvents()) == 0)
 

@@ -18,7 +18,7 @@
 @include('partials.addEvent')
 @endif
 
- <div id="error_page">
+ <div id="error_page" class="offset">
     <h1>404 Error Page</h1>
     <p class="zoom-area">PAGE NOT FOUND</p>
   <section class="error-container">

@@ -26,7 +26,7 @@
 
     <div class="row">
       <div class="col-12 col-lg-3">
-        <div class="container mx-auto sticky-top">
+        <div class="container mx-auto sticky-top offset">
           <div>
             <h1 class="display-4" id="search_title">Search</h1>
             <hr>
@@ -85,7 +85,7 @@
       </div>
 
       <div class="col-12 col-lg-9">
-        <div class="container mx-auto">
+        <div class="container mx-auto offset">
           <div class="tab-content" name="content">
             <div class="tab-pane active">
               <div class="row mt-3" id="search_list_of_events">

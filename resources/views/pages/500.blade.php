@@ -18,7 +18,7 @@
 @include('partials.addEvent')
 @endif
 
-<div id="error_page">
+<div id="error_page" class="offset">
   <h1>500 Error Page</h1>
   <p class="zoom-area">SERVER ERROR</p>
   <section class="error-container">

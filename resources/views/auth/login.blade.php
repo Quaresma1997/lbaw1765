@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-
+<div class="offset">
 <div class="jumbotron container" id="jumbotron_login" >
   <h3 class="title">Login</h3> 
   <hr>
@@ -77,6 +77,7 @@
               </div>
 
       </form>
+</div>
 </div>
 
 @if ($errors->any())

@@ -17,7 +17,7 @@
 @each('partials.joinEvent', Auth::user()->event_invites, 'event_invite')
 @include('partials.addEvent')
 @endif
-
+<div class="offset">
 <h1 class="display-4">About Us</h1>
 <hr>
 <div class="container">
@@ -61,6 +61,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 @if ($errors->any())
