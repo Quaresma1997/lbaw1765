@@ -34,7 +34,7 @@
           <div class="row">
             <div class="col-md-6 col-6">
               <div class="form-group mb-2 p-0 m-0" id="div_select_event">
-                <select class="custom-select" id="eventsShortcuts" name="event" user-id="{{Auth::user()->id}}">
+                <select class="custom-select" id="eventsShortcuts" name="event" data-user-id="{{Auth::user()->id}}">
                  @foreach(Auth::user()->eventsNotShortcuts() as $event)
                  <option value="{{ $event->name }}" data-id="{{$event->id}}">{{ $event->name }}</option>
                  @endforeach

@@ -140,14 +140,14 @@
 </div>
 </div>
 <div class="col-12">
- <label for="address">Address</label>
+ <label for="address_inp">Address</label>
  <div class="input-group mb-2">
   <div class="input-group-prepend">
    <span class="input-group-text">
      <i class="fas fa-map-marker-alt fa-fw"></i>
    </span>
  </div>
- <input class="form-control" id="address" type="text" name="address" placeholder="Enter address" required>
+ <input class="form-control" id="address_inp" type="text" name="address" placeholder="Enter address" required>
 </div>
 </div>
 </div>

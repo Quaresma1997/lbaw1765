@@ -15,7 +15,8 @@ class AdminController extends Controller
 
     public function show()
     {
-        return view('pages.admin', ['users' => User::all()->except(Auth::id()),'events' => Event::all()]);
+        return view('pages.admin', ['users' => User::all()->except(Auth::id())->sortBy('username', SORT_NATURAL|SORT_FLAG_CASE),
+        'events' => Event::all()->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE)]);
     }
 
     public function delete(Request $request, $username){
@@ -42,9 +43,9 @@ class AdminController extends Controller
     public function searchUsers(Request $request){
 
         $query=$request -> get('query');
-        $users = User::where ('username', 'LIKE', "%$query%")->orWhere('email', 'LIKE', "%$query%")->get();
-      // dd($query);
-        return view('pages.admin', ['users' => $users,'events' => Event::all()]);
+
+        $users = User::where ('username', 'ILIKE', "%$query%")->orWhere('email', 'ILIKE', "%$query%")->orderBy('username','asc')->get();
+        return view('pages.admin', ['users' => $users,'events' => Event::all()->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE)]);
 
         
 
@@ -52,9 +53,9 @@ class AdminController extends Controller
     public function searchEvents(Request $request){
 
         $query=$request -> get('query');
-        $events = Event::where('name', 'LIKE', "%$query%")-> where('is_public','=', 'true') ->get();
-        // dd($query);
-        return view('pages.admin', ['users' => User::all()->except(Auth::id()),'events' => $events]);
+
+        $events = Event::where('name', 'ILIKE', "%$query%")->orderBy('name','asc')->get();
+        return view('pages.admin', ['users' => User::all()->except(Auth::id())->sortBy('username', SORT_NATURAL|SORT_FLAG_CASE),'events' => $events]);
 
         
 

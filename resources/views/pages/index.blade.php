@@ -31,7 +31,7 @@
         <div class="mx-auto content">
           <a href="/events/{{$event->id}}" class="text-white">
             <div class="content-overlay"></div>
-            <img class="content-image rounded eventIndexImg" src="{{url('/imgs/' . $event->images->last()->path)}}">
+            <img class="content-image rounded eventIndexImg" src="{{url('/imgs/' . $event->images->last()->path)}}" alt="Event image">
             <div class="content-details">
               <h3>{{$event->name}}</h3>
               <p>{{$event->date}}

@@ -40,7 +40,7 @@
 
           @if(Auth::check())
           @if($event->done == null)
-          <button type="button" class="btn btn-success mx-1 float-right" id="btn_addParticipation" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
+          <button type="button" class="btn btn-success mx-1 float-right" id="btn_addParticipation" data-event-id="{{$event->id}}" data-user-id="{{Auth::user()->id}}">
             <i class="fas fa-check fa-fw"></i> Join Event </button>
             @endif
             @endif

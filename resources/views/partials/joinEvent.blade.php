@@ -15,9 +15,9 @@
           <a href="{{ url('profile/' . $event_invite->sender_id)}}" class="text-white">{{$event_invite->sender->username}}</a> invited you to
           <a href="{{ url('events/' . $event_invite->event_id)}}" class="text-white">{{$event_invite->event->name}}</a>.</h3>
           <br>
-          <button type="button" class="btn btn-success btn-lg btn-block" id="btn_acceptEventInvite" event-id="{{$event_invite->event->id}}" receiver-id="{{$event_invite->receiver->id}}">
+          <button type="button" class="btn btn-success btn-lg btn-block" id="btn_acceptEventInvite" data-event-id="{{$event_invite->event->id}}" data-receiver-id="{{$event_invite->receiver->id}}">
             <i class="fas fa-check fa-fw"></i> Accept </button>
-            <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="btn_declineEventInvite" event-id="{{$event_invite->event->id}}" receiver-id="{{$event_invite->receiver->id}}">
+            <button type="button" class="btn btn-outline-danger btn-lg btn-block" id="btn_declineEventInvite" data-event-id="{{$event_invite->event->id}}" data-receiver-id="{{$event_invite->receiver->id}}">
               <i class="fas fa-times fa-fw"></i> Decline </button>
             </div>
           </div>

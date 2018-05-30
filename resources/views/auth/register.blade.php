@@ -45,7 +45,7 @@
           <label for="username">Username</label>
           <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="username">
+                    <span class="input-group-text">
                       <i class="fas fa-user fa-fw"></i>
                     </span>
                   </div>
@@ -58,7 +58,7 @@
           <label for="email">Email</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="email">
+                    <span class="input-group-text">
                       <i class="fas fa-envelope fa-fw"></i>
                     </span>
                   </div>
@@ -96,7 +96,7 @@
 
                 <div class="row">
                   <div class="col-12 col-sm-6">
-                    <label for="country">Country</label>
+                    <label for="select_country">Country</label>
                     <div class="input-group mb-2 p-0 m-0">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="country">
@@ -121,14 +121,14 @@
 
                   
                   <div class="col-12 col-sm-6">
-                    <label for="city">City</label>
+                    <label for="select_city">City</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="city">
                           <i class="fas fa-home fa-fw"></i>
                         </span>
                       </div>
-                      <select class = 'custom-select' id = 'select_city' placeholder = "City" name = 'city' >
+                      <select class = 'custom-select' id = 'select_city' name = 'city' >
                       <option value = 'Other'>Other</option>
                       <option disabled>────────────────────</option>
                       @foreach($cities->all() as $city){
@@ -151,7 +151,7 @@
                     <label for="password">Password</label>
                     <div class="input-group mb-2 p-0 m-0">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="password">
+                        <span class="input-group-text">
                           <i class="fas fa-lock fa-fw"></i>
                         </span>
                       </div>
@@ -164,7 +164,7 @@
                     <label for="password-confirm">Confirm Password</label>
                     <div class="input-group mb-2 p-0 m-0">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="password-confirm">
+                        <span class="input-group-text">
                           <i class="fas fa-lock fa-fw"></i>
                         </span>
                       </div>

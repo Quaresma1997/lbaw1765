@@ -99,12 +99,12 @@
           <div class="tab-pane">
               <div class="row mt-3" id="search_list_of_users" >
               @foreach($users as  $user)
-                    <div class="col-12 col-lg-6 px-1" name="search_user" data-number-events="{{$user->numEvents()}}" data-name="{{$user->username}}">
+                    <div class="col-12 col-lg-6 px-1" data-name-div="search_user" data-number-events="{{$user->numEvents()}}" data-name="{{$user->username}}">
                     <div class="jumbotron jumbotron-fluid p-1 my-1 list">
                       <a href="{{ url('profile/' . $user->id)}}" class="text-white">
                       <div class="row">
                         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-                          <img class="rounded userSearchImg" src="/imgs/{{ $user->image_path }}">
+                          <img class="rounded userSearchImg" src="/imgs/{{ $user->image_path }}" alt="User image">
                         </div>
                         <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
                           <div>

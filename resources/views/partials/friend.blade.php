@@ -3,7 +3,7 @@
     <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
       <div class="row">
         <div class="col-12 col-sm-4 col-lg-12 col-xl-4">
-          <img class="userSearchImg rounded" src="/imgs/{{ $friend->image_path }}">
+          <img class="userSearchImg rounded" src="/imgs/{{ $friend->image_path }}" alt="User image">
         </div>
         <div class="col-12 col-sm-8 col-lg-12 col-xl-8">
           <div>

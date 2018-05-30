@@ -69,7 +69,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/profile/{{ Auth::user()->id }}">
-        <img src="/imgs/{{ Auth::user()->image_path }}" class="userMiniImg" id="img_nav_profile">
+        <img src="/imgs/{{ Auth::user()->image_path }}" class="userMiniImg" id="img_nav_profile" alt="User image">
         {{ Auth::user()->username }} </a>
       </li>
       <li class="navbar-item">

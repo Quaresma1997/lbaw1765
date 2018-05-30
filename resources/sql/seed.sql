@@ -332,9 +332,8 @@ ALTER TABLE ONLY poll_votes
 CREATE OR REPLACE FUNCTION set_event_as_done() RETURNS TRIGGER AS
 $BODY$
 BEGIN 
-  IF (OLD.event_id = NULL)
+  IF EXISTS(SELECT * FROM events WHERE id = Old.event_id)
   THEN
-  ELSE
     INSERT INTO dones VALUES (OLD.event_id, NULL);
   END IF;
   RETURN OLD;
@@ -344,7 +343,7 @@ LANGUAGE plpgsql;
  
 DROP TRIGGER IF EXISTS set_event_as_done ON "not_dones";
 CREATE TRIGGER set_event_as_done
-  BEFORE DELETE ON "not_dones"
+  AFTER DELETE ON "not_dones"
   FOR EACH ROW
     EXECUTE PROCEDURE set_event_as_done(); 
 

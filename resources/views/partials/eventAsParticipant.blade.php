@@ -40,7 +40,7 @@
       <div class="row" style="display:grid;">
         <div class="flex">
           @if($event->done == null)
-          <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_cancelParticipation" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
+          <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_cancelParticipation" data-event-id="{{$event->id}}" data-user-id="{{Auth::user()->id}}">
             <i class="fas fa-times fa-fw"></i> Cancel Participation </button>
             @endif
             <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">
@@ -49,9 +49,9 @@
               <div class="float-right mr-3">
                 
                 @if($event->rating(Auth::user()->id) != null)
-                <fieldset id="star_rating" class="rating float-right mr-3" data-id="{{$event->rating(Auth::user()->id)->value}}" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
+                <fieldset id="star_rating" class="rating float-right mr-3" data-id="{{$event->rating(Auth::user()->id)->value}}" data-event-id="{{$event->id}}" data-user-id="{{Auth::user()->id}}">
                   @else
-                  <fieldset id="star_rating" class="rating float-right mr-3" data-id="null" event-id="{{$event->id}}" user-id="{{Auth::user()->id}}">
+                  <fieldset id="star_rating" class="rating float-right mr-3" data-id="null" data-event-id="{{$event->id}}" data-user-id="{{Auth::user()->id}}">
                     @endif
 
                     <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>

@@ -205,12 +205,12 @@ function addEventListeners() {
   }
 
   let searchBTN = document.querySelector('#btn_ss');
-    if (searchBTN != null){
-      searchBTN.addEventListener('click', sendSearch);
-    }
+  if (searchBTN != null) {
+    searchBTN.addEventListener('click', sendSearch);
+  }
 
-      
-  
+
+
 
   let cancelParticipation = document.querySelector('#btn_cancelParticipation');
   if (cancelParticipation != null) {
@@ -218,11 +218,11 @@ function addEventListeners() {
 
   }
 
-  btns_removeParticipant = document.querySelectorAll('#btn_removeParticipant');
+  btns_removeParticipant = document.querySelectorAll('button[name=btn_removeParticipant]');
   for (let i = 0; i < btns_removeParticipant.length; i++) {
     btns_removeParticipant[i].addEventListener('click', function () {
       currentParticipant = i;
-      sendRemoveParticipantRequest();
+      sendRemoveParticipantRequest(i);
     });
   }
 
@@ -263,13 +263,13 @@ function addEventListeners() {
     declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
   }
 
-  btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+  btns_makeInvite = document.querySelectorAll('button[name=btn_inviteToEvent]');
   for (let i = 0; i < btns_makeInvite.length; i++) {
     makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));
     btns_makeInvite[i].addEventListener('click', makeInvite[i]);
   }
 
-  btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+  btns_cancelInvite = document.querySelectorAll('button[name=btn_cancelInvite]');
   for (let i = 0; i < btns_cancelInvite.length; i++) {
     cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
     btns_cancelInvite[i].addEventListener('click', cancelInvite[i]);
@@ -318,14 +318,6 @@ function addEventListeners() {
     btn_deleteShortcuts[i].addEventListener('click', deleteShortctus[i]);
   }
 
-  let alert = document.querySelector("#alert");
-  if (alert != null) {
-    alert.style.display = "block";
-    setTimeout(function () {
-      alert.style.display = "none";
-    }, 5000);
-  }
-
   search_cats = document.querySelectorAll("input[name=search_cat");
   for (let i = 0; i < search_cats.length; i++) {
     search_cats[i].addEventListener('change', function () {
@@ -336,30 +328,30 @@ function addEventListeners() {
   }
 
   let search_list_of_events = document.querySelector("#search_list_of_events");
-  if(search_list_of_events != null){
+  if (search_list_of_events != null) {
     search_evs1 = document.querySelectorAll('div[data-id="1"]');
     search_evs2 = document.querySelectorAll('div[data-id="2"]');
     search_evs3 = document.querySelectorAll('div[data-id="3"]');
     search_evs4 = document.querySelectorAll('div[data-id="4"]');
     search_evs5 = document.querySelectorAll('div[data-id="5"]');
     search_evs6 = document.querySelectorAll('div[data-id="6"]');
-    search_evs = document.querySelectorAll('div[name="search_event"]');
+    search_evs = document.querySelectorAll('div[data-name-div="search_event"]');
 
     orderEvents();
   }
 
   let sort_events = document.querySelector("#sort_events");
-  if(sort_events != null){
+  if (sort_events != null) {
     option_sort_events = sort_events[sort_events.selectedIndex].value;
-    sort_events.addEventListener('change', function(){
+    sort_events.addEventListener('change', function () {
       option_sort_events = sort_events[sort_events.selectedIndex].value;
       orderEvents();
     });
   }
 
   let search_list_of_users = document.querySelector("#search_list_of_users");
-  if(search_list_of_users != null){
-    search_users = document.querySelectorAll('div[name="search_user"]');
+  if (search_list_of_users != null) {
+    search_users = document.querySelectorAll('div[data-name-div="search_user"]');
     orderUsers();
   }
 
@@ -372,14 +364,21 @@ function addEventListeners() {
     });
   }
 
+  showAlerts();
 
-  // let search_form = document.querySelector("#search_form");
-  // if (btn_search != null)
-  //   btn_search.addEventListener('submit', sendSearchRequest);
-  
 }
 
-function orderEvents(){
+function showAlerts() {
+  let alert = document.querySelector("#alert");
+  if (alert != null) {
+    alert.style.display = "block";
+    setTimeout(function () {
+      alert.style.display = "none";
+    }, 5000);
+  }
+}
+
+function orderEvents() {
   list_search = [search_evs1, search_evs2, search_evs3, search_evs4, search_evs5, search_evs6];
 
   let cats = getCats();
@@ -496,7 +495,7 @@ function orderUsers() {
 
 }
 
-function compareDate(a,b){
+function compareDate(a, b) {
   if (a.getAttribute("data-date") < b.getAttribute("data-date"))
     return -1;
   if (a.getAttribute("data-date") > b.getAttribute("data-date"))
@@ -546,10 +545,10 @@ function compareNumEventsDesc(a, b) {
 
 let search_cats;
 
-function getCats(){
+function getCats() {
   let cats = [];
   for (let i = 0; i < search_cats.length; i++) {
-    if(search_cats[i].checked){
+    if (search_cats[i].checked) {
       cats.push(search_cats[i].id - 1);
     }
   }
@@ -616,16 +615,15 @@ $(document).ready(function () {
     $("div.tab-content[name='content']>div.tab-pane").removeClass("active");
     $("div.tab-content[name='content']>div.tab-pane").eq(index).addClass("active");
 
-    if(index == 0){
+    if (index == 0) {
       option_sort_events = sort_events[0].value;
       orderEvents();
-    }
-    else{
+    } else {
       option_sort_users = sort_users[0].value;
       console.log(sort_users[0].value, sort_users.selectedIndex);
       orderUsers();
     }
-      
+
   });
 
 });
@@ -1466,10 +1464,12 @@ function sendAjaxRequest(method, url, data, handler) {
   request.send(encodeForAjax(data));
 }
 
-function sendSearchRequest(){
+function sendSearchRequest() {
   let search_field = document.querySelector("#search_field");
 
-  sendAjaxRequest('get', 'search', {query: search_field}, searchHandler);
+  sendAjaxRequest('get', 'search', {
+    query: search_field
+  }, searchHandler);
 }
 
 function sendBanUserRequest() {
@@ -1490,7 +1490,7 @@ function sendAddShortcutRequest(event) {
   let select_events = document.querySelector('#eventsShortcuts');
   let event_short = select_events[select_events.selectedIndex];
   let ev_id = event_short.getAttribute('data-id');
-  let user_id = select_events.getAttribute('user-id');
+  let user_id = select_events.getAttribute('data-user-id');
 
   sendAjaxRequest('put', '/api/shortcut/', {
     event_id: ev_id,
@@ -1522,16 +1522,6 @@ function sendAddEventRequest(event) {
   let place = this.querySelector('input[id=place]').value;
   let address = this.querySelector('input[id=address]').value;
   let description = this.querySelector('#description').value;
-
-  if(name.length > 25){
-      let span = document.createElement("span");
-      span.id = "myPopup";
-      span.classList.add("popupregist");
-      span.innerHTML = "Name must be between 1 and 25 chars!";
-      span.classList.toggle("show");
-  }
-
-    name.appendChild()
 
   if (city == "Other")
     city = this.querySelector('input[id=input_city]').value;
@@ -1594,8 +1584,8 @@ function deleteEventRequest(event) {
 }
 
 function sendCancelParticipationRequest(event) {
-  let event_id = this.getAttribute('event-id');
-  let user_id = this.getAttribute('user-id');
+  let event_id = this.getAttribute('data-event-id');
+  let user_id = this.getAttribute('data-user-id');
 
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
@@ -1607,8 +1597,8 @@ function sendCancelParticipationRequest(event) {
 }
 
 function sendAddParticipationRequest(event) {
-  let event_id = this.getAttribute('event-id');
-  let user_id = this.getAttribute('user-id');
+  let event_id = this.getAttribute('data-event-id');
+  let user_id = this.getAttribute('data-user-id');
 
   sendAjaxRequest('post', '/api/participant/', {
     event_id: event_id,
@@ -1619,8 +1609,8 @@ function sendAddParticipationRequest(event) {
 }
 
 function sendAddFriendRequest(event) {
-  let sender = this.getAttribute('sender-id');
-  let receiver = this.getAttribute('receiver-id');
+  let sender = this.getAttribute('data-sender-id');
+  let receiver = this.getAttribute('data-receiver-id');
 
   sendAjaxRequest('put', '/api/friend_request/', {
     sender: sender,
@@ -1631,8 +1621,8 @@ function sendAddFriendRequest(event) {
 }
 
 function sendRemoveFriendRequest(event) {
-  let user1 = this.getAttribute('user-id-1');
-  let user2 = this.getAttribute('user-id-2');
+  let user1 = this.getAttribute('data-user-id-1');
+  let user2 = this.getAttribute('data-user-id-2');
 
   sendAjaxRequest('delete', '/api/friendship/', {
     user1: user1,
@@ -1643,8 +1633,8 @@ function sendRemoveFriendRequest(event) {
 }
 
 function sendAcceptEventInviteRequest(event) {
-  let event_id = this.getAttribute('event-id');
-  let receiver = this.getAttribute('receiver-id');
+  let event_id = this.getAttribute('data-event-id');
+  let receiver = this.getAttribute('data-receiver-id');
 
   let answer = true;
 
@@ -1658,8 +1648,8 @@ function sendAcceptEventInviteRequest(event) {
 }
 
 function sendDeclineEventInviteRequest(event) {
-  let event_id = this.getAttribute('event-id');
-  let receiver = this.getAttribute('receiver-id');
+  let event_id = this.getAttribute('data-event-id');
+  let receiver = this.getAttribute('data-receiver-id');
 
   let answer = false;
 
@@ -1671,8 +1661,8 @@ function sendDeclineEventInviteRequest(event) {
 }
 
 function sendAcceptFriendRequest(event) {
-  let sender = this.getAttribute('sender-id');
-  let receiver = this.getAttribute('receiver-id');
+  let sender = this.getAttribute('data-sender-id');
+  let receiver = this.getAttribute('data-receiver-id');
 
   let answer = true;
 
@@ -1686,8 +1676,8 @@ function sendAcceptFriendRequest(event) {
 }
 
 function sendDeclineFriendRequest(event) {
-  let sender = this.getAttribute('sender-id');
-  let receiver = this.getAttribute('receiver-id');
+  let sender = this.getAttribute('data-sender-id');
+  let receiver = this.getAttribute('data-receiver-id');
 
   let answer = false;
 
@@ -1699,8 +1689,8 @@ function sendDeclineFriendRequest(event) {
 }
 
 function sendStarRateRequest(event) {
-  let event_id = this.parentNode.getAttribute('event-id');
-  let user = this.parentNode.getAttribute('user-id');
+  let event_id = this.parentNode.getAttribute('data-event-id');
+  let user = this.parentNode.getAttribute('data-user-id');
   let value = this.parentNode.getAttribute('data-id');
   let new_value = this.getAttribute('value');
 
@@ -1739,23 +1729,26 @@ function sendMarkNotDelAsSeenRequest(i) {
   }, notificationEventDeleteDeleted);
 }
 
-function sendRemoveParticipantRequest() {
+function sendRemoveParticipantRequest(i) {
 
-  let event_id = btns_removeParticipant[currentParticipant].getAttribute('event-id');
-  let user_id = btns_removeParticipant[currentParticipant].getAttribute('user-id');
+  let event_id = btns_removeParticipant[currentParticipant].getAttribute('data-event-id');
+  let user_id = btns_removeParticipant[currentParticipant].getAttribute('data-user-id');
+
+  currentParticipant = i;
 
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
-    user_id: user_id
-  }, participationHandler);
+    user_id: user_id,
+    currentParticipant: currentParticipant
+  }, participationRemovedHandler);
 
 }
 
 
 function sendMakeInviteRequest(i) {
-  let event_id = btns_makeInvite[i].getAttribute('event-id');
-  let sender = btns_makeInvite[i].getAttribute('sender-id');
-  let receiver = btns_makeInvite[i].getAttribute('receiver-id');
+  let event_id = btns_makeInvite[i].getAttribute('data-event-id');
+  let sender = btns_makeInvite[i].getAttribute('data-sender-id');
+  let receiver = btns_makeInvite[i].getAttribute('data-receiver-id');
 
   currentInvite = i;
 
@@ -1769,9 +1762,9 @@ function sendMakeInviteRequest(i) {
 }
 
 function sendCancelInviteRequest(i) {
-  let event_id = btns_cancelInvite[i].getAttribute('event-id');
-  let sender = btns_cancelInvite[i].getAttribute('sender-id');
-  let receiver = btns_cancelInvite[i].getAttribute('receiver-id');
+  let event_id = btns_cancelInvite[i].getAttribute('data-event-id');
+  let sender = btns_cancelInvite[i].getAttribute('data-sender-id');
+  let receiver = btns_cancelInvite[i].getAttribute('data-receiver-id');
 
   currentInvite = i;
 
@@ -1807,6 +1800,8 @@ function createError(is_string, message) {
     });
 
   content.appendChild(alerts, content);
+
+  showAlerts()
 }
 
 function createSuccess(message) {
@@ -1827,12 +1822,11 @@ function createSuccess(message) {
   alerts.innerHTML += "<strong>Success!</strong> " + message + "<br>";
 
   content.appendChild(alerts, content);
+
+  showAlerts();
 }
 
-// function searchHandler(){
-//   if (this.status == 200) window.location = '/';
 
-// }
 
 function shortcutAddedHandler() {
   let response = JSON.parse(this.responseText);
@@ -1997,9 +1991,13 @@ function userBanedHandler() {
 }
 
 function eventRemHandler() {
+  console.log(this.responseText);
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     btns_remEvent[currentEvent].parentNode.parentNode.remove();
+    createSuccess("Event removed");
+  } else {
+    createError(true, message);
   }
 }
 
@@ -2085,7 +2083,7 @@ function eventDeletedHandler() {
 function participationHandler() {
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
-    let id = response['id'];
+    let id = response['event_id'];
     window.location = '/events/' + id;
     createSuccess(response['success']);
   } else {
@@ -2095,6 +2093,22 @@ function participationHandler() {
       createError(false, response['error']);
   }
 
+}
+
+function participationRemovedHandler() {
+  console.log(this.responseText);
+  let response = JSON.parse(this.responseText);
+  if (response['message'] == 'success') {
+    let part_id = response['part_id'];
+    console.log(btns_removeParticipant[part_id].parentNode.parentNode);
+    btns_removeParticipant[part_id].parentNode.parentNode.remove();
+    createSuccess(response['success']);
+  } else {
+    if (response['message'] == 'error')
+      createError(true, response['error']);
+    else
+      createError(false, response['error']);
+  }
 }
 
 function acceptedInviteHandler() {
@@ -2194,9 +2208,9 @@ function madeInviteHandler() {
     clone.classList.remove("btn-success");
     clone.classList.add("btn-outline-danger");
 
-    clone.id = "btn_cancelInvite";
+    clone.name = "btn_cancelInvite";
 
-    btns_cancelInvite = document.querySelectorAll('#btn_cancelInvite');
+    btns_cancelInvite = document.querySelectorAll('button[name=btn_cancelInvite]');
     cancelInvite = new Array();
     for (let i = 0; i < btns_cancelInvite.length; i++) {
       cancelInvite.push(sendCancelInviteRequest.bind(sendCancelInviteRequest, i));
@@ -2235,8 +2249,8 @@ function canceledInviteHandler() {
     clone.classList.remove("btn-outline-danger");
     clone.classList.add("btn-success");
 
-    clone.id = "btn_inviteToEvent";
-    btns_makeInvite = document.querySelectorAll('#btn_inviteToEvent');
+    clone.name = "btn_inviteToEvent";
+    btns_makeInvite = document.querySelectorAll('button[name=btn_inviteToEvent]');
     makeInvite = new Array();
     for (let i = 0; i < btns_makeInvite.length; i++) {
       makeInvite.push(sendMakeInviteRequest.bind(sendMakeInviteRequest, i));

@@ -35,7 +35,7 @@
               <div class="row">
               <div class="col-md-3 col-3">
                 <a href="{{ url('profile/' . $participant->user_id)}}" class="text-white">
-                  <img src="/imgs/{{ $participant->user->image_path }}" class="img-fluid rounded">
+                  <img src="/imgs/{{ $participant->user->image_path }}" class="img-fluid rounded" alt="User image">
                 </a>
               </div>
               <div class="col-md-6 col-6">
@@ -46,7 +46,7 @@
               @if(Auth::check())
               @if(Auth::user()->id == $event->owner->id)
               <div class="col-md-3 col-3 d-flex align-items-center">
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Remove" id="btn_removeParticipant" event-id="{{$event->id}}" user-id="{{$participant->user->id}}">
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Remove" name="btn_removeParticipant" data-event-id="{{$event->id}}" data-user-id="{{$participant->user->id}}">
                     <i class="fas fa-times fa-fw"></i> Remove
                   </button>
                 </div>

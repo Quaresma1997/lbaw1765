@@ -39,9 +39,9 @@
         <div class="flex">
           
          @if($event->done == null)
-         <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_declineEventInvite" event-id="{{$event->id}}" receiver-id="{{Auth::user()->id}}">
+         <button type="button" class="btn btn-outline-danger mx-1 float-right" id="btn_declineEventInvite" data-event-id="{{$event->id}}" data-receiver-id="{{Auth::user()->id}}">
           <i class="fas fa-times fa-fw"></i> Decline invite</button>
-          <button type="button" class="btn btn-success mx-1 float-right" id="btn_acceptEventInvite" event-id="{{$event->id}}" receiver-id="{{Auth::user()->id}}">
+          <button type="button" class="btn btn-success mx-1 float-right" id="btn_acceptEventInvite" data-event-id="{{$event->id}}" data-receiver-id="{{Auth::user()->id}}">
             <i class="fas fa-check fa-fw"></i> Accept invite</button>
             @endif
             <button type="button" class="btn btn-secondary mx-1 float-right" data-toggle="modal" data-target="#participants">

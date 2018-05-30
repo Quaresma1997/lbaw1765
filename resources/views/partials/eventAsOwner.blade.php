@@ -16,7 +16,7 @@
               <div class="row">
                 <div class="col-md-3  col-3">
                   <a href="{{ url('profile/' . $invite->receiver->id)}}" class="text-white">
-                    <img src="/imgs/{{ $invite->receiver->image_path }}" class="userSearchImg mx-auto rounded">
+                    <img src="/imgs/{{ $invite->receiver->image_path }}" class="userSearchImg mx-auto rounded" alt="User image">
                   </a>
                 </div>
                 <div class="col-md-6 col-6">
@@ -25,8 +25,8 @@
                   </h3>
                 </div>
                 <div class="col-md-3 col-3 d-flex align-items-center">
-                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Cancel Invite" id="btn_cancelInvite"
-                  event-id="{{$event->id}}" sender-id="{{Auth::user()->id}}" receiver-id="{{$invite->receiver->id}}" current="">
+                  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="left" title="Cancel Invite" name="btn_cancelInvite"
+                  data-event-id="{{$event->id}}" data-sender-id="{{Auth::user()->id}}" data-receiver-id="{{$invite->receiver->id}}">
                   <i class="fas fa-times" ></i><span> Cancel</span>
                 </button>
               </div>
@@ -38,7 +38,7 @@
             <div class="row">
               <div class="col-md-3  col-3">
                 <a href="{{ url('profile/' . $friend->id)}}" class="text-white">
-                  <img src="/imgs/{{ $friend->image_path }}" class="userSearchImg mx-auto rounded">
+                  <img src="/imgs/{{ $friend->image_path }}" class="userSearchImg mx-auto rounded" alt="User image">
                 </a>
               </div>
               <div class="col-md-6 col-6">
@@ -47,8 +47,8 @@
                 </h3>
               </div>
               <div class="col-md-3 col-3 d-flex align-items-center">
-                <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" id="btn_inviteToEvent"
-                event-id="{{$event->id}}" sender-id="{{Auth::user()->id}}" receiver-id="{{$friend->id}}">
+                <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" name="btn_inviteToEvent"
+                data-event-id="{{$event->id}}" data-sender-id="{{Auth::user()->id}}" data-receiver-id="{{$friend->id}}">
                 <i class="fas fa-plus" ></i><span> Invite</span>
               </button>
             </div>
@@ -60,7 +60,7 @@
           <div class="row">
             <div class="col-md-3  col-3">
               <a href="{{ url('profile/' . $user->id)}}" class="text-white">
-                <img src="/imgs/{{ $user->image_path }}" class="userSearchImg mx-auto rounded">
+                <img src="/imgs/{{ $user->image_path }}" class="userSearchImg mx-auto rounded" alt="User image">
               </a>
             </div>
             <div class="col-md-6 col-6">
@@ -69,8 +69,8 @@
               </h3>
             </div>
             <div class="col-md-3 col-3 d-flex align-items-center">
-              <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" id="btn_inviteToEvent"
-              event-id="{{$event->id}}" sender-id="{{Auth::user()->id}}" receiver-id="{{$user->id}}">
+              <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Invite" name="btn_inviteToEvent"
+              data-event-id="{{$event->id}}" data-sender-id="{{Auth::user()->id}}" data-receiver-id="{{$user->id}}">
               <i class="fas fa-plus" ></i><span> Invite</span>
             </button>
           </div>
