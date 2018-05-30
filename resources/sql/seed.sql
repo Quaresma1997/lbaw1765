@@ -528,13 +528,23 @@ INSERT INTO categories (name) VALUES ('Sports');
 INSERT INTO categories (name) VALUES ('Other');
  
 INSERT INTO countries (name) VALUES ('Portugal');
-INSERT INTO countries (name) VALUES ('Espanha');
+INSERT INTO countries (name) VALUES ('Spain');
 INSERT INTO countries (name) VALUES ('USA');
+INSERT INTO countries (name) VALUES ('UK');
+INSERT INTO countries (name) VALUES ('France');
+INSERT INTO countries (name) VALUES ('China');
 
 
 INSERT INTO cities (name,country_id) VALUES ('Braga',1);
 INSERT INTO cities (name,country_id) VALUES ('Porto',1);
 INSERT INTO cities (name,country_id) VALUES ('Lisboa',1);
+INSERT INTO cities (name,country_id) VALUES ('Reading',4);
+INSERT INTO cities (name,country_id) VALUES ('Ibiza',2);
+INSERT INTO cities (name,country_id) VALUES ('Beijing',6);
+INSERT INTO cities (name,country_id) VALUES ('Paris',5);
+INSERT INTO cities (name,country_id) VALUES ('New York',3);
+
+
 
 INSERT INTO localizations (name,address,city_id) VALUES ('Restaurante O Pirata','Rua da Isabelinha',1);
 INSERT INTO localizations (name,address,city_id) VALUES ('FEUP','Rua Roberto Frias',2);
@@ -542,6 +552,17 @@ INSERT INTO localizations (name,address,city_id) VALUES ('Parque da BelaVista','
 INSERT INTO localizations (name,address,city_id) VALUES ('Passeio Maritimo de Alges','Alges',3);
 INSERT INTO localizations (name,address,city_id) VALUES ('Hotel Douro','Rua de Agramonte',2);
 INSERT INTO localizations (name,address,city_id) VALUES ('Norte shopping','Matosinhos',2);
+INSERT INTO localizations (name,address,city_id) VALUES ('Yolo Park','Guan',6);
+INSERT INTO localizations (name,address,city_id) VALUES ('Stade de France','Paris',7);
+INSERT INTO localizations (name,address,city_id) VALUES ('Madison Sqare Garden','Manhattan',8);
+INSERT INTO localizations (name,address,city_id) VALUES ('Playa den Bossa','Carrer de la Punta',4);
+INSERT INTO localizations (name,address,city_id) VALUES ('Clube de Ténis Estoril','Estoril',3);
+INSERT INTO localizations (name,address,city_id) VALUES ('Altice Arena','Lisboa',3);
+INSERT INTO localizations (name,address,city_id) VALUES ('Theatro Circo','Rua das Oliveiras',1);
+
+
+
+
 
 INSERT INTO "users" (username,password,email,first_name,last_name, image_path,city_id)
 			VALUES ('sodales','$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W','sodales.at@curae.co.uk','Zeph','Griffin','profile.jpg',2);
@@ -636,7 +657,43 @@ INSERT INTO events (name,date, time,description,owner_id,localization_id,is_publ
 			VALUES ('Ted Talk','2009-04-24', '12:30:00','sollicitudin orci sem eget massa.',8,2,true,2);
 			
 INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
-			VALUES ('Teaches Conference','2011-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',9,1,false,5);
+			VALUES ('Teacher Conference','2011-04-13', '12:30:00','dignissim pharetra. Nam ac nulla.',9,1,false,2);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Estoril Open','2018-05-13', '15:30:00','The Estoril Open is an ATP clay court tennis tournament in Portugal. 
+            The event take place at the sports complex of Clube de Ténis do Estoril in Cascais.',11,1,true,5);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Vacation','2018-08-13', '06:30:00','Our annual summer vacation. I want to go to Ibiza',3,10,false,6);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Champions League Final','2019-05-25', '19:45:00','The UEFA Champions League is an annual continental club football competition organised by the Union of European Football
+             Associations and contested by top-division European clubs',8,8,true,5);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Taylor Swift Concert','2019-10-25', '19:45:00','Taylor Alison Swift is an American singer-songwriter. One of the leading contemporary recording artists, she is known for narrative songs about her personal life, which have received widespread media coverage.
+             Madison Square Garden, "MSG", is a multi-purpose indoor
+              arena in the New York City borough of Manhattan',19,9,true,4);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Eurovision','2018-05-25', '20:45:00','The Eurovision Song Contest, often simply called Eurovision, is an international song competition held primarily among the member countries of the European Broadcasting Union.',13,12,true,4);
+            
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Feup CarreerFair','2018-10-13', '12:30:00','VENHA CONHECER OS 
+            TALENTOS DE ENGENHARIA! PARTICIPE E FAÇA EQUIPA COM OS MELHORES! 
+            A Faculdade de Engenharia da Universidade do Porto',16,2,true,1);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Auto da Barca','2018-12-13', '12:30:00',' Auto da barca do inferno, escrita por Gil Vicente. 
+            Companhia de teatro XPTO e encenada por John Doe',17,13,true,3);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Rali','2018-10-13', '12:30:00','for lovers of rali, the first and soon to be best rali in the world',1,7,true,3);
+
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Kpop concert','2018-11-13', '12:30:00','Kpop band concert',20,4,true,4);
+
+
 			
 
 
@@ -648,10 +705,28 @@ INSERT INTO images (event_id,path) VALUES (5,'taj.jpg');
 INSERT INTO images (event_id,path) VALUES (6,'fer.jpg');			
 INSERT INTO images (event_id,path) VALUES (7,'fa1.jpg');			
 INSERT INTO images (event_id,path) VALUES (8,'fa2.jpg');
+INSERT INTO images (event_id,path) VALUES (9,'taj.jpg');
+INSERT INTO images (event_id,path) VALUES (10,'november.jpg');
 
 
 INSERT INTO ratings ( "value", event_id, user_id)
             VALUES (4, 2, 2);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (4, 10, 2);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (5, 10, 10);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (2, 10, 12);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (4, 10, 20);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (3, 10, 15);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (5, 14, 1);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (5, 14, 3);
+INSERT INTO ratings ( "value", event_id, user_id)
+            VALUES (5, 14, 7);
 			
 			
 INSERT INTO participants (user_id,event_id)
@@ -702,7 +777,88 @@ INSERT INTO participants (user_id,event_id)
 			VALUES (2,8);
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,9);
-			
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,10);
+INSERT INTO participants (user_id,event_id)
+			VALUES (10,10);
+INSERT INTO participants (user_id,event_id)
+			VALUES (20,10);
+INSERT INTO participants (user_id,event_id)
+			VALUES (15,10);
+INSERT INTO participants (user_id,event_id)
+			VALUES (11,10);
+INSERT INTO participants (user_id,event_id)
+			VALUES (3,11);
+INSERT INTO participants (user_id,event_id)
+			VALUES (1,11);
+INSERT INTO participants (user_id,event_id)
+			VALUES (4,11);
+INSERT INTO participants (user_id,event_id)
+			VALUES (17,11);
+INSERT INTO participants (user_id,event_id)
+			VALUES (1,12);
+INSERT INTO participants (user_id,event_id)
+			VALUES (5,12);
+INSERT INTO participants (user_id,event_id)
+			VALUES (16,12);
+INSERT INTO participants (user_id,event_id)
+			VALUES (6,12);
+INSERT INTO participants (user_id,event_id)
+			VALUES (4,12);
+INSERT INTO participants (user_id,event_id)
+			VALUES (13,12);
+INSERT INTO participants (user_id,event_id)
+			VALUES (19,12);
+
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,14);
+INSERT INTO participants (user_id,event_id)
+			VALUES (3,14);
+INSERT INTO participants (user_id,event_id)
+			VALUES (6,14);
+INSERT INTO participants (user_id,event_id)
+			VALUES (8,14);
+INSERT INTO participants (user_id,event_id)
+			VALUES (9,14);
+INSERT INTO participants (user_id,event_id)
+			VALUES (11,13);
+INSERT INTO participants (user_id,event_id)
+			VALUES (12,13);
+INSERT INTO participants (user_id,event_id)
+			VALUES (13,13);
+INSERT INTO participants (user_id,event_id)
+			VALUES (14,13);
+INSERT INTO participants (user_id,event_id)
+			VALUES (15,13);
+INSERT INTO participants (user_id,event_id)
+			VALUES (1,13);
+INSERT INTO participants (user_id,event_id)
+			VALUES (2,15);
+INSERT INTO participants (user_id,event_id)
+			VALUES (14,15);
+INSERT INTO participants (user_id,event_id)
+			VALUES (13,15);
+INSERT INTO participants (user_id,event_id)
+			VALUES (19,15);
+INSERT INTO participants (user_id,event_id)
+			VALUES (20,15);
+INSERT INTO participants (user_id,event_id)
+			VALUES (20,16);
+INSERT INTO participants (user_id,event_id)
+			VALUES (17,16);
+INSERT INTO participants (user_id,event_id)
+			VALUES (1,16);
+INSERT INTO participants (user_id,event_id)
+			VALUES (3,17);
+INSERT INTO participants (user_id,event_id)
+			VALUES (5,17);
+INSERT INTO participants (user_id,event_id)
+			VALUES (13,18);
+INSERT INTO participants (user_id,event_id)
+			VALUES (13,14);
+
+
+
 INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,1,'new.jpg');
 INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,3,'new.jpg');
 INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,4,'new.jpg');
@@ -716,11 +872,33 @@ INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolo
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),3,12);
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,15);
 INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),5,12);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Joao Sousa is really good ','2018-05-11 15:30:00',10,2);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Finally a portuguese player in the finals','2018-05-11 16:30:00',10,15);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Marcelo Rebelo de Sousa is in the attendence','2018-05-11 20:30:00',10,12);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('If you want to go to spain, why dont we go to madrid? Its a lot better. I dont like to go to the beach (as you know)',NOW(),11,1);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Lets see what everyone says. They are invited already!',NOW(),11,3);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('This year the winner will be Liverpool',NOW(),12,5);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Keep dreaming!',NOW(),12,1);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('They wont even reach the semi finals. The winner will of course be Real Madrid',NOW(),12,6);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Congrats to Portugal on a great organization',NOW(),14,3);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('100% mate',NOW(),14,9);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('I just cant wait to be there',NOW(),13,14);
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Look at this pic!',NOW(),13,13,'new.jpg');
+INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Look at this pic!',NOW(),15,20,'new.jpg');
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('So many companies coming!',NOW(),15,16);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Can I take food into the theatre?',NOW(),16,1);
+INSERT INTO posts (description,date,event_id, user_id) VALUES ('Hell No!',NOW(),16,17);
 
-INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1);
-INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),2);
-INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),3);
-INSERT INTO polls (question,date,event_id) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),4);
+
+
+
+INSERT INTO polls (question,date,event_id) VALUES ('Whats the best place for the after party? ',NOW(),1);
+INSERT INTO polls (question,date,event_id) VALUES ('What date do you guys prefer? ',NOW(),2);
+INSERT INTO polls (question,date,event_id) VALUES ('What do you think about the location? ',NOW(),3);
+INSERT INTO polls (question,date,event_id) VALUES ('Do you want alcool available?',NOW(),4);
+INSERT INTO polls (question,date,event_id) VALUES ('Will Joao Sousa win? ','2018-05-06 20:30:00',10);
+INSERT INTO polls (question,date,event_id) VALUES ('Where do you want to travel to? ','2018-05-30 20:30:00',11);
+
 
 INSERT INTO options (description,poll_id) VALUES ('Bar',1);
 INSERT INTO options (description,poll_id) VALUES ('Cafe',1);
@@ -732,9 +910,17 @@ INSERT INTO options (description,poll_id) VALUES ('Great',3);
 INSERT INTO options (description,poll_id) VALUES ('Good',3);
 INSERT INTO options (description,poll_id) VALUES ('Available',4);
 INSERT INTO options (description,poll_id) VALUES ('Not Available',4);
+INSERT INTO options (description,poll_id) VALUES ('Yes',5);
+INSERT INTO options (description,poll_id) VALUES ('No',5);
+INSERT INTO options (description,poll_id) VALUES ('Madrid',6);
+INSERT INTO options (description,poll_id) VALUES ('Ibiza',6);
+INSERT INTO options (description,poll_id) VALUES ('Barcelona',6);
 
 
-INSERT INTO poll_votes (poll_id,option_id,user_id) VALUES (4,9,2);
+INSERT INTO poll_votes (poll_id,option_id,user_id) VALUES (5,12,15);
+INSERT INTO poll_votes (poll_id,option_id,user_id) VALUES (5,11,10);
+INSERT INTO poll_votes (poll_id,option_id,user_id) VALUES (5,11,20);
+INSERT INTO poll_votes (poll_id,option_id,user_id) VALUES (6,13,1);
 
 
 
@@ -747,11 +933,25 @@ INSERT INTO friend_requests (sender_id, receiver_id) VALUES (8, 4);
 
 INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (2, 2, 10);
 INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (2, 2, 12);
+INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (10, 11, 1);
+INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (10, 11, 3);
+
+INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (11, 3, 18);
+INSERT INTO event_invites (event_id, sender_id, receiver_id) VALUES (11, 3, 19);
+
 
 INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 10);
 INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 4);
 INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 6);
 INSERT INTO friendships (user_id_1, user_id_2) VALUES (2, 7);
-INSERT INTO friendships (user_id_1, user_id_2) VALUES (8, 2);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (8, 1);
 INSERT INTO friendships (user_id_1, user_id_2) VALUES (3, 2);
-INSERT INTO friendships (user_id_1, user_id_2) VALUES (9, 2);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (9, 10);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (9, 11);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (12, 20);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (15, 16);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (5, 4);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (3, 17);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (3, 19);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (3, 1);
+INSERT INTO friendships (user_id_1, user_id_2) VALUES (3, 4);
