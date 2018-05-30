@@ -35,7 +35,7 @@
 
   <div class="modal-body ">
     <form class="add_event" id="form_add_event">
-     <label for="name">Name</label>
+     <label for="name">Name*</label>
      <div class="input-group mb-2">
       <div class="input-group-prepend">
        <span class="input-group-text">
@@ -51,7 +51,7 @@
   <div class="row">
     <div class="col-12 col-sm-6">
      <div class="form-group mb-2 p-0 m-0" id="select_type">
-      <label for="type">Type</label>
+      <label for="type">Type*</label>
       <select class="custom-select" id="type" name="select_type">
        <option value="Public" selected>Public</option>
        <option value="Private">Private</option>
@@ -61,7 +61,7 @@
 </div>
 <div class="col-12 col-sm-6">
  <div class="form-group mb-2 p-0 m-0" id="select_category">
-  <label for="category">Category</label>
+  <label for="category">Category*</label>
   <select class="custom-select" id="category" name="select_category">
    @foreach($categories as $cat)
    <option value="{{ $cat->name }}">{{ $cat->name }}</option>
@@ -72,7 +72,7 @@
 </div>
 <div class="row">
   <div class="col-12 col-sm-6">
-    <label for="date">Date</label>
+    <label for="date">Date*</label>
     <div class="input-group mb-2">
       <div class="input-group-prepend">
         <span class="input-group-text">
@@ -84,7 +84,7 @@
     </div>
   </div>
   <div class="col-12 col-sm-6">
-    <label for="date">Time</label>
+    <label for="date">Time*</label>
     <div class="input-group mb-2">
       <div class="input-group-prepend">
         <span class="input-group-text">
@@ -99,7 +99,7 @@
 
 <div class="row">
   <div class="col-12 col-sm-6">
-   <label for="select_country_event">Country</label>
+   <label for="select_country_event">Country*</label>
    <div class="input-group mb-2 p-0 m-0">
     <div class="input-group-prepend">
      <span class="input-group-text">
@@ -113,7 +113,7 @@
 
 </div>
 <div class="col-12 col-sm-6">
- <label for="select_city_event">City</label>
+ <label for="select_city_event">City*</label>
  <div class="input-group mb-2">
   <div class="input-group-prepend">
    <span class="input-group-text">
@@ -128,7 +128,7 @@
 </div>
 <div class="row">
   <div class="col-12">
-   <label for="place">Place</label>
+   <label for="place">Place*</label>
    <div class="input-group mb-2">
     <div class="input-group-prepend">
      <span class="input-group-text">
@@ -140,7 +140,7 @@
 </div>
 </div>
 <div class="col-12">
- <label for="address_inp">Address</label>
+ <label for="address_inp">Address*</label>
  <div class="input-group mb-2">
   <div class="input-group-prepend">
    <span class="input-group-text">
