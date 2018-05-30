@@ -8,7 +8,7 @@
       <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <div class="input-group">
-          <input type="text" class="form-control" name="query" placeholder="Search" id="search_field">
+          <input type="text" class="form-control search" name="query" placeholder="Search" id="search_field">
           <span class="input-group-append"> 
             <button type="submit" class="btn btn-secondary" id="btn_search">
               <i class="fas fa-search fa-fw"></i>
