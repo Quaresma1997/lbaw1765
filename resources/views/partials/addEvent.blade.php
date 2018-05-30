@@ -153,13 +153,25 @@
 </div>
 <label for="description">Description</label>
 <div class="input-group mb-2">
-  <textarea id="description" class="form-control" rows="4" cols="1" name="description" placeholder="Enter Description" value="{{ old('description') }}" required></textarea>
+  <textarea id="description" class="form-control" rows="4" cols="1" name="description" placeholder="Enter Description"  required>{{ old('description') }}</textarea>
 </div>
 <hr>
 <button type="submit" class="btn btn-block btn-success mb-1" >Add Event</button>
 </form>
 </div>
 </div>
+</div>
+
+<div id="add_event_errors">
+@if ($errors->any())
+        <div class="myAlert-bottom alert alert-danger" id="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           @foreach ($errors->all() as $error)              
+              <strong>Error!</strong> {{ $error }}
+              <br>
+            @endforeach
+            </div>
+@endif
 </div>
 </div>
 

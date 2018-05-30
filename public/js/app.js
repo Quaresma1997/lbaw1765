@@ -46,7 +46,7 @@ function addEventListeners() {
       let total_file = document.getElementById("images").files.length;
       for (let i = 0; i < total_file; i++) {
         console.log(e);
-        $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded eventSearchImg' src='" + URL.createObjectURL(e.target.files[i]) + "'></div>");
+        $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded eventSearchImg' src='" + URL.createObjectURL(e.target.files[i]) + "' alt='Event image'></div>");
       }
     });
 
@@ -72,7 +72,7 @@ function addEventListeners() {
 
       reader.onload = function (e) {
         img.src = e.target.result;
-        img.setAttribute("img-name", e.target.result);
+        img.setAttribute("data-img-name", e.target.result);
         imgPost.parentNode.replaceChild(img, imgPost);
         console.log(img);
       };
@@ -369,13 +369,14 @@ function addEventListeners() {
 }
 
 function showAlerts() {
-  let alert = document.querySelector("#alert");
-  if (alert != null) {
-    alert.style.display = "block";
+  let alert = document.querySelectorAll("#alert");
+  for(let i = 0 ; i < alert.length; i++){
+    alert[i].style.display = "block";
     setTimeout(function () {
-      alert.style.display = "none";
+      alert[i].style.display = "none";
     }, 5000);
   }
+  
 }
 
 function orderEvents() {
@@ -580,31 +581,7 @@ let makeInvite = new Array(),
   markNotupdate = new Array(),
   markNotdelete = new Array(),
   deleteShortctus = new Array();
-/**
-  
- $(document).ready(function () {
-  $("#search1").on('keyup'),function() {
-    $value =$(this).val();
-    sendAjaxRequest('get', 'proc', {search : $value}, handle);
-  
-  }
-});
 
-function sendSearch(event){
-
-  let searchable = document.querySelector("#search").value;
-  console.log(searchable);
-  sendAjaxRequest('get','admin/search', {search : searchable}, handle);
-  event.preventDefault();
-console.log(searchable)
-
-}
-  function handle() {
-    $('tbody').html(data);
-     console.log("aa");
-    }
-  
-*/
 $(document).ready(function () {
   $("input[name='optionsRadiosType']").click(function (e) {
     let this_size = $(this).attr("id").length;
@@ -627,14 +604,6 @@ $(document).ready(function () {
   });
 
 });
-
-function myAlertBottom() {
-  $(".myAlert-bottom").show();
-  setTimeout(function () {
-    $(".myAlert-bottom").hide();
-  }, 2000);
-}
-
 
 
 function getCurCountryEvent() {
@@ -833,14 +802,12 @@ function putAddEventOptions() {
 }
 
 function createEditPostForm(event) {
-  console.log(this.parentNode);
   let post_div = this.parentNode;
 
-  // let ev_id = post_div.getAttribute("data-id");
   let route = post_div.getAttribute("data-route");
 
   let post_image = post_div.querySelector("#post_image");
-  let post_name = post_div.querySelector("#post_name").innerText;
+  let post_name = post_div.querySelector("p[name=post_name]").innerText;
   let csrf = post_div.querySelector('input[name=_token');
 
   let textarea =
@@ -863,8 +830,8 @@ function createEditPostForm(event) {
   if (post_image != null) {
     let image = post_image.querySelector("#img");
     img = "<div class='col-8 offset-1 mt-2' id='post_image'>" +
-      "<img src='/post_images/" + image.getAttribute('img-name') + "' id='img' img-name='" + image.getAttribute('img-name') +
-      "' class='eventPostImg'>" +
+      "<img src='/post_images/" + image.getAttribute('data-img-name') + "' id='img' data-img-name='" + image.getAttribute('data-img-name') +
+      "' class='eventPostImg' alt='Post image'>" +
       "</div>";
   }
 
@@ -1012,7 +979,7 @@ function createEditProfileForm(event) {
 
   main_div.innerHTML =
     "<div style='text-align:center;'>" +
-    "<img src='" + img + "' id='user_info_img' class='img rounded mb-3 userProfileImg'>" +
+    "<img src='" + img + "' id='user_info_img' class='img rounded mb-3 userProfileImg' alt='User image'>" +
     "<form enctype='multipart/form-data' class='edit_profile' method='POST'>" +
     btn_img +
 
@@ -1246,7 +1213,7 @@ function cancelEditProfile(event) {
   let main_div = document.querySelector("#user_info_container");
   main_div.innerHTML =
     "<div style='text-align:center;'>" +
-    "<img src='" + current_img + "' id='user_info_img' class='img rounded mb-3 userProfileImg'>" +
+  "<img src='" + current_img + "' id='user_info_img' class='img rounded mb-3 userProfileImg' alt='User image'>" +
     document.querySelector('input[name=_token]').outerHTML +
     "</div><br>" +
     "<label id='user_info_l1'><i class='fas fa-user fa-fw mr-1'></i>" + current_first_name + " " + current_last_name + "</label> <br>" +
@@ -1778,9 +1745,13 @@ function sendCancelInviteRequest(i) {
 }
 
 function createError(is_string, message) {
-  let content = document.querySelector("#content");
+  let error_div;
+  if (isEvent)
+    error_div = document.querySelector("#add_event_errors");
+  else
+    error_div = document.querySelector("#content");
   let alerts;
-  alerts = content.querySelector("#alert");
+  alerts = error_div.querySelector("#alert");
   if (alerts == null) {
     alerts = document.createElement("div");
     alerts.id = "alert";
@@ -1799,15 +1770,19 @@ function createError(is_string, message) {
       alerts.innerHTML += "<strong>Error!</strong> " + element + "<br>";
     });
 
-  content.appendChild(alerts, content);
+  error_div.appendChild(alerts, error_div);
 
   showAlerts()
 }
 
 function createSuccess(message) {
-  let content = document.querySelector("#content");
+  let error_div;
+  if(isEvent)
+    error_div = document.querySelector("#add_event_errors");
+  else
+    error_div = document.querySelector("#content");
   let alerts;
-  alerts = content.querySelector("#alert");
+  alerts = error_div.querySelector("#alert");
   if (alerts == null) {
     alerts = document.createElement("div");
     alerts.id = "alert";
@@ -1821,7 +1796,7 @@ function createSuccess(message) {
 
   alerts.innerHTML += "<strong>Success!</strong> " + message + "<br>";
 
-  content.appendChild(alerts, content);
+  error_div.appendChild(alerts, error_div);
 
   showAlerts();
 }
@@ -1939,6 +1914,7 @@ function shortcutDeletedHandler() {
 
 
 function getCitiesHandler() {
+  console.log(this.responseText);
   let cit = JSON.parse(this.responseText)['cities'];
 
   if (isDefault || isEvent || isSignUp) {

@@ -136,7 +136,7 @@
       <div class="row">
         <div class="col-3 offset-2 col-md-2 col-lg-1">
           <a href="/profile/{{$event->owner_id}}" class="text-white" >
-            <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle">
+            <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle" alt="User image">
           </a>
         </div>
         <div class="col-7">

@@ -214,7 +214,7 @@
        <button type="submit" class="btn btn-primary float-right">
         <i class="fas fa-comment fa-fw"></i> Post </button>
 
-        <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#add_poll">
+        <button type="button" class="btn btn-secondary float-right mr-2" data-toggle="modal" data-target="#add_poll">
           <i class="fas fa-plus fa-fw"></i>Poll</button>
 
         </form>
@@ -228,7 +228,7 @@
       <div class="row">
         <div class="col-3 offset-2 col-md-2 col-lg-1">
           <a href="/profile/{{$event->owner_id}}" class="text-white" >
-            <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle">
+            <img src="{{url('/imgs/' . $event->owner->image_path)}}" class="userFeedImg rounded-circle" alt="User image">
           </a>
         </div>
         <div class="col-7">

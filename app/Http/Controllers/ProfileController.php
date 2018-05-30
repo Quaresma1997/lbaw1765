@@ -125,14 +125,6 @@ class ProfileController extends Controller
         }
       }
       
-      
-/*
-      $filename = $request->input('img');
-      print_r($filename);
-      Image::make('C:\\fakepath/22.jpeg')->resize(300,300)->save(public_path('imgs/' . $filename));
-
-      $user->image_path = $filename;      */
-      
 
       $city = $request->input('city');
       $country = $request->input('country');
