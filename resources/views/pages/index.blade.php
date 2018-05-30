@@ -11,7 +11,7 @@
 
 <div class="row offset">
   <div class="col-12 col-xl-5">
-    <div class="jumbotron" style="margin-left: -70px;">
+    <div class="jumbotron indexMargin">
       <h1 class="display-3">Welcome</h1>
       <p class="lead">EventSS is a website where you can find your favorite events or share your own. Create events, invite your friends
       and share with the world!</p>
