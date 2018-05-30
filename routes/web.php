@@ -24,6 +24,8 @@ Route::get('/', function () {
 Route::get('admin/search/users','AdminController@searchUsers')->name('proc');
 Route::get('admin/search/events','AdminController@searchEvents')->name('procE');
 
+Route::get('reset','Auth\ResetPasswordController@show')->name('reset');
+
 
 // API
 Route::post('profile/{id}', 'ProfileController@update');
@@ -43,8 +45,6 @@ Route::post('addPoll_vote/{id}', 'Poll_votesController@add')->name('votea');
 
 Route::put('api/shortcut', 'ShortcutController@add');
 Route::delete('api/shortcut/{id}', 'ShortcutController@delete');
-
-
 
 
 Route::delete('api/participant/', 'ParticipantController@delete');
