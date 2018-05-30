@@ -1,15 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
-@media( max-width:991px ){
-  .Friend_activities_container{
-    padding-top: 0 !important;  
-  }
-}
+
 .offset{
   padding-top: 10em; 
 }
 
-@media(max-width:576px){
+@media(max-width:991px){
   .offset{
     margin-top: 75px;
     padding: 0px;
@@ -23,6 +19,10 @@
     padding-left:0px;
     padding-right: 0px 
   }
+}
+
+p {
+  line-height: 1.4em;
 }
 
 #jumbotron_admin h1{
