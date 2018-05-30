@@ -628,7 +628,7 @@ h1 {
 
 .eventHomepageImg {
   width: 380px;
-  height: 170px;
+  height: 180px;
 }
 
 .eventPostImg{
@@ -647,13 +647,18 @@ h1 {
 }
 
 .userFeedImg {
-  width: 42px;
-  height: 42px;
+  width: 30px;
+  height: 30px;
 }
 
 .userSearchImg {
   width: 100px;
   height: 100px;
+}
+
+.userPostImg {
+  width: 60px;
+  height: 60px;
 }
 
 
