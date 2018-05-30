@@ -1,6 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
-
+@media( max-width:991px ){
+  .Friend_activities_container{
+    padding-top: 0 !important;  
+  }
+}
 .offset{
   padding-top: 10em; 
 }

@@ -27,7 +27,7 @@
           @endforeach
           
             </div>
-          <button type="button" class="btn btn-secondary btn-md btn-block mt-2" id="btn_manageShortcuts" data-toggle="modal" data-target="#manageShortcuts">
+          <button type="button" class="btn btn-secondary btn-md btn-block mt-2" id="btn_manageShortcuts" data-toggle="modal" data-target="#manageShortcuts" style="width: fit-content;">
                 <i class="fa fa-plus fa-fw"></i> Manage Shortcuts </button>
         </div>
       <hr>
@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class="col-12 col-lg-9">
-    <div class="container offset" >
+    <div class="container offset Friend_activities_container" >
       <div class="row">
         @if(sizeof(Auth::user()->getFriendsEvents()) == 0)
 
