@@ -20,24 +20,6 @@ class FriendRequestController extends Controller
       ]);
     }
 
-    // public function delete(Request $request){
-        
-    //     $sender = $request->input('sender');
-    //     $receiver = $data->input('receiver');
-    //     $friend_request = FriendRequest::where('sender_id', $sender)->where('receiver_id', $receiver)->first();
-
-
-    //     $this->authorize('delete', $friend_request);
-
-
-    //     if($friend_request->delete()){        
-    //         return response()->json(['message' => 'success']);
-    //     }
-    //     else
-    //         return response()->json(['message' => 'error', 'error' => 'Error deleting friend request!']);  
-
-    // }
-
     public function create(Request $request){
         $validated = $this->valid($request);
         if(!$validated->passes())

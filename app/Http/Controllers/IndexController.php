@@ -21,7 +21,6 @@ class IndexController extends Controller
       if(Auth::check())
         return redirect('homepage');
       else
-      //  return response()->json(['most' => $this->getMostParticipativeEvents()]);
          return view('pages.index', ['most' => $this->getMostParticipativeEvents()]);
     }
 

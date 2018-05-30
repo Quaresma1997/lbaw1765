@@ -132,13 +132,13 @@ private function getFieldsTosend($event){
     private function valid(Request $data)
     {
       return Validator::make($data->all(), [
-        'name' => 'required|string|max:30',
+        'name' => 'required|string|max:25',
         'city' => 'required|string|max:30',
         'date' => 'required|date|after:today',
         'country' => 'required|string|max:30',
         'city' => 'required|string|max:30',
         'place' => 'required|string|max:30',
-       'address' => 'required|string|max:30',
+       'address' => 'required|string|max:50',
         'description' => 'string|max:255',
       ]);
     }
@@ -380,9 +380,6 @@ private function getFieldsTosend($event){
     }
 
     return redirect('events/' . $event->id);
-    
-    // return response()->json(['message' => 'success', 'event' => $event, 'localization' => $localization, 'city' => $event->localization->city->name, 'country' => $event->localization->city->country->name, 'category' => $event->category->name]);
-
   }
 
  

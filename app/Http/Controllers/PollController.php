@@ -20,9 +20,6 @@ use App\Option;
 class PollController extends Controller
 {
     
-
-    
-
     public function add(Request $request, $id)
     {
        
@@ -31,10 +28,7 @@ class PollController extends Controller
           'option1' => 'required',
           'option2' => 'required',
         
-
       ]);
-
-     //dd($request);
 
     // create
 

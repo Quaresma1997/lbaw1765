@@ -36,7 +36,7 @@ class PostController extends Controller
     public function add(Request $request, $id)
     {
        
-//dd($request);
+
       $this->validate($request,[
           'post' => 'required',
           'file' => 'image|nullable'
@@ -61,7 +61,7 @@ class PostController extends Controller
 
     // create
     $post= new Post();
-//dd($request);
+
 $post->date = date('Y-m-d H:i:s'); // 2016-10-12 21:09:23
 $post->description = $request->input('post');
 $post->event_id = $id;
