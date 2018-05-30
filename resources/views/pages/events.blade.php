@@ -19,7 +19,7 @@
 @endif
 
   <div class="modal fade" id="participants">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Participants</h5>
@@ -28,13 +28,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="jumbotron p-1 mb-1">
+        <div class="jumbotron p-1 mb-1 mt-1">
+          <div class="row">
           @foreach($event->participants as $participant)
-            
-            <div class="row mb-4">
+          <div class="col-12 col-lg-6 mb-4">
+              <div class="row">
               <div class="col-md-3 col-3">
                 <a href="{{ url('profile/' . $participant->user_id)}}" class="text-white">
-                  <img src="/imgs/{{ $participant->user->image_path }}" class="rounded userSearchImg">
+                  <img src="/imgs/{{ $participant->user->image_path }}" class="img-fluid rounded">
                 </a>
               </div>
               <div class="col-md-6 col-6">
@@ -52,9 +53,11 @@
                 @endif
                 @endif
             </div>
+            </div>
             
           @endforeach
           </div>
+        </div>
         </div>
       </div>
     </div>

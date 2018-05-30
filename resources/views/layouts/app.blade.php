@@ -12,7 +12,6 @@
 
     <!-- Styles -->
     
-
     <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
