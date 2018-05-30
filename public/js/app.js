@@ -45,7 +45,6 @@ function addEventListeners() {
     imagesUpload.addEventListener('change', function (e) {
       let total_file = document.getElementById("images").files.length;
       for (let i = 0; i < total_file; i++) {
-        console.log(e);
         $('#image_preview').append("<div class='col-md-3 p-0 align-self-center justify-content-center'><img class='img-responsive images_uploaded eventSearchImg' src='" + URL.createObjectURL(e.target.files[i]) + "' alt='Event image'></div>");
       }
     });
@@ -60,7 +59,7 @@ function addEventListeners() {
 
       let imagePost = par.querySelector("#post_image");
       let imgPost = imagePost.querySelector("#img");
-      console.log(imgPost);
+      
       var reader = new FileReader();
       var name = imagePostUploads[i].value;
       var img = document.createElement("img");
@@ -74,7 +73,7 @@ function addEventListeners() {
         img.src = e.target.result;
         img.setAttribute("data-img-name", e.target.result);
         imgPost.parentNode.replaceChild(img, imgPost);
-        console.log(img);
+        
       };
       reader.readAsDataURL(imagePostUploads[i].files[0]);
       // imageProfile.src = imageProfileUpload.value;
@@ -188,7 +187,7 @@ function addEventListeners() {
 
     });
   }
-  btns_banUser = document.querySelectorAll('#btn_banUser');
+  btns_banUser = document.querySelectorAll('button[name=btn_banUser]');
   for (let i = 0; i < btns_banUser.length; i++) {
     btns_banUser[i].addEventListener('click', function () {
       currentUser = i;
@@ -196,7 +195,7 @@ function addEventListeners() {
     });
   }
 
-  btns_remEvent = document.querySelectorAll('#btn_remEvent');
+  btns_remEvent = document.querySelectorAll('button[name=btn_remEvent]');
   for (let i = 0; i < btns_remEvent.length; i++) {
     btns_remEvent[i].addEventListener('click', function () {
       currentEvent = i;
@@ -253,12 +252,12 @@ function addEventListeners() {
     declineEventInvite[i].addEventListener('click', sendDeclineEventInviteRequest);
   }
 
-  let acceptFriend = document.querySelectorAll('#btn_acceptFriend');
+  let acceptFriend = document.querySelectorAll('button[name=btn_acceptFriend]');
   for (let i = 0; i < acceptFriend.length; i++) {
     acceptFriend[i].addEventListener('click', sendAcceptFriendRequest);
   }
 
-  let declineFriend = document.querySelectorAll('#btn_declineFriend');
+  let declineFriend = document.querySelectorAll('button[name=btn_declineFriend]');
   for (let i = 0; i < declineFriend.length; i++) {
     declineFriend[i].addEventListener('click', sendDeclineFriendRequest);
   }
@@ -597,7 +596,7 @@ $(document).ready(function () {
       orderEvents();
     } else {
       option_sort_users = sort_users[0].value;
-      console.log(sort_users[0].value, sort_users.selectedIndex);
+      
       orderUsers();
     }
 
@@ -807,7 +806,7 @@ function createEditPostForm(event) {
   let route = post_div.getAttribute("data-route");
 
   let post_image = post_div.querySelector("#post_image");
-  let post_name = post_div.querySelector("p[name=post_name]").innerText;
+  let post_name = post_div.querySelector("p").innerText;
   let csrf = post_div.querySelector('input[name=_token');
 
   let textarea =
@@ -1440,16 +1439,17 @@ function sendSearchRequest() {
 }
 
 function sendBanUserRequest() {
-  let username = btns_banUser[currentUser].parentNode.parentNode.querySelector("#span_username").innerText;
+  
+  let username = btns_banUser[currentUser].parentNode.parentNode.querySelector("a[data-name=a_username]").innerText;
 
   sendAjaxRequest('delete', '/api/admin/' + username, null, userBanedHandler);
 
 }
 
 function sendRemEventRequest() {
-  let event = btns_remEvent[currentEvent].parentNode.parentNode.querySelector("#span_event_name").parentNode;
+  let event = btns_remEvent[currentEvent].parentNode.parentNode.querySelector("a[data-name=a_event_name]");
 
-  sendAjaxRequest('delete', '/api/event/' + event.getAttribute('event_id'), null, eventRemHandler);
+  sendAjaxRequest('delete', '/api/event/' + event.getAttribute('data-event-id'), null, eventRemHandler);
 
 }
 
@@ -1466,8 +1466,8 @@ function sendAddShortcutRequest(event) {
 }
 
 function sendDeleteShortcutRequest(i) {
-  console.log(i);
-  console.log(btn_deleteShortcuts[i].parentNode);
+  
+  
   let id = btn_deleteShortcuts[i].getAttribute('shortcut-id');
   current_shortcut = i;
 
@@ -1537,7 +1537,7 @@ function sendCitiesRequest(country) {
 function deleteProfileRequest(event) {
   let id = this.closest('div').parentNode.parentNode.getAttribute('data-id');
 
-  console.log(id);
+  
 
   sendAjaxRequest('delete', '/api/profile/' + id, null, profileDeletedHandler);
   event.preventDefault();
@@ -1554,6 +1554,8 @@ function sendCancelParticipationRequest(event) {
   let event_id = this.getAttribute('data-event-id');
   let user_id = this.getAttribute('data-user-id');
 
+  
+
   sendAjaxRequest('delete', '/api/participant/', {
     event_id: event_id,
     user_id: user_id
@@ -1566,6 +1568,8 @@ function sendCancelParticipationRequest(event) {
 function sendAddParticipationRequest(event) {
   let event_id = this.getAttribute('data-event-id');
   let user_id = this.getAttribute('data-user-id');
+
+  
 
   sendAjaxRequest('post', '/api/participant/', {
     event_id: event_id,
@@ -1811,7 +1815,7 @@ function shortcutAddedHandler() {
       btn_deleteShortcuts[i].removeEventListener('click', deleteShortctus[i]);
     }
     let event_name = response['event_name'];
-    let event_id = response['event_id'];
+    let event_id = response['data-event-id'];
     let shortcut_id = response['id'];
     let row = document.querySelector("#list_shortcuts");
     let div = document.createElement("div");
@@ -1875,7 +1879,7 @@ function shortcutDeletedHandler() {
     let cur = response['current_shortcut'];
     btn_deleteShortcuts[cur].parentNode.parentNode.parentNode.remove();
     let event_name = response['event_name'];
-    let event_id = response['event_id'];
+    let event_id = response['data-event-id'];
     let shortcut_id = response['id'];
     let select_events = document.querySelector('#eventsShortcuts');
     let option = document.createElement("option");
@@ -1914,7 +1918,7 @@ function shortcutDeletedHandler() {
 
 
 function getCitiesHandler() {
-  console.log(this.responseText);
+  
   let cit = JSON.parse(this.responseText)['cities'];
 
   if (isDefault || isEvent || isSignUp) {
@@ -1935,7 +1939,7 @@ function getCitiesHandler() {
 }
 
 function getCountriesHandler() {
-  console.log(this.responseText);
+  
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     let countr = JSON.parse(this.responseText)['countries'];
@@ -1967,7 +1971,7 @@ function userBanedHandler() {
 }
 
 function eventRemHandler() {
-  console.log(this.responseText);
+  
   let message = JSON.parse(this.responseText)['message'];
   if (message == "success") {
     btns_remEvent[currentEvent].parentNode.parentNode.remove();
@@ -2040,7 +2044,7 @@ function notificationEventDeleteDeleted() {
 
 
 function profileDeletedHandler() {
-  console.log(this.responseText);
+  
   if (this.status == 200) window.location = '/';
   let message = JSON.parse(this.responseText)['message'];
   if (message != "sucess") {
@@ -2072,11 +2076,11 @@ function participationHandler() {
 }
 
 function participationRemovedHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let part_id = response['part_id'];
-    console.log(btns_removeParticipant[part_id].parentNode.parentNode);
+    
     btns_removeParticipant[part_id].parentNode.parentNode.remove();
     createSuccess(response['success']);
   } else {
@@ -2100,7 +2104,7 @@ function acceptedInviteHandler() {
 }
 
 function declinedInviteHandler() {
-  console.log(this.responseText);
+  
   let message = JSON.parse(this.responseText)['message'];
   if (message == 'success') {
     let id = response['id'];
@@ -2113,7 +2117,7 @@ function declinedInviteHandler() {
 }
 
 function acceptedFriendHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -2124,7 +2128,7 @@ function acceptedFriendHandler() {
 }
 
 function declinedFriendHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -2136,7 +2140,7 @@ function declinedFriendHandler() {
 
 
 function friendRequestedHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];
@@ -2149,7 +2153,7 @@ function friendRequestedHandler() {
 }
 
 function friendRemovedHandler() {
-  console.log(this.responseText);
+  
   let response = JSON.parse(this.responseText);
   if (response['message'] == 'success') {
     let id = response['id'];

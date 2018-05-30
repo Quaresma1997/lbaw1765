@@ -14,7 +14,7 @@
       </div>
       <div class="col-12 mt-2">
         <a href="/events/{{$event->id}}" class="text-white">
-          <img src="{{url('/imgs/' .  $event->images->last()->path)}}" class="eventHomepageImg rounded">
+          <img src="{{url('/imgs/' .  $event->images->last()->path)}}" class="eventHomepageImg rounded" alt="Event image">
         </a>
       </div>
     </div>

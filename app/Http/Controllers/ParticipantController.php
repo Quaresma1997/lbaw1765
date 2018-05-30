@@ -56,6 +56,6 @@ class ParticipantController extends Controller
 
         $participant->save();
 
-        return response()->json(['message' => 'success', 'success' => 'Participation added', 'id' => $request->input('event_id')]);
+        return response()->json(['message' => 'success', 'success' => 'Participation added', 'event_id' => $request->input('event_id')]);
     }
 }

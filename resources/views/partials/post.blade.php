@@ -14,7 +14,7 @@
         </h5>
       </div>
       <div class="col-8 offset-3" data-route="{{route('postupdate', $post->id )}}">
-        <p name="post_name">{{$post->description}}</p>
+        <p>{{$post->description}}</p>
         
         
         @if(!is_null($post->image_path ))
@@ -29,7 +29,7 @@
         <form action ="{{route('postd', $post->id )}}" method ="post" >
           {{ csrf_field() }}
           <input type="hidden" name="_method" value ="DELETE" > </input>
-          <button type="submit" class="btn btn-outline-danger mx-1 float-right" id="btn_deletePost">
+          <button type="submit" class="btn btn-outline-danger mx-1 float-right" name="btn_deletePost">
             <i class="fas fa-trash-alt fa-fw"></i> Delete </button>
             @endif
           </form>
