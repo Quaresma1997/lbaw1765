@@ -160,6 +160,13 @@ CREATE TABLE participants (
     events(id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS password_resets CASCADE;
+CREATE TABLE password_resets (
+    email text PRIMARY KEY,
+    token text NOT NULL, 
+    created_at timestamp(0) DEFAULT now() NOT NULL
+);
+
 DROP TABLE IF EXISTS polls CASCADE;
 CREATE TABLE polls (
     id SERIAL NOT NULL,
