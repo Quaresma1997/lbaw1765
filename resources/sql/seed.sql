@@ -700,6 +700,10 @@ INSERT INTO events (name,date, time,description,owner_id,localization_id,is_publ
 			VALUES ('Kpop concert','2018-11-13', '12:30:00','Kpop band concert',20,4,true,4);
 
 
+INSERT INTO events (name,date, time,description,owner_id,localization_id,is_public,category_id)
+			VALUES ('Lbaw delivery','2018-05-30', '13:00:00','Lbaw delivery A10',2,2,true,1);
+
+
 			
 
 
@@ -794,8 +798,6 @@ INSERT INTO participants (user_id,event_id)
 INSERT INTO participants (user_id,event_id)
 			VALUES (11,10);
 INSERT INTO participants (user_id,event_id)
-			VALUES (3,11);
-INSERT INTO participants (user_id,event_id)
 			VALUES (1,11);
 INSERT INTO participants (user_id,event_id)
 			VALUES (4,11);
@@ -815,6 +817,7 @@ INSERT INTO participants (user_id,event_id)
 			VALUES (13,12);
 INSERT INTO participants (user_id,event_id)
 			VALUES (19,12);
+            
 
 INSERT INTO participants (user_id,event_id)
 			VALUES (2,14);
@@ -862,7 +865,12 @@ INSERT INTO participants (user_id,event_id)
 			VALUES (13,18);
 INSERT INTO participants (user_id,event_id)
 			VALUES (13,14);
-
+INSERT INTO participants (user_id,event_id)
+			VALUES (3,19);
+INSERT INTO participants (user_id,event_id)
+			VALUES (1,19);
+INSERT INTO participants (user_id,event_id)
+			VALUES (4,19);
 
 
 INSERT INTO posts (description,date,event_id, user_id, image_path) VALUES ('Lorem ipsum dolor sit amet. ',NOW(),1,1,'new.jpg');
